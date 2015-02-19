@@ -1,0 +1,58 @@
+CREATE DATABASE learn2program_db;
+USE learn2program_db;
+
+CREATE TABLE Users (
+    id int AUTO_INCREMENT,
+    pass varchar(15) NOT NULL,
+    username varchar(10) NOT NULL UNIQUE,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE Types (
+    subject varchar(10),
+    difficulty int unsigned,
+    PRIMARY KEY(subject, difficulty)
+);
+
+CREATE TABLE Solved (
+    userId int REFERENCES Users(id),
+    seriesId int REFERENCES Series(id),
+    PRIMARY KEY(userId, seriesId)
+);
+
+CREATE TABLE Series (
+    id int AUTO_INCREMENT,
+    popularity int unsigned,
+    typeSubject varchar(10),
+    typeDifficulty int unsigned,
+    PRIMARY KEY(id),
+    FOREIGN KEY(typeSubject, typeDifficulty) REFERENCES Types(subject, difficulty)
+);
+
+CREATE TABLE Exercises (
+    id int AUTO_INCREMENT,
+    description text,
+    startCode text,
+    expectedResult text,
+    seriesId int,
+    PRIMARY KEY(id),
+    FOREIGN KEY(seriesId) REFERENCES Series(id)
+);
+
+/* Make sure password and username are not empty. */
+delimiter //
+CREATE TRIGGER check_users
+BEFORE INSERT ON Users 
+FOR EACH ROW 
+BEGIN
+    IF NEW.pass = "" THEN
+        SET NEW.pass = Null;
+    END IF;
+    IF NEW.username = "" THEN
+        SET NEW.username = Null;
+    END IF;
+END;//
+
+delimiter ;
+
+
