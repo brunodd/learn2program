@@ -47,3 +47,10 @@ Typ in browser:
 
 localhost:8000  
 klik maar wat rond...
+
+3. Routes
+Om te zien welke routes beschikbaar zijn, gebruik commando:
+
+~~~sh
+$ php artisan route:list
+~~~
