@@ -13,9 +13,12 @@
 
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
-Route::get('users', 'UsersController@index');
-Route::get('register', 'UsersController@register');
-Route::get('login', 'UsersController@login');
-Route::get('list_all_users', 'UsersController@list_all_users');
+Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 
-Route::post('register', 'UsersController@finished_register');
+/* Add all routes needed for user. List with:
+$ php artisan route:list */
+Route::resource('user', 'UserController');
+
+/* Add all routes needed for user. List with:
+$ php artisan route:list */
+Route::resource('series', 'SeriesController');

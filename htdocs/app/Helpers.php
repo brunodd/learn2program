@@ -4,6 +4,10 @@
         return DB::select('select * from Users');
     }
 
+    function loadUser($name) {
+        return DB::select('select * from Users where username = ? or id = ?', [$name, $name]);
+    }
+
     function loadName($id) {
         return DB::select('select username from Users where id = ?', [$id]);
     }
