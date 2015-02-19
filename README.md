@@ -1,6 +1,7 @@
-1. Database:
+# Installation
+##Database:
 
-- Navigeer naar juiste dir/
+ Navigeer naar juiste dir/
 
 ~~~sh
 cd .../learn2program/database/
@@ -27,9 +28,9 @@ mysql> select * from Users;
 
 Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de database werkt.
 
-2. Server
+##Server
 
-- Navigeer naar juiste dir/
+Navigeer naar juiste dir/
 
 ~~~sh
 cd .../learn2program/htdocs/
@@ -48,7 +49,7 @@ Typ in browser:
 localhost:8000  
 klik maar wat rond...
 
-3. Routes
+##Routes
 Om te zien welke routes beschikbaar zijn, gebruik commando:
 
 ~~~sh
