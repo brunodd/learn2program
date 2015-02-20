@@ -33,17 +33,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $hidden = ['pass', 'remember_token'];
 	// protected $hidden = ['password', 'remember_token'];
 
-    public function valuesValid()
-    {
-        // CHECK Laravel validators
-        if (strlen($this->username) == 0) {
-            return false;
-        }
-        // if (username exists) -> false
-
-        if (strlen($this->pass) == 0) {
-            return false;
-        }
-        return true;
-    }
+    // NOT NEEDED
+    // public function valuesValid()
+    // {
+    //     // CHECK Laravel validators
+    //     if (strlen($this->username) == 0) {
+    //         return false;
+    //     }
+    //     if (strlen($this->pass) == 0) {
+    //         return false;
+    //     }
+    //     // if (username exists) -> false
+    //     if (empty(loadUser($this->username)) == false ) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 }

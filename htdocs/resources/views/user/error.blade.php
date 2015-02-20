@@ -1,5 +1,8 @@
 @extends('master')
 
+@section('title')
+    <h1>Error</h1>
+@stop
 @section('content')
-    <h1>Could not find any information about user: {{ $user }} </h1>
+    <h2>{{ $msg }}</h2>
 @stop

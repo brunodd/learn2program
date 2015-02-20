@@ -13,7 +13,7 @@
 
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
-Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
+Route::get('list_all_users', 'UserController@list_all_users'); // For Development mode - check content of users table.
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */

@@ -39,14 +39,17 @@ class UserController extends Controller {
 	{
         // Work On the Form
         $rules = [
-                'username' => array('required'),
-                'pass' => array('required')
+                'username' => 'required|unique:users',
+                'pass' => 'required'
                 ];
 
         $validation = Validator::make(Request::all(), $rules);
 
+        $msg = "";
         if($validation->fails()) {
-            return "Some error handling stuff...";
+            $msg = "The given input was illegal";
+            // return "<script>{{ alert('$msg'); }}</script>";
+            return view('user.error', compact('msg'));
         }
         else {
             // Start working on this data
@@ -62,21 +65,16 @@ class UserController extends Controller {
             storeUser($user);
 
             if(empty(loadUser($username))) {
-                return redirect('user');
+                $msg = "User failed to be saved.";
+                return "<script>{{ alert('$msg'); }}</script>";
             }
+            // Storing of user is succesful.
             else {
                 $myuser = loadUser($username)[0];
 
-
-                // dd($myuser);
-                // return "";
-                // return "We got user $id";
-                // Do something to continue...
-                // return redirect()->route('user.edit', ['id']);
                 return redirect('user/' . $myuser->id . '/edit');
 
             }
-
         }
 	}
 
@@ -100,11 +98,13 @@ class UserController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
-            return view('user.error', ['user' => $id]);
+            $msg = "This user doesn't exist.";
+            return view('user.error', compact('msg'));
         }
         else {
             $user = loadUser($id)[0];
-            return "editing $user->username's account";
+            // return "editing $user->username's account";
+            return view('user.edit', compact('user'));
         }
 	}
 
@@ -130,4 +130,9 @@ class UserController extends Controller {
         return "destroy item with id: $id";
 	}
 
+    public function list_all_users()
+    {
+        $users = loadUsers();
+        return view('user.list', compact('users'));
+    }
 }
