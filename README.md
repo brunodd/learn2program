@@ -16,13 +16,6 @@ DB_PASSWORD=
 [Al de rest mag ongewijzigd blijven]
 
 ##Database:
-
- Navigeer naar juiste dir/
-
-~~~sh
-$ cd database/
-~~~
-
 - Installeren
 
 [opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
@@ -30,7 +23,7 @@ $ cd database/
 Create tables:
 
 ~~~sh
-$ mysql -u root -p < learn2program.mysql
+$ mysql -u root -p < database/learn2program.mysql
 ~~~
 
 - Testen:
