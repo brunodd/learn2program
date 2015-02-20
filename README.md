@@ -73,9 +73,9 @@ $ php artisan route:list
 ~~~
 
 ##Errors
-Error: PDOException ... Could not find driver
+Error: PDOException ... Could not find driver  
 Oplossing op Linux: sudo apt-get -y install php5-mysql
 
-Error: General error: 2053
+Error: General error: 2053  
 Oplossing: gebruik geen DB::select() of DB::statement() voor insertions.
 
