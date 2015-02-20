@@ -100,7 +100,7 @@ class UserController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
-            return redirect('user');
+            return view('user.error', ['user' => $id]);
         }
         else {
             $user = loadUser($id)[0];
@@ -130,44 +130,4 @@ class UserController extends Controller {
         return "destroy item with id: $id";
 	}
 
-    /*
-    public function postLogin() {
-        // Work On the Form
-        $rules = array(
-                'username' => array('required'),
-                'pass' => array('required')
-        );
-
-        $validation = Validator::make(Input::all(), $rules);
-
-        if($validation->fails()) {
-            // Problem so show the user error messages
-            $input = Input::all();//Get all the old input.
-            $input['autoOpenLoginModal'] = 'true';//Add the auto open indicator flag as an input.
-            return Redirect::back()
-                ->withErrors($validation)
-                ->withInput($input);//Passing the old input and the flag.
-        }else{
-            // Start working on this data
-            $username = Input::get('username');
-            $pass = Input::get('password');
-
-            $user = new User;
-            // if($user->login($username, $password)){
-            //     // Logged in
-            //     return Redirect::back();
-            // }else{
-            // $input = Input::all();//Get all the old input.
-            // $input['autoOpenLoginModal'] = 'true';//Add the auto open indicator flag as an input.
-            // return Redirect::back()
-            //     ->withErrors($validation)
-            //     ->withInput($input);//Passing the old input and the flag.
-        }
-    }
-    public function getLogin()
-    {
-        // Show the form
-        return view('user.login');
-    }
-    */
 }
