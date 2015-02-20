@@ -3,7 +3,7 @@
 Hernoem file:
 
 ~~~sh
-mv htdocs/.env.example htdocs/.env
+$ mv htdocs/.env.example htdocs/.env
 ~~~
 
 Aanpassingen:
@@ -20,7 +20,7 @@ DB_PASSWORD=
  Navigeer naar juiste dir/
 
 ~~~sh
-cd database/
+$ cd database/
 ~~~
 
 - Installeren
@@ -37,7 +37,7 @@ $ mysql -u root -p < learn2program.mysql
 
 ~~~sh
 $ mysql -u root -p
-mysql> use database learn2program_db;
+mysql> use learn2program_db;
 mysql> insert into Users(username, pass) Values("myname", "mypassword");
 mysql> select * from Users;
 ~~~
@@ -49,13 +49,20 @@ Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de data
 Navigeer naar juiste dir/
 
 ~~~sh
-cd htdocs/
+$ cd htdocs/
+~~~
+
+- Update dependencies
+
+~~~sh
+$ composer update
+$ composer install
 ~~~
 
 - Start server
 
 ~~~sh
-php artisan serve
+$ php artisan serve
 ~~~
 
 - Testen:
