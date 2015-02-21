@@ -5,8 +5,6 @@
 @stop
 
 @section('content')
-    <h2>Some registration form...</h2>
-
     {!! Form::open(['url' => 'user']) !!}
         {!! Form::label('username', 'Username: ') !!}
         {!! Form::text('username') !!}

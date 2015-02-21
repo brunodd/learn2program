@@ -1,11 +1,10 @@
 @extends('master')
 
 @section('title')
-    <h1>Edit {{ $user->username }}'s account</h1>
+    <h1>Edit <em>{{ $user->username }}'s</em> account</h1>
 @stop
 
 @section('content')
-    <h2>Some editable form...</h2>
     <p>
         For now just a form that will (again) create a new user...
     </p>

@@ -45,11 +45,10 @@ class UserController extends Controller {
 
         $validation = Validator::make(Request::all(), $rules);
 
-        $msg = "";
         if($validation->fails()) {
-            $msg = "The given input was illegal";
-            // return "<script>{{ alert('$msg'); }}</script>";
-            return view('user.error', compact('msg'));
+            $msg = "Illegal input";
+            $alert = "You gave incorrect input.";
+            return view('user.error', compact('msg', 'alert'));
         }
         else {
             // Start working on this data
@@ -66,7 +65,8 @@ class UserController extends Controller {
 
             if(empty(loadUser($username))) {
                 $msg = "User failed to be saved.";
-                return "<script>{{ alert('$msg'); }}</script>";
+                $alert = "For an unknown reason, the user could not be stored in our database.";
+                return view('user.error', compact('msg', 'alert'));
             }
             // Storing of user is succesful.
             else {
@@ -86,7 +86,15 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		return "show item with id: $id";
+        if(empty(loadUser($id))) {
+            $msg = "Unknown user";
+            $alert = "This user doesn't exist.";
+            return view('user.error', compact('msg', 'alert'));
+        }
+        else {
+            $user = loadUser($id)[0];
+            return view('user.show', compact('user'));
+        }
 	}
 
 	/**
@@ -98,12 +106,12 @@ class UserController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
-            $msg = "This user doesn't exist.";
-            return view('user.error', compact('msg'));
+            $msg = "Unknown user";
+            $alert = "This user doesn't exist.";
+            return view('user.error', compact('msg', 'alert'));
         }
         else {
             $user = loadUser($id)[0];
-            // return "editing $user->username's account";
             return view('user.edit', compact('user'));
         }
 	}
