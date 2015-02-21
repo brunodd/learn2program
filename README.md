@@ -15,7 +15,7 @@ DB_PASSWORD=
 
 [Al de rest mag ongewijzigd blijven]
 
-##Database:
+##Database
 - Installeren
 
 [opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
@@ -58,11 +58,34 @@ $ composer install
 $ php artisan serve
 ~~~
 
+Toegankelijk via "localhost:8000"
+
+- Custom URL & port
+
+[opmerking: sudo rechten kunnen vereist zijn]
+
+~~~sh
+$ php artisan serve --host=learn2program.dev --port=80
+~~~
+
+Pas /etc/hosts aan met volgende entry
+
+~~~
+127.0.0.1		learn2program.dev	www.learn2program.dev
+~~~
+
+Toegankelijk via "learn2program.dev"
+
 - Testen:
 
 Typ in browser:
 
-localhost:8000  
+localhost:8000
+
+of
+
+http://www.learn2program.dev
+
 klik maar wat rond...
 
 ##Routes

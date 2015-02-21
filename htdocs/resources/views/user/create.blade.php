@@ -11,6 +11,9 @@
 
         {!! Form::label('pass', 'Password: ') !!}
         {!! Form::password('pass') !!}
+        
+        {!! Form::label('mail', 'E-mail address: ') !!}
+        {!! Form::email('mail') !!}
 
         {!! Form::submit('Submit') !!}
     {!! Form::close() !!}

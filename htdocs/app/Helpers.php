@@ -16,6 +16,6 @@
     }
 
     function storeUser($user) {
-        DB::insert('insert into Users (pass, username) VALUES (?, ?)', [$user->pass, $user->username]);
+        DB::insert('insert into Users (pass, username, mail) VALUES (?, ?, ?)', [$user->pass, $user->username, $user->mail]);
     }
 ?>

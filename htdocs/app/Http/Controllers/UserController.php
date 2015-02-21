@@ -43,6 +43,7 @@ class UserController extends Controller {
         $user = new User;
         $user->username = $input['username'];
         $user->pass = $input['pass'];
+        $user->mail = $input['mail'];
 
         // Store in Databse
         storeUser($user);
