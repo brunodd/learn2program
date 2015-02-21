@@ -23,7 +23,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $fillable = ['username', 'pass'];
-	// protected $fillable = ['name', 'email', 'password'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -31,22 +30,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['pass', 'remember_token'];
-	// protected $hidden = ['password', 'remember_token'];
-
-    // NOT NEEDED
-    // public function valuesValid()
-    // {
-    //     // CHECK Laravel validators
-    //     if (strlen($this->username) == 0) {
-    //         return false;
-    //     }
-    //     if (strlen($this->pass) == 0) {
-    //         return false;
-    //     }
-    //     // if (username exists) -> false
-    //     if (empty(loadUser($this->username)) == false ) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
 }

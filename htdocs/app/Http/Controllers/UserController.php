@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
-
+use App\Http\Requests\CreateUserRequest;
 class UserController extends Controller {
 
 	/**
@@ -35,47 +35,21 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateUserRequest $request)
 	{
-        // Work On the Form
-        $rules = [
-                'username' => 'required|unique:users',
-                'pass' => 'required'
-                ];
+        $input = $request->all();
 
-        $validation = Validator::make(Request::all(), $rules);
+        // Create User object (model)
+        $user = new User;
+        $user->username = $input['username'];
+        $user->pass = $input['pass'];
 
-        if($validation->fails()) {
-            $msg = "Illegal input";
-            $alert = "You gave incorrect input.";
-            return view('user.error', compact('msg', 'alert'));
-        }
-        else {
-            // Start working on this data
-            $username = Request::get('username');
-            $pass = Request::get('pass');
+        // Store in Databse
+        storeUser($user);
 
-            // Create User object (model)
-            $user = new User;
-            $user->username = $username;
-            $user->pass = $pass;
+        $myuser = loadUser($user->username)[0];
 
-            // Store in Databse
-            storeUser($user);
-
-            if(empty(loadUser($username))) {
-                $msg = "User failed to be saved.";
-                $alert = "For an unknown reason, the user could not be stored in our database.";
-                return view('user.error', compact('msg', 'alert'));
-            }
-            // Storing of user is succesful.
-            else {
-                $myuser = loadUser($username)[0];
-
-                return redirect('user/' . $myuser->id . '/edit');
-
-            }
-        }
+        return redirect('user/' . $myuser->id . '/edit');
 	}
 
 	/**
