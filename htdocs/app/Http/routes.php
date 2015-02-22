@@ -15,6 +15,8 @@ Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UserController@list_all_users'); // For Development mode - check content of users table.
 
+Route::patch('user/{id}/edit', 'UserController@update');
+
 /* Add all routes needed for user. List with:
 $ php artisan route:list */
 Route::resource('user', 'UserController');

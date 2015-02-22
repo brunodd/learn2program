@@ -6,19 +6,23 @@
 
 @section('content')
     <p>
-        For now just a form that will (again) create a new user...
+        For now only allow username and password to be changed...
     </p>
-    <p>
-        TODO: change data instead of adding (mind autoincrementing ID).
-    </p>
-    {!! Form::open(['url' => 'user']) !!}
+
+    {!! Form::model($user, ['method' => 'PATCH']) !!}
         {!! Form::label('username', 'Username: ') !!}
         {!! Form::text('username') !!}
 
         {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::password('pass') !!}
+        {!! Form::text('pass') !!}
 
         {!! Form::submit('Submit') !!}
     {!! Form::close() !!}
+    @if ($errors->any())
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    @endif
+
 @stop
 

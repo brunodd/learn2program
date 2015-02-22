@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 class UserController extends Controller {
 
 	/**
@@ -95,11 +96,22 @@ class UserController extends Controller {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
+     * @param UpdateUserRequest $request
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, UpdateUserRequest $request)
 	{
-		return "update item with id: $id";
+         $input = $request->all();
+
+        // Create User object (model)
+        $user = new User;
+        $user->username = $input['username'];
+        $user->pass = $input['pass'];
+
+        updateUser($id, $user);
+        return redirect('user/' . $id . '/edit');
+        //$updatedUser = loadUser($id)[0];
+        //return view('user.edit', compact('updatedUser'));
 	}
 
 	/**
