@@ -22,7 +22,7 @@ class UpdateUserRequest extends Request {
 	public function rules()
 	{
 		return [
-			'username' => 'required|unique:users|min:3|max:20',
+            'username' => 'required|unique:users,username,' . $this->id . '|min:3|max:20',
             'pass' => 'required|min:5|max:20'
 		];
 	}
