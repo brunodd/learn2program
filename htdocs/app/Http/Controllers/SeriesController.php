@@ -40,6 +40,7 @@ class SeriesController extends Controller {
 	public function store(CreateSerieRequest $request)
 	{
         //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN
+        //otherwise deny this request!
 
         $input = $request->all();
 
@@ -70,7 +71,7 @@ class SeriesController extends Controller {
 
         $myserie = loadSerie($serie->title, $serie->tId)[0];
         return redirect('serie/' . $myserie->id);
-        //return redirect('serie/' . $myserie->id . '/edit');
+        //in the future, we may want to redirect to a "createExercise" page
 	}
 
 	/**
@@ -84,8 +85,7 @@ class SeriesController extends Controller {
         if(empty(loadSerieWithId($id))) {
             $msg = "Unknown serie";
             $alert = "This serie doesn't exist.";
-            return "Some error occurred & we need to display it nicely";
-            //return view('user.error', compact('msg', 'alert'));
+            return view('user.error', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
@@ -93,7 +93,6 @@ class SeriesController extends Controller {
             $serie = loadSerieWithId($id)[0];
             //$exercises = loadExercisesFromSerie($id)[0];
             return view('serie.show', compact('serie'));
-            //return "Need exercises of this serie here...";
         }
 	}
 

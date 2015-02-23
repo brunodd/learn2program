@@ -23,7 +23,6 @@ class CreateSerieRequest extends Request {
 	{
 		return [
             'title' =>'required|max:50',
-            'description' => 'max:50',
             'subject' => 'required|max:50',
             'difficulty' => 'required'
 		];
