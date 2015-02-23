@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\LoginUserRequest;
 class UserController extends Controller {
 
 	/**
@@ -53,6 +54,31 @@ class UserController extends Controller {
 
         return redirect('user/' . $myuser->id . '/edit');
 	}
+
+    public function login(LoginUserRequest $request)
+    {
+        $input = $request->all();
+        // dd($input);
+        $name = $input['username'];
+        // dd($name);
+
+        if(empty(loadUser($name))) {
+            $msg = "Unknown user";
+            $alert = "This is not a registered user";
+            return redirect()->back();
+        }
+        else {
+            $user = loadUser($name)[0];
+            if($user->pass == $input['pass']) {
+                return "Login succesful!";
+            }
+            else {
+                $msg = "Invalid password";
+                $alert = "The password was invalid";
+                return redirect()->back();
+            }
+        }
+    }
 
 	/**
 	 * Display the specified resource.

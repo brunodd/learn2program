@@ -6,12 +6,12 @@
 
 @section('content')
     <h2>Login Form:</h2>
-    {!! Form::open() !!}
+    {!! Form::open(['url' => 'user/login']) !!}
         {!! Form::label('username', 'Username: ') !!}
         {!! Form::text('username') !!}
 
         {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::text('pass') !!}
+        {!! Form::password('pass') !!}
 
         {!! Form::submit('Login') !!}
     {!! Form::close() !!}

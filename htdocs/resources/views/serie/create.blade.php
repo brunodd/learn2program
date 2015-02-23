@@ -31,9 +31,5 @@
         </div>
     {!! Form::close() !!}
 
-    @if ($errors->any())
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    @endif
+    @include('errors.list')
 @stop
