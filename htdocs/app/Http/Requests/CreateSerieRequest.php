@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class UpdateUserRequest extends Request {
+class CreateSerieRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +11,7 @@ class UpdateUserRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+		return false;
 	}
 
 	/**
@@ -22,8 +22,9 @@ class UpdateUserRequest extends Request {
 	public function rules()
 	{
 		return [
-            'username' => 'required|unique:users,username,' . $this->id . '|min:3|max:20',
-            'pass' => 'required|min:5|max:20'
+            'title' =>'required|max:50',
+            'description' => 'required',
+            'subject' => 'required|max:50'
 		];
 	}
 

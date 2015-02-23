@@ -23,4 +23,4 @@ Route::resource('user', 'UserController');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */
-Route::resource('series', 'SeriesController');
+Route::resource('serie', 'SeriesController');
