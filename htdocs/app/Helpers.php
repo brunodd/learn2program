@@ -23,4 +23,8 @@
         DB::statement('update Users SET username = ?, pass = ? where id = ?', [$data->username, $data->pass, $id]); 
     }
 
+    function storeSerie($serie)
+    {
+        DB::insert('insert into Series (title, description, makerId, tId) VALUES (?, ?, ?, ?)', [$serie->title, $serie->description, $serie->makerId, $serie->tId]);
+    }
 ?>

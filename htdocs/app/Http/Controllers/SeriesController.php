@@ -14,7 +14,7 @@ class SeriesController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('serie.home');
 	}
 
 	/**
@@ -24,7 +24,7 @@ class SeriesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('serie.create');
 	}
 
 	/**
@@ -32,9 +32,22 @@ class SeriesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateSerieRequest $request)
 	{
-		//
+        $input = $request->all();
+
+        // Create User object (model)
+        $serie = new Serie;
+        $serie->title = $input['title'];
+        $serier->description = $input['description'];
+        
+        //MUST find the type first according to the subject & difficulty
+        //$serie->mail = $input['subject'];
+
+        // Store in Databse & catch the newly inserted tuple
+        $myserie = storeSerie($serie);
+
+        return redirect('serie/' . $myserie->id . '/edit');
 	}
 
 	/**

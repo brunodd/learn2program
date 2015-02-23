@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Laravel</title>
+	<title>Learn 2 Program</title>
 
 	<link href="/css/style.css" rel="stylesheet">
 
