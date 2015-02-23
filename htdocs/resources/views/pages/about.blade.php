@@ -12,7 +12,7 @@
             <p> Something about BDD </p>
         </div>
         <div class="col-md-3"> 
-            <h3>Rafael Assa</h3>
+            <h3>Raphael Assa</h3>
             <p> Something about RA </p>
         </div>
         <div class="col-md-3"> 

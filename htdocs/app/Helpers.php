@@ -27,4 +27,36 @@
     {
         DB::insert('insert into Series (title, description, makerId, tId) VALUES (?, ?, ?, ?)', [$serie->title, $serie->description, $serie->makerId, $serie->tId]);
     }
+
+    function loadSerieWithId($id)
+    {
+        return DB::select('select * from Series where id = ?', [$id]);
+    }
+
+    function loadSerie($title, $tId)
+    {
+        return DB::select('select * from Series where title = ? and tId = ?', [$title, $tId]);
+    }
+
+    /* Subject and Difficulty => this combination is unique */
+    function loadTypeId($type)
+    {
+        return DB::select('select id from Types where subject = ? and difficulty = ?', [$type->subject, $type->difficulty]);
+    }
+
+    function loadType1($type)
+    {
+        return DB::select('select * from Types where subject = ? and difficulty = ?', [$type->subject, $type->difficulty]);
+    }
+
+    function loadType2($id)
+    {
+        return DB::select('select * from Types where id = ?', [$id]);
+    }
+
+    function storeType($type)
+    {
+        DB::insert('insert into Types (subject, difficulty) VALUES (?, ?)', [$type->subject, $type->difficulty]);
+    }
+
 ?>

@@ -24,9 +24,10 @@ CREATE TABLE member_of (
 /* Only allow 4 values for difficulty? => easy, intermediate, hard, insane */
 CREATE TABLE Types (
     id int AUTO_INCREMENT,
-    subject char(50) NOT NULL UNIQUE,
-    difficulty char(15) NOT NULL,
-    PRIMARY KEY(id)
+    subject char(50) NOT NULL,
+    difficulty ENUM('easy', 'intermediate', 'hard', 'insane') NOT NULL,
+    PRIMARY KEY(id),
+    UNIQUE(subject, difficulty)
 );
 
 CREATE TABLE answer (
@@ -45,14 +46,15 @@ CREATE TABLE Series (
     description varchar(50),
     makerId int REFERENCES Users(id),
     tId int REFERENCES Types(id),
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    UNIQUE(title, tId)
 );
 
 /* Again choose between pre-defined values for rating? */
 CREATE TABLE rated (
     userId int REFERENCES Users(id),
     serieId int REFERENCES Series(id),
-    rating int NOT NULL,
+    rating ENUM('0', '1', '2', '3', '4', '5') NOT NULL,
     PRIMARY KEY (userId, serieId)
 );
 
