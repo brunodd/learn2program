@@ -101,12 +101,19 @@ class UserController extends Controller {
 	 */
 	public function update($id, UpdateUserRequest $request)
 	{
-         $input = $request->all();
+        $input = $request->all();
 
-        // Create User object (model)
+        $newpass = $input['pass'];
         $user = new User;
+        if($newpass) {
+            $user->pass = $newpass;
+        }
+        else {
+            $user->pass = loadUser($id)[0]->pass;
+        }
+        // Create User object (model)
         $user->username = $input['username'];
-        $user->pass = $input['pass'];
+        $user->mail = $input['mail'];
 
         updateUser($id, $user);
         return redirect('user/' . $id . '/edit');
