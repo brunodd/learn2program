@@ -6,16 +6,23 @@
 
 @section('content')
     {!! Form::open(['url' => 'user']) !!}
-        {!! Form::label('username', 'Username: ') !!}
-        {!! Form::text('username') !!}
+        <div class="form-group">
+            {!! Form::label('username', 'Username: ') !!}
+            {!! Form::text('username', null, ['class' => 'form-control']) !!}
+        </div>
 
-        {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::password('pass') !!}
-        
-        {!! Form::label('mail', 'E-mail address: ') !!}
-        {!! Form::email('mail') !!}
+        <div class="form-group">
+            {!! Form::label('pass', 'Password: ') !!}
+            {!! Form::password('pass', null, ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('mail', 'E-mail address: ') !!}
+            {!! Form::email('mail', null, ['class' => 'form-control']) !!}
+        </div>
 
-        {!! Form::submit('Submit') !!}
+        <div class="form-group">
+            {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control']) !!}
+        </div>
     {!! Form::close() !!}
 
     @if ($errors->any())

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1>Users home page</h1>
+    Member
 @stop
 
 @section('content')

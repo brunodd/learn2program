@@ -1,11 +1,17 @@
 @extends('master')
 
 @section('title')
-    <h1>Home page</h1>
+    Home page
 @stop
+
 @section('content')
     <h2>Welcome to Learn2Program</h2>
-
-    <ul><h3><a href="about">Explanation</a></h3></ul>
-    <ul><h3><a href="user">User login</a></h3></ul>
+    <ul>
+        <a href="about"><h3>Explanation</h3></a>
+        <div class="body">Some talk about the website.</div>
+    </ul>
+    <ul>
+        <a href="user"><h3>User login</h3></a>
+        <div class="body">Member department.</div>
+    </ul>
 @stop
