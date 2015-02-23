@@ -38,6 +38,16 @@
         return DB::select('select * from Series where title = ? and tId = ?', [$title, $tId]);
     }
 
+    function updateSerie($id, $serie, $typeId)
+    {
+        DB::statement('update Series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);
+    }
+
+    function removeUnusedTypes()
+    {
+        DB::statement('delete from Types where id NOT IN (select distinct(tId) from Series)');
+    }
+
     /* Subject and Difficulty => this combination is unique */
     function loadTypeId($type)
     {

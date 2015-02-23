@@ -18,6 +18,7 @@ Route::get('list_all_users', 'UserController@list_all_users'); // For Developmen
 Route::post('user/login', 'UserController@login');
 
 Route::patch('user/{id}/edit', 'UserController@update');
+Route::patch('serie/{id}/edit', 'SeriesController@update');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
+use App\Http\Requests\UpdateSerieRequest;
 
 class SeriesController extends Controller {
 
@@ -104,7 +105,16 @@ class SeriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        if(empty(loadSerieWithId($id))) {
+            $msg = "Unknown serie";
+            $alert = "This serie doesn't exist.";
+            return view('user.error', compact('msg', 'alert'));
+        }
+        else {
+            $serie = loadSerieWithId($id)[0];
+            $type = loadType2($serie->tId)[0];
+            return view('serie.edit', compact('serie', 'type'));
+        }
 	}
 
 	/**
@@ -113,9 +123,31 @@ class SeriesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, UpdateSerieRequest $request)
 	{
-		//
+        $input = $request->all();
+
+        $serie = new Serie;
+        $serie->title = $input['title'];
+        $serie->description = $input['description'];
+        $type = new Type;
+        $type->subject = $input['subject'];
+        $type->difficulty = $input['difficulty'];
+
+        if(empty(loadType1($type)))
+        {
+            storeType($type);
+        }
+
+        $typeId = loadType1($type)[0]->id;
+        updateSerie($id, $serie, $typeId);
+
+        //AUTOMATICALLY CLEAN UP UNUSED TYPES IF THAT'S THE CASE
+        removeUnusedTypes();
+
+        $myserie = loadSerie($serie->title, $typeId)[0];
+        return redirect('serie/' . $myserie->id . '/edit');
+		return "edited?";
 	}
 
 	/**
