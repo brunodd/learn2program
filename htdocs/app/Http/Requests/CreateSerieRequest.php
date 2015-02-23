@@ -11,7 +11,7 @@ class CreateSerieRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -23,8 +23,9 @@ class CreateSerieRequest extends Request {
 	{
 		return [
             'title' =>'required|max:50',
-            'description' => 'required',
-            'subject' => 'required|max:50'
+            'description' => 'max:50',
+            'subject' => 'required|max:50',
+            'difficulty' => 'required'
 		];
 	}
 

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => 'serie/create']) !!}
+    {!! Form::open(['url' => 'serie']) !!}
         <div class="form-group">
         {!! Form::label('title', 'Title: ') !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
@@ -23,7 +23,7 @@
 
         <div class="form-group">
         {!! Form::label('difficulty', 'Difficulty: ') !!}
-        {!! Form::select('subject', ['easy' => 'Easy', 'intermediate' => 'Intermediate', 'hard' => 'Hard', 'insane' => 'Insane']) !!}
+        {!! Form::select('difficulty', ['' => '', 'easy' => 'Easy', 'intermediate' => 'Intermediate', 'hard' => 'Hard', 'insane' => 'Insane'], null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">

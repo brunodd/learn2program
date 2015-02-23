@@ -1,9 +1,14 @@
 <?php namespace App\Http\Controllers;
 
+use App\Serie;   // Added to find Serie model.
+use App\Type;   // Added to find Type model.
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
+use App\Http\Requests\CreateSerieRequest;
 
 class SeriesController extends Controller {
 
@@ -34,20 +39,38 @@ class SeriesController extends Controller {
 	 */
 	public function store(CreateSerieRequest $request)
 	{
+        //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN
+
         $input = $request->all();
 
-        // Create User object (model)
+        // Create Serie object (model)
         $serie = new Serie;
         $serie->title = $input['title'];
-        $serier->description = $input['description'];
-        
+        $serie->description = $input['description'];
+
         //MUST find the type first according to the subject & difficulty
-        //$serie->mail = $input['subject'];
+        $type = new Type;
+        $type->subject = $input['subject'];
+        $type->difficulty = $input['difficulty'];
 
-        // Store in Databse & catch the newly inserted tuple
-        $myserie = storeSerie($serie);
+        if(empty(loadType1($type)))
+        {
+            storeType($type);
+        }
 
-        return redirect('serie/' . $myserie->id . '/edit');
+        $type = loadType1($type)[0];
+
+        $serie->tId = $type->id;
+
+        //STILL NEED TO FIND THE MAKER
+        $serie->makerId = 1; //hard-coded for testing
+
+        // Store in Database
+        storeSerie($serie);
+
+        $myserie = loadSerie($serie->title, $serie->tId)[0];
+        return redirect('serie/' . $myserie->id);
+        //return redirect('serie/' . $myserie->id . '/edit');
 	}
 
 	/**
@@ -58,17 +81,19 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if(empty(loadSerie($id))) {
-            $msg = "Unknown user";
-            $alert = "This user doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+        if(empty(loadSerieWithId($id))) {
+            $msg = "Unknown serie";
+            $alert = "This serie doesn't exist.";
+            return "Some error occurred & we need to display it nicely";
+            //return view('user.error', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's page
-            $serie = loadSerie($id)[0];
-            $exercises = loadExercisesFromSerie($id)[0];
-            return view('serie.show', compact('serie', 'exercises'));
+            $serie = loadSerieWithId($id)[0];
+            //$exercises = loadExercisesFromSerie($id)[0];
+            return view('serie.show', compact('serie'));
+            //return "Need exercises of this serie here...";
         }
 	}
 
