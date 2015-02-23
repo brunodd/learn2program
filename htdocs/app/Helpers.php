@@ -20,7 +20,7 @@
     }
 
     function updateUser($id, $data) {
-        DB::statement('update Users SET username = ?, pass = ? where id = ?', [$data->username, $data->pass, $id]); 
+        DB::statement('update Users SET username = ?, mail = ?, pass = ? where id = ?', [$data->username, $data->mail, $data->pass, $id]); 
     }
 
     function storeSerie($serie)

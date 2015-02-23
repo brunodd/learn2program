@@ -12,7 +12,10 @@
         {!! Form::text('username') !!}
 
         {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::text('pass') !!}
+        {!! Form::password('pass', null) !!}
+
+        {!! Form::label('mail', 'Email: ') !!}
+        {!! Form::text('mail') !!}
 
         {!! Form::submit('Submit') !!}
     {!! Form::close() !!}
