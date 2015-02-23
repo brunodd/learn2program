@@ -15,10 +15,8 @@
 
         {!! Form::submit('Login') !!}
     {!! Form::close() !!}
-    @if ($errors->any())
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    @endif
+
+    @include('errors.list')
+
     <h2><a href="user/create">Registration page</a></h2>
 @stop

@@ -1,13 +1,11 @@
 @extends('master')
 
 @section('title')
-    <h1>Edit <em>{{ $user->username }}'s</em> account</h1>
+    Edit <em>{{ $user->username }}'s</em> account
 @stop
 
 @section('content')
-    <p>
-        For now only allow username and password to be changed...
-    </p>
+    <p> For now only allow username and password to be changed... </p>
 
     {!! Form::model($user, ['method' => 'PATCH']) !!}
         {!! Form::label('username', 'Username: ') !!}
@@ -18,11 +16,8 @@
 
         {!! Form::submit('Submit') !!}
     {!! Form::close() !!}
-    @if ($errors->any())
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    @endif
+
+    @include('errors.list')
 
 @stop
 
