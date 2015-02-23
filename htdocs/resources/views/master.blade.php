@@ -8,6 +8,8 @@
     <script src="/js/all.js"></script>
 </head>
 <body>
+    @include('partials.nav');
+
     <div class="container-fluid">
         <div class="jumbotron">
             <h1>Learn2Program
