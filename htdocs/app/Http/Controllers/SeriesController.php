@@ -58,7 +58,18 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+        if(empty(loadSerie($id))) {
+            $msg = "Unknown user";
+            $alert = "This user doesn't exist.";
+            return view('user.error', compact('msg', 'alert'));
+        }
+        else {
+            //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
+            // i.e. if we want to show them on the serie's page
+            $serie = loadSerie($id)[0];
+            $exercises = loadExercisesFromSerie($id)[0];
+            return view('serie.show', compact('serie', 'exercises'));
+        }
 	}
 
 	/**
