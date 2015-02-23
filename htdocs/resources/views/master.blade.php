@@ -18,6 +18,8 @@
             </h1>
         </div>
         @yield('content')
+
+        @include('errors.list')
     </div>
 </body>
 </html>
