@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1>Error</h1>
+    Error
 @stop
 @section('content')
     <h2>{{ $msg }}</h2>

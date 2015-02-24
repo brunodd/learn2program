@@ -38,6 +38,11 @@
         return DB::select('select * from Series where title = ? and tId = ?', [$title, $tId]);
     }
 
+    function loadAllSeries()
+    {
+        return DB::select('select * from Series');
+    }
+
     function updateSerie($id, $serie, $typeId)
     {
         DB::statement('update Series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);

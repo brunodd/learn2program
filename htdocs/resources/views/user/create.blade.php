@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1>Register as a new user</h1>
+    Register as a new user
 @stop
 
 @section('content')

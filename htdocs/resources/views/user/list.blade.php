@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1>Full list of users (containing passwords).</h1>
+    Full list of users (containing passwords).
 @stop
 
 @section('content')

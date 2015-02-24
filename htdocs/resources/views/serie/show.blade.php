@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1> <em>{{ $serie->title }}'s</em> main page </h1>
+    <em>{{ $serie->title }}'s</em> main page
 @stop
 
 @section('content')

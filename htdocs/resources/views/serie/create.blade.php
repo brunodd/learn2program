@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    <h1>Create a new serie</h1>
+    Create a new serie
 @stop
 
 @section('content')

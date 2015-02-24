@@ -1,12 +1,17 @@
 @extends('master')
 
 @section('title')
-    <h1>Series home page</h1>
+    Series home page
 @stop
 
 @section('content')
     <h2>List of all series:</h2>
-    <p>Will become available soon</p>
+
+    @foreach($series as $serie)
+        <h3>{{$serie->title}}</h3>
+        <p>{{$serie->description}}</p>
+    @endforeach
+
     @if ($errors->any())
         @foreach($errors->all() as $error)
             <li>{{ $error }}</li>

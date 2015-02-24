@@ -20,7 +20,8 @@ class SeriesController extends Controller {
 	 */
 	public function index()
 	{
-		return view('serie.home');
+        $series = loadAllSeries();
+		return view('serie.home', compact('series'));
 	}
 
 	/**
