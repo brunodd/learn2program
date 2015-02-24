@@ -1,16 +1,18 @@
 @extends('master')
 
 @section('title')
-    <h1>Groups home page</h1>
+    Groups home page
 @stop
 
 @section('content')
     <h2>List of all groups:</h2>
 
-    @foreach($groups as $group)
-        <h3>{{$group->name}}</h3>
-        <p>List of members</p>
-    @endforeach
+    <ul>
+        @foreach($groups as $group)
+            <h3>{{$group->name}}</h3>
+            <p>List of members</p>
+        @endforeach
+    </ul>
 
     @if ($errors->any())
         @foreach($errors->all() as $error)
