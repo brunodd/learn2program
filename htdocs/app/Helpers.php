@@ -69,4 +69,19 @@
         DB::insert('insert into Types (subject, difficulty) VALUES (?, ?)', [$type->subject, $type->difficulty]);
     }
 
+    function storeGroup($group)
+    {
+        DB::insert('insert into Groups (name) VALUES (?)', [$group->name]);
+    }
+
+    function loadGroup($group)
+    {
+        return DB::select('select * from Groups where id = ? or name = ?', [$group, $group]);
+    }
+
+    function addMember2Group($uId, $group)
+    {
+        DB::insert('insert into member_of (memberId, groupId) VALUES (?, ?)', [$uId, $group->id]);
+    }
+
 ?>

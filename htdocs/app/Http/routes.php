@@ -14,6 +14,7 @@
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UserController@list_all_users'); // For Development mode - check content of users table.
+//Route::get('list_all_groups', 'GroupController@list_all_groups');
 
 Route::post('user/login', 'UserController@login');
 
@@ -24,6 +25,10 @@ Route::patch('serie/{id}/edit', 'SeriesController@update');
 $ php artisan route:list */
 Route::resource('user', 'UserController');
 
-/* Add all routes needed for user. List with:
+/* Add all routes needed for serie. List with:
 $ php artisan route:list */
 Route::resource('serie', 'SeriesController');
+
+/* Add all routes needed for group. List with:
+$ php artisan route:list */
+Route::resource('group', 'GroupController');
