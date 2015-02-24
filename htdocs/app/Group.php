@@ -9,7 +9,7 @@ class Group extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'Groups';
+	protected $table = 'groups';
 
 	/**
 	 * The attributes that are mass assignable.

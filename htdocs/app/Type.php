@@ -9,7 +9,7 @@ class Type extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'Types';
+	protected $table = 'types';
 
 	/**
 	 * The attributes that are mass assignable.

@@ -6,7 +6,7 @@
 
 @section('content')
     <h2>Login Form:</h2>
-    {!! Form::open(['url' => 'user/login']) !!}
+    {!! Form::open(['url' => 'users/login']) !!}
         {!! Form::label('username', 'Username: ') !!}
         {!! Form::text('username') !!}
 
@@ -18,5 +18,5 @@
 
     @include('errors.list')
 
-    <h2><a href="user/create">Registration page</a></h2>
+    <h2><a href="users/create">Registration page</a></h2>
 @stop

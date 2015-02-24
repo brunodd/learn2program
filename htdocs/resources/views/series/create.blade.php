@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => 'serie']) !!}
+    {!! Form::open(['url' => 'series']) !!}
         <div class="form-group">
         {!! Form::label('title', 'Title: ') !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}

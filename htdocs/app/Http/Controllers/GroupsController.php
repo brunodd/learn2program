@@ -11,7 +11,7 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGroupRequest;
 //use App\Http\Requests\UpdateGroupRequest;
 
-class GroupController extends Controller {
+class GroupsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -20,7 +20,8 @@ class GroupController extends Controller {
 	 */
 	public function index()
 	{
-		return view('group.home');
+        $groups = loadAllGroups();
+		return view('groups.home', compact('groups'));
 	}
 
 	/**
@@ -30,7 +31,7 @@ class GroupController extends Controller {
 	 */
 	public function create()
 	{
-		return view('group.create');
+		return view('groups.create');
 	}
 
 	/**
@@ -61,7 +62,7 @@ class GroupController extends Controller {
         addMember2Group(1, $mygroup); //hardcode the user for testing
         //addMember2Group($user, $group);
 
-        return redirect('group/' . $mygroup->id);
+        return redirect('groups/' . $mygroup->id);
 }
 
     /**
@@ -75,14 +76,14 @@ class GroupController extends Controller {
         if(empty(loadGroup($id))) {
             $msg = "Unknown group";
             $alert = "This group doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+            return view('users.error', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL MEMBERS
             // i.e. if we want to show them on the group's page
             $group = loadGroup($id)[0];
             //$users = loadMembers($group)[0];
-            return view('group.show', compact('group'));
+            return view('groups.show', compact('group'));
         }
 	}
 

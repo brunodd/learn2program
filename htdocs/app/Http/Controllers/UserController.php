@@ -19,7 +19,7 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-        return view('user.home');
+        return view('users.home');
 	}
 
 	/**
@@ -29,7 +29,7 @@ class UserController extends Controller {
 	 */
 	public function create()
 	{
-        return view('user.create');
+        return view('users.create');
 	}
 
 	/**
@@ -52,7 +52,7 @@ class UserController extends Controller {
 
         $myuser = loadUser($user->username)[0];
 
-        return redirect('user/' . $myuser->id . '/edit');
+        return redirect('users/' . $myuser->id . '/edit');
 	}
 
     public function login(LoginUserRequest $request)
@@ -91,11 +91,11 @@ class UserController extends Controller {
         if(empty(loadUser($id))) {
             $msg = "Unknown user";
             $alert = "This user doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+            return view('users.error', compact('msg', 'alert'));
         }
         else {
             $user = loadUser($id)[0];
-            return view('user.show', compact('user'));
+            return view('users.show', compact('user'));
         }
 	}
 
@@ -110,11 +110,11 @@ class UserController extends Controller {
         if(empty(loadUser($id))) {
             $msg = "Unknown user";
             $alert = "This user doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+            return view('users.error', compact('msg', 'alert'));
         }
         else {
             $user = loadUser($id)[0];
-            return view('user.edit', compact('user'));
+            return view('users.edit', compact('user'));
         }
 	}
 
@@ -142,7 +142,7 @@ class UserController extends Controller {
         $user->mail = $input['mail'];
 
         updateUser($id, $user);
-        return redirect('user/' . $id . '/edit');
+        return redirect('users/' . $id . '/edit');
         //$updatedUser = loadUser($id)[0];
         //return view('user.edit', compact('updatedUser'));
 	}
@@ -161,6 +161,6 @@ class UserController extends Controller {
     public function list_all_users()
     {
         $users = loadUsers();
-        return view('user.list', compact('users'));
+        return view('users.list', compact('users'));
     }
 }

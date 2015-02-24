@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => 'user']) !!}
+    {!! Form::open(['url' => 'users']) !!}
         <div class="form-group">
             {!! Form::label('username', 'Username: ') !!}
             {!! Form::text('username', null, ['class' => 'form-control']) !!}

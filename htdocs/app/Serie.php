@@ -9,7 +9,7 @@ class Serie extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'Series';
+	protected $table = 'series';
 
 	/**
 	 * The attributes that are mass assignable.

@@ -15,8 +15,30 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/serie">Series</a></li>
+                <li><a href="/series">Series</a></li>
 
+                <li><a href="/list_all_users">Users</a></li>
+
+                <li><a href="/groups">Groups</a></li>
+
+                <li><a href="/about">About</a></li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="/users">User Login/out/options hier fixe</a></li>
+                <!-- button type="button" class="btn btn-default navbar-btn">User Login/out/options hier fixe</button -->
+            </ul>
+
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search hier doen?">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                         Dropdown Example
@@ -32,23 +54,7 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-
-                <li><a href="/list_all_users">Users</a></li>
-
-                <li><a href="/about">About</a></li>
             </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user">User Login/out/options hier fixe</a></li>
-                <!-- button type="button" class="btn btn-default navbar-btn">User Login/out/options hier fixe</button -->
-            </ul>
-
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search hier doen?">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
         </div>
     </div>
 </nav>

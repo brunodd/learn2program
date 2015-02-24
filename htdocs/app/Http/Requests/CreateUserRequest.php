@@ -24,7 +24,7 @@ class CreateUserRequest extends Request {
 		return [
 		    'username' => 'required|unique:users|min:3|max:20',
             'pass' => 'required|min:5|max:20',
-            'mail' => 'required|unique:users|max:50'
+            'mail' => 'required|max:50'
 		];
 	}
 

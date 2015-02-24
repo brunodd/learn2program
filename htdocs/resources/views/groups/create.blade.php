@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => 'group']) !!}
+    {!! Form::open(['url' => 'groups']) !!}
         <div class="form-group">
         {!! Form::label('name', 'Name of your group: ') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}

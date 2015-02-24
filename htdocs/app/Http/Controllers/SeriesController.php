@@ -21,7 +21,7 @@ class SeriesController extends Controller {
 	public function index()
 	{
         $series = loadAllSeries();
-		return view('serie.home', compact('series'));
+		return view('series.home', compact('series'));
 	}
 
 	/**
@@ -31,7 +31,7 @@ class SeriesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('serie.create');
+		return view('series.create');
 	}
 
 	/**
@@ -72,7 +72,7 @@ class SeriesController extends Controller {
         storeSerie($serie);
 
         $myserie = loadSerie($serie->title, $serie->tId)[0];
-        return redirect('serie/' . $myserie->id);
+        return redirect('series/' . $myserie->id);
         //in the future, we may want to redirect to a "createExercise" page
 	}
 
@@ -85,16 +85,16 @@ class SeriesController extends Controller {
 	public function show($id)
 	{
         if(empty(loadSerieWithId($id))) {
-            $msg = "Unknown serie";
-            $alert = "This serie doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+            $msg = "Unknown s";
+            $alert = "This s doesn't exist.";
+            return view('users.error', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
-            // i.e. if we want to show them on the serie's page
+            // i.e. if we want to show them on the s's page
             $serie = loadSerieWithId($id)[0];
             //$exercises = loadExercisesFromSerie($id)[0];
-            return view('serie.show', compact('serie'));
+            return view('series.show', compact('serie'));
         }
 	}
 
@@ -107,14 +107,14 @@ class SeriesController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadSerieWithId($id))) {
-            $msg = "Unknown serie";
-            $alert = "This serie doesn't exist.";
-            return view('user.error', compact('msg', 'alert'));
+            $msg = "Unknown s";
+            $alert = "This s doesn't exist.";
+            return view('users.error', compact('msg', 'alert'));
         }
         else {
             $serie = loadSerieWithId($id)[0];
             $type = loadType2($serie->tId)[0];
-            return view('serie.edit', compact('serie', 'type'));
+            return view('series.edit', compact('serie', 'type'));
         }
 	}
 
@@ -147,7 +147,7 @@ class SeriesController extends Controller {
         removeUnusedTypes();
 
         $myserie = loadSerie($serie->title, $typeId)[0];
-        return redirect('serie/' . $myserie->id . '/edit');
+        return redirect('series/' . $myserie->id . '/edit');
 		return "edited?";
 	}
 
