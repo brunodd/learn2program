@@ -5,5 +5,5 @@
 @stop
 
 @section('content')
-    This page should show a list of {{ $group->name }}'s exercises or something like that...
+    This page should show a list of {{ $group->name }}'s members or something like that...
 @stop

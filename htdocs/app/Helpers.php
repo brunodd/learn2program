@@ -94,5 +94,9 @@
         DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group->id]);
     }
 
+    function updateGroup($id, $groupname)
+    {
+        DB::statement('update groups SET name = ? where id = ?', [$groupname, $id]);
+    }
 
 ?>

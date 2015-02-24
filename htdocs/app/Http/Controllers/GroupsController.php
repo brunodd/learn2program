@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGroupRequest;
-//use App\Http\Requests\UpdateGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
 
 class GroupsController extends Controller {
 
@@ -95,7 +95,15 @@ class GroupsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        if(empty(loadGroup($id))) {
+            $msg = "Unknown group";
+            $alert = "This group doesn't exist.";
+            return view('users.error', compact('msg', 'alert'));
+        }
+        else {
+            $group = loadGroup($id)[0];
+            return view('groups.edit', compact('group'));
+        }
 	}
 
 	/**
@@ -104,9 +112,20 @@ class GroupsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, UpdateGroupRequest $request)
 	{
-		//
+        //AGAIN, WE MUST CHECK WHETHER THE "REQUESTER" IS ALLOWED TO PERFORM THIS ACTION
+        $input = $request->all();
+
+        $groupname = $input['name'];
+
+        //this check is probably redundant since UpdateGroupRequest already took care of this
+        if(empty(loadGroup($groupname)))
+        {
+            updateGroup($id, $groupname);
+        }
+
+        return redirect('groups/' . $id . '/edit');
 	}
 
 	/**
