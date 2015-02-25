@@ -20,6 +20,7 @@ Route::post('users/login', 'UserController@login');
 
 Route::patch('users/{id}/edit', 'UserController@update');
 Route::patch('series/{id}/edit', 'SeriesController@update');
+Route::patch('groups/{id}/edit', 'GroupsController@update');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */

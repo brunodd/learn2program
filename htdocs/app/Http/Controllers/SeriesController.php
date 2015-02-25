@@ -85,8 +85,8 @@ class SeriesController extends Controller {
 	public function show($id)
 	{
         if(empty(loadSerieWithId($id))) {
-            $msg = "Unknown s";
-            $alert = "This s doesn't exist.";
+            $msg = "Unknown series";
+            $alert = "This series doesn't exist.";
             return view('users.error', compact('msg', 'alert'));
         }
         else {
@@ -107,8 +107,8 @@ class SeriesController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadSerieWithId($id))) {
-            $msg = "Unknown s";
-            $alert = "This s doesn't exist.";
+            $msg = "Unknown series";
+            $alert = "This series doesn't exist.";
             return view('users.error', compact('msg', 'alert'));
         }
         else {
@@ -148,7 +148,6 @@ class SeriesController extends Controller {
 
         $myserie = loadSerie($serie->title, $typeId)[0];
         return redirect('series/' . $myserie->id . '/edit');
-		return "edited?";
 	}
 
 	/**
