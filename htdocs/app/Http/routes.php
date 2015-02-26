@@ -33,3 +33,13 @@ Route::resource('series', 'SeriesController');
 /* Add all routes needed for group. List with:
 $ php artisan route:list */
 Route::resource('groups', 'GroupsController');
+
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('/logout', 'Auth\AuthController@getLogout');
+Route::get('/email', 'Auth\PasswordController@getEmail');
+Route::post('/email', 'Auth\PasswordController@postEmail');
+Route::get('/reset', 'Auth\PasswordController@getReset');
+Route::post('/reset', 'Auth\PasswordController@postReset');

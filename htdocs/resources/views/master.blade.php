@@ -8,7 +8,7 @@
     <script src="/js/all.js"></script>
 </head>
 <body>
-    @include('partials.nav');
+    @include('partials.navbar');
 
     <div class="container-fluid">
         <div class="jumbotron">

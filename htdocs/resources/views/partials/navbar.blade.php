@@ -27,18 +27,6 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="/users">User Login/out/options hier fixe</a></li>
-                <!-- button type="button" class="btn btn-default navbar-btn">User Login/out/options hier fixe</button -->
-            </ul>
-
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search hier doen?">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                         Dropdown Example
@@ -54,6 +42,31 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search hier doen?">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+
+                @if (Auth::user())
+                    <li class="dropdown ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                            Logged in as {{ Auth::user()->username }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logoutj">Log out</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li><a href="/login">Log in</a></li>
+                @endif
             </ul>
         </div>
     </div>

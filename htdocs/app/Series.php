@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model {
+class Series extends Model {
 
 	/**
 	 * The database table used by the model.
