@@ -1,3 +1,5 @@
+DROP DATABASE if exists learn2program_db;
+
 CREATE DATABASE learn2program_db;
 USE learn2program_db;
 
