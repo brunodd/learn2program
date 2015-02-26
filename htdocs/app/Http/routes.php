@@ -13,18 +13,18 @@
 
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
-Route::get('list_all_users', 'UserController@list_all_users'); // For Development mode - check content of users table.
+Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 //Route::get('list_all_groups', 'GroupController@list_all_groups');
 
-Route::post('users/login', 'UserController@login');
+Route::post('users/login', 'UsersController@login');
 
-Route::patch('users/{id}/edit', 'UserController@update');
+Route::patch('users/{id}/edit', 'UsersController@update');
 Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */
-Route::resource('users', 'UserController');
+Route::resource('users', 'UsersController');
 
 /* Add all routes needed for s. List with:
 $ php artisan route:list */

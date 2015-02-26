@@ -9,7 +9,7 @@
 
     <ul>
     @foreach($series as $serie)
-        <h3>{{$serie->title}}</h3>
+        <h3><a href="{{ action('SeriesController@show', [$serie->id])}}">{{$serie->title}}</a></h3>
         <p>{{$serie->description}}</p>
     @endforeach
     </ul>
