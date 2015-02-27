@@ -18,5 +18,5 @@
 
     @include('errors.list')
 
-    <h2><a href="users/create">Registration page</a></h2>
+    <h2><a href="register">Registration page</a></h2>
 @stop

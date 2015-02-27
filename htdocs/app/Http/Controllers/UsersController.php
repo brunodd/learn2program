@@ -10,7 +10,7 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
-class UserController extends Controller {
+class UsersController extends Controller {
 
 	/**
 	 * Display a listing of the resource.

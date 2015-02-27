@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Serie;   // Added to find Serie model.
+use App\Series;   // Added to find Serie model.
 use App\Type;   // Added to find Type model.
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

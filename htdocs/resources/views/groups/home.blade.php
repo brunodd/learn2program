@@ -9,7 +9,7 @@
 
     <ul>
         @foreach($groups as $group)
-            <h3>{{$group->name}}</h3>
+            <h3><a href="{{ action('GroupsController@show', [$group->id])}}">{{$group->name}}</a></h3>
             <p>List of members</p>
         @endforeach
     </ul>

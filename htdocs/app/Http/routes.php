@@ -13,18 +13,18 @@
 
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
-Route::get('list_all_users', 'UserController@list_all_users'); // For Development mode - check content of users table.
+Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 //Route::get('list_all_groups', 'GroupController@list_all_groups');
 
-Route::post('users/login', 'UserController@login');
+Route::post('users/login', 'UsersController@login');
 
-Route::patch('users/{id}/edit', 'UserController@update');
+Route::patch('users/{id}/edit', 'UsersController@update');
 Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */
-Route::resource('users', 'UserController');
+Route::resource('users', 'UsersController');
 
 /* Add all routes needed for s. List with:
 $ php artisan route:list */
@@ -33,3 +33,13 @@ Route::resource('series', 'SeriesController');
 /* Add all routes needed for group. List with:
 $ php artisan route:list */
 Route::resource('groups', 'GroupsController');
+
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('/logout', 'Auth\AuthController@getLogout');
+Route::get('/email', 'Auth\PasswordController@getEmail');
+Route::post('/email', 'Auth\PasswordController@postEmail');
+Route::get('/reset', 'Auth\PasswordController@getReset');
+Route::post('/reset', 'Auth\PasswordController@postReset');

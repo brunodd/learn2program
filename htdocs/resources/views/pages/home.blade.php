@@ -11,7 +11,9 @@
         <div class="body">Some talk about the website.</div>
     </ul>
     <ul>
-        <a href="users"><h3>User login</h3></a>
-        <div class="body">Member department.</div>
+        <a href="login"><h3>User login</h3></a>
+    </ul>
+    <ul>
+        <a href="/register"><h3>Create a new user</h3></a>
     </ul>
 @stop
