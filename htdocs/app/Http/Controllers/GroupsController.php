@@ -75,8 +75,8 @@ class GroupsController extends Controller {
 	{
         if(empty(loadGroup($id))) {
             $msg = "Unknown group";
-            $alert = "This group doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This group does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL MEMBERS
@@ -97,8 +97,8 @@ class GroupsController extends Controller {
 	{
         if(empty(loadGroup($id))) {
             $msg = "Unknown group";
-            $alert = "This group doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This group does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             $group = loadGroup($id)[0];

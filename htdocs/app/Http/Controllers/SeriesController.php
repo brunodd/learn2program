@@ -86,8 +86,8 @@ class SeriesController extends Controller {
 	{
         if(empty(loadSerieWithId($id))) {
             $msg = "Unknown series";
-            $alert = "This series doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This series does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
@@ -108,8 +108,8 @@ class SeriesController extends Controller {
 	{
         if(empty(loadSerieWithId($id))) {
             $msg = "Unknown series";
-            $alert = "This series doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This series does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             $serie = loadSerieWithId($id)[0];

@@ -90,8 +90,8 @@ class UserController extends Controller {
 	{
         if(empty(loadUser($id))) {
             $msg = "Unknown user";
-            $alert = "This user doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This user does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             $user = loadUser($id)[0];
@@ -109,8 +109,8 @@ class UserController extends Controller {
 	{
         if(empty(loadUser($id))) {
             $msg = "Unknown user";
-            $alert = "This user doesn't exist.";
-            return view('users.error', compact('msg', 'alert'));
+            $alert = "This user does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
         }
         else {
             $user = loadUser($id)[0];
