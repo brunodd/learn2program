@@ -1,6 +1,7 @@
 # Installation
 ##Python interpreter
 Install dependencies (-g flag is optional for global installation):
+
 ~~~sh
 $ sudo npm install [-g] jscs
 $ sudo npm install [-g] jshint
