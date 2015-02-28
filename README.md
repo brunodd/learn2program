@@ -1,4 +1,16 @@
 # Installation
+##Python interpreter
+Install dependencies (-g flag is optional for global installation):
+~~~sh
+$ sudo npm install [-g] jscs
+$ sudo npm install [-g] jshint
+~~~
+Navigate to skulpt/ directory and run:
+~~~sh
+./skulpt.py dist
+~~~
+Set-up should now be completed.
+
 ##Environment
 Hernoem file:
 
