@@ -5,7 +5,7 @@ Install dependencies (-g flag is optional for global installation):
 $ sudo npm install [-g] jscs
 $ sudo npm install [-g] jshint
 ~~~
-Navigate to skulpt/ directory and run:
+Navigate to skulpt/ directory in the public/ folder and run:
 ~~~sh
 ./skulpt.py dist
 ~~~
