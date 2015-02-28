@@ -45,8 +45,12 @@ function runit() {
 <h3>Try This</h3> 
 <form> 
 <textarea id="yourcode" cols="40" rows="10">
-print("Hello, world")
-</textarea><br /> 
+def hello(name):
+    print("Hello, " + name)
+
+myName = ""
+
+hello(myName)</textarea><br /> 
 <button type="button" onclick="runit()">Run</button> 
 </form> 
 <pre id="output" ></pre> 
