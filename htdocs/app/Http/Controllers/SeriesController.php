@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
+use Auth;
 
 class SeriesController extends Controller {
 
@@ -31,7 +32,13 @@ class SeriesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('series.create');
+        if ( !Auth::check() )
+        {
+            $msg = "You must be logged in to create a new serie.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+        return view('series.create');
 	}
 
 	/**
@@ -41,8 +48,7 @@ class SeriesController extends Controller {
 	 */
 	public function store(CreateSerieRequest $request)
 	{
-        //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN
-        //otherwise deny this request!
+        //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN -> taken care of in create function
 
         $input = $request->all();
 
@@ -60,20 +66,16 @@ class SeriesController extends Controller {
         {
             storeType($type);
         }
-
         $type = loadType1($type)[0];
 
         $serie->tId = $type->id;
-
-        //STILL NEED TO FIND THE MAKER
-        $serie->makerId = 1; //hard-coded for testing
+        $serie->makerId = Auth::id();
 
         // Store in Database
         storeSerie($serie);
 
         $myserie = loadSerie($serie->title, $serie->tId)[0];
         return redirect('series/' . $myserie->id);
-        //in the future, we may want to redirect to a "createExercise" page
 	}
 
 	/**
@@ -91,7 +93,7 @@ class SeriesController extends Controller {
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
-            // i.e. if we want to show them on the s's page
+            // i.e. if we want to show them on the serie's home page
             $serie = loadSerieWithId($id)[0];
             //$exercises = loadExercisesFromSerie($id)[0];
             return view('series.show', compact('serie'));
@@ -109,6 +111,12 @@ class SeriesController extends Controller {
         if(empty(loadSerieWithId($id))) {
             $msg = "Unknown series";
             $alert = "This series does not exist.";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+        else if ( !Auth::check() or !isMakerOfSeries($id, Auth::id()) )
+        {
+            $msg = "You must be logged in as the maker of this series in order to edit.";
+            $alert = "Access Denied!";
             return view('errors.unknown', compact('msg', 'alert'));
         }
         else {

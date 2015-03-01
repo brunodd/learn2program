@@ -1,6 +1,7 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Auth;
 
 class UpdateUserRequest extends Request {
 
@@ -11,7 +12,15 @@ class UpdateUserRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+        //This check is rather redundant since we tackle this problem allready in the edit functions
+        if ( Auth::check() and ($this->id == Auth::id()) )
+        {
+		    return true;
+	    }
+        else
+        {
+            return false;
+        }
 	}
 
 	/**

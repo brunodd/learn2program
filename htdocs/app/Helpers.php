@@ -48,6 +48,18 @@
         DB::statement('update series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);
     }
 
+    function isMakerOfSeries($sId, $mId)
+    {
+        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$sId, $mId])) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function removeUnusedTypes()
     {
         DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');
@@ -89,9 +101,35 @@
         return DB::select('select * from groups where id = ? or name = ?', [$group, $group]);
     }
 
-    function addMember2Group($uId, $group)
+    function isFounderOfGroup($groupId, $founderId)
     {
-        DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group->id]);
+        if ( !empty(DB::select('select * from groups where id = ? and founderId = ?',[$groupId, $founderId])) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+
+    function addMember2Group($uId, $gId)
+    {
+        DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $gId]);
+    }
+
+    function noMemberYet($uId, $gId)
+    {
+        if ( !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $gId])) )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     function updateGroup($id, $groupname)
