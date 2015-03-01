@@ -41,6 +41,7 @@ class UsersController extends Controller {
 	 */
 	public function store(CreateUserRequest $request)
 	{
+        //GUESSING OBSOLETE NOW?
         $input = $request->all();
 
         // Create User object (model)

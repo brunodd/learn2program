@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('title')
+    Register as a new user
+@stop
+
 @section('content')
 <div class="container-fluid">
 	<div class="row">

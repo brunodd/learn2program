@@ -21,5 +21,5 @@
         @endforeach
     @endif
     <h2><a href="groups/create">Create new group</a></h2>
-    <h2><a href="../users/create">Registration page</a></h2>
+    <h2><a href="/register">Registration page</a></h2>
 @stop

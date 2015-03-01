@@ -20,5 +20,5 @@
         @endforeach
     @endif
     <h2><a href="series/create">Create new series</a></h2>
-    <h2><a href="../users/create">Registration page</a></h2>
+    <h2><a href="/register">Registration page</a></h2>
 @stop
