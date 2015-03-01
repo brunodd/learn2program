@@ -103,9 +103,9 @@
 
     }
 
-    function addMember2Group($uId, $group)
+    function addMember2Group($uId, $gId)
     {
-        DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group->id]);
+        DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $gId]);
     }
 
     function updateGroup($id, $groupname)

@@ -11,6 +11,8 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 
+use Auth;
+
 class GroupsController extends Controller {
 
 	/**
@@ -31,6 +33,12 @@ class GroupsController extends Controller {
 	 */
 	public function create()
 	{
+        if ( !Auth::check() )
+        {
+            $msg = "You must be logged in to create a new group.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
 		return view('groups.create');
 	}
 
@@ -41,28 +49,18 @@ class GroupsController extends Controller {
 	 */
 	public function store(CreateGroupRequest $request)
 	{
-        //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN
-        //otherwise deny this request!
 
         $input = $request->all();
 
         // Create Group object (model)
         $group = new Group;
         $group->name = $input['name'];
-
-        //MUST find the requester since he will automatically be added to this group
-        //in fact, i'm in favor of storing the "founder" of the group as well
-        //perhaps also moderators which should be a multivalued attribute -> how do we handle this?
-        //$user = new User;
-        //$user->id = ?;
-
-        $group->founderId = 1; // hardcode untill we can figure out the requester's id
+        $group->founderId = Auth::id();
 
         // Store in Database
         storeGroup($group);
         $mygroup = loadGroup($group->name)[0];
-        addMember2Group(1, $mygroup); //hardcode the user for testing
-        //addMember2Group($user, $group);
+        addMember2Group($mygroup->founderId, $mygroup->id);
 
         return redirect('groups/' . $mygroup->id);
 }
@@ -102,6 +100,12 @@ class GroupsController extends Controller {
             $alert = "This group does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
         }
+        else if ( !Auth::check() or !isFounderOfGroup($id, Auth::id()) )
+        {
+            $msg = "You must be logged in as the founder of the group in order to edit.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
         else {
             $group = loadGroup($id)[0];
             return view('groups.edit', compact('group'));
@@ -116,7 +120,8 @@ class GroupsController extends Controller {
 	 */
 	public function update($id, UpdateGroupRequest $request)
 	{
-        //AGAIN, WE MUST CHECK WHETHER THE "REQUESTER" IS ALLOWED TO PERFORM THIS ACTION
+        //AGAIN, WE MUST CHECK WHETHER THE "REQUESTER" IS ALLOWED TO PERFORM THIS ACTION -> only founders can access edit page
+        // thus => everything ok
         $input = $request->all();
 
         $groupname = $input['name'];

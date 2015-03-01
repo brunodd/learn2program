@@ -1,6 +1,7 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Auth;
 
 class CreateGroupRequest extends Request {
 
@@ -11,7 +12,14 @@ class CreateGroupRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+        if ( Auth::check() )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 
 	/**

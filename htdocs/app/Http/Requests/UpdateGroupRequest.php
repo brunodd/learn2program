@@ -2,7 +2,6 @@
 
 use App\Http\Requests\Request;
 use Auth;
-//use App\Http\Controllers\Auth\AuthController;
 
 class UpdateGroupRequest extends Request {
 
