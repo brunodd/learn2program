@@ -48,6 +48,18 @@
         DB::statement('update series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);
     }
 
+    function isMakerOfSeries($sId, $mId)
+    {
+        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$sId, $mId])) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function removeUnusedTypes()
     {
         DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');

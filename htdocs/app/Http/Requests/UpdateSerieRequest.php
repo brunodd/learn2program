@@ -11,7 +11,15 @@ class UpdateSerieRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+	    //This check is rather redundant since we tackle this problem allready in the create & edit functions
+        if ( Auth::check() and isMakerOfSeries($this->id, Auth::id()) )
+        {
+		    return true;
+	    }
+        else
+        {
+            return false;
+        }
 	}
 
 	/**

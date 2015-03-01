@@ -10,6 +10,8 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use Auth;
+
 class UsersController extends Controller {
 
 	/**
@@ -112,6 +114,12 @@ class UsersController extends Controller {
             $alert = "This user does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
         }
+        else if ( !Auth::check() or ($id != Auth::id()) )
+        {
+            $msg = "You must be logged in as this user in order to edit.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
         else {
             $user = loadUser($id)[0];
             return view('users.edit', compact('user'));
@@ -143,8 +151,6 @@ class UsersController extends Controller {
 
         updateUser($id, $user);
         return redirect('users/' . $id . '/edit');
-        //$updatedUser = loadUser($id)[0];
-        //return view('user.edit', compact('updatedUser'));
 	}
 
 	/**
