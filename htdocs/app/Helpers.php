@@ -89,6 +89,20 @@
         return DB::select('select * from groups where id = ? or name = ?', [$group, $group]);
     }
 
+    function isFounderOfGroup($groupId, $founderId)
+    {
+        if ( !empty(DB::select('select * from groups where id = ? and founderId = ?',[$groupId, $founderId])) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+
     function addMember2Group($uId, $group)
     {
         DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group->id]);

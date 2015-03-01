@@ -1,6 +1,8 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Auth;
+//use App\Http\Controllers\Auth\AuthController;
 
 class UpdateGroupRequest extends Request {
 
@@ -11,8 +13,15 @@ class UpdateGroupRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
-	}
+        if ( Auth::check() and isFounderOfGroup($this->id, Auth::id()) )
+        {
+		    return true;
+	    }
+        else
+        {
+            return false;
+        }
+    }
 
 	/**
 	 * Get the validation rules that apply to the request.
