@@ -16,6 +16,17 @@ use Auth;
 
 class SeriesController extends Controller {
 
+    /**
+     * Middleware checks if the user is logged in
+     *
+     * veel beter dan overal checks doen en da geeft direct een overzicht wat public is en wat niet
+     *
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+     */
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
