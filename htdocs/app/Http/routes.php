@@ -24,6 +24,7 @@ Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 
 Route::post('groups/{id}', 'GroupsController@join');
+Route::patch('groups/{id}', 'GroupsController@leave');
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */

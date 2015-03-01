@@ -82,8 +82,8 @@ class GroupsController extends Controller {
             //WILL ALSO NEED TO LOAD ALL MEMBERS
             // i.e. if we want to show them on the group's page
             $group = loadGroup($id)[0];
-            //$users = loadMembers($group)[0];
-            return view('groups.show', compact('group'));
+            $isMember = !noMemberYet(Auth::id(), $id);
+            return view('groups.show', compact('group', 'isMember'));
         }
 	}
 
@@ -146,7 +146,7 @@ class GroupsController extends Controller {
 		//
 	}
 
-    public function join($id, JoinGroupRequest $request)
+    public function join($id)
     {
         $member = noMemberYet(Auth::id(), $id);
         if ( Auth::check() and $member )
@@ -166,4 +166,19 @@ class GroupsController extends Controller {
         return view('errors.unknown', compact('msg', 'alert'));
     }
 
+    public function leave($id)
+    {
+        //we already know that the "requester" is a member of this group & logged in -> no more checks needed
+        if ( !isFounderOfGroup($id, Auth::id()) )
+        {
+            deleteMemberFromGroup(Auth::id(), $id);
+            return redirect('groups/' . $id);
+        }
+        else
+        {
+            $msg = "You can not leave the group because you are the founder.";
+            $alert = "Cannot leave this group!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+    }
 }

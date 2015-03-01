@@ -120,6 +120,11 @@
         DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $gId]);
     }
 
+    function deleteMemberFromGroup($uId, $gId)
+    {
+        DB::statement('delete from members_of_groups where memberId = ? and groupId = ?', [$uId, $gId]);
+    }
+
     function noMemberYet($uId, $gId)
     {
         if ( !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $gId])) )
