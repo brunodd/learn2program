@@ -56,6 +56,8 @@ class GroupsController extends Controller {
         //$user = new User;
         //$user->id = ?;
 
+        $group->founderId = 1; // hardcode untill we can figure out the requester's id
+
         // Store in Database
         storeGroup($group);
         $mygroup = loadGroup($group->name)[0];

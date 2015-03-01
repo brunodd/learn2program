@@ -11,9 +11,17 @@ CREATE TABLE users (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE friends (
+    id1 int REFERENCES users(id),
+    id2 int REFERENCES users(id),
+    PRIMARY KEY(id1, id2)
+);
+
 CREATE TABLE groups (
     id int AUTO_INCREMENT,
     name char(30) NOT NULL UNIQUE,
+    founderId int NOT NULL,
+    FOREIGN KEY (founderId) REFERENCES users(id),
     PRIMARY KEY(id)
 );
 
@@ -36,7 +44,7 @@ CREATE TABLE exercises_answers (
     given_code varchar(50) NOT NULL UNIQUE,
     success bool NOT NULL,
     uId int REFERENCES users(id),
-    eId int REFERENCES Exercises(id),
+    eId int REFERENCES exercises(id),
     PRIMARY KEY(uId, eId)
 );
 
@@ -46,8 +54,10 @@ CREATE TABLE series (
     id int AUTO_INCREMENT,
     title char(50) NOT NULL,
     description varchar(50),
-    makerId int REFERENCES users(id),
-    tId int REFERENCES Types(id),
+    makerId int NOT NULL,
+    FOREIGN KEY (makerId) REFERENCES users(id),
+    tId int NOT NULL,
+    FOREIGN KEY (tId) REFERENCES types(id),
     PRIMARY KEY(id),
     UNIQUE(title, tId)
 );
@@ -66,7 +76,8 @@ CREATE TABLE exercises (
     tips varchar(50),
     start_code varchar(50) NOT NULL,
     expected_result varchar(50) NOT NULL,
-    serieId int REFERENCES series(id),
+    serieId int NOT NULL,
+    FOREIGN KEY (serieId) REFERENCES series(id),
     PRIMARY KEY(id)
 );
 
@@ -161,4 +172,17 @@ BEGIN
     END IF;
 END;//
 
+/* Make sure question, start_code and expected_result are not empty. */
+delimiter //
+CREATE TRIGGER check_friends
+BEFORE INSERT ON friends
+FOR EACH ROW 
+BEGIN
+    IF NEW.id1 = NEW.id2 THEN
+        SET NEW.id1 = Null;
+    END IF;
+    IF EXISTS (SELECT * FROM friends WHERE (id1 = NEW.id1 and id2 = NEW.id2) or (id1 = NEW.id2 and id2 = NEW.id1)) THEN
+        SET NEW.id1 = Null;
+    END IF;
+END;//
 

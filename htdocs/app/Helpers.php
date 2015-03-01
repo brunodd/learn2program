@@ -76,7 +76,7 @@
 
     function storeGroup($group)
     {
-        DB::insert('insert into groups (name) VALUES (?)', [$group->name]);
+        DB::insert('insert into groups (name, founderId) VALUES (?, ?)', [$group->name, $group->founderId]);
     }
 
     function loadAllGroups()

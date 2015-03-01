@@ -1,20 +1,12 @@
 <html> 
 <head> 
-@extends('master')
- 
-</head> 
-<body> 
-
-@section('title')
-    <em>{{ $serie->title }}'s</em> page
-@stop
-
-@section('content')
-    This page should show a list of {{ $serie->title }}'s exercises or something like that...
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script> 
+ 
+</head> 
+ 
+<body> 
  
 <script type="text/javascript"> 
 // output functions are configurable.  This one just appends some text
@@ -58,13 +50,15 @@ def hello(name):
 
 myName = ""
 
-
-hello(myName)
-</textarea><br /> 
+hello(myName)</textarea><br /> 
 <button type="button" onclick="runit()">Run</button> 
 </form> 
 <pre id="output" ></pre> 
 <!-- If you want turtle graphics include a canvas -->
 <canvas id="mycanvas" ></mycanvas> 
  
-@stop
+</body> 
+ 
+</html> 
+
+

@@ -15,6 +15,7 @@ Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 //Route::get('list_all_groups', 'GroupController@list_all_groups');
+Route::get('code', 'PagesController@code');
 
 Route::post('users/login', 'UsersController@login');
 

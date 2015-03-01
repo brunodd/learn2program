@@ -47,7 +47,7 @@ class SeriesController extends Controller {
         $input = $request->all();
 
         // Create Serie object (model)
-        $serie = new Serie;
+        $serie = new Series;
         $serie->title = $input['title'];
         $serie->description = $input['description'];
 

@@ -1,4 +1,21 @@
 # Installation
+##Python interpreter
+Install dependencies (-g flag is optional for global installation):
+
+~~~sh
+$ sudo npm install [-g] jscs
+$ sudo npm install [-g] jshint
+~~~
+
+Clone skulpt repo to public directory. (path tussen vierkante haakjes [../learn2program] eventueel zelf aan te vullen!)
+
+~~~sh
+$ git clone https://github.com/skulpt/skulpt [../learn2program]/htdocs/public/skulpt
+$ cd [../learn2program]/htdocs/public/skulpt
+$ ./skulpt.py dist
+~~~
+Set-up should now be completed.
+
 ##Environment
 Hernoem file:
 
