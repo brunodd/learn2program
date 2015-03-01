@@ -3,7 +3,7 @@
 use App\Http\Requests\Request;
 use Auth;
 
-class CreateSerieRequest extends Request {
+class JoinGroupRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,15 +12,15 @@ class CreateSerieRequest extends Request {
 	 */
 	public function authorize()
 	{
-        //This check is rather redundant since we tackle this problem allready in the create & edit functions
-		if ( Auth::check() )
+        return true;
+		/*if ( Auth::check() )
         {
             return true;
         }
         else
         {
             return false;
-        }
+        }*/
 	}
 
 	/**
@@ -31,9 +31,7 @@ class CreateSerieRequest extends Request {
 	public function rules()
 	{
 		return [
-            'title' =>'required|max:50',
-            'subject' => 'required|max:50',
-            'difficulty' => 'required'
+			//
 		];
 	}
 

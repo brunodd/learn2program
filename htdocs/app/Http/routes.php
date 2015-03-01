@@ -23,6 +23,8 @@ Route::patch('users/{id}/edit', 'UsersController@update');
 Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 
+Route::post('groups/{id}', 'GroupsController@join');
+
 /* Add all routes needed for user. List with:
 $ php artisan route:list */
 Route::resource('users', 'UsersController');

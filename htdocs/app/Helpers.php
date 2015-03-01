@@ -120,6 +120,18 @@
         DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $gId]);
     }
 
+    function noMemberYet($uId, $gId)
+    {
+        if ( !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $gId])) )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     function updateGroup($id, $groupname)
     {
         DB::statement('update groups SET name = ? where id = ?', [$groupname, $id]);

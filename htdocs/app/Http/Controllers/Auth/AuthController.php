@@ -121,7 +121,7 @@ class AuthController extends Controller {
         */
 
         //dd(Hash::make($request->pass), $user[0]->pass, Hash::check($request->pass, $user[0]->pass));
-        if(Hash::check($request->pass, $user[0]->pass)) {
+        if( !empty($user) and Hash::check($request->pass, $user[0]->pass)) {
             //dd($user[0]->id);
             $this->auth->loginUsingId($user[0]->id);
             return redirect()->intended("/");

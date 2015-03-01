@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
-
+use App\Http\Requests\JoinGroupRequest;
 use Auth;
 
 class GroupsController extends Controller {
@@ -145,5 +145,25 @@ class GroupsController extends Controller {
 	{
 		//
 	}
+
+    public function join($id, JoinGroupRequest $request)
+    {
+        $member = noMemberYet(Auth::id(), $id);
+        if ( Auth::check() and $member )
+        {
+            addMember2Group(Auth::id(), $id);
+            return redirect('groups/' . $id);
+        }
+        else if ( Auth::check() and !$member)
+        {
+            $msg = "You are already a member of this group.";
+            $alert = "Cannot join this group!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+
+        $msg = "You must be logged in to join a group.";
+        $alert = "Access Denied!";
+        return view('errors.unknown', compact('msg', 'alert'));
+    }
 
 }
