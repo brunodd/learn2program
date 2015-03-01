@@ -5,7 +5,7 @@ USE learn2program_db;
 
 CREATE TABLE users (
     id int AUTO_INCREMENT,
-    pass char(20) NOT NULL,
+    pass char(255) NOT NULL,
     username char(20) NOT NULL UNIQUE,
     mail char(50) NOT NULL,
     PRIMARY KEY(id)

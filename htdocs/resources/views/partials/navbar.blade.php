@@ -59,9 +59,12 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">My series</a></li>
+                            <li><a href="#">My exercises</a></li>
+                            <li><a href="#">My groups</a></li>
                             <li class="divider"></li>
-                            <li><a href="/logoutj">Log out</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="/logout">Log out</a></li>
                         </ul>
                     </li>
                 @else

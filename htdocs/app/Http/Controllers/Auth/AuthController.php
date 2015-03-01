@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Support\Facades\Hash;
 
 class MyGuard extends \Illuminate\Auth\Guard {
     public function attempt(array $credentials = [], $remember = false, $login = true)
@@ -50,7 +51,7 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+		//$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
     /**
@@ -79,11 +80,15 @@ class AuthController extends Controller {
         }
         $username = $request->username;
         $mail = $request->mail;
-        $pass = bcrypt($request->pass);
+        //$pass = bcrypt($request->pass);
+        $pass = Hash::make($request->pass);
+
+        //dd(Hash::check($request->pass, $pass));
+
         \DB::insert('insert into `users` (`username`, `mail`, `pass`) values (?, ?, ?)', array($username, $mail, $pass));
 
         //$user = $this->registrar->create($request->all());
-        $this->auth->attempt(['mail' => $mail, 'pass' => $pass]);
+        //$this->auth->attempt(['mail' => $mail, 'pass' => $pass]);
 
         return redirect("/");
     }
@@ -105,7 +110,29 @@ class AuthController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function postLogin(Request $request) {
-        dd(bcrypt($request->pass));
+        $user = \DB::select('select * from users where mail = ?', [$request->mail]);
+
+        /*
+        $a = Hash::make($request->pass);
+        $d = Hash::make($request->pass);
+        $b = Hash::check($request->pass, Hash::make('a'));
+        $c = array($a, $d, $b);
+        dd($c);
+        */
+
+        //dd(Hash::make($request->pass), $user[0]->pass, Hash::check($request->pass, $user[0]->pass));
+        if(Hash::check($request->pass, $user[0]->pass)) {
+            //dd($user[0]->id);
+            $this->auth->loginUsingId($user[0]->id);
+            return redirect()->intended("/");
+        }
+
+        return redirect("/login")
+            ->withInput($request->only('mail', 'remember'))
+            ->withErrors('These credentials do not match our records.');
+
+
+        /*
         $this->validate($request, [
             'mail' => 'required|email', 'pass' => 'required',
         ]);
@@ -118,7 +145,7 @@ class AuthController extends Controller {
 
         return redirect("/login")
             ->withInput($request->only('mail', 'remember'))
-            ->withErrors('These credentials do not match our records.');
+            ->withErrors('These credentials do not match our records.');*/
     }
 
     /**
