@@ -51,7 +51,7 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
-		//$this->middleware('guest', ['except' => 'getLogout']);
+		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
     /**
@@ -110,7 +110,10 @@ class AuthController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function postLogin(Request $request) {
-        $user = \DB::select('select * from users where mail = ?', [$request->mail]);
+        $user = \DB::select('select * from users where username = ?', [$request->username]);
+        if(empty($user)) {
+            $user = \DB::select('select * from users where mail = ?', [$request->username]);
+        }
 
         /*
         $a = Hash::make($request->pass);
@@ -121,9 +124,9 @@ class AuthController extends Controller {
         */
 
         //dd(Hash::make($request->pass), $user[0]->pass, Hash::check($request->pass, $user[0]->pass));
-        if(Hash::check($request->pass, $user[0]->pass)) {
+        if(!empty($user) && Hash::check($request->pass, $user[0]->pass)) {
             //dd($user[0]->id);
-            $this->auth->loginUsingId($user[0]->id);
+            $this->auth->loginUsingId($user[0]->id/*, $request->has('remember')*/);
             return redirect()->intended("/");
         }
 
