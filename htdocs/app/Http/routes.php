@@ -42,6 +42,8 @@ Route::resource('series', 'SeriesController');
 $ php artisan route:list */
 Route::resource('groups', 'GroupsController');
 
+Route::resource('exercises', 'ExercisesController');
+
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 Route::get('/login', 'Auth\AuthController@getLogin');

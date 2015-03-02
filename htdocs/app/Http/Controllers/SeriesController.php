@@ -191,7 +191,7 @@ class SeriesController extends Controller {
             return view('errors.unknown', compact('msg', 'alert'));
         }
         $serie = loadSerieWithId($id)[0];
-        return view('series.exercises.create', compact('serie'));
+        return view('exercises.create', compact('serie'));
     }
 
     public function storeExercise($id, CreateExerciseRequest $request)

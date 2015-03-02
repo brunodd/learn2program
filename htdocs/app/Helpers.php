@@ -76,6 +76,16 @@
         DB::insert('insert into exercises (question, tips, start_code, expected_result, serieId) VALUES (?, ?, ?, ?, ?)', [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->serieId]);
     }
 
+    function loadAllExercises()
+    {
+        return DB::select('select * from exercises');
+    }
+
+    function loadExercise($id)
+    {
+        return DB::select('select * from exercises where id = ?', [$id]);
+    }
+
     function removeUnusedTypes()
     {
         DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');

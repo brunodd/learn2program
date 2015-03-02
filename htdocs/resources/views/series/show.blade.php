@@ -13,7 +13,7 @@
     <h2>List of {{ $serie->title }}'s exercises :</h2>
     @if ( $exercises )
     @foreach ( $exercises as $ex )
-    <h4><a href="{{$ex->id}}"></a>Exercise {{$ex->id}}</h4>
+    <h4><a href="../exercises/{{$ex->id}}">Exercise {{$ex->id}}</a></h4>
     @endforeach
     @endif
     @if ( $serie->makerId === Auth::id() )

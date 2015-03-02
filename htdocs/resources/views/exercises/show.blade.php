@@ -6,19 +6,10 @@
 <body> 
 
 @section('title')
-    <em>Exercises {{ $serie->title }}'s</em> page
+<em>Exercise {{ $exercise->id }}'s</em>
 @stop
 
 @section('content')
-    <h2>List of {{ $serie->title }}'s exercises :</h2>
-    @if ( $exercises )
-    @foreach ( $exercises as $ex )
-    <h4><a href="{{$ex->id}}"></a>Exercise {{$ex->id}}</h4>
-    @endforeach
-    @endif
-    @if ( $serie->makerId === Auth::id() )
-        <h3><a href="newex">Add a new exercise</a></h3>
-    @endif
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> 
