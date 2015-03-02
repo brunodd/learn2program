@@ -49,20 +49,16 @@ function runit() {
 } 
 </script> 
  
-<h3>Try This</h3> 
+<h3>{{ $exercise->question }}</h3>
+<p> {{ $exercise->tips }}</p>
 <form> 
 <textarea id="yourcode" cols="40" rows="10">
-def hello(name):
-    print("Hello, " + name)
-
-myName = ""
-
-
-hello(myName)
+{{ $exercise->start_code }}
 </textarea><br /> 
 <button type="button" onclick="runit()">Run</button> 
 </form> 
-<pre id="output" ></pre> 
+<pre id="output" ></pre>
+<pre>Expected output : {{ $exercise->expected_result }}</pre>
 <!-- If you want turtle graphics include a canvas -->
 <canvas id="mycanvas" ></mycanvas> 
 

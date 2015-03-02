@@ -5,9 +5,9 @@ USE learn2program_db;
 
 CREATE TABLE users (
     id int AUTO_INCREMENT,
-    pass char(255) NOT NULL,
-    username char(20) NOT NULL UNIQUE,
-    mail char(50) NOT NULL,
+    pass varchar(255) NOT NULL,
+    username varchar(20) NOT NULL UNIQUE,
+    mail varchar(50) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE friends (
 
 CREATE TABLE groups (
     id int AUTO_INCREMENT,
-    name char(30) NOT NULL UNIQUE,
+    name varchar(30) NOT NULL UNIQUE,
     founderId int NOT NULL,
     FOREIGN KEY (founderId) REFERENCES users(id),
     PRIMARY KEY(id)
@@ -34,14 +34,14 @@ CREATE TABLE members_of_groups (
 /* Only allow 4 values for difficulty? => easy, intermediate, hard, insane */
 CREATE TABLE types (
     id int AUTO_INCREMENT,
-    subject char(50) NOT NULL,
+    subject varchar(50) NOT NULL,
     difficulty ENUM('easy', 'intermediate', 'hard', 'insane') NOT NULL,
     PRIMARY KEY(id),
     UNIQUE(subject, difficulty)
 );
 
 CREATE TABLE exercises_answers (
-    given_code varchar(50) NOT NULL UNIQUE,
+    given_code text NOT NULL,
     success bool NOT NULL,
     uId int REFERENCES users(id),
     eId int REFERENCES exercises(id),
@@ -52,8 +52,8 @@ CREATE TABLE exercises_answers (
     => design the site so that this is always the case? */
 CREATE TABLE series (
     id int AUTO_INCREMENT,
-    title char(50) NOT NULL,
-    description varchar(50),
+    title varchar(50) NOT NULL,
+    description varchar(500),
     makerId int NOT NULL,
     FOREIGN KEY (makerId) REFERENCES users(id),
     tId int NOT NULL,
@@ -72,10 +72,10 @@ CREATE TABLE series_ratings (
 
 CREATE TABLE exercises (
     id int AUTO_INCREMENT,
-    question varchar(50) NOT NULL,
-    tips varchar(50),
-    start_code varchar(50) NOT NULL,
-    expected_result varchar(50) NOT NULL,
+    question varchar(767) NOT NULL,
+    tips varchar(500),
+    start_code text NOT NULL,
+    expected_result text NOT NULL,
     serieId int NOT NULL,
     FOREIGN KEY (serieId) REFERENCES series(id),
     PRIMARY KEY(id)
