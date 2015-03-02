@@ -29,6 +29,8 @@ Route::patch('groups/{id}', 'GroupsController@leave');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 
+Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
+
 
 /* Add all routes needed for user. List with:
 $ php artisan route:list */

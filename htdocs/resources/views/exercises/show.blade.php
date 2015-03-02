@@ -55,16 +55,17 @@ function runit() {
 
 {!! Form::open() !!}
     <div class="form-group">
-    {!! Form::textarea('start_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
+    {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
     </div>
   @if ( Auth::check() )
     <div class="form-group">
-    {!! Form::button('Run', ['class' => 'btn btn-primary', 'onclick' => 'runit()']) !!}
+    {!! Form::submit('Run', ['class' => 'btn btn-primary', 'onclick' => 'runit();']) !!}
     </div>
   @endif
+
+    <pre id="output" ></pre>
 {!! Form::close() !!}
 
-<pre id="output" ></pre>
 <pre>Expected output : {{ $exercise->expected_result }}</pre>
 <!-- If you want turtle graphics include a canvas -->
 <canvas id="mycanvas" ></mycanvas> 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
+use App\Http\Requests\CreateAnswerRequest;
 //use App\Http\Requests\CreateSerieRequest;
 //use App\Http\Requests\UpdateSerieRequest;
 //use App\Http\Requests\CreateExerciseRequest;
@@ -94,5 +95,21 @@ class ExercisesController extends Controller {
 	{
 		//
 	}
+
+    public function storeAnswer($id, CreateAnswerRequest $request)
+    {
+        return $request->all();
+        $input = $request->all();
+        if ( $input['output'] )
+        {
+            return $input['output'];
+        }
+        else
+        {
+            return "no luck...";
+        }
+        //we must show the output when reloading the page, otherwise the output disappears...
+        return redirect('exercises/' . $id);
+    }
 
 }

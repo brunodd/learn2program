@@ -41,11 +41,12 @@ CREATE TABLE types (
 );
 
 CREATE TABLE exercises_answers (
+    id int AUTO_INCREMENT,
     given_code text NOT NULL,
     success bool NOT NULL,
-    uId int REFERENCES users(id),
-    eId int REFERENCES exercises(id),
-    PRIMARY KEY(uId, eId)
+    uId int NOT NULL REFERENCES users(id),
+    eId int NOT NULL REFERENCES exercises(id),
+    PRIMARY KEY(id)
 );
 
 /* Must make sure that at least 1 exercise belongs to a serie
