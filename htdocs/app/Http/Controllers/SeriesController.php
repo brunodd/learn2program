@@ -2,6 +2,7 @@
 
 use App\Series;   // Added to find Serie model.
 use App\Type;   // Added to find Type model.
+use App\Exercise;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
+use App\Http\Requests\CreateExerciseRequest;
 use Auth;
 
 class SeriesController extends Controller {
@@ -91,12 +93,17 @@ class SeriesController extends Controller {
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
         }
+        elseif( !SerieContainsExercises($id) and !isMakerOfSeries($id, Auth::id()) ) {
+            $msg = "No exercises were found for this series. Come back later...";
+            $alert = "No exercises found.";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's home page
             $serie = loadSerieWithId($id)[0];
-            //$exercises = loadExercisesFromSerie($id)[0];
-            return view('series.show', compact('serie'));
+            $exercises = loadExercisesFromSerie($id);
+            return view('series.show', compact('serie', 'exercises'));
         }
 	}
 
@@ -169,4 +176,39 @@ class SeriesController extends Controller {
 		//
 	}
 
+    public function createExercise($id)
+    {
+        if ( !Auth::check() )
+        {
+            $msg = "You must be logged in to create a new exercise.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+        else if ( !isMakerOfSeries($id, Auth::id()) )
+        {
+            $msg = "You must be logged on as the maker of this series in order to add exercises.";
+            $alert = "Access Denied!";
+            return view('errors.unknown', compact('msg', 'alert'));
+        }
+        $serie = loadSerieWithId($id)[0];
+        return view('series.exercises.create', compact('serie'));
+    }
+
+    public function storeExercise($id, CreateExerciseRequest $request)
+    {
+        $input = $request->all();
+
+        // Create Serie object (model)
+        $exercise = new Exercise;
+        $exercise->question = $input['question'];
+        $exercise->tips = $input['tips'];
+        $exercise->start_code = $input['start_code'];
+        $exercise->expected_result = $input['expected_result'];
+        $exercise->serieId = $id;
+
+        // Store in Database
+        storeExercise($exercise);
+
+        return redirect('series/' . $id);
+    }
 }

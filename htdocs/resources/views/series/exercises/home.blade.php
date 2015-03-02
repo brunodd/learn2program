@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Series home page
+    Exercise home page
 @stop
 
 @section('content')

@@ -3,7 +3,7 @@
 use App\Http\Requests\Request;
 use Auth;
 
-class UpdateGroupRequest extends Request {
+class CreateExerciseRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,16 +12,16 @@ class UpdateGroupRequest extends Request {
 	 */
 	public function authorize()
 	{
-        //This check is rather redundant since we tackle this problem allready in the create & edit functions
-        if ( Auth::check() and isFounderOfGroup($this->id, Auth::id()) )
+		//This check is rather redundant since we tackle this problem already in the createExercise function
+        if ( Auth::check() and isMakerOfSeries($this->id, Auth::id() ) )
         {
-		    return true;
-	    }
+            return true;
+        }
         else
         {
             return false;
         }
-    }
+	}
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -31,8 +31,10 @@ class UpdateGroupRequest extends Request {
 	public function rules()
 	{
 		return [
-            'name' => 'required|unique:groups,name,' . $this->id . '|max:30'
-        ];
+			'question' => 'required',
+            'expected_result' => 'required',
+            'start_code' => 'required'
+		];
 	}
 
 }

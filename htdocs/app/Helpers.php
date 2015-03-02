@@ -60,6 +60,22 @@
         }
     }
 
+    function SerieContainsExercises($sId)
+    {
+        if ( !empty(DB::select('select * from exercises where serieId = ?',[$sId])) ) return true;
+        else return false;
+    }
+
+    function loadExercisesFromSerie($sId)
+    {
+        return DB::select('select * from exercises where serieId = ?',[$sId]);
+    }
+
+    function storeExercise($exercise)
+    {
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, serieId) VALUES (?, ?, ?, ?, ?)', [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->serieId]);
+    }
+
     function removeUnusedTypes()
     {
         DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');

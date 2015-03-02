@@ -6,7 +6,7 @@
 <body> 
 
 @section('title')
-    <em>{{ $serie->title }}'s</em> page
+    <em>Exercises {{ $serie->title }}'s</em> page
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
     @endforeach
     @endif
     @if ( $serie->makerId === Auth::id() )
-    <h3><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h3>
+        <h3><a href="newex">Add a new exercise</a></h3>
     @endif
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
