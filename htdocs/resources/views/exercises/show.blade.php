@@ -33,7 +33,7 @@ function builtinRead(x) {
 // get a reference to your pre element for output
 // configure the output function
 // call Sk.importMainWithBody()
-function runit() { 
+function runit() {
    var prog = document.getElementById("yourcode").value; 
    var mypre = document.getElementById("output"); 
    mypre.innerHTML = ''; 
@@ -51,13 +51,18 @@ function runit() {
  
 <h3>{{ $exercise->question }}</h3>
 <p> {{ $exercise->tips }}</p>
-<form> 
+<form>
+
 <textarea id="yourcode" cols="40" rows="10">
 {{ $exercise->start_code }}
-</textarea><br /> 
+</textarea><br />
+@if ( Auth::check() )
 <button type="button" onclick="runit()">Run</button> 
-</form> 
+</form>
 <pre id="output" ></pre>
+@else
+</form>
+@endif
 <pre>Expected output : {{ $exercise->expected_result }}</pre>
 <!-- If you want turtle graphics include a canvas -->
 <canvas id="mycanvas" ></mycanvas> 
