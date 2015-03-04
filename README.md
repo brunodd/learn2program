@@ -33,7 +33,7 @@ DB_PASSWORD=
 [Al de rest mag ongewijzigd blijven]
 
 ##Database
-- Installeren
+- Installeren (manier 1)
 
 [opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
 
@@ -43,12 +43,28 @@ Create tables:
 $ mysql -u root -p < database/learn2program.mysql
 ~~~
 
+- Installeren (manier 2)
+Create tables and insert values into them:
+
+~~~sh
+$ mysql -u root -p
+mysql> create database learn2program_db;
+mysql> exit
+$ php artisan migrate --seed
+~~~
+or
+~~~sh
+$ php artisan migrate
+$ php artisan db:seed
+~~~
+Neemt tables in database/migrations en inputs in database/seeds
+
 - Testen:
 
 ~~~sh
 $ mysql -u root -p
 mysql> use learn2program_db;
-mysql> insert into Users(username, pass) Values("myname", "mypassword");
+( mysql> insert into Users(username, pass) Values("myname", "mypassword"); )
 mysql> select * from Users;
 ~~~
 

@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder {
         $this->call('UsersTableSeeder');
         $this->command->info('users table seeded!');
 
-
-
         $this->call('ExercisesAnswersTableSeeder');
         $this->command->info('exercises_answers table seeded!');
 

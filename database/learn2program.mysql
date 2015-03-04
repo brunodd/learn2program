@@ -40,15 +40,6 @@ CREATE TABLE types (
     UNIQUE(subject, difficulty)
 );
 
-CREATE TABLE exercises_answers (
-    id int AUTO_INCREMENT,
-    given_code text NOT NULL,
-    success bool NOT NULL,
-    uId int NOT NULL REFERENCES users(id),
-    eId int NOT NULL REFERENCES exercises(id),
-    PRIMARY KEY(id)
-);
-
 /* Must make sure that at least 1 exercise belongs to a serie
     => design the site so that this is always the case? */
 CREATE TABLE series (
@@ -81,6 +72,18 @@ CREATE TABLE exercises (
     FOREIGN KEY (serieId) REFERENCES series(id),
     PRIMARY KEY(id)
 );
+
+CREATE TABLE exercises_answers (
+    id int AUTO_INCREMENT,
+    given_code text NOT NULL,
+    success bool NOT NULL,
+    uId int NOT NULL REFERENCES users(id),
+    eId int NOT NULL REFERENCES exercises(id),
+    PRIMARY KEY(id)
+);
+
+
+
 
 /* Make sure password, username and mail are not empty. */
 delimiter //

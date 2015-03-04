@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder {
         User::create(['username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael')]);
         User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad')]);
     }
-
+    /*
     public function runn() {
         DB::table('users')->delete();
 
@@ -22,9 +22,9 @@ class UsersTableSeeder extends Seeder {
             ['id' => 1, 'username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin')],
             ['id' => 2, 'username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno')],
             ['id' => 3, 'username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael')],
-            ['id' => 3, 'username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad')]
+            ['id' => 4, 'username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad')]
         );
 
         DB::table('projects')->insert($projects);
-    }
+    }*/
 }
