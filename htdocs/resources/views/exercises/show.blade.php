@@ -1,9 +1,9 @@
-<html> 
-<head> 
+<html>
+<head>
 @extends('master')
- 
-</head> 
-<body> 
+
+</head>
+<body>
 
 @section('title')
 <em>Exercise {{ $exercise->id }}'s</em>
@@ -11,17 +11,21 @@
 
 @section('content')
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
-<script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> 
-<script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script> 
- 
-<script type="text/javascript"> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+<script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script>
+<script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+var result;
+
 // output functions are configurable.  This one just appends some text
 // to a pre element.
-function outf(text) { 
-    var mypre = document.getElementById("output"); 
-    mypre.innerHTML = mypre.innerHTML + text; 
-} 
+function outf(text) {
+    var mypre = document.getElementById("output");
+    mypre.innerHTML = mypre.innerHTML + text;
+    result = text;
+}
 function builtinRead(x) {
     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
             throw "File not found: '" + x + "'";
@@ -34,41 +38,50 @@ function builtinRead(x) {
 // configure the output function
 // call Sk.importMainWithBody()
 function runit() {
-   var prog = document.getElementById("yourcode").value; 
-   var mypre = document.getElementById("output"); 
-   mypre.innerHTML = ''; 
+   var prog = document.getElementById("yourcode").value;
+   var mypre = document.getElementById("output");
+   mypre.innerHTML = '';
    Sk.canvas = "mycanvas";
    Sk.pre = "output";
-   Sk.configure({output:outf, read:builtinRead}); 
+   Sk.configure({output:outf, read:builtinRead});
    try {
-      eval(Sk.importMainWithBody("<stdin>",false,prog)); 
+      eval(Sk.importMainWithBody("<stdin>",false,prog));
    }
    catch(e) {
        alert(e.toString())
    }
-} 
-</script> 
- 
+}
+function showResult() {
+    runit();
+    // alert("Your result = " + document.getElementById('output').innerHTML);
+    document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
+}
+</script>
+
 <h3>{{ $exercise->question }}</h3>
 <p> {{ $exercise->tips }}</p> <br \>
 <h4>Your code :</h4>
 
-{!! Form::open() !!}
+{!! Form::open(['url' => 'exercises']) !!}
     <div class="form-group">
-    {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
+        {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
     </div>
+    <button type="button" class='btn btn-primary', onclick="showResult()">Run</button>
   @if ( Auth::check() )
+
+    <!-- <pre id="output"></pre> -->
+
     <div class="form-group">
-    {!! Form::submit('Run', ['class' => 'btn btn-primary', 'onclick' => 'runit();']) !!}
+        {!! Form::textarea('result', null, [ 'id' => 'output', 'class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
     </div>
   @endif
-
-    <pre id="output" ></pre>
 {!! Form::close() !!}
 
 <pre>Expected output : {{ $exercise->expected_result }}</pre>
 <!-- If you want turtle graphics include a canvas -->
-<canvas id="mycanvas" ></mycanvas> 
-
-
+<canvas id="mycanvas" ></mycanvas>
 @stop
