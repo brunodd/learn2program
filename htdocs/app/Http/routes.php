@@ -38,6 +38,12 @@ Route::patch('groups/{id}', 'GroupsController@leave');
 Route::resource('groups', 'GroupsController');
 
 
+/*
+ *
+ *Misschien is dit iets handig?
+ *Route::resource('series/{series}/exercises', 'ExercisesController');
+ *
+ */
 Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
 

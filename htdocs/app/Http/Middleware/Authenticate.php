@@ -36,11 +36,14 @@ class Authenticate {
 		{
 			if ($request->ajax())
 			{
-				return response('Unauthorized.', 401);
+				return response('Unauthorized.   \// eens zien wat ajax is', 401);
 			}
 			else
 			{
-				return redirect()->guest('/login');
+                flash()->error('You have to be logged in to do that.')->important();
+
+                //return redirect()->guest('/login');
+                return \Redirect::back();
 			}
 		}
 

@@ -4,13 +4,21 @@
 	<meta charset="utf-8">
 	<title>Learn 2 Program</title>
 
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/all.js"></script>
 </head>
-<body>
-    @include('partials.navbar');
+@include('partials.navbar')
 
+<body>
     <div class="container-fluid">
+        @include('flash::message')
+
+        <script>
+            $('#flash-overlay-modal').modal();
+            $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+        </script>
+
         <div class="jumbotron">
             <h1>Learn2Program
                 <div class="small">
