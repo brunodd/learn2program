@@ -10,7 +10,7 @@
     <ul>
     @foreach($series as $serie)
     @if( SerieContainsExercises($serie->id) or (Auth::id() === $serie->makerId) )
-        <h3><a href="{{ action('SeriesController@show', [$serie->id])}}">{{$serie->title}}</a></h3>
+        <h3><a href="{{ action('SeriesController@show', [$serie->title])}}">{{$serie->title}}</a></h3>
         <p>{{$serie->description}}</p>
     @endif
     @endforeach
@@ -22,5 +22,5 @@
         @endforeach
     @endif
     <h2><a href="series/create">Create new series</a></h2>
-    <h2><a href="/register">Registration page</a></h2>
+    <h2><a href="/login">User login</a></h2>
 @stop

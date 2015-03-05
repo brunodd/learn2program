@@ -11,41 +11,38 @@
 |
 */
 
+
+// List all routes with: $ php artisan route:list
+
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 //Route::get('list_all_groups', 'GroupController@list_all_groups');
 Route::get('code', 'PagesController@code');
 
+
 Route::post('users/login', 'UsersController@login');
-
 Route::patch('users/{id}/edit', 'UsersController@update');
-Route::patch('series/{id}/edit', 'SeriesController@update');
-Route::patch('groups/{id}/edit', 'GroupsController@update');
-
-Route::post('groups/{id}', 'GroupsController@join');
-Route::patch('groups/{id}', 'GroupsController@leave');
-
-Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
-Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
-
-Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
-
-
-/* Add all routes needed for user. List with:
-$ php artisan route:list */
 Route::resource('users', 'UsersController');
 
-/* Add all routes needed for s. List with:
-$ php artisan route:list */
+
+Route::patch('series/{id}/edit', 'SeriesController@update');
+Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
+Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::resource('series', 'SeriesController');
 
-/* Add all routes needed for group. List with:
-$ php artisan route:list */
+
+Route::patch('groups/{id}/edit', 'GroupsController@update');
+Route::post('groups/{id}', 'GroupsController@join');
+Route::patch('groups/{id}', 'GroupsController@leave');
 Route::resource('groups', 'GroupsController');
 
+
+Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
 
+
+//Authentication related
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 Route::get('/login', 'Auth\AuthController@getLogin');
@@ -55,3 +52,4 @@ Route::get('/email', 'Auth\PasswordController@getEmail');
 Route::post('/email', 'Auth\PasswordController@postEmail');
 Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
+

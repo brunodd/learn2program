@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Series;
 
 class SeriesTableSeeder extends Seeder {
 
     public function run() {
         DB::table('series')->delete();
 
+        Series::create(['title' => 'aa', 'description' => 'aaa', 'makerId' => 1, 'tId' => 1]);
+        Series::create(['title' => 'bb', 'description' => 'bbb', 'makerId' => 2, 'tId' => 2]);
+        Series::create(['title' => 'cc', 'description' => 'ccc', 'makerId' => 3, 'tId' => 3]);
     }
 }

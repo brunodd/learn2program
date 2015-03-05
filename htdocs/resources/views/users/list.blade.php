@@ -15,7 +15,7 @@
     <tr>
     @foreach($users as $user)
         <td>{{ $user->id }}</td>
-        <td><a href="{{ action('UsersController@show', [$user->id])}}">{{ $user->username }}</a></td>
+        <td><a href="{{ action('UsersController@show', [$user->username])}}">{{ $user->username }}</a></td>
         <td>{{ $user->pass }}</td>
         <td>{{ $user->mail }}</td>
     </tr>

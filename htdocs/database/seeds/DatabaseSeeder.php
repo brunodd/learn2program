@@ -22,12 +22,6 @@ class DatabaseSeeder extends Seeder {
         $this->call('UsersTableSeeder');
         $this->command->info('users table seeded!');
 
-        $this->call('ExercisesAnswersTableSeeder');
-        $this->command->info('exercises_answers table seeded!');
-
-        $this->call('ExercisesTableSeeder');
-        $this->command->info('exercises table seeded!');
-
         $this->call('FriendsTableSeeder');
         $this->command->info('friends table seeded!');
 
@@ -37,14 +31,20 @@ class DatabaseSeeder extends Seeder {
         $this->call('MemersOfGroupsTableSeeder');
         $this->command->info('members_of_groups table seeded!');
 
-        $this->call('SeriesRatingsTableSeeder');
-        $this->command->info('series_ratings table seeded!');
+        $this->call('TypesTableSeeder');
+        $this->command->info('types table seeded!');
 
         $this->call('SeriesTableSeeder');
         $this->command->info('series table seeded!');
 
-        $this->call('TypesTableSeeder');
-        $this->command->info('types table seeded!');
+        $this->call('SeriesRatingsTableSeeder');
+        $this->command->info('series_ratings table seeded!');
+
+        $this->call('ExercisesTableSeeder');
+        $this->command->info('exercises table seeded!');
+
+        $this->call('ExercisesAnswersTableSeeder');
+        $this->command->info('exercises_answers table seeded!');
 	}
 
 }

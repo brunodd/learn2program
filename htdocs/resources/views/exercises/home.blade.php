@@ -18,5 +18,5 @@
             <li>{{ $error }}</li>
         @endforeach
     @endif
-    <h2><a href="/register">Registration page</a></h2>
+    <h2><a href="/login">User login</a></h2>
 @stop

@@ -99,7 +99,7 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if(empty(loadSerieWithId($id))) {
+        if(empty(loadSerieWithIdOrTitle($id))) {
             $msg = "Unknown series";
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
@@ -112,7 +112,7 @@ class SeriesController extends Controller {
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's home page
-            $serie = loadSerieWithId($id)[0];
+            $serie = loadSerieWithIdOrTitle($id)[0];
             $exercises = loadExercisesFromSerie($id);
             return view('series.show', compact('serie', 'exercises'));
         }

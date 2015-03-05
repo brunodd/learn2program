@@ -33,6 +33,11 @@
         return DB::select('select * from series where id = ?', [$id]);
     }
 
+    function loadSerieWithIdOrTitle($id)
+    {
+        return DB::select('select * from series where id = ? or title = ?', [$id, $id]);
+    }
+
     function loadSerie($title, $tId)
     {
         return DB::select('select * from series where title = ? and tId = ?', [$title, $tId]);

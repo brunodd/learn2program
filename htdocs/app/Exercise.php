@@ -16,5 +16,5 @@ class Exercise extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['question', 'start_code', 'tips', 'expected_result'];
+	protected $fillable = ['question', 'tips', 'start_code', 'expected_result', 'serieId'];
 }

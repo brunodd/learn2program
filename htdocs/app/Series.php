@@ -16,6 +16,6 @@ class Series extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title', 'description'];
+	protected $fillable = ['title', 'description', 'makerId', 'tId'];
 
 }
