@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 
-var result;
+// var result;
 
 // output functions are configurable.  This one just appends some text
 // to a pre element.
@@ -53,7 +53,7 @@ function runit() {
 }
 function showResult() {
     runit();
-    // alert("Your result = " + document.getElementById('output').innerHTML);
+    alert("Your result = " + document.getElementById('output').innerHTML);
     document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
 }
 </script>
@@ -62,15 +62,13 @@ function showResult() {
 <p> {{ $exercise->tips }}</p> <br \>
 <h4>Your code :</h4>
 
-{!! Form::open(['url' => 'exercises']) !!}
+{!! Form::open() !!}
     <div class="form-group">
         {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
     </div>
     <button type="button" class='btn btn-primary', onclick="showResult()">Run</button>
+
   @if ( Auth::check() )
-
-    <!-- <pre id="output"></pre> -->
-
     <div class="form-group">
         {!! Form::textarea('result', null, [ 'id' => 'output', 'class' => 'form-control']) !!}
     </div>
