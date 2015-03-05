@@ -121,6 +121,7 @@ class GroupsController extends Controller {
 	 */
 	public function update($id, UpdateGroupRequest $request)
 	{
+	    dd($id);
         //AGAIN, WE MUST CHECK WHETHER THE "REQUESTER" IS ALLOWED TO PERFORM THIS ACTION -> only founders can access edit page
         // thus => everything ok
         $input = $request->all();

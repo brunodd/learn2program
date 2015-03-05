@@ -47,7 +47,7 @@ class ExercisesController extends Controller {
 	public function store()
 	{
         $output = Request::all();
-        return ($output['result']);
+        return $output['result'];
 		//handled in SeriesController
 	}
 
