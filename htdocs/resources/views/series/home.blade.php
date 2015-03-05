@@ -21,6 +21,10 @@
             <li>{{ $error }}</li>
         @endforeach
     @endif
+    @if ( Auth::check() )
     <h2><a href="series/create">Create new series</a></h2>
+    @else
     <h2><a href="/login">User login</a></h2>
+    @endif
+
 @stop

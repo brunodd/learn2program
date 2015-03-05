@@ -156,8 +156,6 @@
         {
             return false;
         }
-
-
     }
 
     function addMember2Group($uId, $gId)

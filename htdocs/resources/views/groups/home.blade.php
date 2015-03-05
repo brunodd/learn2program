@@ -20,6 +20,9 @@
             <li>{{ $error }}</li>
         @endforeach
     @endif
+    @if( Auth::check() )
     <h2><a href="groups/create">Create new group</a></h2>
+    @else
     <h2><a href="/login">User login</a></h2>
+    @endif
 @stop
