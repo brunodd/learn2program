@@ -104,7 +104,7 @@ class SeriesController extends Controller {
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
         }
-        elseif( !SerieContainsExercises($id) and !isMakerOfSeries($id, Auth::id()) ) {
+        elseif( !SerieContainsExercises2($id) and !isMakerOfSeries($id, Auth::id()) ) {
             $msg = "No exercises were found for this series. Come back later...";
             $alert = "No exercises found.";
             return view('errors.unknown', compact('msg', 'alert'));
@@ -113,7 +113,7 @@ class SeriesController extends Controller {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's home page
             $serie = loadSerieWithIdOrTitle($id)[0];
-            $exercises = loadExercisesFromSerie($id);
+            $exercises = loadExercisesFromSerie2($id);
             return view('series.show', compact('serie', 'exercises'));
         }
 	}

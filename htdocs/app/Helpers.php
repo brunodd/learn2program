@@ -71,9 +71,23 @@
         else return false;
     }
 
+    function SerieContainsExercises2($sId)
+    {
+        $seriesID = loadSerieWithIdOrTitle($sId);
+        if ( !empty(DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id])) ) return true;
+
+        else return false;
+    }
+
     function loadExercisesFromSerie($sId)
     {
         return DB::select('select * from exercises where serieId = ?',[$sId]);
+    }
+
+    function loadExercisesFromSerie2($sId)
+    {
+        $seriesID = loadSerieWithIdOrTitle($sId);
+        return DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id]);
     }
 
     function storeExercise($exercise)
