@@ -54,7 +54,7 @@ function runit() {
 function showResult() {
     runit();
     // alert("Your result = " + document.getElementById('output').innerHTML);
-    document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
+    document.getElementById("result").innerHTML = document.getElementById("output").innerHTML;
 }
 </script>
 
@@ -62,7 +62,7 @@ function showResult() {
 <p> {{ $exercise->tips }}</p> <br \>
 <h4>Your code :</h4>
 
-{!! Form::open(['url' => 'exercises']) !!}
+{!! Form::open() !!}
     <div class="form-group">
         {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
     </div>

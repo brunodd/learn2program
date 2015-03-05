@@ -95,6 +95,7 @@ class GroupsController extends Controller {
 	 */
 	public function edit($id)
 	{
+        return $id;
         if(empty(loadGroup($id))) {
             $msg = "Unknown group";
             $alert = "This group does not exist.";

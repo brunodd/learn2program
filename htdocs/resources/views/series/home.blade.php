@@ -9,7 +9,7 @@
 
     <ul>
     @foreach($series as $serie)
-    @if( SerieContainsExercises($serie->id) or (Auth::id() === $serie->makerId) )
+    @if( SerieContainsExercises2($serie->id) or (Auth::id() === $serie->makerId) )
         <h3><a href="{{ action('SeriesController@show', [$serie->title])}}">{{$serie->title}}</a></h3>
         <p>{{$serie->description}}</p>
     @endif

@@ -55,7 +55,8 @@
 
     function isMakerOfSeries($sId, $mId)
     {
-        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$sId, $mId])) )
+        $serieID = loadSerieWithIdOrTitle($sId)[0]->id;
+        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$serieID, $mId])) )
         {
             return true;
         }
@@ -75,7 +76,6 @@
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
         if ( !empty(DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id])) ) return true;
-
         else return false;
     }
 
@@ -148,7 +148,7 @@
 
     function isFounderOfGroup($groupId, $founderId)
     {
-        if ( !empty(DB::select('select * from groups where id = ? and founderId = ?',[$groupId, $founderId])) )
+        if ( !empty(DB::select('select * from groups where (id = ? or name = ?) and founderId = ?',[$groupId, $groupId, $founderId])) )
         {
             return true;
         }
@@ -162,17 +162,22 @@
 
     function addMember2Group($uId, $gId)
     {
-        DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $gId]);
+        $group = loadGroup($gId);
+        if ( !empty($group) ) DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group[0]->id]);
+        //else we must throw an error, however theoretically this should never be the case...
     }
 
     function deleteMemberFromGroup($uId, $gId)
     {
-        DB::statement('delete from members_of_groups where memberId = ? and groupId = ?', [$uId, $gId]);
+        $group = loadGroup($gId);
+        if ( !empty($group) ) DB::statement('delete from members_of_groups where memberId = ? and groupId = ?', [$uId, $group[0]->id]);
+        //else we must throw an error, however theoretically this should never be the case...
     }
 
     function noMemberYet($uId, $gId)
     {
-        if ( !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $gId])) )
+        $group = loadGroup($gId);
+        if ( !empty($group) and !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $group[0]->id])) )
         {
             return false;
         }
