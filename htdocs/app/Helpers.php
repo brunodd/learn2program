@@ -189,7 +189,8 @@
 
     function updateGroup($id, $groupname)
     {
-        DB::statement('update groups SET name = ? where id = ?', [$groupname, $id]);
+        $group = loadGroup($id);
+        if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group->id]);
     }
 
 ?>
