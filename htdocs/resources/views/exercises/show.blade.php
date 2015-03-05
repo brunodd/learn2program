@@ -53,13 +53,8 @@ function runit() {
 }
 function showResult() {
     runit();
-<<<<<<< HEAD
     // alert("Your result = " + document.getElementById('output').innerHTML);
-    document.getElementById("result").innerHTML = document.getElementById("output").innerHTML;
-=======
-    alert("Your result = " + document.getElementById('output').innerHTML);
     document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
->>>>>>> b04f54b811c9668959fdfde9fa143a89ad7961fb
 }
 </script>
 
