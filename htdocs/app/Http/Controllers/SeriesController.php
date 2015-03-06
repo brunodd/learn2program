@@ -154,7 +154,7 @@ class SeriesController extends Controller {
 	{
         $input = $request->all();
 
-        $serie = new Serie;
+        $serie = new Series;
         $serie->title = $input['title'];
         $serie->description = $input['description'];
         $type = new Type;

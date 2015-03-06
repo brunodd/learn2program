@@ -54,7 +54,7 @@ function runit() {
 function showResult() {
     runit();
     // alert("Your result = " + document.getElementById('output').innerHTML);
-    document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
+    //document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
 }
 </script>
 
@@ -63,18 +63,24 @@ function showResult() {
 <h4>Your code :</h4>
 
 {!! Form::open() !!}
+
+    @if ( $answer === null )
     <div class="form-group">
         {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
     </div>
-    <button type="button" class='btn btn-primary', onclick="showResult()">Run</button>
+    @else
+    <div class="form-group">
+        {!! Form::textarea('given_code', $answer, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
+    </div>
+    @endif
 
   @if ( Auth::check() )
     <div class="form-group">
-        {!! Form::textarea('result', null, [ 'id' => 'output', 'class' => 'form-control']) !!}
+    {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit('Run', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
     </div>
   @endif
 {!! Form::close() !!}

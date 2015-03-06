@@ -1,8 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Series;   // Added to find Serie model.
-use App\Type;   // Added to find Type model.
-use App\Exercise;
+use App\Answer;   // Added to find Answer model.
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -46,8 +44,6 @@ class ExercisesController extends Controller {
 	 */
 	public function store()
 	{
-        $output = Request::all();
-        return $output['result'];
 		//handled in SeriesController
 	}
 
@@ -60,7 +56,9 @@ class ExercisesController extends Controller {
 	public function show($id)
 	{
         $exercise = loadExercise($id)[0];
-		return view('exercises.show', compact('exercise'));
+        $result = null;
+        $answer = null;
+		return view('exercises.show', compact('exercise', 'result', 'answer'));
 	}
 
 	/**
@@ -100,18 +98,27 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
-        return $request->all();
+        $exercise = loadExercise($id)[0];
         $input = $request->all();
-        if ( $input['output'] )
-        {
-            return $input['output'];
-        }
-        else
-        {
-            return "no luck...";
-        }
-        //we must show the output when reloading the page, otherwise the output disappears...
-        return redirect('exercises/' . $id);
+
+        //must check for empty answers & stuff like that...
+        //must also find a way to avoid duplicate answers since 'text' types can't be used as key
+
+        $ans = new Answer;
+        $ans->given_code = $input['given_code'];
+
+        //something fishy happens here with the strings, hence the self written compare function
+        //must test situations where output is shown on multiple lines!
+        //ask raphael for more details!
+        $ans->success = compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)));
+        $ans->uId = Auth::id();
+        $ans->eId = $id;
+
+        storeAnswer($ans);
+
+        $result = $input['result'];
+        $answer = $input['given_code'];
+        return view('exercises.show', compact('exercise', 'result', 'answer'));
     }
 
 }

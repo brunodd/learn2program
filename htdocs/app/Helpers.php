@@ -191,4 +191,21 @@
         if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group->id]);
     }
 
+    function storeAnswer($ans)
+    {
+        DB::insert('insert into exercises_answers (given_code, success, uId, eId) values (?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId]);
+    }
+
+
+
+    function compare($s1, $s2)
+    {
+        $length = strlen($s1);
+        if( $length != strlen($s2) ) return false;
+        for($i=0; $i < $length; $i++)
+        {
+            if( $s1[$i] != $s2[$i] ) return false;
+        }
+        return true;
+    }
 ?>
