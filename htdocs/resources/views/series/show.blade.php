@@ -21,7 +21,14 @@
     @endif
 
     <br \> <br \>
+    @if( unratedSeries($serie->id) )
+    <h4>No ratings found for this series.</h4>
+    @else
+    <h4>Average rating : {{ averageRating($serie->id) }} / 5</h4>
+    @endif
+
     @if ( Auth::check() and notRatedYet(Auth::id(), $serie->id))
+        <br \> <br \>
         {!! Form::open() !!}
             <div class="form-group">
             {!! Form::label('rating', 'Rate this series: ') !!}

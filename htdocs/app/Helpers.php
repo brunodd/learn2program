@@ -207,6 +207,24 @@
         DB::insert('insert into series_ratings (rating, userId, serieId) VALUES (?, ?, ?)', [$nr->rating, $nr->userId, $nr->serieId]);
     }
 
+    function unratedSeries($sId)
+    {
+        if( empty(DB::select('select * from series_ratings where serieId = ?', [$sId])) ) return true;
+        else return false;
+    }
+
+    function averageRating($sId)
+    {
+        $ratings = DB::select('select * from series_ratings where serieId = ?', [$sId]);
+        $avg = 0;
+        foreach( $ratings as $r )
+        {
+            $avg = $avg + $r->rating;
+        }
+        $avg = $avg / count($ratings);
+        return $avg;
+    }
+
 
     function compare($s1, $s2)
     {
