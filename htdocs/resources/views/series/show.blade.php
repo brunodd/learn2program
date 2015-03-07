@@ -20,6 +20,21 @@
     <h3><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h3>
     @endif
 
+    <br \> <br \>
+    @if ( Auth::check() and notRatedYet(Auth::id(), $serie->id))
+        {!! Form::open() !!}
+            <div class="form-group">
+            {!! Form::label('rating', 'Rate this series: ') !!}
+            {!! Form::select('rating', [null => 'Select rating...', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) !!}
+            </div>
+            <div class="form-group">
+            {!! Form::hidden('sId', $serie->id) !!}
+            </div>
+            <div class="form-group">
+            {!! Form::submit('Submit rating', ['class' => 'btn btn-primary']) !!}
+            </div>
+        {!! Form::close() !!}
+    @endif
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script> 
@@ -73,7 +88,7 @@ hello(myName)
 </form> 
 <pre id="output" ></pre> 
 <!-- If you want turtle graphics include a canvas -->
-<canvas id="mycanvas" ></mycanvas> 
+<canvas id="mycanvas" ></mycanvas>
 
 
 @stop

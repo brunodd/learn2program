@@ -3,6 +3,7 @@
 use App\Series;   // Added to find Serie model.
 use App\Type;   // Added to find Type model.
 use App\Exercise;
+use App\Rating;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
 use App\Http\Requests\CreateExerciseRequest;
+use App\Http\Requests\CreateRatingRequest;
 use Auth;
 
 class SeriesController extends Controller {
@@ -220,5 +222,26 @@ class SeriesController extends Controller {
         storeExercise($exercise);
 
         return redirect('series/' . $id);
+    }
+
+    public function storeRating($id, CreateRatingRequest $request)
+    {
+        $input = $request->all();
+        if( $input['rating'] == null )
+        {
+            flash()->error("You must choose a value in order to rate this series.");
+            return \Redirect::back();
+        }
+
+        $newrating = new Rating;
+        $newrating->rating = $input['rating'];
+        $newrating->userId = Auth::id();
+        $newrating->serieId = $input['sId'];
+
+        //we already know that the "requester" hasn't rated this serie yet
+        addRating($newrating);
+
+        flash()->success("Your rating has been successfully stored.");
+        return \Redirect::back();
     }
 }

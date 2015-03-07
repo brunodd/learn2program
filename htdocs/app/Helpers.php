@@ -196,6 +196,16 @@
         DB::insert('insert into exercises_answers (given_code, success, uId, eId) values (?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId]);
     }
 
+    function notRatedYet($uId, $sId)
+    {
+        if( empty(DB::select('select * from series_ratings where userId = ? and serieId = ?', [$uId, $sId])) ) return true;
+        else return false;
+    }
+
+    function addRating($nr)
+    {
+        DB::insert('insert into series_ratings (rating, userId, serieId) VALUES (?, ?, ?)', [$nr->rating, $nr->userId, $nr->serieId]);
+    }
 
 
     function compare($s1, $s2)
