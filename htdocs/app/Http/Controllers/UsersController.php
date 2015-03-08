@@ -123,7 +123,7 @@ class UsersController extends Controller {
             flash()->error('That user does not exist.')->important();
             return redirect('users');
         }
-        else if ( !Auth::check() or (loadUser($id)[0]->id != Auth::id()) )
+        else if (loadUser($id)[0]->id != Auth::id())
         {
             /*
             $msg = "You must be logged in as this user in order to edit.";

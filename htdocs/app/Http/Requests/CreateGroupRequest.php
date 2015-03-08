@@ -13,14 +13,7 @@ class CreateGroupRequest extends Request {
 	public function authorize()
 	{
         //This check is rather redundant since we tackle this problem allready in the create & edit functions
-        if ( Auth::check() )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return true;
 	}
 
 	/**

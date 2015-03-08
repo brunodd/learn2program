@@ -12,8 +12,8 @@ class UpdateUserRequest extends Request {
 	 */
 	public function authorize()
 	{
-        //This check is rather redundant since we tackle this problem allready in the edit functions
-        if ( Auth::check() and ($this->id == Auth::id()) )
+        //This check is rather redundant since we tackle this problem already in the edit functions
+        if (($this->id == Auth::id()))
         {
 		    return true;
 	    }

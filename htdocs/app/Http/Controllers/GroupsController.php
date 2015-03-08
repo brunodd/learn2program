@@ -44,14 +44,7 @@ class GroupsController extends Controller {
 	 */
 	public function create()
 	{
-        /*
-        if ( !Auth::check() )
-        {
-            $msg = "You must be logged in to create a new group.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-        }
-        */
+
 		return view('groups.create');
 	}
 
@@ -175,22 +168,20 @@ class GroupsController extends Controller {
     public function join($id)
     {
         $member = noMemberYet(Auth::id(), $id);
-        if ( Auth::check() and $member )
+        if ($member)
         {
             addMember2Group(Auth::id(), $id);
             flash()->success('You succesfully joined the group.');
             return redirect('groups/' . $id);
         }
-        else if ( Auth::check() and !$member)
-        {
-            /*
-            $msg = "You are already a member of this group.";
-            $alert = "Cannot join this group!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
-            flash()->error('You are already a member of this group.');
-            return redirect('groups/' . $id);
-        }
+
+        /*
+        $msg = "You are already a member of this group.";
+        $alert = "Cannot join this group!";
+        return view('errors.unknown', compact('msg', 'alert'));
+        */
+        flash()->error('You are already a member of this group.');
+        return redirect('groups/' . $id);
     }
 
     public function leave($id)

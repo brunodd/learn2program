@@ -112,7 +112,7 @@ class SeriesController extends Controller {
             $serie = null;
             foreach( $series as $s)
             {
-                $condition = (SerieContainsExercises($s->id) or (Auth::check() and ($s->makerId == Auth::id())) );
+                $condition = (SerieContainsExercises($s->id) or ($s->makerId == Auth::id()) );
                 if( $break and $condition ) return view('series.duplicates', compact('series'));
                 elseif( $condition )
                 {
@@ -160,7 +160,7 @@ class SeriesController extends Controller {
             flash()->error('That series does not exist.')->important();
             return redirect('series');
         }
-        else if ( !Auth::check() or !isMakerOfSeries($id, Auth::id()) )
+        else if (!isMakerOfSeries($id, Auth::id()) )
         {
             /*
             $msg = "You must be logged in as the maker of this series in order to edit.";

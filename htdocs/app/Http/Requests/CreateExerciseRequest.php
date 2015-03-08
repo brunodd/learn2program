@@ -13,7 +13,7 @@ class CreateExerciseRequest extends Request {
 	public function authorize()
 	{
 		//This check is rather redundant since we tackle this problem already in the createExercise function
-        if ( Auth::check() and isMakerOfSeries($this->id, Auth::id() ) )
+        if (isMakerOfSeries($this->id, Auth::id()))
         {
             return true;
         }

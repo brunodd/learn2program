@@ -12,8 +12,8 @@ class UpdateGroupRequest extends Request {
 	 */
 	public function authorize()
 	{
-        //This check is rather redundant since we tackle this problem allready in the create & edit functions
-        if ( Auth::check() and isFounderOfGroup($this->id, Auth::id()) )
+        //This check is rather redundant since we tackle this problem already in the create & edit functions
+        if (isFounderOfGroup($this->id, Auth::id()))
         {
 		    return true;
 	    }
