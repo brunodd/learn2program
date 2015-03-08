@@ -30,7 +30,6 @@ Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}', 'SeriesController@storeRating');
 Route::resource('series', 'SeriesController');
-Route::get('series/{title}?{id}', 'SeriesController@showCustom');  //<-- showCustom bestaat niet denk ik ?
 
 
 Route::patch('groups/{id}/edit', 'GroupsController@update');

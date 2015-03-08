@@ -10,7 +10,11 @@
     <small>
         Subject : {{$type->subject}}<br>
         Difficulty : {{$type->difficulty}} <br>
+        @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
         <a href="{{ action('SeriesController@edit', $serie->title )}}">Edit</a>
+        @else
+        <a href="{{ action('SeriesController@edit', $serie->id )}}">Edit</a>
+        @endif
     </small>
 @stop
 
