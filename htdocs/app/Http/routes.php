@@ -32,6 +32,7 @@ Route::post('series/{id}', 'SeriesController@storeRating');
 Route::resource('series', 'SeriesController');
 Route::get('series/{title}?{id}', 'SeriesController@showCustom');
 
+
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 Route::post('groups/{id}', 'GroupsController@join');
 Route::patch('groups/{id}', 'GroupsController@leave');

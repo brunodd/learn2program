@@ -65,7 +65,7 @@
                             <li><a href="#">My exercises</a></li>
                             <li><a href="#">My groups</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Settings</a></li>
+                            <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>
                         </ul>
                     </li>

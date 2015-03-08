@@ -193,7 +193,7 @@
     function updateGroup($id, $groupname)
     {
         $group = loadGroup($id);
-        if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group->id]);
+        if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group[0]->id]);
     }
 
     function storeAnswer($ans)

@@ -92,9 +92,13 @@ class UsersController extends Controller {
 	public function show($id)
 	{
         if(empty(loadUser($id))) {
+            /*
             $msg = "Unknown user";
             $alert = "This user does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That user does not exist.')->important();
+            return redirect('users');
         }
         else {
             $user = loadUser($id)[0];
@@ -111,15 +115,23 @@ class UsersController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
+            /*
             $msg = "Unknown user";
             $alert = "This user does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That user does not exist.')->important();
+            return redirect('users');
         }
-        else if ( !Auth::check() or ($id != Auth::id()) )
+        else if ( !Auth::check() or (loadUser($id)[0]->id != Auth::id()) )
         {
+            /*
             $msg = "You must be logged in as this user in order to edit.";
             $alert = "Access Denied!";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('You must be logged in as this user in order to edit.')->important();
+            return redirect('users' . $id);
         }
         else {
             $user = loadUser($id)[0];
