@@ -35,7 +35,7 @@ class SeriesController extends Controller {
 	 */
 	public function index()
 	{
-        $series = loadAllSeries();
+        $series = loadAllDistinctSeries();
 		return view('series.home', compact('series'));
 	}
 
@@ -100,12 +100,33 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if(empty(loadSerieWithIdOrTitle($id))) {
+        $series = loadSerieWithIdOrTitle($id);
+        if(empty($series)) {
             $msg = "Unknown series";
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
         }
-        elseif( !SerieContainsExercises2($id) and !isMakerOfSeries($id, Auth::id()) ) {
+        elseif( count($series) > 1)
+        {
+            //special case must be caught where multiple series exist with same title but only 1 serie contains exercises
+            // -> redirect immediately
+            $break = false;
+            $serie = null;
+            foreach( $series as $s)
+            {
+                $condition = (SerieContainsExercises($s->id) or (Auth::check() and ($s->makerId == Auth::id())) );
+                if( $break and $condition ) return view('series.duplicates', compact('series'));
+                elseif( $condition )
+                {
+                    $break = true;
+                    $serie = $s;
+                }
+            }
+            $type = loadType2($serie->tId)[0];
+            $exercises = loadExercisesFromSerie($serie->id);
+            return view('series.show', compact('serie', 'exercises', 'type'));
+        }
+        elseif( !SerieContainsExercises($series[0]->id) and !isMakerOfSeries($series[0]->id, Auth::id()) ) {
             $msg = "No exercises were found for this series. Come back later...";
             $alert = "No exercises found.";
             return view('errors.unknown', compact('msg', 'alert'));
@@ -113,9 +134,10 @@ class SeriesController extends Controller {
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's home page
-            $serie = loadSerieWithIdOrTitle($id)[0];
-            $exercises = loadExercisesFromSerie2($id);
-            return view('series.show', compact('serie', 'exercises'));
+            $serie = $series[0];
+            $type = loadType2($serie->tId)[0];
+            $exercises = loadExercisesFromSerie($serie->id);
+            return view('series.show', compact('serie', 'exercises', 'type'));
         }
 	}
 

@@ -48,6 +48,11 @@
         return DB::select('select * from series');
     }
 
+    function loadAllDistinctSeries()
+    {
+        return DB::select('select * from series group by title');
+    }
+
     function updateSerie($id, $serie, $typeId)
     {
         DB::statement('update series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);
@@ -55,8 +60,8 @@
 
     function isMakerOfSeries($sId, $mId)
     {
-        $serieID = loadSerieWithIdOrTitle($sId)[0]->id;
-        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$serieID, $mId])) )
+        //$serieID = loadSerieWithIdOrTitle($sId)[0]->id;
+        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$sId, $mId])) )
         {
             return true;
         }
@@ -72,23 +77,23 @@
         else return false;
     }
 
-    function SerieContainsExercises2($sId)
+    /*function SerieContainsExercises2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
         if ( !empty(DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id])) ) return true;
         else return false;
-    }
+    }*/
 
     function loadExercisesFromSerie($sId)
     {
         return DB::select('select * from exercises where serieId = ?',[$sId]);
     }
 
-    function loadExercisesFromSerie2($sId)
+    /*function loadExercisesFromSerie2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
         return DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id]);
-    }
+    }*/
 
     function storeExercise($exercise)
     {

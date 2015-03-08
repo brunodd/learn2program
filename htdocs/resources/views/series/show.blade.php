@@ -6,10 +6,14 @@
 <body> 
 
 @section('title')
-    <em>{{ $serie->title }}'s</em> page
+    <em>{{ $serie->title }}'s</em> page <br \>
+    <small>Subject : {{$type->subject}}<br \>
+    Difficulty : {{$type->difficulty}}</small>
 @stop
 
 @section('content')
+    <h2>Description :</h2>
+    <p>{{$serie->description}}</p>
     <h2>List of {{ $serie->title }}'s exercises :</h2>
     @if ( $exercises )
     @foreach ( $exercises as $ex )
