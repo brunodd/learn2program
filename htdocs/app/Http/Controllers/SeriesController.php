@@ -151,7 +151,7 @@ class SeriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        if(empty(loadSerieWithId($id))) {
+        if(empty(loadSerieWithIdOrTitle($id))) {
             /*
             $msg = "Unknown series";
             $alert = "This series does not exist.";
@@ -171,7 +171,7 @@ class SeriesController extends Controller {
             return redirect('series/' . $id);
         }
         else {
-            $serie = loadSerieWithId($id)[0];
+            $serie = loadSerieWithIdOrTitle($id)[0];
             $type = loadType2($serie->tId)[0];
             return view('series.edit', compact('serie', 'type'));
         }

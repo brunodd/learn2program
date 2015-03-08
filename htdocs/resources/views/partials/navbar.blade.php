@@ -23,11 +23,12 @@
                 <li><a href="/groups">Groups</a></li>
 
                 <li><a href="/about">About</a></li>
+
+                <li><a href="/users">Users</a></li>
             </ul>
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/list_all_users">Users</a></li>
 
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
@@ -35,7 +36,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Action</a></li>
+                        <li><a href="/list_all_users">List All Users</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>

@@ -21,7 +21,8 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-        return view('users.home');
+        $users = loadusers();
+        return view('users.home', compact('users'));
 	}
 
 	/**
@@ -131,7 +132,7 @@ class UsersController extends Controller {
             return view('errors.unknown', compact('msg', 'alert'));
             */
             flash()->error('You must be logged in as this user in order to edit.')->important();
-            return redirect('users' . $id);
+            return redirect('users/' . $id);
         }
         else {
             $user = loadUser($id)[0];

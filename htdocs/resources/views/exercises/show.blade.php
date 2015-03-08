@@ -6,7 +6,8 @@
 <body>
 
 @section('title')
-<em>Exercise {{ $exercise->id }}'s</em>
+<em>Exercise {{ $exercise->id }}'s</em> <br>
+<small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
 @stop
 
 @section('content')

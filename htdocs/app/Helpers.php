@@ -61,7 +61,7 @@
     function isMakerOfSeries($sId, $mId)
     {
         //$serieID = loadSerieWithIdOrTitle($sId)[0]->id;
-        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$sId, $mId])) )
+        if ( !empty(DB::select('select * from series where (id = ? or title = ?) and makerId = ?',[$sId, $sId, $mId])) )
         {
             return true;
         }

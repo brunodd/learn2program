@@ -1,7 +1,8 @@
 @extends('master')
 
 @section('title')
-    <em>{{ $user->username }}'s</em> main page
+    <em>{{ $user->username }}'s</em> main page <br>
+    <small><a href="{{ action('UsersController@edit', $user->username )}}">Edit</a></small>
 @stop
 
 @section('content')

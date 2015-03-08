@@ -6,9 +6,12 @@
 <body> 
 
 @section('title')
-    <em>{{ $serie->title }}'s</em> page <br \>
-    <small>Subject : {{$type->subject}}<br \>
-    Difficulty : {{$type->difficulty}}</small>
+    <em>{{ $serie->title }}'s</em> page <br>
+    <small>
+        Subject : {{$type->subject}}<br>
+        Difficulty : {{$type->difficulty}} <br>
+        <a href="{{ action('SeriesController@edit', $serie->title )}}">Edit</a>
+    </small>
 @stop
 
 @section('content')

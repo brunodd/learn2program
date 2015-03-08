@@ -1,7 +1,8 @@
 @extends('master')
 
 @section('title')
-    <h1> <em>{{ $group->name }}'s</em> main page </h1>
+    <em>{{ $group->name }}'s</em> main page <br>
+    <small><a href="{{ action('GroupsController@edit', $group->name )}}">Edit</a></small>
 @stop
 
 @section('content')
