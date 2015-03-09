@@ -13,7 +13,7 @@ class UpdateUserRequest extends Request {
 	public function authorize()
 	{
         //This check is rather redundant since we tackle this problem already in the edit functions
-        if (($this->id == Auth::id()))
+        if ( !empty(loadUser($this->id)) and (loadUser($this->id)[0]->id == Auth::id()))
         {
 		    return true;
 	    }
@@ -31,7 +31,7 @@ class UpdateUserRequest extends Request {
 	public function rules()
 	{
 		return [
-            'username' => 'required|unique:users,username,' . $this->id . '|min:3|max:20'
+            'username' => 'required|unique:users,username,' . loadUser($this->id)[0]->id . '|min:3|max:20'
 		];
 	}
 

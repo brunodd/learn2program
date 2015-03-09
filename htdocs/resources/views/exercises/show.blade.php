@@ -6,8 +6,11 @@
 <body>
 
 @section('title')
-<em>Exercise {{ $exercise->id }}'s</em> <br>
+<em>Exercise {{ $exercise->id }}'s</em>
+@if( Auth::check() and isMakerOfSeries($exercise->serieId, Auth::id()) )
+<br>
 <small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
+@endif
 @stop
 
 @section('content')

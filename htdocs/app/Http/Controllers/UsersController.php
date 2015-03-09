@@ -11,6 +11,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller {
 
@@ -154,7 +155,7 @@ class UsersController extends Controller {
         $newpass = $input['pass'];
         $user = new User;
         if($newpass) {
-            $user->pass = $newpass;
+            $user->pass = Hash::make($newpass);
         }
         else {
             $user->pass = loadUser($id)[0]->pass;
@@ -164,7 +165,8 @@ class UsersController extends Controller {
         $user->mail = $input['mail'];
 
         updateUser($id, $user);
-        return redirect('users/' . $id . '/edit');
+        flash()->success('You successfully edited your profile.');
+        return redirect('users/' . $user->username . '/edit');
 	}
 
 	/**

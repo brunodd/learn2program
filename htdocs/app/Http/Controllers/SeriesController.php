@@ -200,7 +200,7 @@ class SeriesController extends Controller {
         }
 
         $typeId = loadType1($type)[0]->id;
-        updateSerie($id, $serie, $typeId);
+        updateSerie($input['id'], $serie, $typeId);
 
         //AUTOMATICALLY CLEAN UP UNUSED TYPES IF THAT'S THE CASE
         removeUnusedTypes();
