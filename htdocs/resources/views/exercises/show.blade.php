@@ -12,8 +12,10 @@
 @section('content')
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-<script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script>
-<script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script>
+<!-- <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> -->
+<!-- <script src="../../../skulpt/dist/skulpt&#45;stdlib.js" type="text/javascript"></script> -->
+<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
+<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script> 
 
 <script type="text/javascript">
 
@@ -74,18 +76,23 @@ function showResult() {
     </div>
     @endif
 
+    <button type="button" class="btn btn-primary" onclick="runit()">Run</button>
+
+    <!-- If you want turtle graphics include a canvas -->
+    <canvas id="mycanvas" height="400" width="400"
+            style="border-style: solid; display: none"></canvas>
+
   @if ( Auth::check() )
     <div class="form-group">
     {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
     </div>
 
     <div class="form-group">
-    {!! Form::submit('Run', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
+    {!! Form::submit('Submit', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
     </div>
   @endif
 {!! Form::close() !!}
 
+
 <pre>Expected output : {{ $exercise->expected_result }}</pre>
-<!-- If you want turtle graphics include a canvas -->
-<canvas id="mycanvas" ></mycanvas>
 @stop

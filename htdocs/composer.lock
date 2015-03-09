@@ -499,16 +499,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.0.6",
+            "version": "v5.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "43637b796f1ac0b1a960984231251ff04b438006"
+                "reference": "c263240daa383e6b9bd979600dc61dcb2c436d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/43637b796f1ac0b1a960984231251ff04b438006",
-                "reference": "43637b796f1ac0b1a960984231251ff04b438006",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c263240daa383e6b9bd979600dc61dcb2c436d53",
+                "reference": "c263240daa383e6b9bd979600dc61dcb2c436d53",
                 "shasum": ""
             },
             "require": {
@@ -525,7 +525,7 @@
                 "mtdowling/cron-expression": "~1.0",
                 "nesbot/carbon": "~1.0",
                 "php": ">=5.4.0",
-                "psy/psysh": "0.3.*",
+                "psy/psysh": "0.4.*",
                 "swiftmailer/swiftmailer": "~5.1",
                 "symfony/console": "2.6.*",
                 "symfony/debug": "2.6.*",
@@ -620,7 +620,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-02-20 16:22:21"
+            "time": "2015-02-27 00:32:38"
         },
         {
             "name": "league/flysystem",
@@ -707,16 +707,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.12.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f"
+                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
-                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c41c218e239b50446fd883acb1ecfd4b770caeae",
+                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae",
                 "shasum": ""
             },
             "require": {
@@ -733,6 +733,7 @@
                 "phpunit/phpunit": "~4.0",
                 "raven/raven": "~0.5",
                 "ruflin/elastica": "0.90.*",
+                "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
             },
             "suggest": {
@@ -749,7 +750,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12.x-dev"
+                    "dev-master": "1.13.x-dev"
                 }
             },
             "autoload": {
@@ -775,7 +776,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-12-29 21:29:35"
+            "time": "2015-03-05 01:12:12"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -823,16 +824,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.14.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "bb87460c995d97fe55b39e65f6ffb7f64b0a941e"
+                "reference": "9b7665041754eaa9bb2622349bc9adbc1cf61cb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bb87460c995d97fe55b39e65f6ffb7f64b0a941e",
-                "reference": "bb87460c995d97fe55b39e65f6ffb7f64b0a941e",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b7665041754eaa9bb2622349bc9adbc1cf61cb8",
+                "reference": "9b7665041754eaa9bb2622349bc9adbc1cf61cb8",
                 "shasum": ""
             },
             "require": {
@@ -859,13 +860,13 @@
                 }
             ],
             "description": "A simple API extension for DateTime.",
-            "homepage": "https://github.com/briannesbitt/Carbon",
+            "homepage": "http://carbon.nesbot.com",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2015-02-06 05:07:29"
+            "time": "2015-03-04 04:50:11"
         },
         {
             "name": "nikic/php-parser",
@@ -952,16 +953,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.3.5",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "2ce0e8f3020fd292c2ad2a496c5d83939823f642"
+                "reference": "3787f3436f4fd898e0ac1eb6f5abd2ab6b24085b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/2ce0e8f3020fd292c2ad2a496c5d83939823f642",
-                "reference": "2ce0e8f3020fd292c2ad2a496c5d83939823f642",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/3787f3436f4fd898e0ac1eb6f5abd2ab6b24085b",
+                "reference": "3787f3436f4fd898e0ac1eb6f5abd2ab6b24085b",
                 "shasum": ""
             },
             "require": {
@@ -979,6 +980,7 @@
             },
             "suggest": {
                 "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
+                "ext-pdo-sqlite": "The doc command requires SQLite to work.",
                 "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well.",
                 "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history."
             },
@@ -1018,7 +1020,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2015-02-12 19:35:52"
+            "time": "2015-02-25 20:35:54"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1770,12 +1772,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "68fef8c2470be258107f5ab0d587c89ebfaaa221"
+                "reference": "a97b7ec3444d3aeff1e5bd6a533a57b87a684721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/68fef8c2470be258107f5ab0d587c89ebfaaa221",
-                "reference": "68fef8c2470be258107f5ab0d587c89ebfaaa221",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a97b7ec3444d3aeff1e5bd6a533a57b87a684721",
+                "reference": "a97b7ec3444d3aeff1e5bd6a533a57b87a684721",
                 "shasum": ""
             },
             "replace": {
@@ -1813,7 +1815,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-23 03:33:14"
+            "time": "2015-03-04 09:41:15"
         },
         {
             "name": "vlucas/phpdotenv",

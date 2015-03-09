@@ -118,7 +118,7 @@ class ExercisesController extends Controller {
 
         $result = $input['result'];
         $answer = $input['given_code'];
-        return view('exercises.show', compact('exercise', 'result', 'answer'));
+        // return view('exercises.show', compact('exercise', 'result', 'answer'));
     }
 
 }
