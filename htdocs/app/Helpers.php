@@ -19,6 +19,16 @@
         DB::insert('insert into users (pass, username, mail) VALUES (?, ?, ?)', [$user->pass, $user->username, $user->mail]);
     }
 
+    function findFriends($a, $b) {
+        $idA = loadUser($a)[0]->id;
+        $idB = loadUser($b)[0]->id;
+        return DB::select('select * from friends where id1 = ? and id2 = ?', [min($idA, $idB), max($idA, $idB)]);
+    }
+
+    function areFriends($userA, $userB) {
+        return (findFriends($userA, $userB)) ? (true) : (findFriends($userA, $userB));
+    }
+
     function updateUser($id, $data) {
         DB::statement('update users SET username = ?, mail = ?, pass = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $id, $id]);
     }

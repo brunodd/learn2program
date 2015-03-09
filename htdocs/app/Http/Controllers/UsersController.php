@@ -185,4 +185,25 @@ class UsersController extends Controller {
         $users = loadUsers();
         return view('users.list', compact('users'));
     }
+
+
+
+    public function addFriend($id1) {
+        $id = loaduser($id1)[0]->id;
+        if (!areFriends($id, \Auth::id())) {
+            \DB::insert('insert into friends (id1, id2) values (?, ?)', [min($id, \Auth::id()), max($id, \Auth::id())]);
+            flash()->success('You made a new friend :D.');
+            return redirect('users/' . $id1);
+        }
+
+        flash()->error('You already are friends, calm down!.');
+        return redirect('users/' . $id);
+    }
+
+    public function removeFriend($id1) {
+        $id = loaduser($id1)[0]->id;
+        \DB::statement('delete from friends where id1 = ? and id2 = ?', [min($id, \Auth::id()), max($id, \Auth::id())]);
+        flash()->info('You are no longer friends.');
+        return redirect('users/' . $id1);
+    }
 }

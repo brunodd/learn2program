@@ -22,6 +22,8 @@ Route::get('code', 'PagesController@code');
 
 Route::post('users/login', 'UsersController@login');
 Route::patch('users/{id}/edit', 'UsersController@update');
+Route::post('users/{id}', 'UsersController@addFriend');
+Route::patch('users/{id}', 'UsersController@removeFriend');
 Route::resource('users', 'UsersController');
 
 
