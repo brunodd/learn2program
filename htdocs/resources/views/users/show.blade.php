@@ -11,18 +11,25 @@
 @section('content')
     This page shows whatever needs to be shown about {{ $user->username }}.
 
-    @if (Auth::check() and $user->id == Auth::id())
-    @elseif (Auth::check() and (!areFriends($user->id, Auth::id())))
-        {!! Form::open() !!}
-        <div>
-            {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
-        </div>
-        {!! Form::close() !!}
-    @elseif (Auth::check())
-        {!! Form::open(['method' => 'PATCH']) !!}
-        <div>
-            {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
-        </div>
-        {!! Form::close() !!}
+    @if (Auth::check())
+        @if ($user->id == Auth::id())
+        @else
+            <div>
+                <a href="{{ action('MessagesController@show', $user->username )}}"><input class="btn btn-primary" type="submit" value="Send message"></a>
+            </div>
+            @if (!findFriends($user->id, Auth::id()))
+                {!! Form::open() !!}
+                <div>
+                    {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
+                </div>
+                {!! Form::close() !!}
+            @else
+                {!! Form::open(['method' => 'PATCH']) !!}
+                <div>
+                    {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
+                </div>
+                {!! Form::close() !!}
+            @endif
+        @endif
     @endif
 @stop

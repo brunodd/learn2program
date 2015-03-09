@@ -11,10 +11,30 @@ CREATE TABLE users (
     PRIMARY KEY(id)
 );
 
+/* TODO: asserion for id1 < id2, nu effe te moe
 CREATE TABLE friends (
     id1 int REFERENCES users(id),
     id2 int REFERENCES users(id),
     PRIMARY KEY(id1, id2)
+);
+
+/* Turn Messages(id, from, to, message, date)
+   Into Conversations(id, userA, userB) and Messages(cId, message, author, date)
+   Messages will become big very quickly -> (from,to) gets repeated a lot -> split into another table
+   userA always < userB
+*/
+CREATE TABLE conversations (
+    id int AUTO_INCREMENT,
+    userA int REFERENCES users(id),
+    userB int REFERENCES users(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE messages (
+    conversationId int REFERENCES conversations(id),
+    message text NOT NULL,
+    author varchar(50),
+    date timestamp               /* 'YYYY-MM-DD HH:MM:SS' format */
 );
 
 CREATE TABLE groups (

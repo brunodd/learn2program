@@ -25,10 +25,6 @@
         return DB::select('select * from friends where id1 = ? and id2 = ?', [min($idA, $idB), max($idA, $idB)]);
     }
 
-    function areFriends($userA, $userB) {
-        return (findFriends($userA, $userB)) ? (true) : (findFriends($userA, $userB));
-    }
-
     function updateUser($id, $data) {
         DB::statement('update users SET username = ?, mail = ?, pass = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $id, $id]);
     }
@@ -250,5 +246,44 @@
             if( $s1[$i] != $s2[$i] ) return false;
         }
         return true;
+    }
+
+    //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
+    function getConversation($id) {
+        if (empty(loadUser($id))) return [];
+
+        $id = loadUser($id)[0]->id;
+        return DB::select('select * from conversations where userA = ? and userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)])[0]->id;
+    }
+
+    function createConversation($id) {
+        if (empty(loadUser($id))) return false;
+
+        $id = loadUser($id)[0]->id;
+        DB::insert('insert into conversation (userA, userB) value (?, ?)', [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
+    }
+
+    function conversationExists($id) {
+        if (empty(loadUser($id))) return false;
+
+        $id = loadUser($id)[0]->id;
+        return !empty(DB::select('select * from conversations where userA = ? and userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)]));
+    }
+
+    function getAllMessages($id) {
+        if (empty(loadUser($id))) return [];
+
+        $id = loadUser($id)[0]->id;
+        return DB::select('select  author, message, date
+                           from conversations JOIN messages ON conversations.id = messages.conversationId
+                           where userA = ? and userB = ?
+                           order by date',
+                           [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
+    }
+
+    function getAllMessagesInDB() {
+        return DB::select('select userA, userB, message, date
+                           from conversations JOIN messages ON conversations.id = messages.conversationId
+                           order by date');
     }
 ?>

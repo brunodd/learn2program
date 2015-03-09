@@ -189,8 +189,8 @@ class UsersController extends Controller {
 
 
     public function addFriend($id1) {
-        $id = loaduser($id1)[0]->id;
-        if (!areFriends($id, \Auth::id())) {
+        $id = loadUser($id1)[0]->id;
+        if (!findFriends($id, \Auth::id())) {
             \DB::insert('insert into friends (id1, id2) values (?, ?)', [min($id, \Auth::id()), max($id, \Auth::id())]);
             flash()->success('You made a new friend :D.');
             return redirect('users/' . $id1);
@@ -201,7 +201,7 @@ class UsersController extends Controller {
     }
 
     public function removeFriend($id1) {
-        $id = loaduser($id1)[0]->id;
+        $id = loadUser($id1)[0]->id;
         \DB::statement('delete from friends where id1 = ? and id2 = ?', [min($id, \Auth::id()), max($id, \Auth::id())]);
         flash()->info('You are no longer friends.');
         return redirect('users/' . $id1);

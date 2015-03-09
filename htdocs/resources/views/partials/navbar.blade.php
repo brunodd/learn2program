@@ -37,7 +37,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                         <li><a href="/list_all_users">List All Users</a></li>
-                        <li><a href="#">Another action</a></li>
+                        <li><a href="/list_all_messages">List All Messages</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -49,7 +49,7 @@
                 <li>
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search hier doen?">
+                            <input type="text" class="form-control" placeholder="Put Search Here?????">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>

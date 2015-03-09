@@ -17,6 +17,7 @@
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
+Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of users table.
 Route::get('code', 'PagesController@code');
 
 
@@ -42,6 +43,9 @@ Route::resource('groups', 'GroupsController');
 
 Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
+
+
+Route::resource('messages', 'MessagesController');
 
 
 //Authentication related
