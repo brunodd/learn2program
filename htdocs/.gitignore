@@ -3,3 +3,4 @@
 .env
 ../.idea
 *.lock
+/public/skulpt

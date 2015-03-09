@@ -115,6 +115,7 @@ class ExercisesController extends Controller {
         $ans->eId = $id;
 
         storeAnswer($ans);
+        flash()->success("Your answer was successfully stored.");
 
         $result = $input['result'];
         $answer = $input['given_code'];
