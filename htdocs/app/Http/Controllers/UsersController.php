@@ -11,6 +11,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller {
 
@@ -21,7 +22,8 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-        return view('users.home');
+        $users = loadusers();
+        return view('users.home', compact('users'));
 	}
 
 	/**
@@ -92,9 +94,13 @@ class UsersController extends Controller {
 	public function show($id)
 	{
         if(empty(loadUser($id))) {
+            /*
             $msg = "Unknown user";
             $alert = "This user does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That user does not exist.')->important();
+            return redirect('users');
         }
         else {
             $user = loadUser($id)[0];
@@ -111,15 +117,23 @@ class UsersController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
+            /*
             $msg = "Unknown user";
             $alert = "This user does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That user does not exist.')->important();
+            return redirect('users');
         }
-        else if ( !Auth::check() or ($id != Auth::id()) )
+        else if (loadUser($id)[0]->id != Auth::id())
         {
+            /*
             $msg = "You must be logged in as this user in order to edit.";
             $alert = "Access Denied!";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('You must be logged in as this user in order to edit.')->important();
+            return redirect('users/' . $id);
         }
         else {
             $user = loadUser($id)[0];
@@ -141,7 +155,7 @@ class UsersController extends Controller {
         $newpass = $input['pass'];
         $user = new User;
         if($newpass) {
-            $user->pass = $newpass;
+            $user->pass = Hash::make($newpass);
         }
         else {
             $user->pass = loadUser($id)[0]->pass;
@@ -151,7 +165,8 @@ class UsersController extends Controller {
         $user->mail = $input['mail'];
 
         updateUser($id, $user);
-        return redirect('users/' . $id . '/edit');
+        flash()->success('You successfully edited your profile.');
+        return redirect('users/' . $user->username . '/edit');
 	}
 
 	/**

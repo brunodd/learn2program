@@ -17,7 +17,6 @@
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
-//Route::get('list_all_groups', 'GroupController@list_all_groups');
 Route::get('code', 'PagesController@code');
 
 
@@ -29,6 +28,7 @@ Route::resource('users', 'UsersController');
 Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
+Route::post('series/{id}', 'SeriesController@storeRating');
 Route::resource('series', 'SeriesController');
 
 
@@ -38,12 +38,6 @@ Route::patch('groups/{id}', 'GroupsController@leave');
 Route::resource('groups', 'GroupsController');
 
 
-/*
- *
- *Misschien is dit iets handig?
- *Route::resource('series/{series}/exercises', 'ExercisesController');
- *
- */
 Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
 

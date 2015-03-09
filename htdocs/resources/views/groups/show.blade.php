@@ -1,7 +1,11 @@
 @extends('master')
 
 @section('title')
-    <h1> <em>{{ $group->name }}'s</em> main page </h1>
+    <em>{{ $group->name }}'s</em> main page
+    @if( Auth::check() and isFounderOfGroup($group->id, Auth::id()) )
+    <br>
+    <small><a href="{{ action('GroupsController@edit', $group->name )}}">Edit</a></small>
+    @endif
 @stop
 
 @section('content')

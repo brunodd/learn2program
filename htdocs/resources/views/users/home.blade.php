@@ -1,22 +1,16 @@
 @extends('master')
 
 @section('title')
-    Member
+    Users home page
 @stop
 
 @section('content')
-    <h2>Login Form:</h2>
-    {!! Form::open(['url' => 'users/login']) !!}
-        {!! Form::label('username', 'Username: ') !!}
-        {!! Form::text('username') !!}
+    <h2>List of all users:</h2>
 
-        {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::password('pass') !!}
-
-        {!! Form::submit('Login') !!}
-    {!! Form::close() !!}
-
-    @include('errors.list')
-
-    <h2><a href="register">Registration page</a></h2>
+    <ul>
+        @foreach($users as $user)
+                <h3>*avatar/picture* <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a></h3>
+                <i>Some info about user, e.g. completed x series/has rating y</i>
+        @endforeach
+    </ul>
 @stop

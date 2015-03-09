@@ -6,10 +6,24 @@
 <body> 
 
 @section('title')
-    <em>{{ $serie->title }}'s</em> page
+    <em>{{ $serie->title }}'s</em> page <br>
+    <small>
+        Subject : {{$type->subject}}<br>
+        Difficulty : {{$type->difficulty}}
+        @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
+            <br>
+            @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
+            <a href="{{ action('SeriesController@edit', $serie->title )}}">Edit</a>
+            @else
+            <a href="{{ action('SeriesController@edit', $serie->id )}}">Edit</a>
+            @endif
+        @endif
+    </small>
 @stop
 
 @section('content')
+    <h2>Description :</h2>
+    <p>{{$serie->description}}</p>
     <h2>List of {{ $serie->title }}'s exercises :</h2>
     @if ( $exercises )
     @foreach ( $exercises as $ex )
@@ -20,6 +34,28 @@
     <h3><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h3>
     @endif
 
+    <br \> <br \>
+    @if( unratedSeries($serie->id) )
+    <h4>No ratings found for this series.</h4>
+    @else
+    <h4>Average rating : {{ averageRating($serie->id) }} / 5</h4>
+    @endif
+
+    @if ( Auth::check() and notRatedYet(Auth::id(), $serie->id))
+        <br \> <br \>
+        {!! Form::open() !!}
+            <div class="form-group">
+            {!! Form::label('rating', 'Rate this series: ') !!}
+            {!! Form::select('rating', [null => 'Select rating...', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) !!}
+            </div>
+            <div class="form-group">
+            {!! Form::hidden('sId', $serie->id) !!}
+            </div>
+            <div class="form-group">
+            {!! Form::submit('Submit rating', ['class' => 'btn btn-primary']) !!}
+            </div>
+        {!! Form::close() !!}
+    @endif
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> 
 <script src="../../../skulpt/dist/skulpt-stdlib.js" type="text/javascript"></script> 
@@ -73,7 +109,7 @@ hello(myName)
 </form> 
 <pre id="output" ></pre> 
 <!-- If you want turtle graphics include a canvas -->
-<canvas id="mycanvas" ></mycanvas> 
+<canvas id="mycanvas" ></mycanvas>
 
 
 @stop

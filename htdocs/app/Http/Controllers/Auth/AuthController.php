@@ -88,6 +88,9 @@ class AuthController extends Controller {
 
         \DB::insert('insert into `users` (`username`, `mail`, `pass`) values (?, ?, ?)', array($username, $mail, $pass));
 
+        $user = \DB::select('select * from users where username = ?', array($username));
+        $this->auth->loginUsingId($user[0]->id);
+
         //$user = $this->registrar->create($request->all());
         //$this->auth->attempt(['mail' => $mail, 'pass' => $pass]);
 

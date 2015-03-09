@@ -29,6 +29,10 @@
         </div>
 
         <div class="form-group">
+        {!! Form::hidden('id', $serie->id) !!}
+        </div>
+
+        <div class="form-group">
         {!! Form::submit('Update serie', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     {!! Form::close() !!}

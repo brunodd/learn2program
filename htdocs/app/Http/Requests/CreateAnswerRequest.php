@@ -12,14 +12,7 @@ class CreateAnswerRequest extends Request {
 	 */
 	public function authorize()
 	{
-        if ( Auth::check() ) //maybe restrict the maker from making his own exercise?
-        {
-            return true;
-        }
-        else
-        {
-		    return false;
-        }
+        return true;
 	}
 
 	/**

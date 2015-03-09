@@ -20,7 +20,7 @@
     }
 
     function updateUser($id, $data) {
-        DB::statement('update users SET username = ?, mail = ?, pass = ? where id = ?', [$data->username, $data->mail, $data->pass, $id]);
+        DB::statement('update users SET username = ?, mail = ?, pass = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $id, $id]);
     }
 
     function storeSerie($serie)
@@ -48,6 +48,11 @@
         return DB::select('select * from series');
     }
 
+    function loadAllDistinctSeries()
+    {
+        return DB::select('select * from series group by title');
+    }
+
     function updateSerie($id, $serie, $typeId)
     {
         DB::statement('update series SET title = ?, description = ?, tId = ? where id = ?',[$serie->title, $serie->description, $typeId, $id]);
@@ -55,8 +60,8 @@
 
     function isMakerOfSeries($sId, $mId)
     {
-        $serieID = loadSerieWithIdOrTitle($sId)[0]->id;
-        if ( !empty(DB::select('select * from series where id = ? and makerId = ?',[$serieID, $mId])) )
+        //$serieID = loadSerieWithIdOrTitle($sId)[0]->id;
+        if ( !empty(DB::select('select * from series where (id = ? or title = ?) and makerId = ?',[$sId, $sId, $mId])) )
         {
             return true;
         }
@@ -72,23 +77,23 @@
         else return false;
     }
 
-    function SerieContainsExercises2($sId)
+    /*function SerieContainsExercises2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
         if ( !empty(DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id])) ) return true;
         else return false;
-    }
+    }*/
 
     function loadExercisesFromSerie($sId)
     {
         return DB::select('select * from exercises where serieId = ?',[$sId]);
     }
 
-    function loadExercisesFromSerie2($sId)
+    /*function loadExercisesFromSerie2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
         return DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id]);
-    }
+    }*/
 
     function storeExercise($exercise)
     {
@@ -188,7 +193,7 @@
     function updateGroup($id, $groupname)
     {
         $group = loadGroup($id);
-        if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group->id]);
+        if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group[0]->id]);
     }
 
     function storeAnswer($ans)
@@ -196,6 +201,34 @@
         DB::insert('insert into exercises_answers (given_code, success, uId, eId) values (?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId]);
     }
 
+    function notRatedYet($uId, $sId)
+    {
+        if( empty(DB::select('select * from series_ratings where userId = ? and serieId = ?', [$uId, $sId])) ) return true;
+        else return false;
+    }
+
+    function addRating($nr)
+    {
+        DB::insert('insert into series_ratings (rating, userId, serieId) VALUES (?, ?, ?)', [$nr->rating, $nr->userId, $nr->serieId]);
+    }
+
+    function unratedSeries($sId)
+    {
+        if( empty(DB::select('select * from series_ratings where serieId = ?', [$sId])) ) return true;
+        else return false;
+    }
+
+    function averageRating($sId)
+    {
+        $ratings = DB::select('select * from series_ratings where serieId = ?', [$sId]);
+        $avg = 0;
+        foreach( $ratings as $r )
+        {
+            $avg = $avg + $r->rating;
+        }
+        $avg = $avg / count($ratings);
+        return $avg;
+    }
 
 
     function compare($s1, $s2)

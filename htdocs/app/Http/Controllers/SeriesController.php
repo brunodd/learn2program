@@ -3,6 +3,7 @@
 use App\Series;   // Added to find Serie model.
 use App\Type;   // Added to find Type model.
 use App\Exercise;
+use App\Rating;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
 use App\Http\Requests\CreateExerciseRequest;
+use App\Http\Requests\CreateRatingRequest;
 use Auth;
 
 class SeriesController extends Controller {
@@ -33,7 +35,7 @@ class SeriesController extends Controller {
 	 */
 	public function index()
 	{
-        $series = loadAllSeries();
+        $series = loadAllDistinctSeries();
 		return view('series.home', compact('series'));
 	}
 
@@ -44,12 +46,6 @@ class SeriesController extends Controller {
 	 */
 	public function create()
 	{
-        if ( !Auth::check() )
-        {
-            $msg = "You must be logged in to create a new serie.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-        }
         return view('series.create');
 	}
 
@@ -98,22 +94,52 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if(empty(loadSerieWithIdOrTitle($id))) {
+        $series = loadSerieWithIdOrTitle($id);
+        if(empty($series)) {
+            /*
             $msg = "Unknown series";
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That series does not exist.')->important();
+            return redirect('series');
         }
-        elseif( !SerieContainsExercises2($id) and !isMakerOfSeries($id, Auth::id()) ) {
+        elseif( count($series) > 1)
+        {
+            //special case must be caught where multiple series exist with same title but only 1 serie contains exercises
+            // -> redirect immediately
+            $break = false;
+            $serie = null;
+            foreach( $series as $s)
+            {
+                $condition = (SerieContainsExercises($s->id) or ($s->makerId == Auth::id()) );
+                if( $break and $condition ) return view('series.duplicates', compact('series'));
+                elseif( $condition )
+                {
+                    $break = true;
+                    $serie = $s;
+                }
+            }
+            $type = loadType2($serie->tId)[0];
+            $exercises = loadExercisesFromSerie($serie->id);
+            return view('series.show', compact('serie', 'exercises', 'type'));
+        }
+        elseif( !SerieContainsExercises($series[0]->id) and !isMakerOfSeries($series[0]->id, Auth::id()) ) {
+            /*
             $msg = "No exercises were found for this series. Come back later...";
             $alert = "No exercises found.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('No exercises were found for this series. Come back later...')->important();
+            return redirect('series/');
         }
         else {
             //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
             // i.e. if we want to show them on the serie's home page
-            $serie = loadSerieWithIdOrTitle($id)[0];
-            $exercises = loadExercisesFromSerie2($id);
-            return view('series.show', compact('serie', 'exercises'));
+            $serie = $series[0];
+            $type = loadType2($serie->tId)[0];
+            $exercises = loadExercisesFromSerie($serie->id);
+            return view('series.show', compact('serie', 'exercises', 'type'));
         }
 	}
 
@@ -125,19 +151,27 @@ class SeriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        if(empty(loadSerieWithId($id))) {
+        if(empty(loadSerieWithIdOrTitle($id))) {
+            /*
             $msg = "Unknown series";
             $alert = "This series does not exist.";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('That series does not exist.')->important();
+            return redirect('series');
         }
-        else if ( !Auth::check() or !isMakerOfSeries($id, Auth::id()) )
+        else if (!isMakerOfSeries($id, Auth::id()) )
         {
+            /*
             $msg = "You must be logged in as the maker of this series in order to edit.";
             $alert = "Access Denied!";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('You must be logged in as the maker of this series in order to edit.')->important();
+            return redirect('series/' . $id);
         }
         else {
-            $serie = loadSerieWithId($id)[0];
+            $serie = loadSerieWithIdOrTitle($id)[0];
             $type = loadType2($serie->tId)[0];
             return view('series.edit', compact('serie', 'type'));
         }
@@ -166,7 +200,7 @@ class SeriesController extends Controller {
         }
 
         $typeId = loadType1($type)[0]->id;
-        updateSerie($id, $serie, $typeId);
+        updateSerie($input['id'], $serie, $typeId);
 
         //AUTOMATICALLY CLEAN UP UNUSED TYPES IF THAT'S THE CASE
         removeUnusedTypes();
@@ -188,17 +222,15 @@ class SeriesController extends Controller {
 
     public function createExercise($id)
     {
-        if ( !Auth::check() )
+         if ( !isMakerOfSeries($id, Auth::id()) )
         {
-            $msg = "You must be logged in to create a new exercise.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-        }
-        else if ( !isMakerOfSeries($id, Auth::id()) )
-        {
+            /*
             $msg = "You must be logged on as the maker of this series in order to add exercises.";
             $alert = "Access Denied!";
             return view('errors.unknown', compact('msg', 'alert'));
+            */
+            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
+            return redirect('series/' . $id);
         }
         $serie = loadSerieWithId($id)[0];
         return view('exercises.create', compact('serie'));
@@ -220,5 +252,26 @@ class SeriesController extends Controller {
         storeExercise($exercise);
 
         return redirect('series/' . $id);
+    }
+
+    public function storeRating($id, CreateRatingRequest $request)
+    {
+        $input = $request->all();
+        if( $input['rating'] == null )
+        {
+            flash()->error("You must choose a value in order to rate this series.");
+            return \Redirect::back();
+        }
+
+        $newrating = new Rating;
+        $newrating->rating = $input['rating'];
+        $newrating->userId = Auth::id();
+        $newrating->serieId = $input['sId'];
+
+        //we already know that the "requester" hasn't rated this serie yet
+        addRating($newrating);
+
+        flash()->success("Your rating has been successfully stored.");
+        return \Redirect::back();
     }
 }
