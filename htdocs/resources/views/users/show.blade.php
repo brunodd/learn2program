@@ -14,18 +14,18 @@
     @if (Auth::check())
         @if ($user->id == Auth::id())
         @else
-            <div>
+            <div class="form-group" >
                 <a href="{{ action('MessagesController@show', $user->username )}}"><input class="btn btn-primary" type="submit" value="Send message"></a>
             </div>
             @if (!findFriends($user->id, Auth::id()))
                 {!! Form::open() !!}
-                <div>
+                <div class="form-group" >
                     {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
                 </div>
                 {!! Form::close() !!}
             @else
                 {!! Form::open(['method' => 'PATCH']) !!}
-                <div>
+                <div class="form-group" >
                     {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
                 </div>
                 {!! Form::close() !!}

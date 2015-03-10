@@ -90,6 +90,7 @@ function showResult() {
     <div class="form-group">
     {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
     </div>
+
     <div class="form-group">
     {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
     </div>
