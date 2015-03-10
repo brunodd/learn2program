@@ -16,8 +16,6 @@
 @section('content')
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-<!-- <script src="../../../skulpt/dist/skulpt.min.js" type="text/javascript"></script> -->
-<!-- <script src="../../../skulpt/dist/skulpt&#45;stdlib.js" type="text/javascript"></script> -->
 <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
 <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script> 
 
@@ -82,7 +80,7 @@ function showResult() {
 
     <div class="form-group"> <!-- just a matter of serpating the canvas a little bit from the fields under & above -->
     <!-- If you want turtle graphics include a canvas -->
-    <canvas id="mycanvas" height="400" width="400"
+    <canvas id="mycanvas" height="600" width="600" class="container-fluid"
             style="border-style: solid; display: none"></canvas>
     </div>
 
