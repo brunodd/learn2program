@@ -45,7 +45,7 @@ Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
 
 
-Route::resource('messages', 'MessagesController');
+Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
 
 
 //Authentication related

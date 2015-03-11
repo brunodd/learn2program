@@ -20,12 +20,11 @@
         </script>
 
         <div class="jumbotron">
-            <h1>Learn2Program
-                <div class="small">
-                    @yield('title')
-                </div>
-            </h1>
+            <h1><div class="small">
+                @yield('title')
+            </div></h1>
         </div>
+
         @yield('content')
     </div>
 </body>

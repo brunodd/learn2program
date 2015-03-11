@@ -17,6 +17,7 @@
             <div>
                 <a href="{{ action('MessagesController@show', $user->username )}}"><input class="btn btn-primary" type="submit" value="Send message"></a>
             </div>
+            <br>
             @if (!findFriends($user->id, Auth::id()))
                 {!! Form::open() !!}
                 <div>
