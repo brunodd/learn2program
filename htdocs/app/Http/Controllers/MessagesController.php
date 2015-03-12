@@ -1,29 +1,49 @@
 <?php namespace App\Http\Controllers;
 
-use App\Helpers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
+use App\Http\Requests\SendMessageRequest;
+use Auth;
+
 
 class MessagesController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
 	/**
-	 * Display a listing of the resource.
+	 * Display a list of conversations in a sidebar.
+     * Then Show the conversation with the latest message.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		//show all messages in the database
+        //select latest conversation and show it
+        $latestConversation =
+            \DB::select(' select C.userA, C.userB
+                          from conversations C join messages M on C.id = M.conversationId
+                          where C.userA = ? or C.userB = ?
+                          order by date desc
+                          limit 1',
+                          [\Auth::id(), \Auth::id()]);
+        $user = (\Auth::id() == $latestConversation[0]->userA) ? ($latestConversation[0]->userB) : ($latestConversation[0]->userA);
+        $user = loadUser($user)[0];
+
+        return redirect('messages/' . $user->username);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create($toId)
+
+    /**
+     * Create a new conversation between the logged in user and $toId
+     *
+     */
+	public function createConversation($toId)
 	{
         if (empty(loadUser($toId))) {
             flash()->error('That user does not exist');
@@ -34,28 +54,25 @@ class MessagesController extends Controller {
         $toId2 = loadUser($toId)[0]->id;
 
         \DB::insert('insert into conversations (userA, userB) values (?, ?)', [min($fromId, $toId2), max($fromId, $toId2)]);
-
-        return $this->show($toId);
-        return view(messages.show, compact($toId));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(Request $input)
+    /**
+     * Store a new message in the database.
+     *
+     * @param SendMessageRequest $request
+     * @return Response
+     */
+	public function store(SendMessageRequest $request)
 	{
-        $cId = getConversation($input->username);
-        $author = loadUser(\Auth::id())[0]->username;
-		\DB::insert('insert into messages (conversationId, author, message) value (?, ?, ?)',
-                     [$cId, $author, $input->message]);
-        return $this->show($input->username);
-        //return view(messages.show, compact())
+        $cId = getConversation($request->username)[0]->id;
+
+		\DB::insert('insert into messages (conversationId, author, message) value (?, ?, ?)', [$cId, \Auth::id(), $request->message]);
+
+        return redirect('messages/' . $request->username);
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display a specified message.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -65,32 +82,30 @@ class MessagesController extends Controller {
 		if (conversationExists($id)) {
             $messages = getAllMessages($id);
             $user = loadUser($id)[0];
-            return view('messages.show', compact('messages', 'user'));
+
+            $conversations =
+                \DB::select(' select userA, userB, message, date
+                              from (select C.id, C.userA, C.userB, M.message, M.date
+                                    from conversations C join messages M on C.id = M.conversationId Join users U on U.id = M.author
+                                    where C.userA = ? or C.userB = ?
+                                    order by date desc) as X
+                              group by id
+                              order by date desc',
+                              [\Auth::id(), \Auth::id()]);
+
+            foreach($conversations as $conversation) {
+                $conversation->userA = (\Auth::id() == $conversation->userA) ? ($conversation->userB) : ($conversation->userA);
+                $conversation->userB = loadUser($conversation->userA)[0]->username;
+            }
+
+            return view('messages.show', compact('messages', 'user', 'conversations'));
         } else {
-            $this->create($id);
+            $this->createConversation($id);
+            $messages = [];
+            $user = loadUser($id)[0];
+            return $this->show($id);
+            //return view('messages.show', compact('messages', 'user'));
         }
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//unused, once a message is sent there's no going back
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-        //unused, once a message is sent there's no going back
 	}
 
 	/**

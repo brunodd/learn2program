@@ -49,7 +49,7 @@
                 <li>
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Put Search Here?????">
+                            <input type="text" class="form-control" placeholder="Search">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -62,6 +62,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="/messages">My Messages</a></li>
                             <li><a href="#">My series</a></li>
                             <li><a href="#">My exercises</a></li>
                             <li><a href="#">My groups</a></li>

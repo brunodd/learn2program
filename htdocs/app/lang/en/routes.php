@@ -1,5 +1,14 @@
 <?php
 
+// app/lang/en/routes.php
+
+return array(
+    'contact' => 'contact',
+    'about'   => 'about-us'
+);
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -45,7 +54,7 @@ Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
 
 
-Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
+Route::resource('messages', 'MessagesController');
 
 
 //Authentication related
