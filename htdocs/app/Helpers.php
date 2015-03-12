@@ -317,9 +317,10 @@
 
     //return a list of pairs, userId & the number of completed series (i.e. at least tried once)
     function countSeriesCompletedByUsers() {
-        //coming soon
+        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from exercises_answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg group by uId');
     }
 
+    //return a list of pairs, userId & the number of completed exercises (i.e. at least tried once)
     function countExercisesCompletedByUsers() {
         return DB::select('select uId, count(distinct(eId)) as c from exercises_answers group by uId');
     }
