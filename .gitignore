@@ -5,3 +5,4 @@
 *.aux
 *.log
 */public/skulpt
+./.idea
