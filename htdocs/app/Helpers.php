@@ -251,9 +251,8 @@
     //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
     function getConversation($id) {
         if (empty(loadUser($id))) return [];
-
         $id = loadUser($id)[0]->id;
-        return DB::select('select * from conversations where userA = ? and userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)])[0]->id;
+        return DB::select('select * from conversations where userA = ? and userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
     }
 
     function createConversation($id) {
@@ -274,10 +273,9 @@
         if (empty(loadUser($id))) return [];
 
         $id = loadUser($id)[0]->id;
-        return DB::select('select  author, message, date
-                           from conversations JOIN messages ON conversations.id = messages.conversationId
-                           where userA = ? and userB = ?
-                           order by date',
+        return DB::select('select U.username,M.message,M.date
+                           from conversations C JOIN messages M ON C.id = M.conversationId JOIN users U ON U.id = M.author
+                           where C.userA = ? and C.userB = ?',
                            [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
     }
 
