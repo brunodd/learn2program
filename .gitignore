@@ -1,7 +1,7 @@
-/vendor
+*/vendor
 /node_modules
 .env
 *.lock
 *.aux
 *.log
-/public/skulpt
+*/public/skulpt
