@@ -4,5 +4,6 @@
 *.lock
 *.aux
 *.log
+*.out
 */public/skulpt
 ./.idea
