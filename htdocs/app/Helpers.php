@@ -1,5 +1,6 @@
 <?php
 
+    //GENERAL HELPERS NEEDED FOR THE SYSTEM
     function loadusers() {
         return DB::select('select * from users');
     }
@@ -137,6 +138,11 @@
         return DB::select('select * from types where id = ?', [$id]);
     }
 
+    function loadAllTypes()
+    {
+        return DB::select('select * from types');
+    }
+
     function storeType($type)
     {
         DB::insert('insert into types (subject, difficulty) VALUES (?, ?)', [$type->subject, $type->difficulty]);
@@ -224,6 +230,8 @@
         else return false;
     }
 
+    //Raphael: since mysql seems to be retarded when it comes to calculating the average, i wrote it myself
+    //after a couple of tests, it seems mysql's average is always off by 1
     function averageRating($sId)
     {
         $ratings = DB::select('select * from series_ratings where serieId = ?', [$sId]);
@@ -248,6 +256,75 @@
         return true;
     }
 
+    //ALL STATISTICAL HELPERS NEEDED FOR THE GRAPHS
+
+    //returns a list of pairs, serieId & average rating of that serie
+    function averageRatingsBySeries() {
+        $series = loadAllSeries();
+        $avgs = [];
+        foreach( $series as $s )
+        {
+            array_push($avgs, [$s->id, averageRating($s->id)]);
+        }
+        return $avgs;
+    }
+
+    //returns the avarge rating that a user submits
+    function averageRatingByUser($id)
+    {
+        $ratings = DB::select('select * from series_ratings where userId = ?', [$id]);
+        $avg = 0;
+        foreach( $ratings as $r )
+        {
+            $avg = $avg + $r->rating;
+        }
+        $avg = $avg / count($ratings);
+        return $avg;
+    }
+
+    //returns a list of pairs, userId & average rating given by that user
+    function averageRatingsByUsers() {
+        $users = loadusers();
+        $avgs = [];
+        foreach( $users as $u )
+        {
+            array_push($avgs, [$u->id, averageRatingByUser($u->id)]);
+        }
+        return $avgs;
+    }
+
+    //returns a list of pairs, typeId & average rating for that type
+    //tyring a different strategy here since I found out mysql's "offset" is always 1 too much
+    // -> please test asap so i can rewrite if necessary
+    function averageRatingsByTypes() {
+        $avgs = DB::select('select types.id, avg(rating) as a from series_ratings JOIN series JOIN types where series.id = serieId and tId = types.id group by tId');
+        foreach( $avgs as $a )
+        {
+            $a->average = $a->average - 1;
+        }
+        return $avgs;
+    }
+
+    //returns a list of pairs, userId & number of series created by that user
+    function countSeriesByMakers() {
+        return DB::select('select makerId, count(id) as c from series group by makerId');
+    }
+
+    //returns a list of pairs, userId & the number of exercises created by that user
+    function countExercisesByMakers() {
+        return DB::select('select makerId, count(exercises.id) from exercises join series join users on serieId = series.id and makerId = users.id group by makerId');
+    }
+
+    //return a list of pairs, userId & the number of completed series (i.e. at least tried once)
+    function countSeriesCompletedByUsers() {
+        //coming soon
+    }
+
+    function countExercisesCompletedByUsers() {
+        return DB::select('select uId, count(distinct(eId)) as c from exercises_answers group by uId');
+    }
+
+    //ARMIN's WIP Functions
     //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
     function getConversation($id) {
         if (empty(loadUser($id))) return [];
