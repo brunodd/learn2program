@@ -69,6 +69,10 @@
 @stop
 
 @section('content')
+        <?php echo(json_encode($_makerIds)); ?>
+        <?php echo(json_encode($makerIds)); ?>
+        <?php echo(json_encode($_seriesMIds)); ?>
+        <?php echo(json_encode($seriesMIds)); ?>
         <!-- 3. Add the container -->
         <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
 @stop
