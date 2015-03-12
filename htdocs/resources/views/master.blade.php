@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/all.js"></script>
+    @yield('head')
 </head>
 @include('partials.navbar')
 

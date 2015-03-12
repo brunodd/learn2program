@@ -20,6 +20,7 @@ Route::get('list_all_users', 'UsersController@list_all_users'); // For Developme
 Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of users table.
 Route::get('code', 'PagesController@code');
 
+Route::get('statistics', 'StatisticsController@home');
 
 Route::post('users/login', 'UsersController@login');
 Route::patch('users/{id}/edit', 'UsersController@update');
