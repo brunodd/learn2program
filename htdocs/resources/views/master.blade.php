@@ -15,7 +15,11 @@
     <body>
         <div class="wrapper">
             <div class="container-fluid">
-
+                @include('flash::message')
+                <script>
+                    $('#flash-overlay-modal').modal();
+                    $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+                </script>
                  <div class="jumbotron">
                     <h1><div class="small">
                         @yield('title')
