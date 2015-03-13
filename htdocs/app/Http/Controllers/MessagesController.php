@@ -17,43 +17,26 @@ class MessagesController extends Controller {
     }
 
 	/**
-	 * Display a list of conversations in a sidebar.
-     * Then Show the conversation with the latest message.
+     * Just show the conversation with the latest message.
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-        //select latest conversation and show it
-        $latestConversation =
-            \DB::select(' select C.userA, C.userB
-                          from conversations C join messages M on C.id = M.conversationId
-                          where C.userA = ? or C.userB = ?
-                          order by date desc
-                          limit 1',
-                          [\Auth::id(), \Auth::id()]);
-        $user = (\Auth::id() == $latestConversation[0]->userA) ? ($latestConversation[0]->userB) : ($latestConversation[0]->userA);
-        $user = loadUser($user)[0];
+	public function index() {
+        $latestConversation = LoadLatestConversation();
 
-        return redirect('messages/' . $user->username);
-	}
+        if (empty($latestConversation)) {
+            $messages = [];
+            $user = (object) array('username' => '');
+            $conversations = [];
 
-
-    /**
-     * Create a new conversation between the logged in user and $toId
-     *
-     */
-	public function createConversation($toId)
-	{
-        if (empty(loadUser($toId))) {
-            flash()->error('That user does not exist');
-            redirect('/users');
+            return view('messages.show', compact('messages', 'user', 'conversations'));
+        } else {
+            //Get the user from the conversation that is not the logged in one.
+            $userId = (\Auth::id() == $latestConversation[0]->userA) ? ($latestConversation[0]->userB) : ($latestConversation[0]->userA);
+            $user = loadUser($userId)[0];
         }
 
-        $fromId = \Auth::id();
-        $toId2 = loadUser($toId)[0]->id;
-
-        \DB::insert('insert into conversations (userA, userB) values (?, ?)', [min($fromId, $toId2), max($fromId, $toId2)]);
+        return redirect('messages/' . $user->username);
 	}
 
     /**
@@ -62,11 +45,10 @@ class MessagesController extends Controller {
      * @param SendMessageRequest $request
      * @return Response
      */
-	public function store(SendMessageRequest $request)
-	{
-        $cId = getConversation($request->username)[0]->id;
+	public function store(SendMessageRequest $request) {
+        $cId = loadConversation($request->username)[0]->id;
 
-		\DB::insert('insert into messages (conversationId, author, message) value (?, ?, ?)', [$cId, \Auth::id(), $request->message]);
+        storeMessage($cId, $request->message);
 
         return redirect('messages/' . $request->username);
 	}
@@ -77,21 +59,19 @@ class MessagesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
-		if (conversationExists($id)) {
-            $messages = getAllMessages($id);
-            $user = loadUser($id)[0];
+	public function show($id) {
+        if (empty(loadUser($id))) {
+            flash()->error('That user does not exist');
+            redirect('/messages');
+        }
 
-            $conversations =
-                \DB::select(' select userA, userB, message, date
-                              from (select C.id, C.userA, C.userB, M.message, M.date
-                                    from conversations C join messages M on C.id = M.conversationId Join users U on U.id = M.author
-                                    where C.userA = ? or C.userB = ?
-                                    order by date desc) as X
-                              group by id
-                              order by date desc',
-                              [\Auth::id(), \Auth::id()]);
+		if (!empty(loadConversation($id))) {
+            //Load all messages with $id
+            $messages = loadAllMessages($id);
+            //Then get user with $id to show him
+            $user = loadUser($id)[0];
+            //Then get all conversations for the logged in user to show those in the sidebar
+            $conversations = loadConversationsWithMessage();
 
             foreach($conversations as $conversation) {
                 $conversation->userA = (\Auth::id() == $conversation->userA) ? ($conversation->userB) : ($conversation->userA);
@@ -100,11 +80,10 @@ class MessagesController extends Controller {
 
             return view('messages.show', compact('messages', 'user', 'conversations'));
         } else {
-            $this->createConversation($id);
-            $messages = [];
-            $user = loadUser($id)[0];
+            $toId2 = loadUser($id)[0]->id;
+
+            loadAllMessages($toId2);
             return $this->show($id);
-            //return view('messages.show', compact('messages', 'user'));
         }
 	}
 
@@ -114,13 +93,12 @@ class MessagesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
-        //unused, once a message is sent there's no going back
+	public function destroy($id) {
+        //TODO
 	}
 
     public function list_all_messages() {
-        $messages = getAllMessagesInDB();
+        $messages = loadAllMessagesInDB();
         return view('messages.list', compact('messages'));
     }
 

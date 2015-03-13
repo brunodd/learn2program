@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CreateUserRequest;
 
 class MyGuard extends \Illuminate\Auth\Guard {
     public function attempt(array $credentials = [], $remember = false, $login = true)
@@ -70,7 +71,7 @@ class AuthController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postRegister(Request $request) {
+    public function postRegister(CreateUserRequest $request) {
         $validator = $this->registrar->validator($request->all());
 
         if ($validator->fails())

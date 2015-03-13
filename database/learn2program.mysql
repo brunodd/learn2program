@@ -6,7 +6,7 @@ USE learn2program_db;
 CREATE TABLE users (
     id int AUTO_INCREMENT,
     pass varchar(255) NOT NULL,
-    username varchar(20) NOT NULL UNIQUE,
+    username varchar(50) NOT NULL UNIQUE,
     mail varchar(50) NOT NULL,
     PRIMARY KEY(id)
 );
@@ -32,8 +32,8 @@ CREATE TABLE conversations (
 
 CREATE TABLE messages (
     conversationId int REFERENCES conversations(id),
-    message text NOT NULL,
-    author varchar(50),
+    message varchar(512) NOT NULL,
+    author varchar(50) NOT NULL,          //author stored as username for easier displaying
     date timestamp               /* 'YYYY-MM-DD HH:MM:SS' format */
 );
 
