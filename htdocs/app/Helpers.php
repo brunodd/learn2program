@@ -315,15 +315,52 @@
         return DB::select('select makerId, count(exercises.id) from exercises join series join users on serieId = series.id and makerId = users.id group by makerId');
     }
 
-    //return a list of pairs, userId & the number of completed series (i.e. at least tried once)
+    //return a list of pairs, userId & the number of completed series (i.e. at least tried once on each exercise)
     function countSeriesCompletedByUsers() {
         return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from exercises_answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg group by uId');
+    }
+
+    //return a list of pairs, userId & the number of completed series (i.e. solved all exercises correctly)
+    function countSeriesSucceededByUsers() {
+        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from exercises_answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId where success = 1 group by uId, agg.serieId having c1 = c2) agg group by uId');
+    }
+
+    //return a list of pairs, userId & the number of series in progress (i.e. with exercises still unanswered)
+    //in particular -> the number of series in progress equals (total number of series containing exercises - "completed" series)
+    function countSeriesInProgressByUsers() {
+        return DB::select('select uId, (agg2.c-count(uId)) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from exercises_answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg, (select count(distinct(serieId)) as c from exercises) agg2 group by uId');
     }
 
     //return a list of pairs, userId & the number of completed exercises (i.e. at least tried once)
     function countExercisesCompletedByUsers() {
         return DB::select('select uId, count(distinct(eId)) as c from exercises_answers group by uId');
     }
+
+    //return a list of pairs, userId & the number of completed exercises (i.e. solved correctly)
+    function countExercisesSucceededByUsers() {
+        return DB::select('select uId, count(distinct(eId)) as c from exercises_answers where success = 1 group by uId');
+    }
+
+    //return a list of pairs, userId & the number of completed exercises (i.e. not correct)
+    function countExercisesFailedByUsers() {
+        return DB::select('select uId, count(distinct(eId)) as c from exercises_answers where success = 0 group by uId');
+    }
+
+    //return a list of pairs, typeId & number of series with that type
+    function countSeriesByTypes() {
+        return DB::select('select tId, count(id) from series group by tId');
+    }
+
+    //return a list of pairs, groupId & number of members of that group
+    function countUsersByGroups() {
+        return DB::select('select groupId, count(memberId) as c from members_of_groups group by groupId');
+    }
+
+    //return a list of pairs, userId & number of groups associated to that user
+    function countGroupsByUsers() {
+        return DB::select('select memberId, count(groupId) as c from members_of_groups group by memberId');
+    }
+
 
     //ARMIN's WIP Functions
     //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
