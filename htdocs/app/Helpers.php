@@ -331,6 +331,12 @@
         return DB::select('select uId, (agg2.c-count(uId)) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from exercises_answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg, (select count(distinct(serieId)) as c from exercises) agg2 group by uId');
     }
 
+    //returns list of pairs, userId & number of series for which none of the exercises was made so far
+    //series with no exercises are not taken into account
+    function countSeriesUnstartedByUsers() {
+        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from series where id in (select distinct(serieId) from exercises)) agg where users.id not in (select uId from exercises_answers) union (select uId as id, (agg.c-count(distinct(serieId))) from (exercises_answers join exercises on eId = exercises.id), (select count(id) as c from series where id in (select distinct(serieId) from exercises)) agg group by uId)) agg group by id');
+    }
+
     //return a list of pairs, userId & the number of completed exercises (i.e. at least tried once)
     function countExercisesCompletedByUsers() {
         return DB::select('select uId, count(distinct(eId)) as c from exercises_answers group by uId');
@@ -344,6 +350,32 @@
     //return a list of pairs, userId & the number of completed exercises (i.e. not correct)
     function countExercisesFailedByUsers() {
         return DB::select('select uId, count(distinct(eId)) as c from exercises_answers where success = 0 group by uId');
+    }
+
+    //return a list of pairs, userId & number of exercises for which no answer has been submitted yet
+    function countExercisesUnstartedByUsers() {
+        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from exercises) agg where users.id not in (select uId from exercises_answers) union (select uId as id, (agg.c-count(distinct(eId))) from exercises_answers, (select count(id) as c from exercises) agg group by uId)) agg group by id');
+    }
+
+    //return a list of pairs, userId & the number of completed types (i.e. at least tried all exercises of a certain type)
+    function countTypesCompletedByUsers() {
+        return DB::select('select uId, count(agg1.tId) from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+    }
+
+    //return a list of pairs, userId & the number of completed types (i.e. solved correctly)
+    function countTypesSucceededByUsers() {
+        return DB::select('select uId, count(agg1.tId) from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers where success = 1 group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+    }
+
+    //return a list of pairs, userId & the number of types in progress (i.e. analog to countSeriesInProgressByUsers)
+    function countTypesInProgressByUsers() {
+        return DB::select('select uId, (agg2.c-agg1.c) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId group by uId');
+    }
+
+    //returns a list of pairs, userId & the number of types for which no answer has been submitted yet
+    //types for which no exercises exist are not taken into account
+    function countTypesUnstartedByUsers() {
+        return DB::select('');
     }
 
     //return a list of pairs, typeId & number of series with that type
