@@ -359,12 +359,12 @@
 
     //return a list of pairs, userId & the number of completed types (i.e. at least tried all exercises of a certain type)
     function countTypesCompletedByUsers() {
-        return DB::select('select uId, count(agg1.tId) from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
     }
 
     //return a list of pairs, userId & the number of completed types (i.e. solved correctly)
     function countTypesSucceededByUsers() {
-        return DB::select('select uId, count(agg1.tId) from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers where success = 1 group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from exercises_answers where success = 1 group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
     }
 
     //return a list of pairs, userId & the number of types in progress (i.e. analog to countSeriesInProgressByUsers)
@@ -375,12 +375,12 @@
     //returns a list of pairs, userId & the number of types for which no answer has been submitted yet
     //types for which no exercises exist are not taken into account
     function countTypesUnstartedByUsers() {
-        return DB::select('');
+        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from types where id in (select tId from series where id in (select distinct(serieId) from exercises))) agg where users.id not in (select uId from exercises_answers) union (select uId as id, (agg.c-count(distinct(tId))) from (exercises_answers join exercises join series join types on eId = exercises.id and serieId = series.id and tId = types.id), (select count(id) as c from types where id in (select tId from series where id in (select distinct(serieId) from exercises)) ) agg )) agg group by id');
     }
 
     //return a list of pairs, typeId & number of series with that type
     function countSeriesByTypes() {
-        return DB::select('select tId, count(id) from series group by tId');
+        return DB::select('select tId, count(id) as c from series group by tId');
     }
 
     //return a list of pairs, groupId & number of members of that group
@@ -392,6 +392,12 @@
     function countGroupsByUsers() {
         return DB::select('select memberId, count(groupId) as c from members_of_groups group by memberId');
     }
+
+    //return a list of pairs, serieId & the number of exercises associated to that serie
+    function countExercisesBySeries() {
+        return DB::select('select * from ( (select id, 0 as c  from series where id not in (select serieId from exercises group by serieId)) union (select serieId, count(id) as c from exercises group by serieId) ) agg group group by id');
+    }
+
 
     //ARMIN's WIP Functions
     //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
