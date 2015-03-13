@@ -256,13 +256,70 @@
         return true;
     }
 
-<<<<<<< HEAD
 
     function storeConversation($id) {
         $userId = loadUser($id)[0]->id;
 
         DB::insert('INSERT INTO conversation (userA, userB) VALUE (?, ?)', [min(\Auth::id(), $userId), max(\Auth::id(), $userId)]);
-=======
+    }
+
+    function loadConversation($id) {
+        $id = loadUser($id)[0]->id;
+
+        return DB::select('SELECT * FROM conversations WHERE userA = ? AND userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
+    }
+
+
+    function loadLatestConversation() {
+        return \DB::select(' SELECT C.userA, C.userB
+                                     FROM conversations C
+                                          JOIN messages M ON C.id = M.conversationId
+                                     WHERE C.userA = ? OR C.userB = ?
+                                     ORDER BY date DESC
+                                     LIMIT 1',
+            [\Auth::id(), \Auth::id()]);
+    }
+
+
+    function storeMessage($cId, $message) {
+        return \DB::insert('INSERT INTO messages (conversationId, author, message) VALUE (?, ?, ?)', [$cId, \Auth::id(), $message]);
+    }
+
+
+    function loadAllMessagesInDB() {
+        return DB::select('SELECT userA, userB, message, date
+                               FROM conversations
+                                    JOIN messages ON conversations.id = messages.conversationId
+                               ORDER BY date');
+    }
+
+
+    function loadAllMessages($id) {
+        $id2 = loadUser($id)[0]->id;
+
+        return DB::select('SELECT U.username,M.message,M.date
+                               FROM conversations C
+                                    JOIN messages M ON C.id = M.conversationId
+                                    JOIN users U ON U.id = M.author
+                               WHERE C.userA = ? AND C.userB = ?',
+            [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
+    }
+
+
+    //Get all conversations for the logged in user, then only select the latest message for each of them
+    function loadConversationsWithMessage() {
+        return \DB::select(' select userA, userB, message, date
+                                 from (select C.id, C.userA, C.userB, M.message, M.date
+                                       from conversations C
+                                            join messages M on C.id = M.conversationId
+                                            join users U on U.id = M.author
+                                       where C.userA = ? or C.userB = ?
+                                       order by date desc) as X
+                                 group by id
+                                 order by date desc',
+            [\Auth::id(), \Auth::id()]);
+    }
+
     //ALL STATISTICAL HELPERS NEEDED FOR THE GRAPHS
 
     //returns a list of pairs, serieId & average rating of that serie
@@ -403,74 +460,6 @@
     //return a list of pairs, serieId & the number of exercises associated to that serie
     function countExercisesBySeries() {
         return DB::select('select * from ( (select id, 0 as c  from series where id not in (select serieId from exercises group by serieId)) union (select serieId, count(id) as c from exercises group by serieId) ) agg group group by id');
-    }
-
-
-    //ARMIN's WIP Functions
-    //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
-    function getConversation($id) {
-        if (empty(loadUser($id))) return [];
-        $id = loadUser($id)[0]->id;
-        return DB::select('select * from conversations where userA = ? and userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
->>>>>>> 4aaf3dbf878caf641d654345752c7df5a5f7c96b
-    }
-
-
-    function loadConversation($id) {
-        $id = loadUser($id)[0]->id;
-
-        return DB::select('SELECT * FROM conversations WHERE userA = ? AND userB = ?', [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
-    }
-
-
-    function loadLatestConversation() {
-        return \DB::select(' SELECT C.userA, C.userB
-                                 FROM conversations C
-                                      JOIN messages M ON C.id = M.conversationId
-                                 WHERE C.userA = ? OR C.userB = ?
-                                 ORDER BY date DESC
-                                 LIMIT 1',
-            [\Auth::id(), \Auth::id()]);
-    }
-
-
-    function storeMessage($cId, $message) {
-        return \DB::insert('INSERT INTO messages (conversationId, author, message) VALUE (?, ?, ?)', [$cId, \Auth::id(), $message]);
-    }
-
-
-    function loadAllMessagesInDB() {
-        return DB::select('SELECT userA, userB, message, date
-                           FROM conversations
-                                JOIN messages ON conversations.id = messages.conversationId
-                           ORDER BY date');
-    }
-
-
-    function loadAllMessages($id) {
-        $id2 = loadUser($id)[0]->id;
-
-        return DB::select('SELECT U.username,M.message,M.date
-                           FROM conversations C
-                                JOIN messages M ON C.id = M.conversationId
-                                JOIN users U ON U.id = M.author
-                           WHERE C.userA = ? AND C.userB = ?',
-                           [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
-    }
-
-
-    //Get all conversations for the logged in user, then only select the latest message for each of them
-    function loadConversationsWithMessage() {
-        return \DB::select(' select userA, userB, message, date
-                             from (select C.id, C.userA, C.userB, M.message, M.date
-                                   from conversations C
-                                        join messages M on C.id = M.conversationId
-                                        join users U on U.id = M.author
-                                   where C.userA = ? or C.userB = ?
-                                   order by date desc) as X
-                             group by id
-                             order by date desc',
-                             [\Auth::id(), \Auth::id()]);
     }
 ?>
 
