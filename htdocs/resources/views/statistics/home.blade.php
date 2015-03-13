@@ -9,59 +9,47 @@
 
         <!-- brunodd: Get data from database -->
         <?php 
-            $series = loadAllSeries();
-            $_seriesIds = DB::select('select id from series order by id');
-            $seriesIds = [];
-            foreach($_seriesIds as $id) {
-                array_push($seriesIds, $id->id);
+            $raw = countSeriesByMakers();
+            $raw2 = countExercisesByMakers();
+            $makers = [];
+            $seriesCounter = [];
+            $exercisesCounter = [];
+            foreach($raw as $pair) {
+                array_push($makers, loadName($pair->makerId)[0]->username);
+                array_push($seriesCounter, $pair->c);
             }
-            $_seriesMIds = DB::select('select makerId from series order by id');
-            $seriesMIds = [];
-            foreach($_seriesMIds as $mId) {
-                array_push($seriesMIds, $mId->makerId);
-            }
-            $_makerIds = DB::select('select id from users order by id');
-            $makerIds = [];
-            foreach($_makerIds as $mId) {
-                array_push($makerIds, $mId->id);
+            foreach($raw2 as $pair) {
+                array_push($exercisesCounter, $pair->c);
             }
         ?>
         <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
         <script type="text/javascript">
         $(function () {
-            $('#container').highcharts({
-                chart: {
+            $('#container_created_per_user').highcharts({
+                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Series overview',
-                    x: -20 //center
+                    text: 'Created per user'
                 },
                 xAxis: {
-                    catgories: <?php echo(json_encode($makerIds)); ?>
+                    title: {
+                        text: 'Makers'
+                    },
+                    categories: <?php echo(json_encode($makers)); ?>
                 },
                 yAxis: {
                     title: {
-                        text: 'Maker (id)'
+                        text: 'Amount created'
                     },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valuePrefix: 'Makers id: '
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
+                    allowDecimals: false
                 },
                 series: [{
                     name: 'Series',
-                    data: <?php echo(json_encode($seriesMIds)); ?>
+                    data: <?php echo(json_encode($seriesCounter)); ?>
+                }, {
+                    name: 'Exercises',
+                    data: <?php echo(json_encode($exercisesCounter)); ?>
                 }]
             });
         });
@@ -69,10 +57,6 @@
 @stop
 
 @section('content')
-        <?php echo(json_encode($_makerIds)); ?>
-        <?php echo(json_encode($makerIds)); ?>
-        <?php echo(json_encode($_seriesMIds)); ?>
-        <?php echo(json_encode($seriesMIds)); ?>
         <!-- 3. Add the container -->
-        <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
+        <div id="container_created_per_user" style="width: 600px; height: 400px; margin: 0 auto"></div>
 @stop

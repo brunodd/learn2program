@@ -312,7 +312,7 @@
 
     //returns a list of pairs, userId & the number of exercises created by that user
     function countExercisesByMakers() {
-        return DB::select('select makerId, count(exercises.id) from exercises join series join users on serieId = series.id and makerId = users.id group by makerId');
+        return DB::select('select makerId, count(exercises.id) as c from exercises join series join users on serieId = series.id and makerId = users.id group by makerId');
     }
 
     //return a list of pairs, userId & the number of completed series (i.e. at least tried once on each exercise)
@@ -392,7 +392,6 @@
     function countGroupsByUsers() {
         return DB::select('select memberId, count(groupId) as c from members_of_groups group by memberId');
     }
-
 
     //ARMIN's WIP Functions
     //WILL IMPROVE FUNCTIONS, PLZ LET ME      TO TIRED RIGHT NOW NOW :P
