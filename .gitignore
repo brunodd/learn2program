@@ -7,3 +7,4 @@
 *.out
 */public/skulpt
 ./.idea
+*/.DS_Store
