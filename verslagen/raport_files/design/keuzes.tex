@@ -1,10 +1,11 @@
 \subsubsection{Programmeertaal}
 We zijn begonnen met het PHP framework \href{http://laravel.com/}{\emph{Laravel (5.0)}}.
 Aangezien niemand van ons enige ervaring had met webdevelopment of webdesign was het een
-enorme hulp om een soort template te hebben waar we op konden voortgaan. Laravel gebruikt
-MVC design, wat we dan ook gevolgd hebben. Voor alle grote klasses werd een Controller aangemaakt.
-Deze Controller bevat de voornaamste php code. De resultaten die in de Controller behaald worden,
-worden dan gebruikt om Views te creeren die de content geformateerd renderen (als html code).
+enorme hulp om een soort template te hebben waar we op konden voortgaan. Een bijkomende reden
+om Laravel te gebruiken is dat het een zeer uitgebreide en actieve community bevat, evenals veel en
+duidelijke tutorials. Laravel gebruikt MVC design, wat we dan ook gevolgd hebben. Voor alle grote klasses
+werd een Controller aangemaakt. Deze Controller bevat de voornaamste php code. De resultaten die in de
+Controller behaald worden, worden dan gebruikt om Views te creeren die de content geformateerd renderen (als html code).
 
 \subsubsection{Database communicatie}
 Om met objecten te kunnen werken worden zogenaamde Models aangemaakt. Dit zijn php klassen die
@@ -14,3 +15,14 @@ in deze models gespecifieerd kan worden welke data wel of niet kan aangepast wor
 worden verzameld in een enkele file, en worden doorheen het programma gebruikt om te communiceren
 met de database.
 
+\subsubsection{Python interpreter}
+Voor de python interpreter hebben we gekozen voor \href{http://www.skulpt.org/}{\emph{Skulpt}}.
+Skulpt is een 'in-browser' implementatie van python. De voornaamste voordelen hiervan zijn dat
+beveiliging veel minder belangrijk is, omdat het kwetsbare systeem voornamelijk de eigen computer
+van de gebruiker is. Een tweede voordeel is dat de interpretatie van python code geen rekenkracht vergt van
+de servers. Dit maakt dat het systeem voorbereid is voor gelijktijdig gebruik door een groot aantal gebruikers.
+Een nadeel van dit systeem is dan weer dat Skulpt een implementatie is van Python, en dus niet hetzelfde is als de
+werkelijke python interpreter. Hierdoor is skulpt niet hetzelfde als de officiele python interpreter. Na
+afweging van voor- en nadelen hebben we besloten dat de voordelen zwaarder doorwegen. Voornamelijk omdat
+de applicatie dient om te leren programmeren. De nadruk ligt dus op relatief eenvoudige problemen, waardoor
+de meer gevorderde zaken die eventueel zouden ontbreken niet van toepassing zijn. 
