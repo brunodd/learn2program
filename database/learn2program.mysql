@@ -33,7 +33,7 @@ CREATE TABLE conversations (
 CREATE TABLE messages (
     conversationId int REFERENCES conversations(id),
     message varchar(512) NOT NULL,
-    author varchar(50) NOT NULL,          //author stored as username for easier displaying
+    author varchar(50) NOT NULL,          /*author stored as username for easier displaying */
     date timestamp               /* 'YYYY-MM-DD HH:MM:SS' format */
 );
 
