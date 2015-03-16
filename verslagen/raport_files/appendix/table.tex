@@ -1,0 +1,100 @@
+\begin{lstlisting}    
+/* In case a database is still loaded, remove it */
+DROP DATABASE if exists learn2program_db;
+
+/* Load a new database */
+CREATE DATABASE learn2program_db;
+USE learn2program_db;
+
+CREATE TABLE users (
+    id int AUTO_INCREMENT,
+    pass varchar(255) NOT NULL,
+    username varchar(50) NOT NULL UNIQUE,
+    mail varchar(50) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE friends (
+    id1 int REFERENCES users(id),
+    id2 int REFERENCES users(id),
+    PRIMARY KEY(id1, id2)
+);
+
+CREATE TABLE conversations (
+    id int AUTO_INCREMENT,
+    userA int REFERENCES users(id),
+    userB int REFERENCES users(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE messages (
+    conversationId int REFERENCES conversations(id),
+    message varchar(512) NOT NULL,
+    author varchar(50) NOT NULL,          //author stored as username for easier displaying
+    date timestamp               /* 'YYYY-MM-DD HH:MM:SS' format */
+);
+
+CREATE TABLE groups (
+    id int AUTO_INCREMENT,
+    name varchar(30) NOT NULL UNIQUE,
+    founderId int NOT NULL,
+    FOREIGN KEY (founderId) REFERENCES users(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE members_of_groups (
+    memberId int REFERENCES users(id),
+    groupId int REFERENCES Groups(id),
+    PRIMARY KEY (memberId, groupId)
+);
+
+/* Only allow 4 values for difficulty? => easy, intermediate, hard, insane */
+CREATE TABLE types (
+    id int AUTO_INCREMENT,
+    subject varchar(50) NOT NULL,
+    difficulty ENUM('easy', 'intermediate', 'hard', 'insane') NOT NULL,
+    PRIMARY KEY(id),
+    UNIQUE(subject, difficulty)
+);
+
+/* Must make sure that at least 1 exercise belongs to a serie
+    => design the site so that this is always the case? */
+CREATE TABLE series (
+    id int AUTO_INCREMENT,
+    title varchar(50) NOT NULL,
+    description varchar(500),
+    makerId int NOT NULL,
+    FOREIGN KEY (makerId) REFERENCES users(id),
+    tId int NOT NULL,
+    FOREIGN KEY (tId) REFERENCES types(id),
+    PRIMARY KEY(id),
+    UNIQUE(title, tId)
+);
+
+CREATE TABLE series_ratings (
+    userId int REFERENCES users(id),
+    serieId int REFERENCES series(id),
+    rating ENUM('0', '1', '2', '3', '4', '5') NOT NULL,
+    PRIMARY KEY (userId, serieId)
+);
+
+CREATE TABLE exercises (
+    id int AUTO_INCREMENT,
+    question varchar(767) NOT NULL,
+    tips varchar(500),
+    start_code text NOT NULL,
+    expected_result text NOT NULL,
+    serieId int NOT NULL,
+    FOREIGN KEY (serieId) REFERENCES series(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE exercises_answers (
+    id int AUTO_INCREMENT,
+    given_code text NOT NULL,
+    success bool NOT NULL,
+    uId int NOT NULL REFERENCES users(id),
+    eId int NOT NULL REFERENCES exercises(id),
+    PRIMARY KEY(id)
+);
+\end{lstlisting}    

@@ -1,0 +1,22 @@
+In this section you find all the sql queries that are used throughout the project.
+If the query is used as part of a function, only the sql query is shown. This is done as not to
+clutter the appendix, since php code is not relevant for this section. 
+
+\subsection{Table}
+Below is a listing of all queries that were used to create the database. It lists
+the tables of the database and the specifications of each column.
+\input{raport_files/appendix/table.tex}
+
+\subsection{Triggers}
+Below is a list of all the triggers used to guarantee proper use of the database.
+Most triggers are strictly speaking not necessary as they were also implemented in the
+application itself. The triggers were added nonetheless since they are part of the database
+design and add an extra level of protection.
+\input{raport_files/appendix/triggers.tex}
+
+\subsection{Helpers}
+This section lists all queries that were used throughout the program. It contains queries such
+as 'inserts', 'updates', 'selects', etc. Above each query is the function name in which it was
+used. Obviously some functions also contain php code, but this was omitted as stated at the top of
+this page.
+\input{raport_files/appendix/queries.tex}

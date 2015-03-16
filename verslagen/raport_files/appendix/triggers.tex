@@ -1,0 +1,108 @@
+\begin{lstlisting}    
+/* Make sure password, username and mail are not empty. */
+delimiter //
+CREATE TRIGGER check_users
+BEFORE INSERT ON users 
+FOR EACH ROW 
+BEGIN
+    IF NEW.pass = "" THEN
+        SET NEW.pass = Null;
+    END IF;
+    IF NEW.username = "" THEN
+        SET NEW.username = Null;
+    END IF;
+    IF NEW.mail = "" THEN
+        SET NEW.pass = Null;
+    END IF;
+END;//
+
+delimiter ;
+
+/* Make sure the answer is not empty. */
+delimiter //
+CREATE TRIGGER check_answer
+BEFORE INSERT ON exercises_answers
+FOR EACH ROW 
+BEGIN
+    IF NEW.given_code = "" THEN
+        SET NEW.given_code = Null;
+    END IF; 
+END;//
+
+delimiter ;
+
+/* Make sure the title from serie is not empty. */
+delimiter //
+CREATE TRIGGER check_title
+BEFORE INSERT ON series
+FOR EACH ROW 
+BEGIN
+    IF NEW.title = "" THEN
+        SET NEW.title = Null;
+    END IF; 
+END;//
+
+delimiter ;
+
+/* Make sure the group name is not empty. */
+delimiter //
+CREATE TRIGGER check_group
+BEFORE INSERT ON groups
+FOR EACH ROW 
+BEGIN
+    IF NEW.name = "" THEN
+        SET NEW.name = Null;
+    END IF; 
+END;//
+
+delimiter ;
+
+/* Make sure the subject and difficulty are not empty. */
+delimiter //
+CREATE TRIGGER check_type
+BEFORE INSERT ON types
+FOR EACH ROW 
+BEGIN
+    IF NEW.subject = "" THEN
+        SET NEW.subject = Null;
+    END IF; 
+    IF NEW.difficulty = "" THEN
+        SET NEW.difficulty = Null;
+    END IF;
+END;//
+
+delimiter ;
+
+/* Make sure question, start_code and expected_result are not empty. */
+delimiter //
+CREATE TRIGGER check_exercise
+BEFORE INSERT ON exercises
+FOR EACH ROW 
+BEGIN
+    IF NEW.question = "" THEN
+        SET NEW.question = Null;
+    END IF;
+    IF NEW.start_code = "" THEN
+        SET NEW.start_code = Null;
+    END IF;
+    IF NEW.expected_result = "" THEN
+        SET NEW.expected_result = Null;
+    END IF;
+END;//
+
+/* Make sure question, start_code and expected_result are not empty. */
+delimiter //
+CREATE TRIGGER check_friends
+BEFORE INSERT ON friends
+FOR EACH ROW 
+BEGIN
+    IF NEW.id1 = NEW.id2 THEN
+        SET NEW.id1 = Null;
+    END IF;
+    IF EXISTS (SELECT * FROM friends WHERE (id1 = NEW.id1 and id2 = NEW.id2) or (id1 = NEW.id2 and id2 = NEW.id1)) THEN
+        SET NEW.id1 = Null;
+    END IF;
+END;//
+
+
+\end{lstlisting}    
