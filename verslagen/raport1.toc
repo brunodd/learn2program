@@ -4,16 +4,18 @@
 \contentsline {subsubsection}{\numberline {2.1.1}Programmeertaal}{4}{subsubsection.2.1.1}
 \contentsline {subsubsection}{\numberline {2.1.2}Database communicatie}{4}{subsubsection.2.1.2}
 \contentsline {subsubsection}{\numberline {2.1.3}Python interpreter}{4}{subsubsection.2.1.3}
-\contentsline {subsection}{\numberline {2.2}Database schema}{5}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}UML Schema}{5}{subsection.2.3}
-\contentsline {section}{\numberline {3}Product}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}User Interface}{6}{subsection.3.1}
-\contentsline {subsubsection}{\numberline {3.1.1}Home page}{6}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}Navigatie}{6}{subsubsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.3}Vertalingen}{6}{subsubsection.3.1.3}
-\contentsline {subsection}{\numberline {3.2}Extra functionaliteit}{6}{subsection.3.2}
-\contentsline {section}{\numberline {4}Planning}{7}{section.4}
-\contentsline {section}{\numberline {5}Appendix}{8}{section.5}
-\contentsline {subsection}{\numberline {5.1}Table}{8}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Triggers}{10}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Helpers}{13}{subsection.5.3}
+\contentsline {subsection}{\numberline {2.2}Database schema}{7}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}UML Schema}{7}{subsection.2.3}
+\contentsline {section}{\numberline {3}Product}{10}{section.3}
+\contentsline {subsection}{\numberline {3.1}User Interface}{10}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Home page}{10}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Navigatie}{10}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Vertalingen}{10}{subsubsection.3.1.3}
+\contentsline {subsection}{\numberline {3.2}Extra functionaliteit}{10}{subsection.3.2}
+\contentsline {section}{\numberline {4}Planning}{12}{section.4}
+\contentsline {subsection}{\numberline {4.1}Basisvereisten}{12}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Extra functionaliteit}{12}{subsection.4.2}
+\contentsline {section}{\numberline {5}Appendix}{13}{section.5}
+\contentsline {subsection}{\numberline {5.1}Table}{13}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Triggers}{15}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Helpers}{18}{subsection.5.3}
