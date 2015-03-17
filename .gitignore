@@ -5,6 +5,7 @@
 *.aux
 *.log
 *.out
+*.toc
 */public/skulpt
 ./.idea
 */.DS_Store
