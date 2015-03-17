@@ -30,7 +30,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown ">
+                <!-- li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                         Dropdown Example
                         <span class="caret"></span>
@@ -44,7 +44,7 @@
                         <li class="divider"></li>
                         <li><a href="#">One more separated link</a></li>
                     </ul>
-                </li>
+                </li-->
 
                 <li>
                     <form class="navbar-form navbar-right" role="search">

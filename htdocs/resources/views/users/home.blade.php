@@ -10,7 +10,7 @@
     <ul>
         @foreach($users as $user)
                 <h3>*avatar/picture* <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a></h3>
-                <i>Some info about user, e.g. completed x series/has rating y</i>
+                <i>Some info about user: e.g. completed x series/has rating y</i>
         @endforeach
     </ul>
 @stop
