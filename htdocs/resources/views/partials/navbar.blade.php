@@ -30,7 +30,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <!-- li class="dropdown ">
+                <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                         Dropdown Example
                         <span class="caret"></span>
@@ -38,13 +38,13 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                         <li><a href="/list_all_users">List All Users</a></li>
                         <li><a href="/list_all_messages">List All Messages</a></li>
-                        <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
                         <li class="divider"></li>
                         <li><a href="#">One more separated link</a></li>
+                        <li><a href="#">Something else here</a></li>
                     </ul>
-                </li-->
+                </li>
 
                 <li>
                     <form class="navbar-form navbar-right" role="search">
@@ -63,9 +63,10 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li><a href="/messages">My Messages</a></li>
-                            <li><a href="#">My series</a></li>
-                            <li><a href="#">My exercises</a></li>
-                            <li><a href="#">My groups</a></li>
+                            <li><a href="#">My Series</a></li>
+                            <li><a href="#">My Exercises</a></li>
+                            <li><a href="#">My Friends</a></li>
+                            <li><a href="#">My Groups</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>

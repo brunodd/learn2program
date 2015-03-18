@@ -260,7 +260,7 @@
     function storeConversation($id) {
         $userId = loadUser($id)[0]->id;
 
-        DB::insert('INSERT INTO conversation (userA, userB) VALUE (?, ?)', [min(\Auth::id(), $userId), max(\Auth::id(), $userId)]);
+        DB::insert('INSERT INTO conversations (userA, userB) VALUE (?, ?)', [min(\Auth::id(), $userId), max(\Auth::id(), $userId)]);
     }
 
     function loadConversation($id) {

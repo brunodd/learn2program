@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Full list of users (containing passwords).
+    Full list of users.
 @stop
 
 @section('content')

@@ -82,7 +82,7 @@ class MessagesController extends Controller {
         } else {
             $toId2 = loadUser($id)[0]->id;
 
-            loadAllMessages($toId2);
+            storeConversation($toId2);
             return $this->show($id);
         }
 	}
