@@ -9,8 +9,8 @@ class GroupsTableSeeder extends Seeder {
         DB::table('groups')->delete();
         DB::statement('ALTER TABLE groups AUTO_INCREMENT=1');
 
-        Group::create(['name' => 'a', 'founderId' => 1]);
-        Group::create(['name' => 'b', 'founderId' => 2]);
-        Group::create(['name' => 'c', 'founderId' => 3]);
+        Group::create(['name' => 'Group for BINF2', 'founderId' => 3]);
+        Group::create(['name' => 'Everyone who loves python', 'founderId' => 1]);
+        Group::create(['name' => 'WE WANT C++ !!!', 'founderId' => 2]);
     }
 }

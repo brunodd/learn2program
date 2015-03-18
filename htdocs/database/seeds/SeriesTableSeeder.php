@@ -9,8 +9,8 @@ class SeriesTableSeeder extends Seeder {
         DB::table('series')->delete();
         DB::statement('ALTER TABLE series AUTO_INCREMENT=1');
 
-        Series::create(['title' => 'aa', 'description' => 'aaa', 'makerId' => 1, 'tId' => 1]);
-        Series::create(['title' => 'bb', 'description' => 'bbb', 'makerId' => 2, 'tId' => 2]);
-        Series::create(['title' => 'cc', 'description' => 'ccc', 'makerId' => 3, 'tId' => 3]);
+        Series::create(['title' => 'Hello world!', 'description' => 'Introduction to python, explanation about print function', 'makerId' => 1, 'tId' => 1]);
+        Series::create(['title' => 'Hello turtles!', 'description' => 'Introduction to turtle module', 'makerId' => 2, 'tId' => 2]);
+        Series::create(['title' => 'Series example 3', 'description' => 'Description about this series', 'makerId' => 3, 'tId' => 3]);
     }
 }

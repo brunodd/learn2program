@@ -63,7 +63,8 @@ function showResult() {
 </script>
 
 <h3>{{ $exercise->question }}</h3>
-<p> {{ $exercise->tips }}</p> <br \>
+<br>
+<p> <b>Hints:</b> {{ $exercise->tips }}</p> <br \>
 <h4>Your code :</h4>
 
 {!! Form::open() !!}

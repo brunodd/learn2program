@@ -115,7 +115,8 @@ class ExercisesController extends Controller {
         $ans->eId = $id;
 
         storeAnswer($ans);
-        flash()->success("Your answer was successfully stored.");
+        //flash()->success("Your answer was successfully stored.");
+        // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
 
         $result = $input['result'];
         $answer = $input['given_code'];

@@ -133,6 +133,10 @@ CREATE TABLE exercises_answers (
 );
 
 
+
+
+
+
 /* Make sure password, username and mail are not empty. */
 delimiter //
 CREATE TRIGGER check_users

@@ -10,11 +10,29 @@ class ExercisesTableSeeder extends Seeder {
         DB::statement('ALTER TABLE exercises AUTO_INCREMENT=1');
 
 
-        Exercise::create(['question' => 'aaa', 'tips' => 'aaa', 'start_code' => '
-name = ""
-print("Hello, " + name)', 'expected_result' => 'A', 'serieId' => 1]);
-        Exercise::create(['question' => 'bbb', 'tips' => 'bbb', 'start_code' => '
-import turtle
+        Exercise::create([
+            'question' => 'Execute this code',
+            'tips' => 'Click the button',
+            'start_code' =>
+                'print("Hello, world")',
+            'expected_result' =>
+'Hello, world',
+            'serieId' => 1]);
+
+        Exercise::create([
+            'question' => 'Execute this code',
+            'tips' => 'Click the button',
+            'start_code' =>
+'name = ""
+print("Hello, " + name)',
+            'expected_result' => 'Hello, *your name*',
+            'serieId' => 1]);
+
+        Exercise::create([
+            'question' => 'Execute this code',
+            'tips' => 'Click the button',
+            'start_code' =>
+'import turtle
 
 alex = turtle.Turtle()
 alex.speed(0)
@@ -30,9 +48,9 @@ def draw_track(r, color):
 
 colors = ["green","purple","magenta","blue","yellow","orange","red"]
 
-for color in colors:        #draws the set of disks using to the draw_track function, adjusting the radius of each set of circles depending on the respective colors.
+for color in colors:
     if color == "green":
-        r = 140 
+        r = 140
         draw_track(r, color)
     if color == "purple":
         r = 120
@@ -52,7 +70,16 @@ for color in colors:        #draws the set of disks using to the draw_track func
     if color == "red":
         r = 20
         draw_track(r, color)
-', 'expected_result' => 'B', 'serieId' => 2]);
-        Exercise::create(['question' => 'ccc', 'tips' => 'ccc', 'start_code' => '3', 'expected_result' => 'C', 'serieId' => 3]);
+',
+            'expected_result' => 'A drawing',
+            'serieId' => 2]);
+
+        Exercise::create([
+            'question' => 'Question for series example 3',
+            'tips' => 'None',
+            'start_code' =>
+'Some code...',
+            'expected_result' => 'Anything',
+            'serieId' => 3]);
     }
 }

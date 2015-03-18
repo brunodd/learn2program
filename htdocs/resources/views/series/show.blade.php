@@ -22,19 +22,20 @@
 @stop
 
 @section('content')
-    <h2>Description :</h2>
+    <h3>Description :</h3>
     <p>{{$serie->description}}</p>
-    <h2>List of {{ $serie->title }}'s exercises :</h2>
+    <h3>List of {{ $serie->title }}'s exercises :</h3>
     @if ( $exercises )
-    @foreach ( $exercises as $ex )
-    <h4><a href="../exercises/{{$ex->id}}">Exercise {{$ex->id}}</a></h4>
-    @endforeach
+        @foreach ( $exercises as $ex )
+            <h4><a href="../exercises/{{$ex->id}}">Exercise {{$ex->id}}</a></h4>
+        @endforeach
     @endif
+    <br>
     @if ( $serie->makerId === Auth::id() )
-    <h3><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h3>
+    <h4><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h4>
     @endif
 
-    <br \> <br \>
+    <br> <br>
     @if( unratedSeries($serie->id) )
     <h4>No ratings found for this series.</h4>
     @else
