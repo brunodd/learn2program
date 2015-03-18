@@ -34,9 +34,9 @@ class MessagesController extends Controller {
             //Get the user from the conversation that is not the logged in one.
             $userId = (\Auth::id() == $latestConversation[0]->userA) ? ($latestConversation[0]->userB) : ($latestConversation[0]->userA);
             $user = loadUser($userId)[0];
-        }
 
-        return redirect('messages/' . $user->username);
+            return redirect('messages/' . $user->username);
+        }
 	}
 
     /**
@@ -60,16 +60,18 @@ class MessagesController extends Controller {
 	 * @return Response
 	 */
 	public function show($id) {
-        if (empty(loadUser($id))) {
+        $userr = loadUser($id);
+
+        if (empty($userr)) {
             flash()->error('That user does not exist');
-            redirect('/messages');
+            return redirect('/messages');
         }
 
 		if (!empty(loadConversation($id))) {
             //Load all messages with $id
             $messages = loadAllMessages($id);
             //Then get user with $id to show him
-            $user = loadUser($id)[0];
+            $user = $userr[0];
             //Then get all conversations for the logged in user to show those in the sidebar
             $conversations = loadConversationsWithMessage();
 

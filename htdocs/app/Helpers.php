@@ -272,12 +272,12 @@
 
     function loadLatestConversation() {
         return \DB::select(' SELECT C.userA, C.userB
-                                     FROM conversations C
-                                          JOIN messages M ON C.id = M.conversationId
-                                     WHERE C.userA = ? OR C.userB = ?
-                                     ORDER BY date DESC
-                                     LIMIT 1',
-            [\Auth::id(), \Auth::id()]);
+                             FROM conversations C
+                                  JOIN messages M ON C.id = M.conversationId
+                             WHERE C.userA = ? OR C.userB = ?
+                             ORDER BY date DESC
+                             LIMIT 1',
+                             [\Auth::id(), \Auth::id()]);
     }
 
 
@@ -287,10 +287,11 @@
 
 
     function loadAllMessagesInDB() {
-        return DB::select('SELECT userA, userB, message, date
-                               FROM conversations
-                                    JOIN messages ON conversations.id = messages.conversationId
-                               ORDER BY date');
+        return DB::select('SELECT C.userA, C.userB, M.message, M.date, U.username
+                           FROM conversations C
+                                JOIN messages M ON C.id = M.conversationId
+                                JOIN users U ON M.author = U.id
+                           ORDER BY date');
     }
 
 
@@ -298,25 +299,25 @@
         $id2 = loadUser($id)[0]->id;
 
         return DB::select('SELECT U.username,M.message,M.date
-                               FROM conversations C
-                                    JOIN messages M ON C.id = M.conversationId
-                                    JOIN users U ON U.id = M.author
-                               WHERE C.userA = ? AND C.userB = ?',
-            [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
+                           FROM conversations C
+                                JOIN messages M ON C.id = M.conversationId
+                                JOIN users U ON U.id = M.author
+                           WHERE C.userA = ? AND C.userB = ?',
+                           [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
     }
 
 
     //Get all conversations for the logged in user, then only select the latest message for each of them
     function loadConversationsWithMessage() {
         return \DB::select(' select userA, userB, message, date
-                                 from (select C.id, C.userA, C.userB, M.message, M.date
-                                       from conversations C
-                                            join messages M on C.id = M.conversationId
-                                            join users U on U.id = M.author
-                                       where C.userA = ? or C.userB = ?
-                                       order by date desc) as X
-                                 group by id
-                                 order by date desc',
+                             from (select C.id, C.userA, C.userB, M.message, M.date
+                                   from conversations C
+                                        join messages M on C.id = M.conversationId
+                                        join users U on U.id = M.author
+                                   where C.userA = ? or C.userB = ?
+                                   order by date desc) as X
+                             group by id
+                             order by date desc',
             [\Auth::id(), \Auth::id()]);
     }
 

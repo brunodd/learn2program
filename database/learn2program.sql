@@ -41,7 +41,7 @@ CREATE TABLE conversations (
 CREATE TABLE messages (
     conversationId INT NOT NULL,
     message VARCHAR(512) NOT NULL,
-    author VARCHAR(50) NOT NULL,
+    author int NOT NULL,
     date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
     FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
