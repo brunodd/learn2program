@@ -7,6 +7,7 @@ class ExercisesTableSeeder extends Seeder {
 
     public function run() {
         DB::table('exercises')->delete();
+        DB::statement('ALTER TABLE exercises AUTO_INCREMENT=1');
 
 
         Exercise::create(['question' => 'aaa', 'tips' => 'aaa', 'start_code' => '1', 'expected_result' => 'A', 'serieId' => 1]);

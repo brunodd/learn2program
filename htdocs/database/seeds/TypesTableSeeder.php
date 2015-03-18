@@ -7,6 +7,7 @@ class TypesTableSeeder extends Seeder {
 
     public function run() {
         DB::table('types')->delete();
+        DB::statement('ALTER TABLE types AUTO_INCREMENT=1');
 /*
         Type::create(['Subject' => 'aaaa', 'Difficulty' => 'easy']);
         Type::create(['Subject' => 'bbbb', 'Difficulty' => 'hard']);

@@ -7,6 +7,7 @@ class SeriesTableSeeder extends Seeder {
 
     public function run() {
         DB::table('series')->delete();
+        DB::statement('ALTER TABLE series AUTO_INCREMENT=1');
 
         Series::create(['title' => 'aa', 'description' => 'aaa', 'makerId' => 1, 'tId' => 1]);
         Series::create(['title' => 'bb', 'description' => 'bbb', 'makerId' => 2, 'tId' => 2]);

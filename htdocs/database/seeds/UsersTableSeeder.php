@@ -8,6 +8,7 @@ class UsersTableSeeder extends Seeder {
     public function run() {
         // wipe the table clean before populating
         DB::table('users')->delete();
+        DB::statement('ALTER TABLE users AUTO_INCREMENT=1');
 
         User::create(['username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin')]);
         User::create(['username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno')]);
