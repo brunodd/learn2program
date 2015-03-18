@@ -11,6 +11,7 @@ class CreateUsersTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
+        //Schema::drop if exists?
 		Schema::create('users', function(Blueprint $table) {
             $table->increments('id');   //automatically sets primary key
             $table->string('username')->unique();
