@@ -24,15 +24,15 @@ class MessagesTableSeeder extends Seeder {
                     [1, 'what don\'t you understand about it?', 2]);
 
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [2, 'hello my friend', 2]);
+                    [2, 'hello my friend', 1]);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
                     [2, 'i\'m not your friend, buddy', 3]);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [2, 'i\'m not your buddy, dude', 2]);
+                    [2, 'i\'m not your buddy, dude', 1]);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
                     [2, 'i\'m not your  dude, pal', 3]);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [2, 'i\'m not your pal, man', 2]);
+                    [2, 'i\'m not your pal, man', 1]);
         sleep(1);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
                     [2, 'i\'m not your man, sir', 3]);
