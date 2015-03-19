@@ -99,13 +99,13 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `exercises_answers`
+-- Table structure for table `answers`
 --
 
-DROP TABLE IF EXISTS `exercises_answers`;
+DROP TABLE IF EXISTS `answers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `exercises_answers` (
+CREATE TABLE `answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `given_code` text NOT NULL,
   `success` tinyint(1) NOT NULL,
@@ -116,12 +116,12 @@ CREATE TABLE `exercises_answers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `exercises_answers`
+-- Dumping data for table `answers`
 --
 
-LOCK TABLES `exercises_answers` WRITE;
-/*!40000 ALTER TABLE `exercises_answers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exercises_answers` ENABLE KEYS */;
+LOCK TABLES `answers` WRITE;
+/*!40000 ALTER TABLE `answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -133,7 +133,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER check_answer
-BEFORE INSERT ON exercises_answers
+BEFORE INSERT ON answers
 FOR EACH ROW 
 BEGIN
     IF NEW.given_code = "" THEN

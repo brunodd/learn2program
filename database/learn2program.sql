@@ -121,7 +121,7 @@ CREATE TABLE exercises (
     FOREIGN KEY (serieId) REFERENCES series(id) ON DELETE CASCADE
 );
 
-CREATE TABLE exercises_answers (
+CREATE TABLE answers (
     id INT AUTO_INCREMENT,
     given_code TEXT NOT NULL,
     success BOOL NOT NULL,
@@ -159,7 +159,7 @@ delimiter ;
 /* Make sure the answer is not empty. */
 delimiter //
 CREATE TRIGGER check_answer
-BEFORE INSERT ON exercises_answers
+BEFORE INSERT ON answers
 FOR EACH ROW 
 BEGIN
     IF NEW.given_code = "" THEN

@@ -11,7 +11,7 @@ class CreateExercisesAswersTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::create('exercises_answers', function(Blueprint $table) {
+		Schema::create('answers', function(Blueprint $table) {
 			$table->increments('id');
             $table->text('given_code');
             $table->boolean('succes');
@@ -31,12 +31,12 @@ class CreateExercisesAswersTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::drop('exercises_answers');
+		Schema::drop('answers');
 	}
 }
 
 /*
-CREATE TABLE exercises_answers (
+CREATE TABLE answers (
     id int AUTO_INCREMENT,
     given_code text NOT NULL,
     success bool NOT NULL,

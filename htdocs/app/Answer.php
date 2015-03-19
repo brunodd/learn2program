@@ -9,7 +9,7 @@ class Answer extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'exercises_answers';
+	protected $table = 'answers';
 
 	/**
 	 * The attributes that are mass assignable.
