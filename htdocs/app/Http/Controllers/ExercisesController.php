@@ -55,10 +55,20 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        $exercise = loadExercise($id)[0];
-        $result = null;
-        $answer = null;
-		return view('exercises.show', compact('exercise', 'result', 'answer'));
+        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercises($id, Auth::id()) )
+        {
+            $exercise = loadExercise($id)[0];
+            $result = null;
+            $answer = null;
+		    return view('exercises.show', compact('exercise', 'result', 'answer'));
+        }
+        else {
+            flash()->error("You must first complete one or more preceding exercises.");
+            $exercise = nextExerciseInLine($id, Auth::id())[0];
+            $result = null;
+            $answer = null;
+		    return view('exercises.show', compact('exercise', 'result', 'answer'));
+        }
 	}
 
 	/**
@@ -69,9 +79,15 @@ class ExercisesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $exercise = loadExercise($id)[0];
-        $serie = loadSerieWithId($exercise->serieId)[0];
-		return view('exercises.edit', compact('exercise', 'serie'));
+        if( isMakerOfExercise($id, Auth::id()) ) {
+            $exercise = loadExercise($id)[0];
+            $serie = loadSerieWithId($exercise->serieId)[0];
+		    return view('exercises.edit', compact('exercise', 'serie'));
+        }
+        else {
+            flash()->error("You must be logged in as the maker of this exercise.");
+            return redirect('exercises/' . $id);
+        }
 	}
 
 	/**
@@ -117,6 +133,11 @@ class ExercisesController extends Controller {
         storeAnswer($ans);
         //flash()->success("Your answer was successfully stored.");
         // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
+
+        /*
+         * if( $ans->success ) flash()->success("Your answer was successfully stored & correct.");
+         * else flash()->error("Your answer was successfully stored, however the result was incorrect. Try again...");
+         */
 
         $result = $input['result'];
         $answer = $input['given_code'];

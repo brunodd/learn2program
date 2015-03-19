@@ -117,6 +117,23 @@
         return DB::select('select * from exercises where id = ?', [$id]);
     }
 
+    function isMakerOfExercise($eId, $uId)
+    {
+        if( empty(DB::select('select * from series where makerId = ? and id in (select serieId from exercises where id = ?)', [$uId, $eId])) ) return false;
+        else return true;
+    }
+
+    function nextExerciseInLine($eId, $uId)
+    {
+        return DB::select('select * from exercises where (serieId in (select serieId from exercises where id = ?)) and (id not in (select eId from answers where uId = ? and success = 1)) order by id', [$eId, $uId]);
+    }
+
+    function completedAllPreviousExercisesOfSeries($eId, $uId)
+    {
+        if( $eId == nextExerciseInLine($eId, $uId)[0]->id ) return true;
+        else return false;
+    }
+
     function removeUnusedTypes()
     {
         DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');
