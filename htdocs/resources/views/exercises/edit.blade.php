@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Edit exercise {{$exercise->id}} of <em>{{ $serie->title }}</em>
+Edit exercise {{ ExNrOfSerie($exercise->id, $exercise->serieId) }} of <em>{{ loadSerieWithId($exercise->serieId)[0]->title }}</em>
 @stop
 
 @section('content')

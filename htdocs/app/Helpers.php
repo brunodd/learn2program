@@ -256,6 +256,26 @@
         return true;
     }
 
+    function first20chars($string)
+    {
+        if( strlen($string) > 50 )
+        {
+            return (substr($string, 0, 50) . "...");
+        }
+        return $string;
+    }
+
+    function ExNrOfSerie($eId, $sId)
+    {
+        $exercises = loadExercisesFromSerie($sId);
+        $index = 1;
+        foreach($exercises as $ex)
+        {
+            if( $ex->id == $eId ) return $index;
+            $index++;
+        }
+    }
+
 
     function storeConversation($id) {
         $userId = loadUser($id)[0]->id;

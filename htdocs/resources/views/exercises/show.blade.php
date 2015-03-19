@@ -6,7 +6,7 @@
 <body>
 
 @section('title')
-<em>Exercise {{ $exercise->id }}'s</em>
+Exercise {{ ExNrOfSerie($exercise->id, $exercise->serieId) }} of <em>{{ loadSerieWithId($exercise->serieId)[0]->title }}</em>
 @if( Auth::check() and isMakerOfSeries($exercise->serieId, Auth::id()) )
 <br>
 <small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
