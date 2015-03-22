@@ -67,6 +67,16 @@ function showResult() {
 <p> <b>Hints:</b> {{ $exercise->tips }}</p> <br \>
 <h4>Your code :</h4>
 
+<!-- Python Syntax Highlight!! -->
+<script language="javascript" type="text/javascript" src="/editarea/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+  id : "yourcode"   // textarea id
+  ,syntax: "python"      // syntax to be uses for highgliting
+  ,start_highlight: true    // to display with highlight mode on start-up
+});
+</script>
+
 {!! Form::open() !!}
 
     @if ( $answer === null )
