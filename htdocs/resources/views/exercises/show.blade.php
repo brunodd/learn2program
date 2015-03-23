@@ -1,34 +1,18 @@
-<html>
-<head>
 @extends('master')
 
-</head>
-<body>
-
-@section('title')
-Exercise {{ ExNrOfSerie($exercise->id, $exercise->serieId) }} of <em>{{ loadSerieWithId($exercise->serieId)[0]->title }}</em>
-@if( Auth::check() and isMakerOfSeries($exercise->serieId, Auth::id()) )
-<br>
-<small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
-@endif
+@section('head')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script>
+<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
 @stop
 
 @section('content')
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
-<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script> 
-
 <script type="text/javascript">
-
-// var result;
-
 // output functions are configurable.  This one just appends some text
 // to a pre element.
 function outf(text) {
     var mypre = document.getElementById("output");
     mypre.innerHTML = mypre.innerHTML + text;
-    result = text;
 }
 function builtinRead(x) {
     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
@@ -45,40 +29,23 @@ function runit() {
    var prog = document.getElementById("yourcode").value;
    var mypre = document.getElementById("output");
    mypre.innerHTML = '';
-   Sk.canvas = "mycanvas";
    Sk.pre = "output";
    Sk.configure({output:outf, read:builtinRead});
-   try {
-      eval(Sk.importMainWithBody("<stdin>",false,prog));
-   }
-   catch(e) {
-       alert(e.toString())
-   }
-}
-function showResult() {
-    runit();
-    // alert("Your result = " + document.getElementById('output').innerHTML);
-    //document.getElementById('result').innerHTML = document.getElementById('output').innerHTML;
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+   var myPromise = Sk.misceval.asyncToPromise(function() {
+       return Sk.importMainWithBody("<stdin>", false, prog, true);
+   });
+   myPromise.then(function(mod) {
+       console.log('success');
+   },
+       function(err) {
+       console.log(err.toString());
+   });
 }
 </script>
 
-<h3>{{ $exercise->question }}</h3>
-<br>
-<p> <b>Hints:</b> {{ $exercise->tips }}</p> <br \>
-<h4>Your code :</h4>
-
-<!-- Python Syntax Highlight!! -->
-<script language="javascript" type="text/javascript" src="/editarea/edit_area/edit_area_full.js"></script>
-<script language="javascript" type="text/javascript">
-editAreaLoader.init({
-  id : "yourcode"   // textarea id
-  ,syntax: "python"      // syntax to be uses for highgliting
-  ,start_highlight: true    // to display with highlight mode on start-up
-});
-</script>
-
+<h3>Try This</h3>
 {!! Form::open() !!}
-
     @if ( $answer === null )
     <div class="form-group">
         {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
@@ -89,26 +56,25 @@ editAreaLoader.init({
     </div>
     @endif
 
-    <div class="form-group"> <!-- just a matter of serpating the canvas a little bit from the fields under & above -->
+    @if ( Auth::check() )
+    <div class="form-group">
+        {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
+    </div>
+
     <!-- If you want turtle graphics include a canvas -->
-    <canvas id="mycanvas" height="600" width="600" class="container-fluid"
-            style="border-style: solid; display: none"></canvas>
-    </div>
+    <div id="mycanvas"></div>
 
-  @if ( Auth::check() )
-    <div class="form-group">
-    {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
-    </div>
-
-    <div class="form-group">
-    {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
-    </div>
-  @endif
+    @endif
 {!! Form::close() !!}
 
 @if( $answer != null )
-<script>runit()</script>
+    <script>runit()</script>
 @endif
- 
+
 <pre>Expected output : {{ $exercise->expected_result }}</pre>
+
 @stop
