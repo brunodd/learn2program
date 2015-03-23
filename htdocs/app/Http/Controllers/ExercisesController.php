@@ -55,7 +55,7 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercises($id, Auth::id()) )
+        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercise($id, Auth::id()) )
         {
             $exercise = loadExercise($id)[0];
             $result = null;
