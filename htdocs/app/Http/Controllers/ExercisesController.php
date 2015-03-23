@@ -67,7 +67,7 @@ class ExercisesController extends Controller {
             $exercise = nextExerciseInLine($id, Auth::id())[0];
             $result = null;
             $answer = null;
-		    return view('exercises.show', compact('exercise', 'result', 'answer'));
+            return redirect('exercises/' . $exercise->id);
         }
 	}
 
@@ -114,6 +114,7 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
+
         $exercise = loadExercise($id)[0];
         $input = $request->all();
 

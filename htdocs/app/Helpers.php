@@ -131,7 +131,13 @@
     function completedAllPreviousExercisesOfSeries($eId, $uId)
     {
         if( $eId == nextExerciseInLine($eId, $uId)[0]->id ) return true;
-        else return false;
+        else return userCompletedExercise($eId, $uId);
+    }
+
+    function userCompletedExercise($eId, $uId)
+    {
+        if( empty(DB::select('select * from answers where eId = ? and uId = ? and success = 1', [$eId, $uId])) ) return false;
+        else return true;
     }
 
     function removeUnusedTypes()
