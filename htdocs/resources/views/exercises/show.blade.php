@@ -39,7 +39,7 @@ function runit() {
    mypre.innerHTML = '';
    Sk.pre = "output";
    Sk.configure({output:outf, read:builtinRead});
-   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'yourcanvas';
    var myPromise = Sk.misceval.asyncToPromise(function() {
        return Sk.importMainWithBody("<stdin>", false, prog, true);
    });
@@ -83,7 +83,8 @@ editAreaLoader.init({
     </div>
 
     <!-- If you want turtle graphics include a canvas -->
-    <div id="mycanvas"></div>
+    <div id="yourcanvas">
+    </div>
 
     @endif
 {!! Form::close() !!}

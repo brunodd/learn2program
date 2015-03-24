@@ -35,15 +35,17 @@ print("Hello, " + name)',
 'import turtle
 
 alex = turtle.Turtle()
+screen = alex.getscreen()
+screen.setup(750,750)
 alex.speed(0)
 
 def draw_track(r, color):
     i = 0
     while i < 50:
+        alex.pencolor(color)
         alex.circle(r)
         alex.right(360/49)
         alex.forward(5)
-        alex.pencolor(color)
         i = i + 1
 
 colors = ["green","purple","magenta","blue","yellow","orange","red"]
