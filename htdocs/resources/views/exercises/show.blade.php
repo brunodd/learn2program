@@ -6,6 +6,14 @@
 <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
 @stop
 
+@section('title')
+Exercise {{ ExNrOfSerie($exercise->id, $exercise->serieId) }} of <em>{{ loadSerieWithId($exercise->serieId)[0]->title }}</em>
+@if( Auth::check() and isMakerOfSeries($exercise->serieId, Auth::id()) )
+<br>
+<small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
+@endif
+@stop
+
 @section('content')
 <script type="text/javascript">
 // output functions are configurable.  This one just appends some text
@@ -44,7 +52,16 @@ function runit() {
 }
 </script>
 
-<h3>Try This</h3>
+<!-- Python Syntax Highlight!! -->
+<script language="javascript" type="text/javascript" src="/editarea/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+  id : "yourcode"   // textarea id
+  ,syntax: "python"      // syntax to be uses for highlighting
+  ,start_highlight: true    // to display with highlight mode on start-up
+});
+</script>
+
 {!! Form::open() !!}
     @if ( $answer === null )
     <div class="form-group">
