@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 // use Illuminate\Http\Request;
@@ -78,6 +79,11 @@ class MessagesController extends Controller {
             foreach($conversations as $conversation) {
                 $conversation->userA = (\Auth::id() == $conversation->userA) ? ($conversation->userB) : ($conversation->userA);
                 $conversation->userB = loadUser($conversation->userA)[0]->username;
+            }
+
+            foreach($messages as &$message) {
+                $carbon = Carbon::createFromFormat('Y-n-j G:i:s', $message->date);
+                $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
             }
 
             return view('messages.show', compact('messages', 'user', 'conversations'));

@@ -25,9 +25,9 @@
     <div id="1" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
         @foreach ($messages as $message)
             <p style="float:left;"> <b>{{$message->username}}</b> </p>
-            <p style="float:right;"> {{$message->date}} </p> <br>
+            <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p> <br>
             <div style="clear:both;"></div>
-            <p> {{$message->message}} </p>
+            <p>{{$message->message}}</p>
             <hr>
         @endforeach
 
