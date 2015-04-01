@@ -1,3 +1,9 @@
+<script>
+    function CheckEmptySearchForm() {
+        return (document.getElementById('searchword').value != "");
+    }
+</script>
+
 <nav class="navbar navbar-inverse navbar-fixed-top"> <!-- "navbar-static-top" -->
     <div class="container-fluid">
         <div class="navbar-header">
@@ -32,32 +38,36 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                        Dropdown Example
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="/list_all_users">List All Users</a></li>
-                        <li><a href="/list_all_messages">List All Messages</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </li>
-
                 <li>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
+                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => 'return CheckEmptySearchForm()', 'class' => 'navbar-form navbar-right', 'role' => 'search']) !!}
+                    <div class="form-group" >
+                        {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </li>
 
                 @if (Auth::user())
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                            <span class="glyphicon glyphicon-certificate"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="">Lijstje van notifications</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/notifications">See all notifications</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="">Lijstje van recente messages</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/notifications">See all messages</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                             Logged in as {{ Auth::user()->username }}

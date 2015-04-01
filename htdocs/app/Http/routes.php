@@ -11,6 +11,8 @@
 |
 */
 
+//Shows SQL queries used on the page
+//Event::listen('illuminate.query', function($sql) { var_dump($sql); });
 
 // List all routes with: $ php artisan route:list
 
@@ -19,6 +21,8 @@ Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of users table.
 Route::get('code', 'PagesController@code');
+Route::get('notifications', function() { return view('pages.notifications'); });
+Route::get('search', 'SearchController@search');
 
 Route::get('statistics', 'StatisticsController@home');
 

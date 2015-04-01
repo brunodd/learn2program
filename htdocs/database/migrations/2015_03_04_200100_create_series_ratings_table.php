@@ -18,7 +18,7 @@ class CreateSeriesRatingsTable extends Migration {
             $table->foreign('userId')->references('id')->on('users');
             $table->integer('serieId')->unsigned();
             $table->foreign('serieId')->references('id')->on('series');
-            $table->primary(['userId', 'serie   Id']);
+            $table->primary(['userId', 'serieId']);
 
 			$table->timestamps();
 		});
