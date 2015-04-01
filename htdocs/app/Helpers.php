@@ -444,7 +444,7 @@
     }
 
     function countUsersSucceededAllSeries() {
-        return 
+        return ;
     }
 
     //return a list of pairs, userId & the number of series in progress (i.e. with exercises still unanswered)
