@@ -433,6 +433,20 @@
         return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId where success = 1 group by uId, agg.serieId having c1 = c2) agg group by uId');
     }
 
+    function countSeriesSucceededByUser($uId) {
+        $pairs = countSeriesSucceededByUsers();
+        foreach ($pairs as $pair) {
+            if($pair->uId = $uId) {
+                return $pair->c;
+            }
+        }
+        return 0;
+    }
+
+    function countUsersSucceededAllSeries() {
+        return 
+    }
+
     //return a list of pairs, userId & the number of series in progress (i.e. with exercises still unanswered)
     //in particular -> the number of series in progress equals (total number of series containing exercises - "completed" series)
     function countSeriesInProgressByUsers() {
@@ -505,5 +519,8 @@
     function countExercisesBySeries() {
         return DB::select('select * from ( (select id, 0 as c  from series where id not in (select serieId from exercises group by serieId)) union (select serieId, count(id) as c from exercises group by serieId) ) agg group group by id');
     }
+
+
+
 ?>
 
