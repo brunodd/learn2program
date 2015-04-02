@@ -3,6 +3,8 @@
 use App\User;   // Added to find User model.
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 // use Illuminate\Http\Request;
@@ -165,6 +167,20 @@ class UsersController extends Controller {
         $user->mail = $input['mail'];
 
         updateUser($id, $user);
+
+        if (Input::hasFile('image')) {
+            //dd($_FILES['image'], Input::file('image'));
+            if (Input::file('image')->isValid()) {
+                $extension = Input::file('image')->getClientOriginalExtension();
+                $filename = 'user' . \Auth::id() . 'ProfilePicture.' . $extension;
+                $upload_success = Input::file('image')->move('images/users', $filename);
+
+                if(!$upload_success) {
+                    flash()->error('Something went wrong while uploading your image, try again.');
+                    return redirect('users/' . $user->username . '/edit');
+                }
+            }
+        }
         flash()->success('You successfully edited your profile.');
         return redirect('users/' . $user->username . '/edit');
 	}

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => 'users']) !!}
+    {!! Form::open(['url' => 'users', 'files' => 'true']) !!}
         <div class="form-group">
             {!! Form::label('username', 'Username: ') !!}
             {!! Form::text('username', null, ['class' => 'form-control']) !!}
@@ -15,9 +15,15 @@
             {!! Form::label('pass', 'Password: ') !!}
             {!! Form::password('pass', null, ['class' => 'form-control']) !!}
         </div>
+
         <div class="form-group">
             {!! Form::label('mail', 'E-mail address: ') !!}
             {!! Form::email('mail', null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('image', 'Choose profile image: ') !!}
+            {!! Form::file('image') !!}
         </div>
 
         <div class="form-group">

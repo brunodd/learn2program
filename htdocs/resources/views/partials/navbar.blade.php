@@ -52,7 +52,7 @@
                             <span class="glyphicon glyphicon-certificate"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="">Lijstje van notifications</a></li>
+                            <li><a href="">Lijstje van recente notifications</a></li>
                             <li class="divider"></li>
                             <li><a href="/notifications">See all notifications</a></li>
                         </ul>
@@ -70,11 +70,11 @@
                     </li>
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                            Logged in as {{ Auth::user()->username }}
+                            <img src="images/users/user{{ \Auth::id() }}ProfilePicture.jpg" alt="Profile Picture" style="max-width:50px;max-height:20px">
+                            {{ Auth::user()->username }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="/messages">My Messages</a></li>
                             <li><a href="#">My Series</a></li>
                             <li><a href="#">My Exercises</a></li>
                             <li><a href="#">My Friends</a></li>

@@ -5,19 +5,30 @@
 @stop
 
 @section('content')
-    <p> For now only allow username and password to be changed... </p>
+    {!! Form::model($user, ['method' => 'PATCH', 'files' => 'true']) !!}
+        <div class="form-group">
+            {!! Form::label('username', 'Username: ') !!}
+            {!! Form::text('username') !!}
+        </div>
 
-    {!! Form::model($user, ['method' => 'PATCH']) !!}
-        {!! Form::label('username', 'Username: ') !!}
-        {!! Form::text('username') !!}
+        <div class="form-group">
+            {!! Form::label('pass', 'Password: ') !!}
+            {!! Form::password('pass', null) !!}
+        </div>
 
-        {!! Form::label('pass', 'Password: ') !!}
-        {!! Form::password('pass', null) !!}
+        <div class="form-group">
+            {!! Form::label('mail', 'Email: ') !!}
+            {!! Form::text('mail') !!}
+        </div>
 
-        {!! Form::label('mail', 'Email: ') !!}
-        {!! Form::text('mail') !!}
+        <div class="form-group">
+            {!! Form::label('image', 'Choose profile image: ') !!}
+            {!! Form::file('image') !!}
+        </div>
 
-        {!! Form::submit('Submit') !!}
+        <div class="form-group">
+            {!! Form::submit('Save') !!}
+        </div>
     {!! Form::close() !!}
 
     @include('errors.list')
