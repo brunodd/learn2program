@@ -8,6 +8,7 @@ CREATE TABLE users (
     pass VARCHAR(60) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     mail VARCHAR(50) NOT NULL,
+    image VARCHAR(50) NOT NULL DEFAULT 'NoProfileImage.jpg', /* Link to image name in /images/users/* */
     PRIMARY KEY (id)
 );
 
@@ -32,7 +33,7 @@ CREATE TABLE friend_requests (
          later maybe make it so that the other user can still see the messages?
          -> allow one of the users to be NULL or add a archived_conversations table
    iets voor na alle basisvereisten
- */
+*/
 CREATE TABLE conversations (
     id INT AUTO_INCREMENT,
     userA INT NOT NULL,
@@ -141,6 +142,9 @@ CREATE TABLE answers (
     FOREIGN KEY (eId) REFERENCES exercises(id) ON DELETE CASCADE
 );
 
+/* Examples: type: friends;object_id: userId;message: userId->username wants to add you as a friend.
+             type: series;object_id: serieId;message: user X has completed your serieId->title.
+             type: rating;object_id: serieId;message: Your series serieId->title has recieved a rating of X */
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,
@@ -149,6 +153,7 @@ CREATE TABLE notifications (
     object_id INT,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP,
+    PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
 );
 

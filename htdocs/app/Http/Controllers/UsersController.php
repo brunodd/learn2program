@@ -166,21 +166,22 @@ class UsersController extends Controller {
         $user->username = $input['username'];
         $user->mail = $input['mail'];
 
-        updateUser($id, $user);
-
         if (Input::hasFile('image')) {
             //dd($_FILES['image'], Input::file('image'));
             if (Input::file('image')->isValid()) {
                 $extension = Input::file('image')->getClientOriginalExtension();
-                $filename = 'user' . \Auth::id() . 'ProfilePicture.' . $extension;
+                $filename = 'user' . \Auth::id() . 'ProfileImage.' . $extension;
                 $upload_success = Input::file('image')->move('images/users', $filename);
 
                 if(!$upload_success) {
                     flash()->error('Something went wrong while uploading your image, try again.');
                     return redirect('users/' . $user->username . '/edit');
                 }
+                $user->image = $filename;
             }
         }
+
+        updateUser($id, $user);
         flash()->success('You successfully edited your profile.');
         return redirect('users/' . $user->username . '/edit');
 	}

@@ -1,21 +1,7 @@
-<script>
-    function CheckEmptySearchForm() {
-        return (document.getElementById('searchword').value != "");
-    }
-</script>
-
 <nav class="navbar navbar-inverse navbar-fixed-top"> <!-- "navbar-static-top" -->
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="/">
-                <!-- maybe add an image here -->
                 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Learn2Program
             </a>
         </div>
@@ -23,26 +9,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/series">Series</a></li>
-
                 <li><a href="/exercises">Exercises</a></li>
-
                 <li><a href="/groups">Groups</a></li>
-
                 <li><a href="/about">About</a></li>
-
                 <li><a href="/users">Users</a></li>
-
                 <li><a href="/statistics">Statistics</a></li>
             </ul>
 
-
             <ul class="nav navbar-nav navbar-right">
-
                 <li>
-                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => 'return CheckEmptySearchForm()', 'class' => 'navbar-form navbar-right', 'role' => 'search']) !!}
-                    <div class="form-group" >
-                        {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
-                    </div>
+                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => 'return CheckEmptySearchForm()', 'class' => 'navbar-form navbar-right']) !!}
+                        <div class="form-group" >
+                            {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
+                        </div>
                     {!! Form::close() !!}
                 </li>
 
@@ -68,9 +47,10 @@
                             <li><a href="/messages">See all messages</a></li>
                         </ul>
                     </li>
+
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                            <img src="images/users/user{{ \Auth::id() }}ProfilePicture.jpg" alt="Profile Picture" style="max-width:50px;max-height:20px">
+                            <img src="/images/users/{{ loadUser(Auth::user()->id)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:20px">
                             {{ Auth::user()->username }}
                             <span class="caret"></span>
                         </a>

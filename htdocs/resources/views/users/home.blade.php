@@ -9,7 +9,7 @@
 
     <ul>
         @foreach($users as $user)
-            <img src="images/users/user{{ $user->id }}ProfilePicture.jpg" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
+            <img src="images/users/{{ $user->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
             <h3>
                 <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
             </h3>

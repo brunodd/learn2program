@@ -5,8 +5,8 @@
 @stop
 
 @section('content')
-    <h1>Series</h1><hr>
-    <h1>Exercises</h1><hr>
-    <h1>Users</h1><hr>
-    <h1>Graphs</h1><hr>
+    <h2>Series</h2><hr>
+    <h2>Exercises</h2><hr>
+    <h2>Users</h2><hr>
+    <h2>Graphs</h2><hr>
 @stop

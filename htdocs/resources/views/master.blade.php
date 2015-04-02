@@ -10,9 +10,8 @@
         @yield('head')
     </head>
 
-    @include('partials.navbar')
-
     <body>
+        @include('partials.navbar')
         <div class="wrapper">
             <div class="container-fluid">
                 @include('flash::message')

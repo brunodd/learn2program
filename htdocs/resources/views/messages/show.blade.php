@@ -13,6 +13,8 @@
         </div>
 
         @foreach ($conversations as $conversation)
+            <img src="images/users/user{{ $conversation->userB }}ProfilePicture.jpg" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
+
             <div>
                 <b><a href={{ action('MessagesController@show', $conversation->userB) }}> {{ $conversation->userB }} </a></b><br>
                 {{$conversation->message}}<br>

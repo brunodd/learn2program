@@ -27,7 +27,7 @@
     }
 
     function updateUser($id, $data) {
-        DB::statement('update users SET username = ?, mail = ?, pass = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $id, $id]);
+        DB::statement('update users SET username = ?, mail = ?, pass = ?, image = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $data->image, $id, $id]);
     }
 
     function storeSerie($serie)
@@ -142,7 +142,7 @@
 
     function removeUnusedTypes()
     {
-        DB::statement('delete from types where id NOT IN (select distinct(tId) from Series)');
+        DB::statement('delete from types where id NOT IN (select distinct(tId) from series)');
     }
 
     /* Subject and Difficulty => this combination is unique */
