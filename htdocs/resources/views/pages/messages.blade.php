@@ -7,13 +7,13 @@
 @section('content')
     <div style="float: left;height:400px;width: 30%;overflow:auto;">
 
-        <div class="form-group" role="form" method="POST" action="/login">
-            <input type="text" class="form-control" placeholder="Search">
+        <div class="form-group" role="form" method="POST" action="">
+            <input type="text" class="form-control" placeholder="Search for users">
             <button type="submit" class="btn btn-default" style="visibility: hidden;">Submit</button>
         </div>
 
         @foreach ($conversations as $conversation)
-            <img src="images/users/user{{ $conversation->userB }}ProfilePicture.jpg" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
+            <img src="/images/users/{{ loadUser($conversation->userB)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
 
             <div>
                 <b><a href={{ action('MessagesController@show', $conversation->userB) }}> {{ $conversation->userB }} </a></b><br>
@@ -24,20 +24,18 @@
     </div>
 
 
-    <div id="1" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
+    <div id="messageBox" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
         @foreach ($messages as $message)
-            <p style="float:left;"> <b>{{$message->username}}</b> </p>
-            <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p> <br>
+            <p style="float:left;"><b> {{$message->username}} </b></p>
+            <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p><br>
             <div style="clear:both;"></div>
-            <p>{{$message->message}}</p>
+            <p> {{$message->message}} </p>
             <hr>
         @endforeach
-
     </div>
 
     <script>
-        var myDiv = document.getElementById("1");
-        myDiv.scrollTop = myDiv.scrollHeight;
+        SetScrollBoxToBottom('messageBox');
     </script>
 
     <br>

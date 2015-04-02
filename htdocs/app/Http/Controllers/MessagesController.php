@@ -30,7 +30,7 @@ class MessagesController extends Controller {
             $user = (object) array('username' => '');
             $conversations = [];
 
-            return view('messages.show', compact('messages', 'user', 'conversations'));
+            return view('pages.messages', compact('messages', 'user', 'conversations'));
         } else {
             //Get the user from the conversation that is not the logged in one.
             $userId = (\Auth::id() == $latestConversation[0]->userA) ? ($latestConversation[0]->userB) : ($latestConversation[0]->userA);
@@ -86,7 +86,7 @@ class MessagesController extends Controller {
                 $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
             }
 
-            return view('messages.show', compact('messages', 'user', 'conversations'));
+            return view('pages.messages', compact('messages', 'user', 'conversations'));
         } else {
             $toId2 = loadUser($id)[0]->id;
 
@@ -107,7 +107,7 @@ class MessagesController extends Controller {
 
     public function list_all_messages() {
         $messages = loadAllMessagesInDB();
-        return view('messages.list', compact('messages'));
+        return view('pages.messages_list', compact('messages'));
     }
 
 }

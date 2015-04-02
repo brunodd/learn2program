@@ -15,14 +15,17 @@ elixir(function(mix) {
     mix.sass('app.scss');
 
     mix.styles([
-        'app.css',
-        'libs/bootstrap.min.css',
-        'libs/select2.min.css'
+        'libs/bootstrap.css',
+        'app.css'
     ]);
 
     mix.scripts([
-        'libs/jquery.min.js',
-        'libs/bootstrap.min.js',
+        'libs/jquery.js',
+        'libs/bootstrap.js',
         'myscripts.js'
-    ]);
+    ]).scripts([
+        'libs/skulpt.min.js',
+        'libs/skulpt-stdlib.js',
+        'skulpt_functions.js'
+    ], 'public/js/skulpt.js');
 });

@@ -1,12 +1,12 @@
-<nav class="navbar navbar-inverse navbar-fixed-top"> <!-- "navbar-static-top" -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Learn2Program
+                <span class="glyphicon glyphicon-heart"></span> Learn2Program
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/series">Series</a></li>
                 <li><a href="/exercises">Exercises</a></li>
@@ -18,7 +18,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => 'return CheckEmptySearchForm()', 'class' => 'navbar-form navbar-right']) !!}
+                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right']) !!}
                         <div class="form-group" >
                             {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
                         </div>
@@ -27,7 +27,7 @@
 
                 @if (Auth::user())
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <span class="glyphicon glyphicon-certificate"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -38,7 +38,7 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -49,12 +49,12 @@
                     </li>
 
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <img src="/images/users/{{ loadUser(Auth::user()->id)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:20px">
                             {{ Auth::user()->username }}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu" role="menu">
                             <li><a href="#">My Series</a></li>
                             <li><a href="#">My Exercises</a></li>
                             <li><a href="#">My Friends</a></li>

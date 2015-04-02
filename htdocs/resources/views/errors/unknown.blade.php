@@ -3,9 +3,10 @@
 @section('title')
     Error
 @stop
+
 @section('content')
     <h2>{{ $msg }}</h2>
-    <script>alert('{{ $alert }}');</script>
+    <h3>{{ $alert }}</h3>
 
-    <em><a href='/'>Home</em>
+    <em><a href='/'>Home</a></em>
 @stop

@@ -6,7 +6,6 @@
 *.log
 *.out
 *.toc
-*/public/skulpt
-./.idea
+*/.idea
 */.DS_Store
 *.DS_Store

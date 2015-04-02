@@ -7,18 +7,21 @@
         <link rel="stylesheet" href="/css/app.css">
         <link rel="stylesheet" href="/css/all.css">
         <script src="/js/all.js"></script>
+
         @yield('head')
     </head>
 
     <body>
         @include('partials.navbar')
+
         <div class="wrapper">
             <div class="container-fluid">
                 @include('flash::message')
                 <script>
-                    $('#flash-overlay-modal').modal();
-                    $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+                    doModal();
+                    alertSlideUp();
                 </script>
+
                  <div class="jumbotron">
                     <h1><div class="small">
                         @yield('title')

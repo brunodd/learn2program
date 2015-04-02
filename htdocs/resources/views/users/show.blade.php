@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-    This page shows whatever needs to be shown about {{ $user->username }}.
+    <p> This page shows whatever needs to be shown about {{ $user->username }}. </p>
 
     @if (Auth::check() and $user->id != Auth::id())
         <div class="form-group" >
