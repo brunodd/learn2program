@@ -19,6 +19,15 @@ CREATE TABLE friends (
     FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE
 );
 
+/* After acceptance, remove request from table */
+CREATE TABLE friend_requests (
+    fromId INT NOT NULL,
+    toId INT NOT NULL,
+    PRIMARY KEY (fromId, toId),
+    FOREIGN KEY (fromId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (toId) REFERENCES users(id) ON DELETE CASCADE
+);
+
 /* TODO: conversation is deleted when one of the users deletes their account
          later maybe make it so that the other user can still see the messages?
          -> allow one of the users to be NULL or add a archived_conversations table
@@ -132,8 +141,16 @@ CREATE TABLE answers (
     FOREIGN KEY (eId) REFERENCES exercises(id) ON DELETE CASCADE
 );
 
-
-
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT,
+    userId INT NOT NULL,
+    message VARCHAR(128) NOT NULL,
+    type VARCHAR(128),
+    object_id INT,
+    is_read BOOL NOT NULL DEFAULT 0,
+    date TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+);
 
 
 

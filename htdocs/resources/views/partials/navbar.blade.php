@@ -65,7 +65,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="">Lijstje van recente messages</a></li>
                             <li class="divider"></li>
-                            <li><a href="/notifications">See all messages</a></li>
+                            <li><a href="/messages">See all messages</a></li>
                         </ul>
                     </li>
                     <li class="dropdown ">
