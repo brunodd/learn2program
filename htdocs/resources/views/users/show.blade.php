@@ -19,13 +19,13 @@
         <br>
 
         @if (!findFriends($user->id, Auth::id()))
-            {!! Form::open() !!}
+            {!! Form::open(['action' => ['UsersController@addFriend', $user->username]]) !!}
                 <div class="form-group" >
                     {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
                 </div>
             {!! Form::close() !!}
         @else
-            {!! Form::open(['method' => 'PATCH']) !!}
+            {!! Form::open(['action' => ['UsersController@removeFriend', $user->username]]) !!}
                 <div class="form-group" >
                     {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
                 </div>

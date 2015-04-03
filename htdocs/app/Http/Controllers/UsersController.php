@@ -29,63 +29,36 @@ class UsersController extends Controller {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
+	 * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function getRegister()
 	{
-        return view('users.create');
+        return view('auth.register');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(CreateUserRequest $request)
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param CreateUserRequest|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+	public function postRegister(CreateUserRequest $request)
 	{
-        //GUESSING OBSOLETE NOW?
-        $input = $request->all();
+        $username = $request->username;
+        $mail = $request->mail;
+        $pass = Hash::make($request->pass);
+        //Create user without profile image, can be added in later under settings
 
-        // Create User object (model)
-        $user = new User;
-        $user->username = $input['username'];
-        $user->pass = $input['pass'];
-        $user->mail = $input['mail'];
+        \DB::insert('insert into `users` (`username`, `mail`, `pass`) values (?, ?, ?)', array($username, $mail, $pass));
 
-        // Store in Databse
-        storeUser($user);
+        $user = \DB::select('select * from users where username = ?', array($username));
+        //TODO: don't login automatically, send confirmation mail first
+        \Auth::loginUsingId($user[0]->id);
 
-        $myuser = loadUser($user->username)[0];
-
-        return redirect('users/' . $myuser->id . '/edit');
+        return redirect("/");
 	}
-
-    public function login(LoginUserRequest $request)
-    {
-        $input = $request->all();
-        // dd($input);
-        $name = $input['username'];
-        // dd($name);
-
-        if(empty(loadUser($name))) {
-            $msg = "Unknown user";
-            $alert = "This is not a registered user";
-            return redirect()->back();
-        }
-        else {
-            $user = loadUser($name)[0];
-            if($user->pass == $input['pass']) {
-                return "Login succesful!";
-            }
-            else {
-                $msg = "Invalid password";
-                $alert = "The password was invalid";
-                return redirect()->back();
-            }
-        }
-    }
 
 	/**
 	 * Display the specified resource.
@@ -96,11 +69,6 @@ class UsersController extends Controller {
 	public function show($id)
 	{
         if(empty(loadUser($id))) {
-            /*
-            $msg = "Unknown user";
-            $alert = "This user does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('That user does not exist.')->important();
             return redirect('users');
         }
@@ -119,21 +87,11 @@ class UsersController extends Controller {
 	public function edit($id)
 	{
         if(empty(loadUser($id))) {
-            /*
-            $msg = "Unknown user";
-            $alert = "This user does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('That user does not exist.')->important();
             return redirect('users');
         }
         else if (loadUser($id)[0]->id != Auth::id())
         {
-            /*
-            $msg = "You must be logged in as this user in order to edit.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('You must be logged in as this user in order to edit.')->important();
             return redirect('users/' . $id);
         }
@@ -152,21 +110,22 @@ class UsersController extends Controller {
 	 */
 	public function update($id, UpdateUserRequest $request)
 	{
-        $input = $request->all();
-
-        $newpass = $input['pass'];
         $user = new User;
+
+        $newpass = $request->pass;
         if($newpass) {
             $user->pass = Hash::make($newpass);
         }
         else {
             $user->pass = loadUser($id)[0]->pass;
         }
-        // Create User object (model)
-        $user->username = $input['username'];
-        $user->mail = $input['mail'];
 
-        if (Input::hasFile('image')) {
+        $user->username = $request->username;
+        $user->mail = $request->mail;
+
+        //TODO: make image handler/uploader class
+        if (Input::hasFile('image'))
+        {
             //dd($_FILES['image'], Input::file('image'));
             if (Input::file('image')->isValid()) {
                 $extension = Input::file('image')->getClientOriginalExtension();
@@ -179,6 +138,10 @@ class UsersController extends Controller {
                 }
                 $user->image = $filename;
             }
+        }
+        else
+        {
+            $user->image = loadUser($id)[0]->image;
         }
 
         updateUser($id, $user);
@@ -194,6 +157,7 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
+        //TODO: allow users to delete their account, check SQL file comments
         return "destroy item with id: $id";
 	}
 
@@ -202,8 +166,6 @@ class UsersController extends Controller {
         $users = loadUsers();
         return view('users.list', compact('users'));
     }
-
-
 
     public function addFriend($id1) {
         $id = loadUser($id1)[0]->id;
@@ -214,7 +176,7 @@ class UsersController extends Controller {
         }
 
         flash()->error('You already are friends, calm down!.');
-        return redirect('users/' . $id);
+        return redirect('users/' . $id1);
     }
 
     public function removeFriend($id1) {

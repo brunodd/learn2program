@@ -5,19 +5,27 @@
 @stop
 
 @section('content')
-    {!! Form::model($user, ['method' => 'PATCH', 'files' => 'true']) !!}
+    {!! Form::model($user, ['url' => '/users/' . $user->username, 'method' => 'PATCH', 'files' => 'true']) !!}
+        {!! Form::hidden('userId', $user->id) !!}
+        {!! Form::hidden('oldUsername', $user->username) !!}
+
         <div class="form-group">
-            {!! Form::label('username', 'Username: ') !!}
+            {!! Form::label('username', 'New Username: ') !!}
             {!! Form::text('username') !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('pass', 'Password: ') !!}
-            {!! Form::password('pass', null) !!}
+            {!! Form::label('pass', 'New Password: ') !!}
+            {!! Form::password('pass') !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('mail', 'Email: ') !!}
+            {!! Form::label('pass_confirmation', 'Confirm Password: ') !!}
+            {!! Form::password('pass_confirmation') !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('mail', 'New Email: ') !!}
             {!! Form::text('mail') !!}
         </div>
 

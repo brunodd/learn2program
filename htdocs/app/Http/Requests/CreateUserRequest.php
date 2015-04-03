@@ -23,8 +23,10 @@ class CreateUserRequest extends Request {
 	{
 		return [
 		    'username' => 'required|unique:users|min:3|max:20',
-            'pass' => 'required|min:5|max:20',
-            'mail' => 'required|max:50'
+            'pass' => 'required|min:5|max:20|same:pass_confirmation',
+            'mail' => 'required|max:50',
+            //TODO file image
+            //image -> png, jpg, ... only
 		];
 	}
 

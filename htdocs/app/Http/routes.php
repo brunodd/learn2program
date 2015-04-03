@@ -14,23 +14,21 @@
 //Shows SQL queries used on the page
 //Event::listen('illuminate.query', function($sql) { var_dump($sql); });
 
-// List all routes with: $ php artisan route:list
 
+// List all routes with: $ php artisan route:list
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
-Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of users table.
-Route::get('code', 'PagesController@code');
-Route::get('notifications', function() { return view('pages.notifications'); });
+Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of messages table.
+Route::get('code', 'PagesController@code'); //can be removed??
+Route::get('notifications', function() { return view('pages.notifications'); }); //TODO: don't forget, armin
 Route::get('search', 'SearchController@search');
 
 Route::get('statistics', 'StatisticsController@home');
 
-Route::post('users/login', 'UsersController@login');
-Route::patch('users/{id}/edit', 'UsersController@update');
-Route::post('users/{id}', 'UsersController@addFriend');
-Route::patch('users/{id}', 'UsersController@removeFriend');
 Route::resource('users', 'UsersController');
+Route::post('users/{id}/addFriend', 'UsersController@addFriend');
+Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 
 
 Route::patch('series/{id}/edit', 'SeriesController@update');
@@ -54,8 +52,8 @@ Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', '
 
 
 //Authentication related
-Route::get('/register', 'Auth\AuthController@getRegister');
-Route::post('/register', 'Auth\AuthController@postRegister');
+Route::get('/register', 'UsersController@getRegister');
+Route::post('/register', 'UsersController@postRegister');
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
