@@ -130,14 +130,14 @@ class UsersController extends Controller {
             if (Input::file('image')->isValid()) {
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $filename = 'user' . \Auth::id() . 'ProfileImage.' . $extension;
-                $upload_success = Input::file('image')->move('images/users', $filename);
-
-                if(!$upload_success) {
-                    flash()->error('Something went wrong while uploading your image, try again.');
-                    return redirect('users/' . $user->username . '/edit');
-                }
+                Input::file('image')->move('images/users', $filename);
                 $user->image = $filename;
             }
+            else {
+                flash()->error('Something went wrong while uploading your image, try again.');
+                return redirect('users/' . $user->username . '/edit');
+            }
+
         }
         else
         {
