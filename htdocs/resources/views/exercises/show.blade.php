@@ -18,7 +18,11 @@
 
     <!-- Python Syntax Highlight!! -->
     <script>
+    initPythonSyntax();
+    function Run() {
         initPythonSyntax();
+        runit();
+    }
     </script>
 
     {!! Form::open() !!}
@@ -38,7 +42,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'runit()']) !!}
+                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'Run()']) !!}
             </div>
 
 
