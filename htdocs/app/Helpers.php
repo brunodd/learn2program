@@ -236,6 +236,16 @@
         DB::insert('insert into answers (given_code, success, uId, eId) values (?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId]);
     }
 
+    function listGroupsOfUser($id)
+    {
+        return DB::select('select groupname from groups join (select distinct(groupId) from members_of_groups where memberId = ?) agg on id=groupId', [$id]);
+    }
+
+    function listUsersOfGroup($id)
+    {
+        return DB::select('select username from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId', [$id]);
+    }
+
     function notRatedYet($uId, $sId)
     {
         if( empty(DB::select('select * from series_ratings where userId = ? and serieId = ?', [$uId, $sId])) ) return true;
