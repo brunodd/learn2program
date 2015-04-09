@@ -1,9 +1,9 @@
-// output functions are configurable.  This one just appends some text
-// to a pre element.
+// output functions are configurable. This one just appends some text to a pre element.
 function outf(text) {
     var mypre = document.getElementById("output");
     mypre.innerHTML = mypre.innerHTML + text;
 }
+
 function builtinRead(x) {
     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
         throw "File not found: '" + x + "'";

@@ -1,4 +1,5 @@
 <?php
+    // TODO: split into multiple files
 
     //GENERAL HELPERS NEEDED FOR THE SYSTEM
     function loadusers() {

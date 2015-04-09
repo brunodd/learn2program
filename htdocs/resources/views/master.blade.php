@@ -2,10 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Learn 2 Program</title>
+        <title>@yield('tabName')Learn 2 Program</title>
+        <!-- TODO: add tabName sections to some pages -->
 
-        <link rel="stylesheet" href="/css/app.css">
         <link rel="stylesheet" href="/css/all.css">
+        <link rel="stylesheet" href="/css/app.css">
         <script src="/js/all.js"></script>
 
         @yield('head')
@@ -22,10 +23,10 @@
                     alertSlideUp();
                 </script>
 
-                 <div class="jumbotron">
+                <div class="jumbotron">
                     <h1><div class="small">
                         @yield('title')
-                    </div> </h1>
+                    </div></h1>
                 </div>
                 @yield('content')
             </div>

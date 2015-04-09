@@ -30,14 +30,14 @@ Route::resource('users', 'UsersController');
 Route::post('users/{id}/addFriend', 'UsersController@addFriend');
 Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 
-
+//TODO: remove patch
 Route::patch('series/{id}/edit', 'SeriesController@update');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}', 'SeriesController@storeRating');
 Route::resource('series', 'SeriesController');
 
-
+//TODO: remove patch
 Route::patch('groups/{id}/edit', 'GroupsController@update');
 Route::post('groups/{id}', 'GroupsController@join');
 Route::patch('groups/{id}', 'GroupsController@leave');

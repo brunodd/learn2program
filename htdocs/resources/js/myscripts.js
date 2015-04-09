@@ -1,3 +1,8 @@
+//TODO: Use module pattern
+
+/**
+ * @return {boolean}
+ */
 function CheckEmptySearchForm(word) {
     return (document.getElementById(word).value != "");
 }

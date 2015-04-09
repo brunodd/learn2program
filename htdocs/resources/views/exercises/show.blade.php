@@ -18,11 +18,11 @@
 
     <!-- Python Syntax Highlight!! -->
     <script>
-    initPythonSyntax();
-    function Run() {
         initPythonSyntax();
-        runit();
-    }
+        function Run() {
+            initPythonSyntax();
+            runit();
+        }
     </script>
 
     {!! Form::open() !!}
@@ -45,9 +45,7 @@
                 {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'Run()']) !!}
             </div>
 
-
-            <div id="yourcanvas"> <!-- Canvas for turtle graphics -->
-            </div>
+            <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>
         @endif
     {!! Form::close() !!}
 
@@ -58,5 +56,4 @@
     @endif
 
     <pre>Expected output : {{ $exercise->expected_result }}</pre>
-
 @stop
