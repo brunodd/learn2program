@@ -7,7 +7,8 @@
 @section('content')
     <p> For now, everything can be updated... </p>
 
-    {!! Form::model($serie, ['method' => 'PATCH']) !!}
+    <!-- TODO: armin PUT vs PATCH -->
+    {!! Form::model($serie, ['url' => '/series/' . $serie->title, 'method' => 'PUT']) !!}
         <div class="form-group">
             {!! Form::label('title', 'Title: ') !!}
             {!! Form::text('title', null, ['class' => 'form-control']) !!}

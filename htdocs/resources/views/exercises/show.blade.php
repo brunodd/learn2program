@@ -25,7 +25,7 @@
         }
     </script>
 
-    {!! Form::open() !!}
+    {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
         @if ( $answer === null )
             <div class="form-group">
                 {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' =>  'Run()']) !!}
+                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' => 'Run()']) !!}
             </div>
 
             <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>

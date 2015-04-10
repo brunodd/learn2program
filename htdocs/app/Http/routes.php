@@ -20,32 +20,32 @@ Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of messages table.
-Route::get('code', 'PagesController@code'); //can be removed??
 Route::get('notifications', function() { return view('pages.notifications'); }); //TODO: don't forget, armin
 Route::get('search', 'SearchController@search');
 
+Route::get('code', 'PagesController@code'); //can be removed??
+
 Route::get('statistics', 'StatisticsController@home');
+
 
 Route::resource('users', 'UsersController');
 Route::post('users/{id}/addFriend', 'UsersController@addFriend');
 Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 
-//TODO: remove patch
-Route::patch('series/{id}/edit', 'SeriesController@update');
+
+Route::resource('series', 'SeriesController');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
-Route::post('series/{id}', 'SeriesController@storeRating');
-Route::resource('series', 'SeriesController');
+Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
 
-//TODO: remove patch
-Route::patch('groups/{id}/edit', 'GroupsController@update');
-Route::post('groups/{id}', 'GroupsController@join');
-Route::patch('groups/{id}', 'GroupsController@leave');
+
 Route::resource('groups', 'GroupsController');
+Route::post('groups/{id}/joinGroup', 'GroupsController@join');
+Route::post('groups/{id}/leaveGroup', 'GroupsController@leave');
 
 
-Route::post('exercises/{id}', 'ExercisesController@storeAnswer');
 Route::resource('exercises', 'ExercisesController');
+Route::post('exercises/{id}/storeAnswer', 'ExercisesController@storeAnswer');
 
 
 Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);

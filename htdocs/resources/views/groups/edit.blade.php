@@ -10,7 +10,8 @@
         In the future this should also list the members to manage them or something like that
     </p>
 
-    {!! Form::model($group, ['method' => 'PATCH']) !!}
+    <!-- TODO: armin PUT vs PATCH -->
+    {!! Form::model($group, ['url' => '/groups/' . $group->name, 'method' => 'PUT']) !!}
         <div class="form-group">
             {!! Form::label('name', 'Name of your group: ') !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
