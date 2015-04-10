@@ -33,8 +33,8 @@
             <div class="push"></div>
         </div>
 
-        @yield('footer')
         <div class="footer">
+            @yield('footer')
             <p>This <strong>CSS Sticky Footer</strong> simply stays put.</p>
             @include('partials.translator')
         </div>

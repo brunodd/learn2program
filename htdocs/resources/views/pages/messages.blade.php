@@ -24,7 +24,7 @@
     </div>
 
 
-    <!-- TODO: copy facecbook for prettier displaying -->
+    <!-- TODO: copy facebook for prettier displaying -->
     <div id="messageBox" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
         @foreach ($messages as $message)
             <a href="/users/{{$message->username}}">
@@ -46,6 +46,7 @@
 
     <br>
 
+    <!-- TODO: copy facebook for prettier displaying -->
     @if ($user->username != '')
         {!! Form::open(['action' => 'MessagesController@store']) !!}
             <div class="form-group" >

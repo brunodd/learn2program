@@ -98,6 +98,7 @@ class ExercisesController extends Controller {
 	 */
 	public function update($id)
 	{
+        //TODO
 		return $result;
 	}
 
@@ -109,7 +110,7 @@ class ExercisesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//TODO
 	}
 
     public function storeAnswer($id, CreateAnswerRequest $request)
@@ -132,6 +133,9 @@ class ExercisesController extends Controller {
         $ans->eId = $id;
 
         storeAnswer($ans);
+
+        //TODO: zien hoe die messages te doen
+
         //flash()->success("Your answer was successfully stored.");
         // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
 

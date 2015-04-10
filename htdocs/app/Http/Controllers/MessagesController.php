@@ -18,7 +18,7 @@ class MessagesController extends Controller {
     }
 
 	/**
-     * Just show the conversation with the latest message.
+     * Show the conversation with the latest message.
 	 *
 	 * @return Response
 	 */
@@ -82,6 +82,7 @@ class MessagesController extends Controller {
             }
 
             foreach($messages as &$message) {
+                //Add a Carbon time object to each message
                 $carbon = Carbon::createFromFormat('Y-n-j G:i:s', $message->date);
                 $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
             }

@@ -48,11 +48,12 @@ class SeriesController extends Controller {
         return view('series.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param CreateSerieRequest $request
+     * @return Response
+     */
 	public function store(CreateSerieRequest $request)
 	{
         $input = $request->all();
@@ -156,12 +157,13 @@ class SeriesController extends Controller {
         }
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @param  UpdateSerieRequest $request
+     * @return Response
+     */
 	public function update($id, UpdateSerieRequest $request)
 	{
         $input = $request->all();

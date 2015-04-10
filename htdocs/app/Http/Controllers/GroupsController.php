@@ -19,8 +19,6 @@ class GroupsController extends Controller {
 
     /**
      * Middleware checks if the user is logged in
-     *
-     * veel beter dan overal checks doen en da geeft direct een overzicht wat public is en wat niet
      */
     public function __construct() {
         $this->middleware('auth', ['except' => ['index', 'show']]);
@@ -44,32 +42,29 @@ class GroupsController extends Controller {
 	 */
 	public function create()
 	{
-
 		return view('groups.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param CreateGroupRequest $request
+     * @return Response
+     */
 	public function store(CreateGroupRequest $request)
 	{
-
         $input = $request->all();
 
-        // Create Group object (model)
         $group = new Group;
         $group->name = $input['name'];
         $group->founderId = Auth::id();
 
-        // Store in Database
         storeGroup($group);
         $mygroup = loadGroup($group->name)[0];
         addMember2Group($mygroup->founderId, $mygroup->id);
 
         return redirect('groups/' . $mygroup->id);
-}
+    }
 
     /**
 	 * Display the specified resource.
@@ -79,17 +74,14 @@ class GroupsController extends Controller {
 	 */
 	public function show($id)
 	{
-        if(empty(loadGroup($id))) {
-            /*
-            $msg = "Unknown group";
-            $alert = "This group does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
+        if(empty(loadGroup($id)))
+        {
             flash()->error('That group does not exist')->important();
             return redirect('groups');
-            //Misschien in dit geval toch beter een 404 page hebben?
+            // TODO: Misschien in dit geval toch beter een 404 page hebben?
         }
-        else {
+        else
+        {
             //WILL ALSO NEED TO LOAD ALL MEMBERS
             // i.e. if we want to show them on the group's page
             $group = loadGroup($id)[0];
@@ -106,43 +98,33 @@ class GroupsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        //die return id dat hier stond heeft mij zo hard gefucked gast ik dacht echt wtf is hier aant gebeure xD
-        if(empty(loadGroup($id))) {
-            /*
-            $msg = "Unknown group";
-            $alert = "This group does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
+        if(empty(loadGroup($id)))
+        {
             flash()->error('That group does not exist')->important();
             return redirect('groups');
-            //Misschien in dit geval toch beter een 404 page hebben?
+            // TODO: Misschien in dit geval toch beter een 404 page hebben?
         }
         else if (!isFounderOfGroup($id, Auth::id()))
         {
-            /*
-            $msg = "You must be logged in as the founder of the group in order to edit.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('You must be logged in as the founder of the group in order to edit.')->important();
             return redirect('groups');
         }
-        else {
+        else
+        {
             $group = loadGroup($id)[0];
             return view('groups.edit', compact('group'));
         }
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @param  UpdateGroupRequest $request
+     * @return Response
+     */
 	public function update($id, UpdateGroupRequest $request)
 	{
-        //AGAIN, WE MUST CHECK WHETHER THE "REQUESTER" IS ALLOWED TO PERFORM THIS ACTION -> only founders can access edit page
-        // thus => everything ok
         $groupname = $request->name;
 
         //this check is probably redundant since UpdateGroupRequest already took care of this
@@ -162,7 +144,7 @@ class GroupsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//TODO
 	}
 
     public function join($id)
@@ -175,11 +157,6 @@ class GroupsController extends Controller {
             return redirect('groups/' . $id);
         }
 
-        /*
-        $msg = "You are already a member of this group.";
-        $alert = "Cannot join this group!";
-        return view('errors.unknown', compact('msg', 'alert'));
-        */
         flash()->error('You are already a member of this group.');
         return redirect('groups/' . $id);
     }
@@ -190,16 +167,11 @@ class GroupsController extends Controller {
         if ( !isFounderOfGroup($id, Auth::id()) )
         {
             deleteMemberFromGroup(Auth::id(), $id);
-            flash()->info('You will be missed :( :(');
+            flash()->info('You have left the group');
             return redirect('groups/' . $id);
         }
         else
         {
-            /*
-            $msg = "You can not leave the group because you are the founder.";
-            $alert = "Cannot leave this group!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('You can not leave the group because you are the founder.');
             return redirect('groups/' . $id);
         }
