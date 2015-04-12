@@ -18,10 +18,10 @@
 
     <!-- Python Syntax Highlight!! -->
     <script>
-        initPythonSyntax();
+        myScripts.initPythonSyntax();
         function Run() {
-            initPythonSyntax();
-            runit();
+            myScripts.initPythonSyntax();
+            skulptFunctions.runit();
         }
     </script>
 
@@ -51,7 +51,7 @@
 
     @if( $answer != null )
         <script>
-            runit()
+            skulptFunctions.runit();
         </script>
     @endif
 

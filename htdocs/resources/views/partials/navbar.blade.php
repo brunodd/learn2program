@@ -18,7 +18,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right']) !!}
+                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return myScripts.CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right']) !!}
                         <div class="form-group" >
                             {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
                         </div>

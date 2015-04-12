@@ -41,7 +41,7 @@
     </div>
 
     <script>
-        SetScrollBoxToBottom('messageBox');
+        myScripts.SetScrollBoxToBottom('messageBox');
     </script>
 
     <br>

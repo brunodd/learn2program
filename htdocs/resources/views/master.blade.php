@@ -19,8 +19,8 @@
             <div class="container-fluid">
                 @include('flash::message')
                 <script>
-                    doModal();
-                    alertSlideUp();
+                    myScripts.doModal();
+                    myScripts.alertSlideUp();
                 </script>
 
                 <div class="jumbotron">
