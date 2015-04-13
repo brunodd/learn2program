@@ -213,6 +213,17 @@ class SeriesController extends Controller {
         return view('exercises.create', compact('serie'));
     }
 
+    public function referenceExercise($id)
+    {
+        if ( !isMakerOfSeries($id, Auth::id()) )
+        {
+            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
+            return redirect('series/' . $id);
+        }
+        $serie = loadSerieWithId($id)[0];
+        return view('exercises.reference', compact('serie'));
+    }
+
     public function storeExercise($id, CreateExerciseRequest $request)
     {
         $input = $request->all();
