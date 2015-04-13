@@ -233,7 +233,7 @@ class SeriesController extends Controller {
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
         $exercise->expected_result = $input['expected_result'];
-        $exercise->serieId = $id;
+        $exercise->seriesId = $id;
 
         storeExercise($exercise);
 
@@ -252,7 +252,7 @@ class SeriesController extends Controller {
         $newrating = new Rating;
         $newrating->rating = $input['rating'];
         $newrating->userId = Auth::id();
-        $newrating->serieId = $input['sId'];
+        $newrating->seriesId = $input['sId'];
 
         //we already know that the "requester" hasn't rated this serie yet
         addRating($newrating);

@@ -17,7 +17,7 @@ class ExercisesTableSeeder extends Seeder {
                 'print("Hello, world")',
             'expected_result' =>
 'Hello, world',
-            'serieId' => 1]);
+            'seriesId' => 1]);
 
         Exercise::create([
             'question' => 'Execute this code',
@@ -26,7 +26,7 @@ class ExercisesTableSeeder extends Seeder {
 'name = ""
 print("Hello, " + name)',
             'expected_result' => 'Hello, *your name*',
-            'serieId' => 1]);
+            'seriesId' => 1]);
 
         Exercise::create([
             'question' => 'Execute this code',
@@ -74,7 +74,7 @@ for color in colors:
         draw_track(r, color)
 ',
             'expected_result' => 'A drawing',
-            'serieId' => 2]);
+            'seriesId' => 2]);
 
         Exercise::create([
             'question' => 'Question for series example 3',
@@ -82,6 +82,6 @@ for color in colors:
             'start_code' =>
 'Some code...',
             'expected_result' => 'Anything',
-            'serieId' => 3]);
+            'seriesId' => 3]);
     }
 }

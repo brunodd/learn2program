@@ -6,9 +6,9 @@
 @stop
 
 @section('title')
-    Exercise {{ ExNrOfSerie($exercise->id, $exercise->serieId) }}: <em>{{ loadSerieWithId($exercise->serieId)[0]->title }}</em>
+    Exercise {{ ExNrOfSerie($exercise->id, $exercise->seriesId) }}: <em>{{ loadSerieWithId($exercise->seriesId)[0]->title }}</em>
 
-    @if( Auth::check() and isMakerOfSeries($exercise->serieId, Auth::id()) )
+    @if( Auth::check() and isMakerOfSeries($exercise->seriesId, Auth::id()) )
         <br>
         <small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
     @endif

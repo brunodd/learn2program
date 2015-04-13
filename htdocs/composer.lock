@@ -1794,12 +1794,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "ff88cf9335b10926d2a190cb8042ac65f874a2be"
+                "reference": "a719eb69d22095dee95900b66eee9b7469c8ca46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/ff88cf9335b10926d2a190cb8042ac65f874a2be",
-                "reference": "ff88cf9335b10926d2a190cb8042ac65f874a2be",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a719eb69d22095dee95900b66eee9b7469c8ca46",
+                "reference": "a719eb69d22095dee95900b66eee9b7469c8ca46",
                 "shasum": ""
             },
             "replace": {
@@ -1837,7 +1837,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-04-11 00:02:33"
+            "time": "2015-04-13 00:21:28"
         },
         {
             "name": "vlucas/phpdotenv",
