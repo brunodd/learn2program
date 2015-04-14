@@ -126,8 +126,9 @@ CREATE TABLE exercises (
     tips VARCHAR(500),
     start_code TEXT NOT NULL,
     expected_result TEXT NOT NULL,
-    seriesId INT NOT NULL,
-    PRIMARY KEY (id)
+    makerId INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE exercises_per_series (
