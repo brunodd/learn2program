@@ -5,7 +5,8 @@
 @stop
 
 @section('content')
-    {!! Form::model($user, ['url' => '/users/' . $user->username, 'method' => 'PATCH', 'files' => 'true']) !!}
+    <!-- TODO: armin PUT vs PATCH -->
+    {!! Form::model($user, ['url' => '/users/' . $user->username, 'method' => 'PUT', 'files' => 'true']) !!}
         {!! Form::hidden('userId', $user->id) !!}
         {!! Form::hidden('oldUsername', $user->username) !!}
 

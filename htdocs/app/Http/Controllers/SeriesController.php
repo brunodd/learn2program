@@ -21,7 +21,6 @@ class SeriesController extends Controller {
     /**
      * Middleware checks if the user is logged in
      *
-     * veel beter dan overal checks doen en da geeft direct een overzicht wat public is en wat niet
      */
     public function __construct() {
         $this->middleware('auth', ['except' => ['index', 'show']]);
@@ -49,18 +48,16 @@ class SeriesController extends Controller {
         return view('series.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param CreateSerieRequest $request
+     * @return Response
+     */
 	public function store(CreateSerieRequest $request)
 	{
-        //FIRST OF ALL, MUST CHECK IF THE "REQUESTER" IS LOGGED IN -> taken care of in create function
-
         $input = $request->all();
 
-        // Create Serie object (model)
         $serie = new Series;
         $serie->title = $input['title'];
         $serie->description = $input['description'];
@@ -95,12 +92,8 @@ class SeriesController extends Controller {
 	public function show($id)
 	{
         $series = loadSerieWithIdOrTitle($id);
-        if(empty($series)) {
-            /*
-            $msg = "Unknown series";
-            $alert = "This series does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
+        if(empty($series))
+        {
             flash()->error('That series does not exist.')->important();
             return redirect('series');
         }
@@ -124,18 +117,13 @@ class SeriesController extends Controller {
             $exercises = loadExercisesFromSerie($serie->id);
             return view('series.show', compact('serie', 'exercises', 'type'));
         }
-        elseif( !SerieContainsExercises($series[0]->id) and !isMakerOfSeries($series[0]->id, Auth::id()) ) {
-            /*
-            $msg = "No exercises were found for this series. Come back later...";
-            $alert = "No exercises found.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
+        elseif( !SerieContainsExercises($series[0]->id) and !isMakerOfSeries($series[0]->id, Auth::id()) )
+        {
             flash()->error('No exercises were found for this series. Come back later...')->important();
             return redirect('series/');
         }
-        else {
-            //WILL ALSO NEED TO LOAD ALL EXERCISES THAT BELONG TO THIS SERIE
-            // i.e. if we want to show them on the serie's home page
+        else
+        {
             $serie = $series[0];
             $type = loadType2($serie->tId)[0];
             $exercises = loadExercisesFromSerie($serie->id);
@@ -151,38 +139,31 @@ class SeriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        if(empty(loadSerieWithIdOrTitle($id))) {
-            /*
-            $msg = "Unknown series";
-            $alert = "This series does not exist.";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
+        if(empty(loadSerieWithIdOrTitle($id)))
+        {
             flash()->error('That series does not exist.')->important();
             return redirect('series');
         }
         else if (!isMakerOfSeries($id, Auth::id()) )
         {
-            /*
-            $msg = "You must be logged in as the maker of this series in order to edit.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('You must be logged in as the maker of this series in order to edit.')->important();
             return redirect('series/' . $id);
         }
-        else {
+        else
+        {
             $serie = loadSerieWithIdOrTitle($id)[0];
             $type = loadType2($serie->tId)[0];
             return view('series.edit', compact('serie', 'type'));
         }
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @param  UpdateSerieRequest $request
+     * @return Response
+     */
 	public function update($id, UpdateSerieRequest $request)
 	{
         $input = $request->all();
@@ -190,6 +171,7 @@ class SeriesController extends Controller {
         $serie = new Series;
         $serie->title = $input['title'];
         $serie->description = $input['description'];
+
         $type = new Type;
         $type->subject = $input['subject'];
         $type->difficulty = $input['difficulty'];
@@ -217,18 +199,13 @@ class SeriesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//TODO: allow users to delete series, check SQL file comments
 	}
 
     public function createExercise($id)
     {
-         if ( !isMakerOfSeries($id, Auth::id()) )
+        if ( !isMakerOfSeries($id, Auth::id()) )
         {
-            /*
-            $msg = "You must be logged on as the maker of this series in order to add exercises.";
-            $alert = "Access Denied!";
-            return view('errors.unknown', compact('msg', 'alert'));
-            */
             flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
             return redirect('series/' . $id);
         }
@@ -236,11 +213,21 @@ class SeriesController extends Controller {
         return view('exercises.create', compact('serie'));
     }
 
+    public function referenceExercise($id)
+    {
+        if ( !isMakerOfSeries($id, Auth::id()) )
+        {
+            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
+            return redirect('series/' . $id);
+        }
+        $serie = loadSerieWithId($id)[0];
+        return view('exercises.reference', compact('serie'));
+    }
+
     public function storeExercise($id, CreateExerciseRequest $request)
     {
         $input = $request->all();
 
-        // Create Serie object (model)
         $exercise = new Exercise;
         $exercise->question = $input['question'];
         $exercise->tips = $input['tips'];
@@ -248,7 +235,6 @@ class SeriesController extends Controller {
         $exercise->expected_result = $input['expected_result'];
         $exercise->serieId = $id;
 
-        // Store in Database
         storeExercise($exercise);
 
         return redirect('series/' . $id);
@@ -273,5 +259,10 @@ class SeriesController extends Controller {
 
         flash()->success("Your rating has been successfully stored.");
         return \Redirect::back();
+    }
+
+    public function updateRating($id, UpdateRatingRequest $request)
+    {
+        //TODO: Allow users to update their rating in case they change their mind or series get updated
     }
 }

@@ -22,10 +22,10 @@ elixir(function(mix) {
     mix.scripts([
         'libs/jquery.js',
         'libs/bootstrap.js',
-        'myscripts.js'
+        'my-scripts.js'
     ]).scripts([
         'libs/skulpt.min.js',
         'libs/skulpt-stdlib.js',
-        'skulpt_functions.js'
+        'skulpt-functions.js'
     ], 'public/js/skulpt.js');
 });

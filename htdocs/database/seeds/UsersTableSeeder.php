@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder {
 
         User::create(['username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin'), 'image' => 'user1ProfileImage.jpg']);
         User::create(['username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno'), 'image' => 'user2ProfileImage.jpg']);
-        User::create(['username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael'), 'image' => 'NoProfileImage.jpg']);
+        User::create(['username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael'), 'image' => 'user3ProfileImage.jpg']);
         User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad'), 'image' => 'user4ProfileImage.jpg']);
     }
     /*

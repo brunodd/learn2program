@@ -40,7 +40,8 @@
     @endforeach
 
     @if ( $serie->makerId === Auth::id() )
-        <h4><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h4>
+        <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
+        <h4><a href="{{$serie->id}}/referenceexercise">Use an existing exercise</a></h4>
     @endif
     <br><br>
 
@@ -52,7 +53,7 @@
 
     @if ( Auth::check() and notRatedYet(Auth::id(), $serie->id))
         <br> <br>
-        {!! Form::open() !!}
+        {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
             <div class="form-group">
                 {!! Form::label('rating', 'Rate this series: ') !!}
                 {!! Form::select('rating', [null => 'Select rating...', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) !!}

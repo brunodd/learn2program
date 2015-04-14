@@ -10,7 +10,7 @@ class SearchController extends Controller {
 	public function search(Request $request) {
         $searchword = $request->searchword;
 
-        //sql queries voor search
+        //TODO: sql queries for search
 
         $results = [ 'searchword' => $request->searchword, 'series' => '', 'exercises' => '', 'users' => '', 'graphs' => ''];
         return view('pages.search', compact('results'));

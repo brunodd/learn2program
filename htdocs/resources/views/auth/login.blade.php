@@ -34,8 +34,10 @@
 								<input type="password" class="form-control" name="pass">
 							</div>
 						</div>
+
                         <!-- commented out the "remember" checkbox in case we use it later -->
-						<!--<div class="form-group">
+						<!--
+						    <div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<div class="checkbox">
 									<label>
@@ -43,7 +45,8 @@
 									</label>
 								</div>
 							</div>
-                            </div>-->
+                            </div>
+                        -->
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">

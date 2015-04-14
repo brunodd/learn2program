@@ -24,9 +24,15 @@
     </div>
 
 
+    <!-- TODO: copy facebook for prettier displaying -->
     <div id="messageBox" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
         @foreach ($messages as $message)
-            <p style="float:left;"><b> {{$message->username}} </b></p>
+            <a href="/users/{{$message->username}}">
+                <img src="/images/users/{{ loadUser($message->username)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float: left;padding: 0 5px 0 0;">
+            </a>
+            <a href="/users/{{$message->username}}">
+                <p style="float:left;"><b> {{$message->username}} </b></p>
+            </a>
             <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p><br>
             <div style="clear:both;"></div>
             <p> {{$message->message}} </p>
@@ -35,11 +41,12 @@
     </div>
 
     <script>
-        SetScrollBoxToBottom('messageBox');
+        myScripts.SetScrollBoxToBottom('messageBox');
     </script>
 
     <br>
 
+    <!-- TODO: copy facebook for prettier displaying -->
     @if ($user->username != '')
         {!! Form::open(['action' => 'MessagesController@store']) !!}
             <div class="form-group" >

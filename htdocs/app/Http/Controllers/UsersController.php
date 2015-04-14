@@ -51,9 +51,10 @@ class UsersController extends Controller {
         $pass = Hash::make($request->pass);
         //Create user without profile image, can be added in later under settings
 
-        \DB::insert('insert into `users` (`username`, `mail`, `pass`) values (?, ?, ?)', array($username, $mail, $pass));
+        storeUser(new User(['username' => $username, 'mail' => $mail, 'pass' => $pass]));
 
-        $user = \DB::select('select * from users where username = ?', array($username));
+        $user = loadUser($username);
+
         //TODO: don't login automatically, send confirmation mail first
         \Auth::loginUsingId($user[0]->id);
 
