@@ -97,7 +97,8 @@
     function loadExercisesFromSerie($sId)
     {
         return DB::select('select * from exercises, (select * from exercises_per_series where seriesId = ?) eps
-                where exercises.id = eps.exId',[$sId]);
+                where exercises.id = eps.exId',
+                [$sId]);
     }
 
     /*function loadExercisesFromSerie2($sId)
@@ -109,8 +110,8 @@
     function storeExercise($exercise)
     {
         // Add exercise
-        DB::insert('insert into exercises (question, tips, start_code, expected_result) VALUES (?, ?, ?, ?)',
-        [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result]);
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?)',
+        [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->maker_id]);
 
         // Add link with series
         DB::insert('insert into exercises_per_series (exId, seriesId)
@@ -129,7 +130,7 @@
 
     function isMakerOfExercise($eId, $uId)
     {
-        if( empty(DB::select('select * from series where makerId = ? and id in (select seriesId from exercises_per_series where exId = ?)', [$uId, $eId])) ) return false;
+        if( empty(DB::select('select * from exercises where makerId = ? and id = ?', [$uId, $eId])) ) return false;
         else return true;
     }
 
@@ -446,7 +447,7 @@
 
     //returns a list of pairs, userId & the number of exercises created by that user
     function countExercisesByMakers() {
-        return DB::select('select makerId, count(exercises.id) as c from exercises join series join users on seriesId = series.id and makerId = users.id group by makerId');
+        return DB::select('select makerId, count(exercises.id) as c from exercises group by makerId');
     }
 
     //return a list of pairs, userId & the number of completed series (i.e. at least tried once on each exercise)
