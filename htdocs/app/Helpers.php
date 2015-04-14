@@ -535,5 +535,24 @@
         return DB::select('select sId, count(distinct(uId)) as c from (select sId, count(distinct(eId)) as c, uId from exercises join (select series.id as sId, exercises.id as eId, uId from (series join exercises on series.id = serieId) join answers on exercises.id = eId where success = 1 group by sId, eId, uId) agg on serieId=sId and id=eId group by serieId, uId) agg join (select serieId, count(id) as c from exercises group by serieId) agg2 on serieId=sId and agg.c=agg2.c group by sId union (select id as sId, 0 as c  from series where id not in (select serieId from exercises join answers on exercises.id=eId where success = 1 group by serieId)) order by sId');
     }
 
+    // NEW CODE
+    function returnSeriesSameMaker($serie) {
+        return DB::select('SELECT *
+                            FROM series
+                            WHERE series.title != ? and makerId = ?',
+                                [$serie->title, $serie->makerId]);
+    }
+
+    function returnSeriesSameDifficulty($serie) {
+        $difficulty = DB::select('SELECT *
+                                FROM types
+                                WHERE types.id = ?', [$serie->tId]);
+
+        return DB::select(' SELECT * 
+                            FROM series, types
+                            WHERE series.title != ? and series.tId = types.id and types.difficulty = ?',
+                             [$serie->title, $difficulty[0]->difficulty]);
+    }
+
 ?>
 

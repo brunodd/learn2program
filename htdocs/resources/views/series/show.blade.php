@@ -27,6 +27,17 @@
         @endforeach
     @endif
     <br>
+    <h4>Aanbevelingen:</h4>
+    
+    <?php $seriesSameMaker = returnSeriesSameMaker($serie); ?>
+    @foreach($seriesSameMaker as $temp)
+        <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+    @endforeach
+
+    <?php $seriesSameDifficulty = returnSeriesSameDifficulty($serie); ?>
+    @foreach($seriesSameDifficulty as $temp)
+        <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+    @endforeach
 
     @if ( $serie->makerId === Auth::id() )
         <h4><a href="{{$serie->id}}/newexercise">Add a new exercise</a></h4>
