@@ -60,6 +60,7 @@ class ExercisesController extends Controller {
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
+            return(dd('test'));
 		    return view('exercises.show', compact('exercise', 'result', 'answer'));
         }
         else {
