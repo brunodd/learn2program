@@ -131,9 +131,10 @@ CREATE TABLE exercises (
     FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE exercises_per_series (
-    exId INT,
-    seriesId INT,
+CREATE TABLE exercises_in_series (
+    exId INT NOT NULL,
+    seriesId INT NOT NULL,
+    ex_index INT NOT NULL,
     PRIMARY KEY (exId, seriesId),
     FOREIGN KEY (exId) REFERENCES exercises(id) ON DELETE CASCADE,
     FOREIGN KEY (seriesId) REFERENCES series(id) ON DELETE CASCADE

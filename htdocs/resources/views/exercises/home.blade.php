@@ -13,7 +13,10 @@
         @endforeach
     </ul>
 
-    @if ( !Auth::check() )
+
+    @if ( Auth::check() )
+        <h2><a href="exercises/create">Create new exercise</a></h2>
+    @else
         <h2><a href="/login">User login</a></h2>
     @endif
 @stop

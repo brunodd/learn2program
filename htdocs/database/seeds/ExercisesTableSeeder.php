@@ -11,25 +11,25 @@ class ExercisesTableSeeder extends Seeder {
 
 
         Exercise::create([
-            'question' => 'Execute this code',
+            'question' => 'Execute this code 1',
             'tips' => 'Click the button',
             'start_code' =>
                 'print("Hello, world")',
             'expected_result' =>
 'Hello, world',
-            'seriesId' => 1]);
+            'makerId' => 1]);
 
         Exercise::create([
-            'question' => 'Execute this code',
+            'question' => 'Execute this code 2',
             'tips' => 'Click the button',
             'start_code' =>
 'name = ""
 print("Hello, " + name)',
             'expected_result' => 'Hello, *your name*',
-            'seriesId' => 1]);
+            'makerId' => 1]);
 
         Exercise::create([
-            'question' => 'Execute this code',
+            'question' => 'Execute this code 3',
             'tips' => 'Click the button',
             'start_code' =>
 'import turtle
@@ -74,14 +74,14 @@ for color in colors:
         draw_track(r, color)
 ',
             'expected_result' => 'A drawing',
-            'seriesId' => 2]);
+            'makerId' => 2]);
 
         Exercise::create([
-            'question' => 'Question for series example 3',
+            'question' => 'Question for series example 4',
             'tips' => 'None',
             'start_code' =>
 'Some code...',
             'expected_result' => 'Anything',
-            'seriesId' => 3]);
+            'makerId' => 3]);
     }
 }

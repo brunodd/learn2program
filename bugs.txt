@@ -1,1 +1,3 @@
 10/04/2015 - Graphs don't have any words after using the translator
+17/04/2015 - Statistics page doesnt work when no data in server: Undefined offset: 0
+             error in finished_series_per_group_bar.blade.php

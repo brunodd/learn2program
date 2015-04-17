@@ -234,7 +234,7 @@ class SeriesController extends Controller {
         $exercise->start_code = $input['start_code'];
         $exercise->expected_result = $input['expected_result'];
         $exercise->seriesId = $id;
-        $exercise->maker_id = Auth::id();
+        $exercise->makerId = Auth::id();
 
         storeExercise($exercise);
 
