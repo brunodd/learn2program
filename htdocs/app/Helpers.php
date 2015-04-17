@@ -310,6 +310,7 @@
         }
     }
 
+    //MESSAGES
 
     function storeConversation($id) {
         $userId = loadUser($id)[0]->id;
@@ -360,20 +361,55 @@
                            [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
     }
 
-
     //Get all conversations for the logged in user, then only select the latest message for each of them
     function loadConversationsWithMessage() {
-        return \DB::select(' select userA, userB, message, date
-                             from (select C.id, C.userA, C.userB, M.message, M.date
-                                   from conversations C
-                                        join messages M on C.id = M.conversationId
-                                        join users U on U.id = M.author
-                                   where C.userA = ? or C.userB = ?
-                                   order by date desc) as X
-                             group by id
-                             order by date desc',
-            [\Auth::id(), \Auth::id()]);
+        return \DB::select('SELECT userA, userB, message, date
+                            FROM (SELECT C.id, C.userA, C.userB, M.message, M.date
+                                  FROM conversations C
+                                       JOIN messages M ON C.id = M.conversationId
+                                       JOIN users U ON U.id = M.author
+                                WHERE C.userA = ? OR C.userB = ?
+                                ORDER BY DATE DESC) AS X
+                            GROUP BY id
+                            ORDER BY DATE DESC',
+                            [\Auth::id(), \Auth::id()]);
     }
+
+    function loadUnreadMessages() {
+        return \DB::select('SELECT *
+                            FROM conversations C
+                                 JOIN messages M ON C.id = M.conversationId
+                             WHERE M.is_read = 0 AND (C.userA = ? OR C.userB = ?)',
+                            [\Auth::id(), \Auth::id()]);
+    }
+
+    function loadLastReadMessage() {
+        return \DB::select('SELECT *
+                            FROM conversations C
+                                 JOIN messages M ON C.id = M.conversationId
+                             WHERE M.is_read = 1 AND (C.userA = ? OR C.userB = ?) AND M.author = ?
+                             ORDER BY DATE DESC
+                             LIMIT 1',
+                            [\Auth::id(), \Auth::id(), \Auth::id()]);
+    }
+
+
+    //NOTIFICATIONS
+
+    function loadAllNotifications() {
+        return \DB::select('SELECT *
+                            FROM notifications
+                            WHERE userId = ?',
+                            [\Auth::id()]);
+    }
+
+    function loadUnreadNotifications() {
+        return \DB::select('SELECT *
+                            FROM notifications
+                            WHERE userId = ? and is_read = 0',
+                            [\Auth::id()]);
+    }
+
 
     //ALL STATISTICAL HELPERS NEEDED FOR THE GRAPHS
 

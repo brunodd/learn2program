@@ -7,18 +7,18 @@ class MessagesTableSeeder extends Seeder {
     public function run() {
         DB::table('messages')->delete();
 
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'hello', 1]);
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'world', 1]);
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'how are you', 1]);
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'can you help me?', 1]);
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'i don\'t understand x', 1]);
-        DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
-                    [1, 'sure', 2]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'hello', 1, 1]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'world', 1, 1]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'how are you', 1, 1]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'can you help me?', 1, 1]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'i don\'t understand x', 1, 1]);
+        DB::insert('insert into messages (conversationId, message, author, is_read) VALUES (?, ?, ?, ?)',
+                    [1, 'sure', 2, 1]);
         sleep(1);
         DB::insert('insert into messages (conversationId, message, author) VALUES (?, ?, ?)',
                     [1, 'what don\'t you understand about it?', 2]);

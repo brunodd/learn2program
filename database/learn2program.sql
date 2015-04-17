@@ -52,6 +52,7 @@ CREATE TABLE messages (
     conversationId INT NOT NULL,
     message VARCHAR(512) NOT NULL,
     author int NOT NULL,
+    is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
     FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
@@ -148,8 +149,8 @@ CREATE TABLE answers (
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,
-    message VARCHAR(128) NOT NULL,
     type VARCHAR(128),
+    message VARCHAR(128) NOT NULL,
     object_id INT,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP,

@@ -28,7 +28,10 @@
                 @if (Auth::user())
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <!-- if new notification
+                            <span class="glyphicon glyphicon-certificate" style="color: red;"></span -->
                             <span class="glyphicon glyphicon-certificate"></span>
+
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="">Lijstje van recente notifications</a></li>
