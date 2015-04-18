@@ -36,6 +36,7 @@ Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 Route::resource('series', 'SeriesController');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::get('series/{id}/referenceexercise', 'SeriesController@referenceExercise');
+Route::get('series/{id}/copyexercise', 'SeriesController@copyExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
 

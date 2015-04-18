@@ -41,7 +41,12 @@
 
     @if ( $serie->makerId === Auth::id() )
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
-        <h4><a href="{{$serie->id}}/referenceexercise">Add an existing exercise</a></h4>
+            <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>
+        <h4><a href="{{$serie->id}}/referenceexercise">Reference an existing exercise</a></h4>
+            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise. 
+            When the original exercise gets updated (or deleted), so will this one.)</em></p>
+        <h4><a href="{{$serie->id}}/copyexercise">Copy an existing exercise</a></h4>
+            <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
     @endif
     <br><br>
 

@@ -221,7 +221,13 @@ class SeriesController extends Controller {
             return redirect('series/' . $id);
         }
         $serie = loadSerieWithId($id)[0];
-        return view('exercises.reference', compact('serie'));
+        return ('Getting reference');
+        // return view('exercises.reference', compact('serie'));
+    }
+
+    public function copyExercise()
+    {
+        return 'Getting copy';
     }
 
     public function storeExercise($id, CreateExerciseRequest $request)
