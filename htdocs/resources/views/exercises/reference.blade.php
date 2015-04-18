@@ -12,8 +12,20 @@
 @stop
 
 @section('content')
+    <script>
+        function fillAll() {
+            document.getElementById("question").value = "Put needed question here";
+            document.getElementById("start_code").value = "Put needed start code here";
+            document.getElementById("tips").value = "Put needed tips here";
+            document.getElementById("expected_result").value = "Put needed expected result here";
+        }
+    </script>
+
+
     {!! Form::open() !!}
         {!! Form::select('Exercise', $titles, null, ['class' => 'form-control']) !!}
+        {!! Form::button('Check exercise', ['class' => 'btn btn-primary form-control', 'onclick' => 'fillAll()']) !!}
+
         <div class="form-group">
             {!! Form::label('question', 'Question: ') !!}
             {!! Form::text('question', null, ['class' => 'form-control']) !!}
