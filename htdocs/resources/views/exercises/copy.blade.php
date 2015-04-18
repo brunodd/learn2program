@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Add a reference of an exercise for series: {{$serie->title}}
+    Add a copy of an exercise for series: {{$serie->title}}
 @stop
 
 @section('content')

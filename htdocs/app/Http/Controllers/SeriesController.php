@@ -221,13 +221,18 @@ class SeriesController extends Controller {
             return redirect('series/' . $id);
         }
         $serie = loadSerieWithId($id)[0];
-        return ('Getting reference');
-        // return view('exercises.reference', compact('serie'));
+        return view('exercises.reference', compact('serie'));
     }
 
-    public function copyExercise()
+    public function copyExercise($id)
     {
-        return 'Getting copy';
+        if ( !isMakerOfSeries($id, Auth::id()) )
+        {
+            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
+            return redirect('series/' . $id);
+        }
+        $serie = loadSerieWithId($id)[0];
+        return view('exercises.copy', compact('serie'));
     }
 
     public function storeExercise($id, CreateExerciseRequest $request)

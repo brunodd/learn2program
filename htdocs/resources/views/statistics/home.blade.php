@@ -7,13 +7,9 @@
 
         <!-- 2. You can add print and export feature by adding this line -->
         <script src="http://code.highcharts.com/modules/exporting.js"></script>
-        
+
         @include('statistics.graphs.series_per_user_bar')
-
         @include('statistics.graphs.series_per_user_pie')
-
-
-        @include('statistics.graphs.finished_series_per_group_bar')
 
 @stop
 
