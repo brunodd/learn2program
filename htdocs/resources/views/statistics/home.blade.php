@@ -18,12 +18,12 @@
 @stop
 
 @section('content')
+        <span class="notranslate">  <!-- Do not translate graphs -->
 
         <!-- 3. Add the container -->
-        <span class="notranslate">
         <div id="container_created_per_user" style="width: 600px; height: 400px; margin: 0 auto"></div>
-        </span>
         <div id="container_pie_example" style="width: 600px; height: 400px; margin: 0 auto"></div>
         <div id="container_succeeded_per_group" style="width: 600px; height: 400px; margin: 0 auto"></div>
 
+        </span>
 @stop
