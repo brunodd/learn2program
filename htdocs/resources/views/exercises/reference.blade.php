@@ -4,7 +4,7 @@
     $fullExercises = loadAllExercises();
     $titles = [];
     foreach($fullExercises as $ex) {
-        array_push($titles, [$ex->question]);
+        array_push($titles, $ex->question);
     }
 ?>
 @section('title')
@@ -13,6 +13,7 @@
 
 @section('content')
     <script>
+        // Need to add the selected id so I can use queries to find the useful data.
         function fillAll() {
             document.getElementById("question").value = "Put needed question here";
             document.getElementById("start_code").value = "Put needed start code here";
