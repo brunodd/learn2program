@@ -224,6 +224,17 @@ class SeriesController extends Controller {
         return view('exercises.reference', compact('serie'));
     }
 
+    public function copyExercise($id)
+    {
+        if ( !isMakerOfSeries($id, Auth::id()) )
+        {
+            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
+            return redirect('series/' . $id);
+        }
+        $serie = loadSerieWithId($id)[0];
+        return view('exercises.copy', compact('serie'));
+    }
+
     public function storeExercise($id, CreateExerciseRequest $request)
     {
         $input = $request->all();
@@ -233,7 +244,8 @@ class SeriesController extends Controller {
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
         $exercise->expected_result = $input['expected_result'];
-        $exercise->serieId = $id;
+        $exercise->seriesId = $id;
+        $exercise->makerId = Auth::id();
 
         storeExercise($exercise);
 
@@ -252,7 +264,7 @@ class SeriesController extends Controller {
         $newrating = new Rating;
         $newrating->rating = $input['rating'];
         $newrating->userId = Auth::id();
-        $newrating->serieId = $input['sId'];
+        $newrating->seriesId = $input['sId'];
 
         //we already know that the "requester" hasn't rated this serie yet
         addRating($newrating);
