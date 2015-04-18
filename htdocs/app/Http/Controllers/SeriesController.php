@@ -38,6 +38,54 @@ class SeriesController extends Controller {
 		return view('series.home', compact('series'));
 	}
 
+	public function indexSortedByNameASC()
+	{
+        $series = loadSeriesSortedByNameASC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedByRatingASC()
+	{
+        $series = loadSeriesSortedByRatingASC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedByDiffASC()
+	{
+        $series = loadSeriesSortedByDiffASC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedBySubASC()
+	{
+        $series = loadSeriesSortedBySubASC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedByNameDESC()
+	{
+        $series = loadSeriesSortedByNameDESC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedByRatingDESC()
+	{
+        $series = loadSeriesSortedByRatingDESC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedByDiffDESC()
+	{
+        $series = loadSeriesSortedByDiffDESC();
+		return view('series.home', compact('series'));
+	}
+
+    public function indexSortedBySubDESC()
+	{
+        $series = loadSeriesSortedBySubDESC();
+		return view('series.home', compact('series'));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

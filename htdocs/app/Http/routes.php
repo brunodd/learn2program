@@ -34,6 +34,14 @@ Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 
 
 Route::resource('series', 'SeriesController');
+Route::get('seriesSortedByNameASC', 'SeriesController@indexSortedByNameASC');
+Route::get('seriesSortedByRatingASC', 'SeriesController@indexSortedByRatingASC');
+Route::get('seriesSortedByDifficultyASC', 'SeriesController@indexSortedByDiffASC');
+Route::get('seriesSortedBySubjectASC', 'SeriesController@indexSortedBySubASC');
+Route::get('seriesSortedByNameDESC', 'SeriesController@indexSortedByNameDESC');
+Route::get('seriesSortedByRatingDESC', 'SeriesController@indexSortedByRatingDESC');
+Route::get('seriesSortedByDifficultyDESC', 'SeriesController@indexSortedByDiffDESC');
+Route::get('seriesSortedBySubjectDESC', 'SeriesController@indexSortedBySubDESC');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
 Route::get('series/{id}/referenceexercise', 'SeriesController@referenceExercise');
 Route::get('series/{id}/copyexercise', 'SeriesController@copyExercise');
