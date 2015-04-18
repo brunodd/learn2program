@@ -83,8 +83,8 @@ class MessagesController extends Controller {
             }
 
             $lastRead = "";
-            if (!empty(loadLastReadMessage())) {
-                $lastRead = loadLastReadMessage()[0]->message;
+            if (!empty(loadLastReadMessage($id))) {
+                $lastRead = loadLastReadMessage($id)[0]->message;
             }
 
             foreach($messages as &$message) {

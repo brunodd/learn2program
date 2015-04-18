@@ -398,14 +398,18 @@
                             [\Auth::id(), \Auth::id()]);
     }
 
-    function loadLastReadMessage() {
+    //get the last message that was user $id has read
+    function loadLastReadMessage($id) {
+        $id2 = loadUser($id)[0]->id;
+        $a = min(array(\Auth::id(), $id2));
+        $b = max(array(\Auth::id(), $id2));
         return \DB::select('SELECT *
                             FROM conversations C
                                  JOIN messages M ON C.id = M.conversationId
-                             WHERE M.is_read = 1 AND (C.userA = ? OR C.userB = ?) AND M.author = ?
-                             ORDER BY DATE DESC
-                             LIMIT 1',
-                            [\Auth::id(), \Auth::id(), \Auth::id()]);
+                            WHERE M.is_read = 1 AND C.userA = ? AND C.userB = ? AND M.author = ?
+                            ORDER BY M.id DESC
+                            ',
+                            [$a, $b, \Auth::id()]);
     }
 
 

@@ -37,11 +37,11 @@ class DatabaseSeeder extends Seeder {
         $this->call('SeriesTableSeeder');
         $this->command->info('series table seeded!');
 
-        //$this->call('SeriesRatingsTableSeeder');
-        //$this->command->info('series_ratings table seeded!');
+        $this->call('SeriesRatingsTableSeeder');
+        $this->command->info('series_ratings table seeded!');
 
-        //$this->call('ExercisesTableSeeder');
-        //s$this->command->info('exercises table seeded!');
+        $this->call('ExercisesTableSeeder');
+        $this->command->info('exercises table seeded!');
 
         $this->call('ExercisesAnswersTableSeeder');
         $this->command->info('answers table seeded!');

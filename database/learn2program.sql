@@ -49,11 +49,13 @@ CREATE TABLE conversations (
    TODO: Armin: change author column
 */
 CREATE TABLE messages (
+    id INT AUTO_INCREMENT,
     conversationId INT NOT NULL,
     message VARCHAR(512) NOT NULL,
     author int NOT NULL,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
+    PRIMARY KEY (id),
     FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
