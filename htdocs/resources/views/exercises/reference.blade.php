@@ -10,5 +10,8 @@
 @stop
 
 @section('content')
-    Still have to add functionality.
+    <h4><a href="">Copy an exisiting exercise.</a></h4>
+    <p><em>(This means that you become the new and sole author of the exercise)</em></p>
+    <h4><a href="">Reference an existing exercise.</a></h4>
+    <p><em>(This means that the you 'add' the original exercise to your series. When the original exercise gets updated (or deleted), so will this one.)</em></p>
 @stop

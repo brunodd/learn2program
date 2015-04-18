@@ -41,7 +41,7 @@
 
     @if ( $serie->makerId === Auth::id() )
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
-        <h4><a href="{{$serie->id}}/referenceexercise">Use an existing exercise</a></h4>
+        <h4><a href="{{$serie->id}}/referenceexercise">Add an existing exercise</a></h4>
     @endif
     <br><br>
 
