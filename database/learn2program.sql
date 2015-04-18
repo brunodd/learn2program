@@ -109,15 +109,15 @@ CREATE TABLE series (
 /* Again choose between pre-defined values for rating? */
 CREATE TABLE series_ratings (
     userId INT,
-    serieId INT NOT NULL,
+    seriesId INT NOT NULL,
     rating ENUM('0', '1', '2', '3', '4', '5') NOT NULL,
-    UNIQUE (userId, serieId),
+    UNIQUE (userId, seriesId),
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (serieId) REFERENCES series(id) ON DELETE CASCADE
+    FOREIGN KEY (seriesId) REFERENCES series(id) ON DELETE CASCADE
 );
 
 /* Should we keep exercises somehow if someone deletes a series?
-   serieId will then be set to NULL and exercises can be shown on exercises home page?
+   seriesId will then be set to NULL and exercises can be shown on exercises home page?
    For now, they will be deleted
 */
 CREATE TABLE exercises (
@@ -126,9 +126,18 @@ CREATE TABLE exercises (
     tips VARCHAR(500),
     start_code TEXT NOT NULL,
     expected_result TEXT NOT NULL,
-    serieId INT NOT NULL,
+    makerId INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (serieId) REFERENCES series(id) ON DELETE CASCADE
+    FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE exercises_in_series (
+    exId INT NOT NULL,
+    seriesId INT NOT NULL,
+    ex_index INT NOT NULL,
+    PRIMARY KEY (exId, seriesId),
+    FOREIGN KEY (exId) REFERENCES exercises(id) ON DELETE CASCADE,
+    FOREIGN KEY (seriesId) REFERENCES series(id) ON DELETE CASCADE
 );
 
 CREATE TABLE answers (
@@ -143,8 +152,8 @@ CREATE TABLE answers (
 );
 
 /* Examples: type: friends;object_id: userId;message: userId->username wants to add you as a friend.
-             type: series;object_id: serieId;message: user X has completed your serieId->title.
-             type: rating;object_id: serieId;message: Your series serieId->title has recieved a rating of X */
+             type: series;object_id: seriesId;message: user X has completed your seriesId->title.
+             type: rating;object_id: seriesId;message: Your series seriesId->title has recieved a rating of X */
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,

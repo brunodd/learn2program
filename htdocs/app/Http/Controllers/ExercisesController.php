@@ -35,6 +35,7 @@ class ExercisesController extends Controller {
 	public function create()
 	{
 		//handled in SeriesController
+        return "create";
 	}
 
 	/**
@@ -55,20 +56,21 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercise($id, Auth::id()) )
+        //if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercise($id, Auth::id()) )
         {
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
 		    return view('exercises.show', compact('exercise', 'result', 'answer'));
         }
-        else {
+        /*else {
+            return 'b';
             flash()->error("You must first complete one or more preceding exercises.");
             $exercise = nextExerciseInLine($id, Auth::id())[0];
             $result = null;
             $answer = null;
             return redirect('exercises/' . $exercise->id);
-        }
+        }*/
 	}
 
 	/**
@@ -81,8 +83,7 @@ class ExercisesController extends Controller {
 	{
         if( isMakerOfExercise($id, Auth::id()) ) {
             $exercise = loadExercise($id)[0];
-            $serie = loadSerieWithId($exercise->serieId)[0];
-		    return view('exercises.edit', compact('exercise', 'serie'));
+		    return view('exercises.edit', compact('exercise'));
         }
         else {
             flash()->error("You must be logged in as the maker of this exercise.");
@@ -134,8 +135,6 @@ class ExercisesController extends Controller {
 
         storeAnswer($ans);
 
-        //TODO: zien hoe die messages te doen
-
         //flash()->success("Your answer was successfully stored.");
         // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
 
@@ -146,6 +145,7 @@ class ExercisesController extends Controller {
 
         $result = $input['result'];
         $answer = $input['given_code'];
+        // TODO: return redirect('exercises/' . $id);
         return view('exercises.show', compact('exercise', 'result', 'answer'));
     }
 

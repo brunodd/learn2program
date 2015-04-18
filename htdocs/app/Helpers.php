@@ -81,31 +81,41 @@
 
     function SerieContainsExercises($sId)
     {
-        if ( !empty(DB::select('select * from exercises where serieId = ?',[$sId])) ) return true;
+        if ( !empty(DB::select('select * from exercises, (select * from exercises_in_series where seriesId = ?) eps
+                where exercises.id = eps.exId', [$sId])) )
+            return true;
         else return false;
     }
 
     /*function SerieContainsExercises2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
-        if ( !empty(DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id])) ) return true;
+        if ( !empty(DB::select('select * from exercises where seriesId = ?',[$seriesID[0]->id])) ) return true;
         else return false;
     }*/
 
     function loadExercisesFromSerie($sId)
     {
-        return DB::select('select * from exercises where serieId = ?',[$sId]);
+        return DB::select('select * from exercises, (select * from exercises_in_series where seriesId = ?) eps
+                where exercises.id = eps.exId',
+                [$sId]);
     }
 
     /*function loadExercisesFromSerie2($sId)
     {
         $seriesID = loadSerieWithIdOrTitle($sId);
-        return DB::select('select * from exercises where serieId = ?',[$seriesID[0]->id]);
+        return DB::select('select * from exercises where seriesId = ?',[$seriesID[0]->id]);
     }*/
 
     function storeExercise($exercise)
     {
-        DB::insert('insert into exercises (question, tips, start_code, expected_result, serieId) VALUES (?, ?, ?, ?, ?)', [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->serieId]);
+        // Add exercise
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?)',
+        [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId]);
+
+        // Add link with series
+        DB::insert('insert into exercises_in_series (exId, seriesId)
+            select max(id), ? from exercises', [$exercise->seriesId]);
     }
 
     function loadAllExercises()
@@ -120,13 +130,18 @@
 
     function isMakerOfExercise($eId, $uId)
     {
-        if( empty(DB::select('select * from series where makerId = ? and id in (select serieId from exercises where id = ?)', [$uId, $eId])) ) return false;
-        else return true;
+        return ( empty(DB::select('select * from exercises where makerId = ? and id = ?', [$uId, $eId])) );
     }
 
     function nextExerciseInLine($eId, $uId)
     {
-        return DB::select('select * from exercises where (serieId in (select serieId from exercises where id = ?)) and (id not in (select eId from answers where uId = ? and success = 1)) order by id', [$eId, $uId]);
+        return DB::select('select * from exercises ex1, exercises_in_series eps1
+        where (ex1.id = eps1.exId and eps1.seriesId in
+            (select seriesId from exercises_in_series eps2 where eps2.exId = ?))
+        and (ex1.id not in
+            (select eId from answers where uId = ? and success = 1))
+        order by id',
+        [$eId, $uId]);
     }
 
     function completedAllPreviousExercisesOfSeries($eId, $uId)
@@ -249,18 +264,18 @@
 
     function notRatedYet($uId, $sId)
     {
-        if( empty(DB::select('select * from series_ratings where userId = ? and serieId = ?', [$uId, $sId])) ) return true;
+        if( empty(DB::select('select * from series_ratings where userId = ? and seriesId = ?', [$uId, $sId])) ) return true;
         else return false;
     }
 
     function addRating($nr)
     {
-        DB::insert('insert into series_ratings (rating, userId, serieId) VALUES (?, ?, ?)', [$nr->rating, $nr->userId, $nr->serieId]);
+        DB::insert('insert into series_ratings (rating, userId, seriesId) VALUES (?, ?, ?)', [$nr->rating, $nr->userId, $nr->seriesId]);
     }
 
     function unratedSeries($sId)
     {
-        if( empty(DB::select('select * from series_ratings where serieId = ?', [$sId])) ) return true;
+        if( empty(DB::select('select * from series_ratings where seriesId = ?', [$sId])) ) return true;
         else return false;
     }
 
@@ -268,7 +283,7 @@
     //after a couple of tests, it seems mysql's average is always off by 1
     function averageRating($sId)
     {
-        $ratings = DB::select('select * from series_ratings where serieId = ?', [$sId]);
+        $ratings = DB::select('select * from series_ratings where seriesId = ?', [$sId]);
         $avg = 0;
         foreach( $ratings as $r )
         {
@@ -377,7 +392,7 @@
 
     //ALL STATISTICAL HELPERS NEEDED FOR THE GRAPHS
 
-    //returns a list of pairs, serieId & average rating of that serie
+    //returns a list of pairs, seriesId & average rating of that serie
     function averageRatingsBySeries() {
         $series = loadAllSeries();
         $avgs = [];
@@ -416,7 +431,7 @@
     //tyring a different strategy here since I found out mysql's "offset" is always 1 too much
     // -> please test asap so i can rewrite if necessary
     function averageRatingsByTypes() {
-        $avgs = DB::select('select types.id, avg(rating) as a from series_ratings JOIN series JOIN types where series.id = serieId and tId = types.id group by tId');
+        $avgs = DB::select('select types.id, avg(rating) as a from series_ratings JOIN series JOIN types where series.id = seriesId and tId = types.id group by tId');
         foreach( $avgs as $a )
         {
             $a->average = $a->average - 1;
@@ -431,17 +446,17 @@
 
     //returns a list of pairs, userId & the number of exercises created by that user
     function countExercisesByMakers() {
-        return DB::select('select makerId, count(exercises.id) as c from exercises join series join users on serieId = series.id and makerId = users.id group by makerId');
+        return DB::select('select makerId, count(exercises.id) as c from exercises group by makerId');
     }
 
     //return a list of pairs, userId & the number of completed series (i.e. at least tried once on each exercise)
     function countSeriesCompletedByUsers() {
-        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg group by uId');
+        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2 from answers join exercises join (select seriesId, count(id) as c2 from exercises group by seriesId) agg on eId = exercises.id and exercises.seriesId = agg.seriesId group by uId, agg.seriesId having c1 = c2) agg group by uId');
     }
 
     //return a list of pairs, userId & the number of completed series (i.e. solved all exercises correctly)
     function countSeriesSucceededByUsers() {
-        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId where success = 1 group by uId, agg.serieId having c1 = c2) agg group by uId');
+        return DB::select('select uId, count(uId) as c from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2 from answers join exercises join (select seriesId, count(id) as c2 from exercises group by seriesId) agg on eId = exercises.id and exercises.seriesId = agg.seriesId where success = 1 group by uId, agg.seriesId having c1 = c2) agg group by uId');
     }
 
     function countSeriesSucceededByUser($uId) {
@@ -461,13 +476,13 @@
     //return a list of pairs, userId & the number of series in progress (i.e. with exercises still unanswered)
     //in particular -> the number of series in progress equals (total number of series containing exercises - "completed" series)
     function countSeriesInProgressByUsers() {
-        return DB::select('select uId, (agg2.c-count(uId)) as c from (select uId, count(distinct(eId)) as c1, agg.serieId, agg.c2 from answers join exercises join (select serieId, count(id) as c2 from exercises group by serieId) agg on eId = exercises.id and exercises.serieId = agg.serieId group by uId, agg.serieId having c1 = c2) agg, (select count(distinct(serieId)) as c from exercises) agg2 group by uId');
+        return DB::select('select uId, (agg2.c-count(uId)) as c from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2 from answers join exercises join (select seriesId, count(id) as c2 from exercises group by seriesId) agg on eId = exercises.id and exercises.seriesId = agg.seriesId group by uId, agg.seriesId having c1 = c2) agg, (select count(distinct(seriesId)) as c from exercises) agg2 group by uId');
     }
 
     //returns list of pairs, userId & number of series for which none of the exercises was made so far
     //series with no exercises are not taken into account
     function countSeriesUnstartedByUsers() {
-        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from series where id in (select distinct(serieId) from exercises)) agg where users.id not in (select uId from answers) union (select uId as id, (agg.c-count(distinct(serieId))) from (answers join exercises on eId = exercises.id), (select count(id) as c from series where id in (select distinct(serieId) from exercises)) agg group by uId)) agg group by id');
+        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from series where id in (select distinct(seriesId) from exercises)) agg where users.id not in (select uId from answers) union (select uId as id, (agg.c-count(distinct(seriesId))) from (answers join exercises on eId = exercises.id), (select count(id) as c from series where id in (select distinct(seriesId) from exercises)) agg group by uId)) agg group by id');
     }
 
     //return a list of pairs, userId & the number of completed exercises (i.e. at least tried once)
@@ -492,23 +507,23 @@
 
     //return a list of pairs, userId & the number of completed types (i.e. at least tried all exercises of a certain type)
     function countTypesCompletedByUsers() {
-        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and seriesId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on seriesId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
     }
 
     //return a list of pairs, userId & the number of completed types (i.e. solved correctly)
     function countTypesSucceededByUsers() {
-        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers where success = 1 group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
+        return DB::select('select uId, count(agg1.tId) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers where success = 1 group by uId, eId) agg join exercises join series on agg.eId = exercises.id and seriesId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on seriesId = series.id group by tId) agg2 on agg1.tId = agg2.tId where agg1.c = agg2.c group by uId');
     }
 
     //return a list of pairs, userId & the number of types in progress (i.e. analog to countSeriesInProgressByUsers)
     function countTypesInProgressByUsers() {
-        return DB::select('select uId, (agg2.c-agg1.c) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and serieId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on serieId = series.id group by tId) agg2 on agg1.tId = agg2.tId group by uId');
+        return DB::select('select uId, (agg2.c-agg1.c) as c from (select agg.uId, count(agg.eId) as c, series.tId from (select uId, eId from answers group by uId, eId) agg join exercises join series on agg.eId = exercises.id and seriesId = series.id group by agg.uId, tId) agg1 join (select tId, count(exercises.id) as c from exercises join series on seriesId = series.id group by tId) agg2 on agg1.tId = agg2.tId group by uId');
     }
 
     //returns a list of pairs, userId & the number of types for which no answer has been submitted yet
     //types for which no exercises exist are not taken into account
     function countTypesUnstartedByUsers() {
-        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from types where id in (select tId from series where id in (select distinct(serieId) from exercises))) agg where users.id not in (select uId from answers) union (select uId as id, (agg.c-count(distinct(tId))) from (answers join exercises join series join types on eId = exercises.id and serieId = series.id and tId = types.id), (select count(id) as c from types where id in (select tId from series where id in (select distinct(serieId) from exercises)) ) agg )) agg group by id');
+        return DB::select('select * from (select users.id, agg.c as c from users, (select count(id) as c from types where id in (select tId from series where id in (select distinct(seriesId) from exercises))) agg where users.id not in (select uId from answers) union (select uId as id, (agg.c-count(distinct(tId))) from (answers join exercises join series join types on eId = exercises.id and seriesId = series.id and tId = types.id), (select count(id) as c from types where id in (select tId from series where id in (select distinct(seriesId) from exercises)) ) agg )) agg group by id');
     }
 
     //return a list of pairs, typeId & number of series with that type
@@ -526,14 +541,14 @@
         return DB::select('select memberId, count(groupId) as c from members_of_groups group by memberId');
     }
 
-    //return a list of pairs, serieId & the number of exercises associated to that serie
+    //return a list of pairs, seriesId & the number of exercises associated to that serie
     function countExercisesBySeries() {
-        return DB::select('select * from ( (select id, 0 as c  from series where id not in (select serieId from exercises group by serieId)) union (select serieId, count(id) as c from exercises group by serieId) ) agg group group by id');
+        return DB::select('select * from ( (select id, 0 as c  from series where id not in (select seriesId from exercises group by seriesId)) union (select seriesId, count(id) as c from exercises group by seriesId) ) agg group group by id');
     }
 
-    //return a list of pairs, serieId & the number of users that have successfully completed all the exercises for that serie
+    //return a list of pairs, seriesId & the number of users that have successfully completed all the exercises for that serie
     function countUsersSucceededSerie() {
-        return DB::select('select sId, count(distinct(uId)) as c from (select sId, count(distinct(eId)) as c, uId from exercises join (select series.id as sId, exercises.id as eId, uId from (series join exercises on series.id = serieId) join answers on exercises.id = eId where success = 1 group by sId, eId, uId) agg on serieId=sId and id=eId group by serieId, uId) agg join (select serieId, count(id) as c from exercises group by serieId) agg2 on serieId=sId and agg.c=agg2.c group by sId union (select id as sId, 0 as c  from series where id not in (select serieId from exercises join answers on exercises.id=eId where success = 1 group by serieId)) order by sId');
+        return DB::select('select sId, count(distinct(uId)) as c from (select sId, count(distinct(eId)) as c, uId from exercises join (select series.id as sId, exercises.id as eId, uId from (series join exercises on series.id = seriesId) join answers on exercises.id = eId where success = 1 group by sId, eId, uId) agg on seriesId=sId and id=eId group by seriesId, uId) agg join (select seriesId, count(id) as c from exercises group by seriesId) agg2 on seriesId=sId and agg.c=agg2.c group by sId union (select id as sId, 0 as c  from series where id not in (select seriesId from exercises join answers on exercises.id=eId where success = 1 group by seriesId)) order by sId');
     }
 
     // NEW CODE
