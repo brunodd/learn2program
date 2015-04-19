@@ -28,13 +28,25 @@
                 @if (Auth::user())
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <!-- if new notification
-                            <span class="glyphicon glyphicon-certificate" style="color: red;"></span -->
-                            <span class="glyphicon glyphicon-certificate"></span>
+                            @if($unreadNotification)
+                                <span class="glyphicon glyphicon-certificate" style="color: red;"></span>
+                            @else
+                                <span class="glyphicon glyphicon-certificate"></span>
+                            @endif
 
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="">Lijstje van recente notifications</a></li>
+                            @for($x = 0; $x < sizeof($last5notifications); $x += 2)
+                                @if($last5notifications[$x + 1] == 0)
+                                    <li style="background-color: lightgrey">
+                                @else
+                                    <li>
+                                @endif
+
+                                <a href="">
+                                    {{$last5notifications[$x]}}
+                                </a></li>
+                            @endfor
                             <li class="divider"></li>
                             <li><a href="/notifications">See all notifications</a></li>
                         </ul>
@@ -42,10 +54,27 @@
 
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <span class="glyphicon glyphicon-envelope"></span>
+                            @if($unreadMessage)
+                                <span class="glyphicon glyphicon-envelope" style="color: red;"></span>
+                            @else
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="">Lijstje van recente messages</a></li>
+                            @for($x = 0; $x < sizeof($last5conversations); $x += 5)
+                                @if($last5conversations[$x + 3] == 0)
+                                    <li style="background-color: lightgrey">
+                                @else
+                                    <li>
+                                @endif
+
+                                <a href="/messages/{{ $last5conversations[$x] }}">
+                                    <img src="/images/users/{{ $last5conversations[$x+1] }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float: left;padding: 0 5px 0 0;">
+                                    <p><b> {{ $last5conversations[$x] }} </b></p>
+                                    {{$last5conversations[$x+2]}}
+                                    <div style="clear:both;"></div>
+                                </a></li>
+                            @endfor
                             <li class="divider"></li>
                             <li><a href="/messages">See all messages</a></li>
                         </ul>

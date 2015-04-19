@@ -98,6 +98,7 @@ class MessagesController extends Controller {
                 }
             }
 
+            updateMessagesToSeen($user->id);
             return view('pages.messages', compact('messages', 'user', 'conversations'));
         } else {
             $toId2 = loadUser($id)[0]->id;
