@@ -63,3 +63,100 @@ function SerieContainsExercises($sId)
     else return false;
 }*/
 
+function loadSeriesSortedByNameASC()
+{
+    return DB::select('select * from series group by title order by title ASC');
+}
+
+function MySeriesSortASC($avgs) {
+    $sorted = [];
+    for( $i = 0; $i < count($avgs); $i++ ) {
+        if( $avgs[$i][1] == "Not rated yet" ) {
+            array_push($sorted, [$avgs[$i][0], $avgs[$i][1]]);
+            array_splice($avgs, $i, 1);
+            $i--;
+        }
+
+    }
+    for( $i = 0; $i < count($avgs); $i++ ) {
+        $next = 0; //represents the index
+        for( $j = 0; $j < count($avgs); $j++ ) {
+            if( $j == 0 || ($avgs[$next][1] > $avgs[$j][1]) ) $next = $j;
+        }
+        array_push($sorted, [$avgs[$next][0], $avgs[$next][1]]);
+        array_splice($avgs, $next, 1);
+        $i--;
+    }
+    return $sorted;
+}
+
+function MySeriesSortDESC($avgs) {
+    $sorted = [];
+    for( $i = 0; $i < count($avgs); $i++ ) {
+        $next = 0; //represents the index
+        for( $j = 0; $j < count($avgs); $j++ ) {
+            if( $j == 0 || ($avgs[$next][1] < $avgs[$j][1]) ) $next = $j;
+        }
+        array_push($sorted, [$avgs[$next][0], $avgs[$next][1]]);
+        array_splice($avgs, $next, 1);
+        $i--;
+    }
+    for( $i = 0; $i < count($avgs); $i++ ) {
+        if( $avgs[$i][1] == "Not rated yet" ) {
+            array_push($sorted, [$avgs[$i][0], $avgs[$i][1]]);
+            array_splice($avgs, $i, 1);
+            $i--;
+        }
+
+    }
+    return $sorted;
+}
+
+function loadSeriesSortedByRatingASC()
+{
+    $avgs = averageRatingsBySeries();
+    $sortedAvgs = MySeriesSortASC($avgs);
+    $series = [];
+    foreach( $sortedAvgs as $avg )
+    {
+        array_push($series, DB::select('select * from series where id = ?', [$avg[0]])[0]);
+    }
+    return $series;
+}
+
+function loadSeriesSortedByDiffASC()
+{
+    return DB::select('select * from series join types on tId = types.id order by difficulty ASC');
+}
+
+function loadSeriesSortedBySubASC()
+{
+    return DB::select('select * from series join types on tId = types.id order by subject ASC');
+}
+
+function loadSeriesSortedByNameDESC()
+{
+    return DB::select('select * from series group by title order by title DESC');
+}
+
+function loadSeriesSortedByRatingDESC()
+{
+    $avgs = averageRatingsBySeries();
+    $sortedAvgs = MySeriesSortDESC($avgs);
+    $series = [];
+    foreach( $sortedAvgs as $avg )
+    {
+        array_push($series, DB::select('select * from series where id = ?', [$avg[0]])[0]);
+    }
+    return $series;
+}
+
+function loadSeriesSortedByDiffDESC()
+{
+    return DB::select('select * from series join types on tId = types.id order by difficulty DESC');
+}
+
+function loadSeriesSortedBySubDESC()
+{
+    return DB::select('select * from series join types on tId = types.id order by subject DESC');
+}
