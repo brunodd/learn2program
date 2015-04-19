@@ -57,7 +57,7 @@
 								<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
 									Login
 								</button>
-
+								<a href="/login-fb"  style="margin-left: 14px;">Login with Facebook</a> 
 								<a href="/email">Forgot Your Password?</a>
 							</div>
 						</div>

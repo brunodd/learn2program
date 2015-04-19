@@ -72,3 +72,4 @@ Route::post('/email', 'Auth\PasswordController@postEmail');
 Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
 
+Route::get('/login-fb', 'Auth\AuthController@loginFB');

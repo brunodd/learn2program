@@ -34,4 +34,11 @@ return [
 		'secret' => '',
 	],
 
+	// FACEBOOK INTEGREATION
+	'facebook' => [
+		'client_id' => '1639597616273304',
+		'client_secret' => '74f870a77d9600f4b3d7973118277c56',
+		'redirect' => 'http://localhost:8000/login-fb'
+	],
+
 ];

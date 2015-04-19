@@ -7,6 +7,9 @@ use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserRequest;
 
+use App\AuthenticateUser;
+use App\AuthenticateUserListener;
+
 class MyGuard extends \Illuminate\Auth\Guard {
     public function attempt(array $credentials = [], $remember = false, $login = true)
     {
@@ -28,7 +31,7 @@ class MyGuard extends \Illuminate\Auth\Guard {
     }
 }
 
-class AuthController extends Controller {
+class AuthController extends Controller implements AuthenticateUserListener {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -164,6 +167,19 @@ class AuthController extends Controller {
     public function getLogout() {
         $this->auth->logout();
 
+        return redirect('/');
+    }
+
+    public function loginFB(AuthenticateUser $authenticateUser, Request $request) {
+
+        return $authenticateUser->execute($request->has('code'), $this);
+
+        //return \Socialite::with('facebook')->redirect();
+
+        //return view('auth.loginFB');
+    }
+
+    public function userHasLoggedIn($user) {
         return redirect('/');
     }
 }

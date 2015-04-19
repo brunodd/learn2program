@@ -148,6 +148,8 @@ return [
 
         'Laracasts\Flash\FlashServiceProvider',
 
+        'Laravel\Socialite\SocialiteServiceProvider'
+
 	],
 
 	/*
@@ -200,6 +202,9 @@ return [
 
         'Flash'     => 'Laracasts\Flash\Flash',
 
+        'Socialite' => 'Laravel\Socialite\Facades\Socialite'
+
 	],
+
 
 ];
