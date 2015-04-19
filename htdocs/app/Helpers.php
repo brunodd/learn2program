@@ -393,7 +393,7 @@
     //Get all conversations for the logged in user, then only select the latest message for each of them
     function loadLastNConversationsWithMessage($n) {
         return \DB::select('SELECT *
-                            FROM (SELECT CASE WHEN C.userA = ? THEN C.userB ELSE C.userA END as otherUser, image, message, is_read, date
+                            FROM (SELECT CASE WHEN C.userA = ? THEN C.userB ELSE C.userA END as otherUser, image, message, is_read, author, date
                                   FROM conversations C
                                        JOIN messages M ON C.id = M.conversationId
                                        JOIN users U ON U.id = M.author

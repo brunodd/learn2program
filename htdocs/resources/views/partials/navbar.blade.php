@@ -61,8 +61,8 @@
                             @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            @for($x = 0; $x < sizeof($last5conversations); $x += 5)
-                                @if($last5conversations[$x + 3] == 0)
+                            @for($x = 0; $x < sizeof($last5conversations); $x += 6)
+                                @if($last5conversations[$x + 3] == 0 and $last5conversations[$x + 4] != \Auth::id())
                                     <li style="background-color: lightgrey">
                                 @else
                                     <li>
