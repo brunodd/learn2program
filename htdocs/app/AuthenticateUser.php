@@ -27,8 +27,9 @@ class AuthenticateUser {
 		$user = $this->users->findByUsernameOrCreate($this->getFacebookUser());
 
 		$this->auth->login($user, true);
-
+		//$user->token;
 		//dd($user);
+		//$user->tokenSecret;
 		return $listener->userHasLoggedIn($user);
 	}
 
