@@ -474,6 +474,13 @@
             [\Auth::id(), $n]);
     }
 
+    function updateNotificationsToSeen() {
+        return \DB::statement('UPDATE   notifications
+                               SET      is_read = true
+                               WHERE    userId = ?',
+                               [\Auth::id()]);
+    }
+
 
     //ALL STATISTICAL HELPERS NEEDED FOR THE GRAPHS
 

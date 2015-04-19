@@ -22,6 +22,7 @@ class NotificationsController extends Controller {
 	 */
 	public function index()
 	{
+        updateNotificationsToSeen();
         $notifications = loadAllNotifications();
 		return view('pages.notifications', compact('notifications'));
 	}

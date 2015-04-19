@@ -27,11 +27,11 @@
 
                 @if (Auth::user())
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="{{ updateNotificationsToSeen() }}; myScripts.removeStyle('drop')">
                             @if($unreadNotification)
-                                <span class="glyphicon glyphicon-certificate" style="color: red;"></span>
+                                <span id="drop" class="glyphicon glyphicon-certificate" style="color: red;"></span>
                             @else
-                                <span class="glyphicon glyphicon-certificate"></span>
+                                <span id="drop" class="glyphicon glyphicon-certificate"></span>
                             @endif
 
                         </a>
