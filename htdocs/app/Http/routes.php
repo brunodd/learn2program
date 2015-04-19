@@ -31,6 +31,8 @@ Route::get('statistics', 'StatisticsController@home');
 Route::resource('users', 'UsersController');
 Route::post('users/{id}/addFriend', 'UsersController@addFriend');
 Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
+Route::post('users/{id}/acceptFriend', 'UsersController@acceptFriend');
+Route::post('users/{id}/declineFriend', 'UsersController@declineFriend');
 
 
 Route::resource('series', 'SeriesController');
