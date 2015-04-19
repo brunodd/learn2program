@@ -6589,6 +6589,11 @@ button.close {
 
 @import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC);
 
+.container {
+    width: 90%;
+    background: #ededed;
+}
+
 body {
     font-family: 'Alegreya Sans SC', sans-serif;
 }
@@ -6617,11 +6622,11 @@ span {
 }
 
 h4 {
-    color: white;
-    background: #222222;
     width: 15%;
     margin: 10px 5px 5px 5px;
     padding: 15px;
+    color: white;
+    background: #222222;
     border-radius: 50px;
     float: left;
     font-weight: 700;
@@ -6630,44 +6635,36 @@ h4 {
 }
 
 h5 {
-    color: white;
-    background: #222222;
-    border-radius: 15px;
     width: 50%;
     margin: 10px auto;
     padding: 15px;
+    color: white;
+    background: #222222;
+    border-radius: 15px;
     font-weight: 700;
     font-size: 21px;
     text-align: center;
 }
 
-.options,
-.series {
-    margin: 9px 0 0 0;
-}
-
 .options {
     width: 80%;
+    margin: 10px 5px 5px 5px;
+    padding: 10px;
     float: right;
     font-size: 0;
     border-radius: 50px;
-    padding-top: 15px;
     background: whitesmoke;
 }
 
 .options button {
-    outline: none;
-    /*width: 17.2%;*/
-    height: auto;
-    font-weight: normal;
+    width: 16.4%;
+    margin: 0px 15px;
+    padding: 5px 0;
     border: none;
-    color: #000000;
+    color: black;
     font-size: 14px;
-    padding: 4px 0;
-    text-shadow: 0px 0px 0px #2f6627;
-    width: 16.5%;
+    font-weight: 600;
     background: #EBEBEB;
-    margin: 0px 15px 15px 15px;
 }
 
 .options button:hover {
@@ -6682,20 +6679,22 @@ h5 {
 }
 
 .series {
-    padding: 15px;
+    padding: 15px 15px 0 15px;
     margin-bottom: 15px;
     background: whitesmoke;
 }
 
-.series table tr {
-    /*text-align: center;*/
-    font-size: 14px;
+.series table {
     width: 100%;
-    display: block;
-    height: 50px;
-    padding: 15px;
+}
+
+.series table tr {
+    height: 45px;
     margin: 0 0 15px 0;
+    padding: 15px;
+    display: block;
     color: black;
+    font-size: 14px;
     background: #EBEBEB;
 }
 
@@ -6716,22 +6715,9 @@ h5 {
     width: 35%;
 }
 
-/*
-.p, .p a {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    text-align: center;
-}
-*/
-
 /* MEDIA QUERIES STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-@media only screen and (min-width: 750px) {
-
-    .container {
-        width: 90%;
-        background: #ededed;
-    }
+@media only screen and (min-width: 1250px) {
 }
 /*# sourceMappingURL=sortingAndFiltering.css.map */

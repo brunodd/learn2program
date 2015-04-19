@@ -82,7 +82,7 @@
         </div-->
 
         <div class="series">
-            <table id="mix-wrapper" style="width: 100%">
+            <table id="mix-wrapper">
                 <tr> <th>Title</th> <th>Rating</th> <th>Subject</th> <th>Difficulty</th> </tr>
                 @foreach($series as $serie)
                         <tr class="mix {{ loadType2($serie->tId)[0]->difficulty }} clickable-row" data-title="{{$serie->title}}" data-rating="{{ averageRating($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadType2($serie->tId)[0]->difficulty }}" data-href="/series/{{$serie->title}}">
