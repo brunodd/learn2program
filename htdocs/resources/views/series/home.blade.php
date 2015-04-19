@@ -46,7 +46,7 @@
     <hr/>
 
     <div class="container">
-        <h4>Filter by</h4>
+        <h4>Filter on</h4>
 
         <div class="options">
             <button class="filter" data-filter="all">All</button>
