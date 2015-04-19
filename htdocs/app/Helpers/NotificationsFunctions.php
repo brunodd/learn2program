@@ -29,3 +29,9 @@ function updateNotificationsToSeen() {
                            WHERE    userId = ?',
                            [\Auth::id()]);
 }
+
+function storeNotification($id, $type, $objectId) {
+    \DB::insert('INSERT INTO notifications (userId, type, object_id)
+                 VALUE (?, ?, ?)',
+                 [$id, $type, $objectId]);
+}

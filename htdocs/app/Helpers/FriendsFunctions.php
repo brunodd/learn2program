@@ -17,7 +17,7 @@ function canSendFriendRequest($id) {
                              UNION
                              SELECT   *
                              FROM     friends
-                             WHERE    id1 = ? AND id2 = ? AND (status = \'accepted\' OR status = \'declined\') AND action_user_id = ?',
+                             WHERE    id1 = ? AND id2 = ? AND action_user_id = ?',
                             [$a, $b, \Auth::id(), $a, $b, $id]));
 }
 

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Composers;
 
+use App\Http\Controllers\NotificationsController;
 use Illuminate\Contracts\View\View;
 
 Class NavigationComposer {
@@ -10,6 +11,7 @@ Class NavigationComposer {
 
     public function compose($view) {
         $last5notifications = loadLastNNotifications(5);
+        $last5notifications = NotificationsController::buildNotifications($last5notifications);
         $last5conversations = loadLastNConversationsWithMessage(5);
         $unreadNotifications = !empty(loadUnreadNotifications());
         $unreadMessages = !empty(loadUnreadMessages());

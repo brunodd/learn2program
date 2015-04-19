@@ -22,8 +22,8 @@ class NotificationsController extends Controller {
 	 */
 	public function index()
 	{
+        $notifications = $this->buildNotifications(loadAllNotifications());
         updateNotificationsToSeen();
-        $notifications = loadAllNotifications();
 		return view('pages.notifications', compact('notifications'));
 	}
 
@@ -47,4 +47,20 @@ class NotificationsController extends Controller {
 	{
 		// TODO: maybe allow this
 	}
+
+    public static function buildNotifications($noti) {
+        $notifications = array();
+
+        foreach($noti as $notification) {
+            switch($notification->type) {
+                case "friend request":
+                    $username = loadUser($notification->object_id)[0]->username;
+
+                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has sent you a friend request.') );
+                    array_push($notifications, $notification);
+                    break;
+            }
+        }
+        return $notifications;
+    }
 }

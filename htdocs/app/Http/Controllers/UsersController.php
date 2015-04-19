@@ -181,6 +181,7 @@ class UsersController extends Controller {
             storeFriendRequest($id);
 
             //TODO: send notification
+            storeNotification($id, 'friend request', \Auth::id());
 
             flash()->success('A friend request has been sent');
             return redirect('users/' . $id1);

@@ -156,7 +156,7 @@ CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,
     type VARCHAR(128),
-    message VARCHAR(128) NOT NULL,
+    /*message VARCHAR(128) NOT NULL,*/
     object_id INT,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP,

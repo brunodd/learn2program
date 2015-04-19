@@ -42,10 +42,10 @@
                                 @else
                                     <li>
                                 @endif
-
-                                <a href="">
-                                    {{$last5notifications[$x]}}
-                                </a></li>
+                                <div style="cursor: pointer;" onclick="window.location.href='';" onMouseOver="this.style.backgroundColor='rgba(0, 0, 0, .05)'" onMouseOut="this.style.backgroundColor='#fff'">
+                                    <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
+                                </div>
+                                </li>
                             @endfor
                             <li class="divider"></li>
                             <li><a href="/notifications">See all notifications</a></li>

@@ -33,7 +33,7 @@
 
             {!! Form::open(['action' => ['UsersController@declineFriend', $user->username]]) !!}
             <div class="form-group" >
-                {!! Form::submit('decline friend request', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Decline friend request', ['class' => 'btn btn-primary']) !!}
             </div>
             {!! Form::close() !!}
         @elseif (!empty(loadFriend($user->id)))
