@@ -18,8 +18,8 @@
      <tr>
       <td align="center"><a href="{{ action('SeriesController@indexSortedByNameDESC')}}" class="btn btn-primary">Sort by name, descending</a></td>
       <td align="center"><a href="{{ action('SeriesController@indexSortedByRatingDESC')}}" class="btn btn-primary">Sort by rating, descending</a></td>
-      <td align="center"><a href="{{ action('SeriesController@indexSortedByDiffDESC')}}" class="btn btn-primary">Sort by difficulty, descending</a></td>
-       <td align="center"><a href="{{ action('SeriesController@indexSortedBySubDESC')}}" class="btn btn-primary">Sort by subject, descending</a></td>
+      <td align="center"><a href="{{ action('SeriesController@indexSortedBySubDESC')}}" class="btn btn-primary">Sort by subject, descending</a></td>
+       <td align="center"><a href="{{ action('SeriesController@indexSortedByDiffDESC')}}" class="btn btn-primary">Sort by difficulty, descending</a></td>
      </tr>
 
       @foreach($series as $serie)
