@@ -20,8 +20,9 @@ function storeExercise($exercise)
         [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId]);
 
     // Add link with series
-    DB::insert('insert into exercises_in_series (exId, seriesId)
-            select max(id), ? from exercises', [$exercise->seriesId]);
+    DB::insert('insert into exercises_in_series (exId, seriesId, ex_index)
+            select max(exercises.id), ?, (agg.count + 1)
+            from exercises, (select count(seriesId) as count from exercises_in_series where exercises_in_series.seriesId = ?) agg', [$exercise->seriesId, $exercise->seriesId]);
 }
 
 function loadAllExercises()
@@ -41,18 +42,27 @@ function isMakerOfExercise($eId, $uId)
 
 function nextExerciseInLine($eId, $uId)
 {
-    return DB::select('select * from exercises ex1, exercises_in_series eps1
-        where (ex1.id = eps1.exId and eps1.seriesId in
-            (select seriesId from exercises_in_series eps2 where eps2.exId = ?))
-        and (ex1.id not in
-            (select eId from answers where uId = ? and success = 1))
-        order by id',
+    return DB::select('select eis.exId
+        from exercises_in_series eis, (select *
+                                        from exercises_in_series eis2
+                                        where eis2.exId = ?) agg
+        where eis.ex_index = agg.ex_index+1
+        and (eis.exId not in
+            (select eId from answers where uId = ? and success = 1))',
         [$eId, $uId]);
+    // return DB::select('select * from exercises ex1, exercises_in_series eps1
+    //     where (ex1.id = eps1.exId and eps1.seriesId in
+    //         (select seriesId from exercises_in_series eps2 where eps2.exId = ?))
+    //     and (ex1.id not in
+    //         (select eId from answers where uId = ? and success = 1))
+    //     order by id',
+    //     [$eId, $uId]);
 }
 
 function completedAllPreviousExercisesOfSeries($eId, $uId)
 {
-    if( $eId == nextExerciseInLine($eId, $uId)[0]->id ) return true;
+    if (in_array($eId, nextExerciseInLine($eId, $uId))) return true;
+    // if( $eId == nextExerciseInLine($eId, $uId)[0]->id ) return true;
     else return userCompletedExercise($eId, $uId);
 }
 
