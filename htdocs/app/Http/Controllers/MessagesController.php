@@ -76,17 +76,29 @@ class MessagesController extends Controller {
             //Then get all conversations for the logged in user to show those in the sidebar
             $conversations = loadConversationsWithMessage();
 
+            //TODO: use author
             foreach($conversations as $conversation) {
                 $conversation->userA = (\Auth::id() == $conversation->userA) ? ($conversation->userB) : ($conversation->userA);
                 $conversation->userB = loadUser($conversation->userA)[0]->username;
+            }
+
+            $lastRead = "";
+            if (!empty(loadLastReadMessage($id))) {
+                $lastRead = loadLastReadMessage($id)[0]->message;
             }
 
             foreach($messages as &$message) {
                 //Add a Carbon time object to each message
                 $carbon = Carbon::createFromFormat('Y-n-j G:i:s', $message->date);
                 $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
+                if ($message->message == $lastRead) {
+                    $message = (object) array_merge( (array)$message, array('seen' => 1) );
+                } else {
+                    $message = (object) array_merge( (array)$message, array('seen' => 0) );
+                }
             }
 
+            updateMessagesToSeen($user->id);
             return view('pages.messages', compact('messages', 'user', 'conversations'));
         } else {
             $toId2 = loadUser($id)[0]->id;

@@ -20,8 +20,8 @@ Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::get('list_all_users', 'UsersController@list_all_users'); // For Development mode - check content of users table.
 Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of messages table.
-Route::get('notifications', function() { return view('pages.notifications'); }); //TODO: don't forget, armin
 Route::get('search', 'SearchController@search');
+Route::get('notifications', 'NotificationsController@index'); //TODO: don't forget, armin
 
 Route::get('code', 'PagesController@code'); //can be removed??
 
@@ -31,6 +31,8 @@ Route::get('statistics', 'StatisticsController@home');
 Route::resource('users', 'UsersController');
 Route::post('users/{id}/addFriend', 'UsersController@addFriend');
 Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
+Route::post('users/{id}/acceptFriend', 'UsersController@acceptFriend');
+Route::post('users/{id}/declineFriend', 'UsersController@declineFriend');
 
 
 Route::resource('series', 'SeriesController');

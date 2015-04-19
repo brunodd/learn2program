@@ -170,20 +170,64 @@ class UsersController extends Controller {
 
     public function addFriend($id1) {
         $id = loadUser($id1)[0]->id;
-        if (!findFriends($id, \Auth::id())) {
-            \DB::insert('insert into friends (id1, id2) values (?, ?)', [min($id, \Auth::id()), max($id, \Auth::id())]);
-            flash()->success('You made a new friend :D.');
+
+        if (isFriendRequestPending($id)) {
+            acceptFriend($id);
+
+            flash()->success('You are now friends.');
+            return redirect('users/' . $id1);
+        } else if (canSendFriendRequest($id)) {
+            //send request
+            storeFriendRequest($id);
+
+            //TODO: send notification
+            storeNotification($id, 'friend request', \Auth::id());
+
+            flash()->success('A friend request has been sent');
             return redirect('users/' . $id1);
         }
 
-        flash()->error('You already are friends, calm down!.');
+        flash()->error('You cannot send a friend request to ' . $id1 . ' anymore.');
         return redirect('users/' . $id1);
     }
 
     public function removeFriend($id1) {
         $id = loadUser($id1)[0]->id;
-        \DB::statement('delete from friends where id1 = ? and id2 = ?', [min($id, \Auth::id()), max($id, \Auth::id())]);
-        flash()->info('You are no longer friends.');
+
+        if (loadFriend($id)) {
+            deleteFriend($id);
+
+            flash()->info('You are no longer friends.');
+            return redirect('users/' . $id1);
+        }
+
+        flash()->error('Could not remove friend, try again.');
+        return redirect('users/' . $id1);
+    }
+
+    public function acceptFriend($id1) {
+        $id = loadUser($id1)[0]->id;
+        if (isFriendRequestPending($id)) {
+            acceptFriend($id);
+
+            flash()->success('You are now friends.');
+            return redirect('users/' . $id1);
+        }
+
+        flash()->error('Could not accept the request, try again.');
+        return redirect('users/' . $id1);
+    }
+
+    public function declineFriend($id1) {
+        $id = loadUser($id1)[0]->id;
+        if (isFriendRequestPending($id)) {
+            declineFriend($id);
+
+            flash()->info('You declined the friend request.');
+            return redirect('users/' . $id1);
+        }
+
+        flash()->error('Could not decline the request, try again.');
         return redirect('users/' . $id1);
     }
 }

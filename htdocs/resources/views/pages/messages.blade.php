@@ -36,6 +36,9 @@
             <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p><br>
             <div style="clear:both;"></div>
             <p> {{$message->message}} </p>
+            @if($message->seen == 1) <!-- TODO: if($message->seen) -->
+                <i><small>seen</small></i>
+            @endif
             <hr>
         @endforeach
     </div>

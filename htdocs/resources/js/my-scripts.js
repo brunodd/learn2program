@@ -31,6 +31,10 @@ var myScripts = (function () {
                 syntax: "python",        // syntax to be uses for highlighting
                 start_highlight: true    // to display with highlight mode on start-up
             });
+        },
+
+        removeStyle: function (id) {
+            document.getElementById(id).style.color = "darkgrey";
         }
     }
 }());

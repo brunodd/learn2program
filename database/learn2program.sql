@@ -12,21 +12,16 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
+/* id1 < id2 */
 CREATE TABLE friends (
     id1 INT NOT NULL,
     id2 INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') NOT NULL,
+    action_user_id INT NOT NULL,
     PRIMARY KEY (id1, id2),
     FOREIGN KEY (id1) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE
-);
-
-/* After acceptance, remove request from table */
-CREATE TABLE friend_requests (
-    fromId INT NOT NULL,
-    toId INT NOT NULL,
-    PRIMARY KEY (fromId, toId),
-    FOREIGN KEY (fromId) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (toId) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (action_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 /* TODO: conversation is deleted when one of the users deletes their account
@@ -49,10 +44,13 @@ CREATE TABLE conversations (
    TODO: Armin: change author column
 */
 CREATE TABLE messages (
+    id INT AUTO_INCREMENT,
     conversationId INT NOT NULL,
     message VARCHAR(512) NOT NULL,
     author int NOT NULL,
+    is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
+    PRIMARY KEY (id),
     FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
@@ -157,8 +155,8 @@ CREATE TABLE answers (
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,
-    message VARCHAR(128) NOT NULL,
     type VARCHAR(128),
+    /*message VARCHAR(128) NOT NULL,*/
     object_id INT,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP,
@@ -258,18 +256,3 @@ BEGIN
         SET NEW.expected_result = Null;
     END IF;
 END;//
-
-/* Make sure question, start_code and expected_result are not empty. */
-delimiter //
-CREATE TRIGGER check_friends
-BEFORE INSERT ON friends
-FOR EACH ROW 
-BEGIN
-    IF NEW.id1 = NEW.id2 THEN
-        SET NEW.id1 = Null;
-    END IF;
-    IF EXISTS (SELECT * FROM friends WHERE (id1 = NEW.id1 and id2 = NEW.id2) or (id1 = NEW.id2 and id2 = NEW.id1)) THEN
-        SET NEW.id1 = Null;
-    END IF;
-END;//
-

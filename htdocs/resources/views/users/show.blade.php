@@ -18,18 +18,34 @@
         </div>
         <br>
 
-        @if (!findFriends($user->id, Auth::id()))
+        @if (canSendFriendRequest($user->id))
             {!! Form::open(['action' => ['UsersController@addFriend', $user->username]]) !!}
                 <div class="form-group" >
                     {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
                 </div>
             {!! Form::close() !!}
-        @else
+        @elseif (isFriendRequestPending($user->id))
+            {!! Form::open(['action' => ['UsersController@acceptFriend', $user->username]]) !!}
+            <div class="form-group" >
+                {!! Form::submit('Accept friend request', ['class' => 'btn btn-primary']) !!}
+            </div>
+            {!! Form::close() !!}
+
+            {!! Form::open(['action' => ['UsersController@declineFriend', $user->username]]) !!}
+            <div class="form-group" >
+                {!! Form::submit('Decline friend request', ['class' => 'btn btn-primary']) !!}
+            </div>
+            {!! Form::close() !!}
+        @elseif (!empty(loadFriend($user->id)))
             {!! Form::open(['action' => ['UsersController@removeFriend', $user->username]]) !!}
                 <div class="form-group" >
                     {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
                 </div>
             {!! Form::close() !!}
+        @elseif (isSentFriendRequestPending($user->id))
+            <div class="form-group btn btn-primary disabled" >
+                Friend request pending
+            </div>
         @endif
     @endif
 @stop
