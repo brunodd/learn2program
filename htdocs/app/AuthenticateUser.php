@@ -22,12 +22,9 @@ class AuthenticateUser {
 	public function execute($hasCode, AuthenticateUserListener $listener) {
 		if (! $hasCode) return $this->getAuthorizationFirst();
 
-		
-		
 		$user = $this->users->findByUsernameOrCreate($this->getFacebookUser());
 
-		$this->auth->login($user, true);
-
+		$this->auth->login($user);
 		//dd($user);
 		return $listener->userHasLoggedIn($user);
 	}
