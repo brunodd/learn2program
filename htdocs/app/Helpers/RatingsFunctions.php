@@ -27,6 +27,6 @@ function averageRating($sId)
     {
         $avg = $avg + $r->rating;
     }
-    $avg = $avg / count($ratings);
-    return $avg;
+
+    return (count($ratings) != 0) ? $avg / count($ratings) : 0;
 }

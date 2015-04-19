@@ -27,7 +27,7 @@
 
                 @if (Auth::user())
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="{{ updateNotificationsToSeen() }}; myScripts.removeStyle('drop')">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="{{ updateNotificationsToSeen() }}; myScripts.changeElementColor('drop', 'darkgrey')">
                             @if($unreadNotification)
                                 <span id="drop" class="glyphicon glyphicon-certificate" style="color: red;"></span>
                             @else

@@ -17,13 +17,22 @@ elixir(function(mix) {
     mix.styles([
         'libs/bootstrap.css',
         'app.css'
-    ]);
+    ]).styles([
+        'libs/bootstrap.css',
+        'app.css',
+        'sortingAndFiltering.css'
+    ], 'public/css/sortingAndFiltering.css');
 
     mix.scripts([
         'libs/jquery.js',
         'libs/bootstrap.js',
         'my-scripts.js'
     ]).scripts([
+        'libs/jquery.js',
+        'libs/bootstrap.js',
+        'libs/jquery.mixitup.js',
+        'my-scripts.js'
+    ], 'public/js/mixitup.js').scripts([
         'libs/skulpt.min.js',
         'libs/skulpt-stdlib.js',
         'skulpt-functions.js'

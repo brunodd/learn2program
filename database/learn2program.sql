@@ -78,7 +78,7 @@ CREATE TABLE members_of_groups (
 CREATE TABLE types (
     id INT AUTO_INCREMENT,
     subject VARCHAR(50) NOT NULL,
-    difficulty ENUM('Easy', 'Intermediate', 'Hard', 'Insane') NOT NULL,
+    difficulty ENUM('easy', 'intermediate', 'hard', 'insane') NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (subject, difficulty)
 );

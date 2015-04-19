@@ -1,0 +1,150 @@
+
+/* CUSTOM STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC);
+
+body {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+li {
+    margin: 0;
+}
+
+a {
+    font-size: 18px;
+    text-decoration: none;
+}
+
+span {
+    display: block;
+    font-size: .75em;
+    font-style: italic;
+    position: relative;
+    top: 5px;
+}
+
+.multi {
+    display: inline;
+    top: 0;
+    left: 3px;
+}
+
+h4 {
+    color: white;
+    background: #222222;
+    width: 15%;
+    margin: 10px 5px 5px 5px;
+    padding: 15px;
+    border-radius: 50px;
+    float: left;
+    font-weight: 700;
+    font-size: 21px;
+    text-align: center;
+}
+
+h5 {
+    color: white;
+    background: #222222;
+    border-radius: 15px;
+    width: 50%;
+    margin: 10px auto;
+    padding: 5px 0;
+    font-weight: 700;
+    font-size: 21px;
+    text-align: center;
+}
+
+.options,
+.series {
+    margin: 9px 0 0 0;
+}
+
+.options {
+    width: 80%;
+    float: right;
+    font-size: 0;
+    border-radius: 50px;
+    padding-top: 15px;
+    background: whitesmoke;
+}
+
+.options button {
+    outline: none;
+    /*width: 17.2%;*/
+    height: auto;
+    font-weight: normal;
+    border: none;
+    color: #000000;
+    font-size: 14px;
+    padding: 4px 0;
+    text-shadow: 0px 0px 0px #2f6627;
+    width: 16.5%;
+    background: #EBEBEB;
+    margin: 0px 15px 15px 15px;
+}
+
+.options button:hover {
+    color: white;
+    background: #5e5e5e;
+}
+
+.options button.active {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 0px 0px 1px transparent;
+    background: #5e5e5e;
+    color: white;
+}
+
+.series {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: whitesmoke;
+}
+
+.series table tr {
+    /*text-align: center;*/
+    font-size: 14px;
+    width: 100%;
+    display: block;
+    height: 50px;
+    padding: 15px;
+    margin: 0 0 15px 0;
+    color: black;
+    background: #EBEBEB;
+}
+
+.series table tr:hover {
+    cursor: pointer;
+    background: #99cfe0;
+}
+
+.series table .mix {
+    display: none;
+}
+
+.series table tr td {
+    width: 35%;
+}
+
+.series table tr th {
+    width: 35%;
+}
+
+/*
+.p, .p a {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+*/
+
+/* MEDIA QUERIES STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@media only screen and (min-width: 750px) {
+
+    .container {
+        width: 90%;
+        background: #ededed;
+    }

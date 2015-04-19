@@ -11557,8 +11557,48 @@ var myScripts = (function () {
             });
         },
 
-        removeStyle: function (id) {
-            document.getElementById(id).style.color = "darkgrey";
+        changeElementColor: function (id, color) {
+            document.getElementById(id).style.color = color;
+        },
+
+        changeDataSort: function (id) {
+            var s = document.getElementById(id).getAttribute('data-sort');
+            var ss = (s.search('asc') > -1) ? s.replace('asc', 'desc') : s.replace('desc', 'asc');
+            document.getElementById(id).setAttribute('data-sort', ss);
+        },
+
+        switchDataSort: function (id) {
+            document.getElementById(id).setAttribute("hidden", true);
+            /*document.getElementById(id).removeClass("active");*/
+            if (id.search(1) > -1) {
+                document.getElementById(id.replace('1', '2')).removeAttribute("hidden");
+                /*document.getElementById(s.replace('1', '2')).addClass("active");*/
+            } else {
+                document.getElementById(id.replace('2', '1')).removeAttribute("hidden");
+                /*document.getElementById(s.replace('2', '1')).addClass("active");*/
+            }
+    },
+
+        initializeMixItUp: function () {
+            $('#mix-wrapper').mixItUp({
+                animation: {
+                    effects: 'fade',
+                    duration: 300
+                },
+                callbacks: {
+                    onMixEnd: function(state) {
+                        console.log(state)
+                    }
+                }
+            });
+        },
+
+        makeTrClickable: function () {
+            jQuery(document).ready(function($) {
+                $(".clickable-row").click(function() {
+                    window.document.location = $(this).data("href");
+                });
+            });
         }
     }
 }());

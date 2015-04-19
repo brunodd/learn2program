@@ -13,8 +13,17 @@ class TypesTableSeeder extends Seeder {
         Type::create(['Subject' => 'bbbb', 'Difficulty' => 'hard']);
         Type::create(['Subject' => 'cccc', 'Difficulty' => 'insane']);
 */
-        Type::create(['subject' => 'aaaa', 'difficulty' => 1]);
-        Type::create(['subject' => 'bbbb', 'difficulty' => 2]);
-        Type::create(['subject' => 'cccc', 'ifficulty' => 3]);
+        Type::create(['subject' => 'aaa', 'difficulty' => 'easy']);
+        Type::create(['subject' => 'bbb', 'difficulty' => 'easy']);
+        Type::create(['subject' => 'ccc', 'difficulty' => 'easy']);
+        Type::create(['subject' => 'aaa', 'difficulty' => 'intermediate']);
+        Type::create(['subject' => 'bbb', 'difficulty' => 'intermediate']);
+        Type::create(['subject' => 'ccc', 'difficulty' => 'intermediate']);
+        Type::create(['subject' => 'aaa', 'difficulty' => 'hard']);
+        Type::create(['subject' => 'bbb', 'difficulty' => 'hard']);
+        Type::create(['subject' => 'ccc', 'difficulty' => 'hard']);
+        Type::create(['subject' => 'aaa', 'difficulty' => 'insane']);
+        Type::create(['subject' => 'bbb', 'difficulty' => 'insane']);
+        Type::create(['subject' => 'ccc', 'difficulty' => 'insane']);
     }
 }
