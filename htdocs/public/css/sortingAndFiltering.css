@@ -6635,7 +6635,7 @@ h5 {
     border-radius: 15px;
     width: 50%;
     margin: 10px auto;
-    padding: 5px 0;
+    padding: 15px;
     font-weight: 700;
     font-size: 21px;
     text-align: center;
@@ -6733,4 +6733,5 @@ h5 {
         width: 90%;
         background: #ededed;
     }
+}
 /*# sourceMappingURL=sortingAndFiltering.css.map */
