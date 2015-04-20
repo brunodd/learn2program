@@ -20,8 +20,9 @@ function storeExercise($exercise)
         [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId]);
 
     // Add link with series
-    DB::insert('insert into exercises_in_series (exId, seriesId)
-            select max(id), ? from exercises', [$exercise->seriesId]);
+    DB::insert('insert into exercises_in_series (exId, seriesId, ex_index)
+            select max(exercises.id), ?, (agg.count + 1)
+            from exercises, (select count(seriesId) as count from exercises_in_series where exercises_in_series.seriesId = ?) agg', [$exercise->seriesId, $exercise->seriesId]);
 }
 
 function loadAllExercises()
