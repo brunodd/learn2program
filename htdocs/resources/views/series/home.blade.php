@@ -50,10 +50,10 @@
 
         <div class="options">
             <button class="filter" data-filter="all">All</button>
-            <button class="filter" data-filter=".easy">Easy</button>
-            <button class="filter" data-filter=".intermediate">Intermediate</button>
-            <button class="filter" data-filter=".hard">Hard</button>
-            <button class="filter" data-filter=".insane">Insane</button>
+            <button class="filter" data-filter=".Easy">Easy</button>
+            <button class="filter" data-filter=".Intermediate">Intermediate</button>
+            <button class="filter" data-filter=".Hard">Hard</button>
+            <button class="filter" data-filter=".Insane">Insane</button>
         </div>
         <div style="clear: both"></div>
 
@@ -73,26 +73,21 @@
 
         <h5>Series</h5>
 
-        <!--div class="series" id="mix-wrapper">
+        <div class="series" id="mix-wrapper">
+            <div class="ttr" id="tr1">
+                <div class="ttd">Title</div>
+                <div class="ttd dd">Rating</div>
+                <div class="ttd dd">Subject</div>
+                <div class="ttd dd">Difficulty</div>
+            </div>
             @foreach($series as $serie)
-                <div class="mix {{ loadType2($serie->tId)[0]->difficulty }}" data-title="{{$serie->title}}" data-rating="{{ averageRating($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadType2($serie->tId)[0]->difficulty }}">
-                    <p><a href="{{ action('SeriesController@show', [$serie->title])}}">{{$serie->title}}</a> | {{ averageRating($serie->id) }} | {{ loadType2($serie->tId)[0]->subject }} | {{ loadType2($serie->tId)[0]->difficulty }}</p>
+                <div class="mix ttr {{ loadType2($serie->tId)[0]->difficulty }} clickable-row" data-title="{{$serie->title}}" data-rating="{{ averageRating($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadType2($serie->tId)[0]->difficulty }}" data-href="/series/{{$serie->title}}">
+                    <div class="ttd">{{$serie->title}}</div>
+                    <div class="ttd dd">{{ averageRating($serie->id) }}</div>
+                    <div class="ttd dd">{{ loadType2($serie->tId)[0]->subject }}</div>
+                    <div class="ttd dd">{{ loadType2($serie->tId)[0]->difficulty }}</div>
                 </div>
             @endforeach
-        </div-->
-
-        <div class="series">
-            <table id="mix-wrapper">
-                <tr> <th>Title</th> <th>Rating</th> <th>Subject</th> <th>Difficulty</th> </tr>
-                @foreach($series as $serie)
-                        <tr class="mix {{ loadType2($serie->tId)[0]->difficulty }} clickable-row" data-title="{{$serie->title}}" data-rating="{{ averageRating($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadType2($serie->tId)[0]->difficulty }}" data-href="/series/{{$serie->title}}">
-                            <td>{{$serie->title}}</td>
-                            <td>{{ averageRating($serie->id) }}</td>
-                            <td>{{ loadType2($serie->tId)[0]->subject }}</td>
-                            <td>{{ loadType2($serie->tId)[0]->difficulty }}</td>
-                        </tr>
-                @endforeach
-            </table>
         </div>
     </div>
 

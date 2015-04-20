@@ -6583,42 +6583,9 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 
-
-/* CUSTOM STYLES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC);
-
 .container {
     width: 90%;
     background: #ededed;
-}
-
-body {
-    font-family: 'Alegreya Sans SC', sans-serif;
-}
-
-li {
-    margin: 0;
-}
-
-a {
-    font-size: 18px;
-    text-decoration: none;
-}
-
-span {
-    display: block;
-    font-size: .75em;
-    font-style: italic;
-    position: relative;
-    top: 5px;
-}
-
-.multi {
-    display: inline;
-    top: 0;
-    left: 3px;
 }
 
 h4 {
@@ -6661,6 +6628,7 @@ h5 {
     margin: 0px 15px;
     padding: 5px 0;
     border: none;
+    outline: none;
     color: black;
     font-size: 14px;
     font-weight: 600;
@@ -6673,51 +6641,52 @@ h5 {
 }
 
 .options button.active {
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 0px 0px 1px transparent;
+    /*box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 0px 0px 1px transparent;
     background: #5e5e5e;
-    color: white;
+    color: white;*/
 }
 
 .series {
-    padding: 15px 15px 0 15px;
+    padding: 15px 15px 5px 15px;
     margin-bottom: 15px;
     background: whitesmoke;
 }
 
-.series table {
-    width: 100%;
-}
-
-.series table tr {
+.series .ttr {
     height: 45px;
-    margin: 0 0 15px 0;
+    margin: 0 0 10px 0;
     padding: 15px;
-    display: block;
+    display: none;
     color: black;
     font-size: 14px;
     background: #EBEBEB;
 }
 
-.series table tr:hover {
+.series .ttr:hover {
     cursor: pointer;
     background: #99cfe0;
 }
 
-.series table .mix {
+.series .ttd {
+    display: inline-block;
+    width: 24.7%;
+}
+
+.series .dd {
+    text-align: right;
+}
+
+#tr1 {
+    display: block;
+    font-weight: bold;
+    background: #CCCCCC;
+}
+
+#tr1:hover {
+    cursor: default;
+}
+
+.mix {
     display: none;
-}
-
-.series table tr td {
-    width: 35%;
-}
-
-.series table tr th {
-    width: 35%;
-}
-
-/* MEDIA QUERIES STYLES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-@media only screen and (min-width: 1250px) {
 }
 /*# sourceMappingURL=sortingAndFiltering.css.map */

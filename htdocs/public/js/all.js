@@ -11572,12 +11572,12 @@ var myScripts = (function () {
             /*document.getElementById(id).removeClass("active");*/
             if (id.search(1) > -1) {
                 document.getElementById(id.replace('1', '2')).removeAttribute("hidden");
-                /*document.getElementById(s.replace('1', '2')).addClass("active");*/
+                document.getElementById(id.replace('1', '2')).addClass("active");
             } else {
                 document.getElementById(id.replace('2', '1')).removeAttribute("hidden");
                 /*document.getElementById(s.replace('2', '1')).addClass("active");*/
             }
-    },
+        },
 
         initializeMixItUp: function () {
             $('#mix-wrapper').mixItUp({
@@ -11589,6 +11589,12 @@ var myScripts = (function () {
                     onMixEnd: function(state) {
                         console.log(state)
                     }
+                },
+                layout: {
+                    display: 'block'
+                },
+                controls: {
+                    activeClass: 'derp'
                 }
             });
         },
