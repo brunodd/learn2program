@@ -69,3 +69,53 @@ function listUsersOfGroup($id)
 {
     return DB::select('select username from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId', [$id]);
 }
+
+function loadAllGroupsSortedByNameASC()
+{
+    return DB::select('select * from groups order by name ASC');
+}
+
+function loadAllGroupsSortedByNameDESC()
+{
+    return DB::select('select * from groups order by name DESC');
+}
+
+function loadAllGroupsSortedByFounderASC()
+{
+    return DB::select('select * from groups join users on founderId = users.id order by username ASC');
+}
+
+function loadAllGroupsSortedByFounderDESC()
+{
+    return DB::select('select * from groups join users on founderId = users.id order by username DESC');
+}
+
+function MyGroupsSort($asc) {
+    $groups = loadAllGroups();
+    $sorted = [];
+    for( $i = 0; $i < count($groups); $i++ ) {
+        $next = 0; //represents the index
+        for( $j = 0; $j < count($groups); $j++ ) {
+            if( $asc == 1 ) {
+                if( count(listUsersOfGroup($groups[$next]->id)) > count(listUsersOfGroup($groups[$j]->id)) ) $next = $j;
+            }
+            else if( $asc == 0 ) {
+                if( count(listUsersOfGroup($groups[$next]->id)) < count(listUsersOfGroup($groups[$j]->id)) ) $next = $j;
+            }
+        }
+        array_push($sorted, $groups[$next]);
+        array_splice($groups, $next, 1);
+        $i--;
+    }
+    return $sorted;
+}
+
+function loadAllGroupsSortedByMCASC()
+{
+    return MyGroupsSort(1);
+}
+
+function loadAllGroupsSortedByMCDESC()
+{
+    return MyGroupsSort(0);
+}
