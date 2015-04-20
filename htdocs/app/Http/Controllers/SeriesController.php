@@ -23,7 +23,10 @@ class SeriesController extends Controller {
      *
      */
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index','indexSortedByNameASC', 'indexSortedByNameDESC',
+                                            'indexSortedByRatingASC', 'indexSortedByRatingDESC',
+                                            'indexSortedByDiffASC', 'indexSortedByDiffDESC',
+                                            'indexSortedBySubASC', 'indexSortedBySubDESC', 'show']]);
     }
 
 

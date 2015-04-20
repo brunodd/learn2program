@@ -66,7 +66,7 @@
         return DB::select('select * from series group by title order by title ASC');
     }
 
-    function MySortASC($avgs) {
+    function MySeriesSortASC($avgs) {
         $sorted = [];
         for( $i = 0; $i < count($avgs); $i++ ) {
             if( $avgs[$i][1] == "Not rated yet" ) {
@@ -88,7 +88,7 @@
         return $sorted;
     }
 
-    function MySortDESC($avgs) {
+    function MySeriesSortDESC($avgs) {
         $sorted = [];
         for( $i = 0; $i < count($avgs); $i++ ) {
             $next = 0; //represents the index
@@ -113,7 +113,7 @@
     function loadSeriesSortedByRatingASC()
     {
         $avgs = averageRatingsBySeries();
-        $sortedAvgs = MySortASC($avgs);
+        $sortedAvgs = MySeriesSortASC($avgs);
         $series = [];
         foreach( $sortedAvgs as $avg )
         {
@@ -140,7 +140,7 @@
     function loadSeriesSortedByRatingDESC()
     {
         $avgs = averageRatingsBySeries();
-        $sortedAvgs = MySortDESC($avgs);
+        $sortedAvgs = MySeriesSortDESC($avgs);
         $series = [];
         foreach( $sortedAvgs as $avg )
         {
@@ -294,6 +294,56 @@
     function loadAllGroups()
     {
         return DB::select('select * from groups ');
+    }
+
+    function loadAllGroupsSortedByNameASC()
+    {
+        return DB::select('select * from groups order by name ASC');
+    }
+
+    function loadAllGroupsSortedByNameDESC()
+    {
+        return DB::select('select * from groups order by name DESC');
+    }
+
+    function loadAllGroupsSortedByFounderASC()
+    {
+        return DB::select('select * from groups join users on founderId = users.id order by username ASC');
+    }
+
+    function loadAllGroupsSortedByFounderDESC()
+    {
+        return DB::select('select * from groups join users on founderId = users.id order by username DESC');
+    }
+
+    function MyGroupsSort($asc) {
+        $groups = loadAllGroups();
+        $sorted = [];
+        for( $i = 0; $i < count($groups); $i++ ) {
+            $next = 0; //represents the index
+            for( $j = 0; $j < count($groups); $j++ ) {
+                if( $asc == 1 ) {
+                    if( count(listUsersOfGroup($groups[$next]->id)) > count(listUsersOfGroup($groups[$j]->id)) ) $next = $j;
+                }
+                else if( $asc == 0 ) {
+                    if( count(listUsersOfGroup($groups[$next]->id)) < count(listUsersOfGroup($groups[$j]->id)) ) $next = $j;
+                }
+            }
+            array_push($sorted, $groups[$next]);
+            array_splice($groups, $next, 1);
+            $i--;
+        }
+        return $sorted;
+    }
+
+    function loadAllGroupsSortedByMCASC()
+    {
+        return MyGroupsSort(1);
+    }
+
+    function loadAllGroupsSortedByMCDESC()
+    {
+        return MyGroupsSort(0);
     }
 
     function loadGroup($group)

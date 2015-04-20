@@ -52,6 +52,12 @@ Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
 Route::resource('groups', 'GroupsController');
 Route::post('groups/{id}/joinGroup', 'GroupsController@join');
 Route::post('groups/{id}/leaveGroup', 'GroupsController@leave');
+Route::get('groupsSortedByNameASC', 'GroupsController@indexSortedByNameASC');
+Route::get('groupsSortedByFounderASC', 'GroupsController@indexSortedByFounderASC');
+Route::get('groupsSortedByMCASC', 'GroupsController@indexSortedByMCASC');
+Route::get('groupsSortedByNameDESC', 'GroupsController@indexSortedByNameDESC');
+Route::get('groupsSortedByFounderDESC', 'GroupsController@indexSortedByFounderDESC');
+Route::get('groupsSortedByMCDESC', 'GroupsController@indexSortedByMCDESC');
 
 
 Route::resource('exercises', 'ExercisesController');

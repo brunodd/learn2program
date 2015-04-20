@@ -21,7 +21,10 @@ class GroupsController extends Controller {
      * Middleware checks if the user is logged in
      */
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index',
+                                            'indexSortedByNameASC', 'indexSortedByNameDESC',
+                                            'indexSortedByFounderASC', 'indexSortedByFounderDESC',
+                                            'indexSortedByMCASC', 'indexSortedByMCDESC', 'show']]);
     }
 
 	/**
@@ -34,6 +37,42 @@ class GroupsController extends Controller {
         $groups = loadAllGroups();
 		return view('groups.home', compact('groups'));
 	}
+
+    public function indexSortedByNameASC()
+    {
+        $groups = loadAllGroupsSortedByNameASC();
+        return view('groups.home', compact('groups'));
+    }
+
+    public function indexSortedByNameDESC()
+    {
+        $groups = loadAllGroupsSortedByNameDESC();
+        return view('groups.home', compact('groups'));
+    }
+
+    public function indexSortedByFounderASC()
+    {
+        $groups = loadAllGroupsSortedByFounderASC();
+        return view('groups.home', compact('groups'));
+    }
+
+    public function indexSortedByFounderDESC()
+    {
+        $groups = loadAllGroupsSortedByFounderDESC();
+        return view('groups.home', compact('groups'));
+    }
+
+    public function indexSortedByMCASC()
+    {
+        $groups = loadAllGroupsSortedByMCASC();
+        return view('groups.home', compact('groups'));
+    }
+
+    public function indexSortedByMCDESC()
+    {
+        $groups = loadAllGroupsSortedByMCDESC();
+        return view('groups.home', compact('groups'));
+    }
 
 	/**
 	 * Show the form for creating a new resource.
