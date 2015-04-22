@@ -13,7 +13,6 @@
     </head>
 
     <body>
-        @include ('socialmedia.facebookLoginButton')
         @include('partials.navbar')
 
         <div class="wrapper">
