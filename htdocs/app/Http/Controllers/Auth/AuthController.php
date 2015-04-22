@@ -173,7 +173,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $uid = $facebook->getUser();
 
         if($uid != 0) {
-            $params = array( 'next' => url('/'));
+            $params = array( 'next' => url('/facebook/callback'));
             $facebookLogoutUrl = $facebook->getLogoutUrl($params);
             $facebook->destroySession();
             return redirect($facebookLogoutUrl);
@@ -206,12 +206,12 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
     public function facebookCallback(\App\Repositories\UserRepository $listener) {
         $code = \Input::get('code');
-        if (strlen($code) == 0) return Redirect::to('/login')->with('message', 'There was an error communicating with Facebook');
+        if (strlen($code) == 0) return redirect('/login')->with('message', 'There was an error communicating with Facebook');
 
         $facebook = new \Facebook(\Config::get('facebook'));
         $uid = $facebook->getUser();
         
-        if ($uid == 0) return Redirect::to('/login')->with('message', 'There was an error');
+        if ($uid == 0) return redirect('/login')->with('message', 'There was an error');
 
         $me = $facebook->api('/me');
        
