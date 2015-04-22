@@ -160,3 +160,8 @@ function loadSeriesSortedBySubDESC()
 {
     return DB::select('select * from series join types on tId = types.id order by subject DESC');
 }
+
+function loadSeriesWithExercise($eId)
+{
+    return DB::select('select * from series join exercises_in_series on id = seriesId where exId = ?', [$eId]);
+}

@@ -82,7 +82,8 @@ class ExercisesController extends Controller {
 	{
         if( isMakerOfExercise($id, Auth::id()) ) {
             $exercise = loadExercise($id)[0];
-		    return view('exercises.edit', compact('exercise'));
+            $subjectSeries = loadSeriesWithExercise($id);
+		    return view('exercises.edit', compact('exercise', 'subjectSeries'));
         }
         else {
             flash()->error("You must be logged in as the maker of this exercise.");
