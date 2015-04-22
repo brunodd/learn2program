@@ -151,7 +151,19 @@ function countGroupsByUsers() {
 
 //return a list of pairs, seriesId & the number of exercises associated to that serie
 function countExercisesBySeries() {
-    return DB::select('select * from ( (select id, 0 as c  from series where id not in (select seriesId from exercises group by seriesId)) union (select seriesId, count(id) as c from exercises group by seriesId) ) agg group group by id');
+    return DB::select('select * from
+                        ( (select id as seriesId, 0 as c
+                            from series
+                            where id not in
+                                (select seriesId
+                                    from exercises_in_series
+                                    group by seriesId) )
+                         union
+                          (select seriesId, count(exId) as c
+                            from exercises_in_series
+                            group by seriesId) )
+                        agg
+                        group by seriesId');
 }
 
 //return a list of pairs, seriesId & the number of users that have successfully completed all the exercises for that serie
@@ -176,4 +188,19 @@ function countUsersSucceededSerie() {
                                 where success = 1
                                 group by seriesId)) agg
                         group by seriesId');
+}
+
+//returns a list of pairs, seriesId & the number of exercises successfully completed for that serie for the given user
+function countUserSucceededExercisesBySeries($uId) {
+    return DB::select('select * from
+                        (select seriesId, count(exId) as c
+                          from exercises_in_series join answers on eId=exId
+                          where success = 1 and uId = ?
+                          group by seriesId
+                        union
+                         select seriesId, 0 as c from exercises_in_series
+                          where exId not in
+                              (select eId as exId from answers
+                               where success=1 and eId=exId and uId=?) ) agg
+                       group by seriesId', [$uId, $uId]);
 }
