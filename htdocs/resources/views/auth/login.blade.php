@@ -3,6 +3,14 @@
 @section('title')
     Login
 @stop
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 @section('content')
 <div class="container-fluid">
@@ -58,9 +66,11 @@
 									Login
 								</button>
 								<a href="/facebook/login"  style="margin-left: 14px;">Login with Facebook</a> 
+								
 								<a href="/email">Forgot Your Password?</a>
 							</div>
 						</div>
+						<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false">www.facebook.com</div>
 
 
                         <div class="form-group">
