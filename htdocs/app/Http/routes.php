@@ -1,5 +1,7 @@
 <?php
 
+use Facebook;
+
     /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -81,3 +83,9 @@ Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
 
 Route::get('/login-fb', 'Auth\AuthController@loginFB');
+
+
+Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
+
+
+Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');
