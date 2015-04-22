@@ -156,5 +156,24 @@ function countExercisesBySeries() {
 
 //return a list of pairs, seriesId & the number of users that have successfully completed all the exercises for that serie
 function countUsersSucceededSerie() {
-    return DB::select('select sId, count(distinct(uId)) as c from (select sId, count(distinct(eId)) as c, uId from exercises join (select series.id as sId, exercises.id as eId, uId from (series join exercises on series.id = seriesId) join answers on exercises.id = eId where success = 1 group by sId, eId, uId) agg on seriesId=sId and id=eId group by seriesId, uId) agg join (select seriesId, count(id) as c from exercises group by seriesId) agg2 on seriesId=sId and agg.c=agg2.c group by sId union (select id as sId, 0 as c  from series where id not in (select seriesId from exercises join answers on exercises.id=eId where success = 1 group by seriesId)) order by sId');
+    return DB::select('select * from
+                        (select seriesId, c from
+                            (select count(distinct(uId)) as c, seriesId
+                                from exercises_in_series join answers on exId = eId
+                                where success = 1
+                                group by seriesId) agg1
+                            join
+                            (select count(exId) as exCount, seriesId as sId
+                                from exercises_in_series
+                                group by sId) agg2
+                            on (seriesId = sId and c = exCount)
+                            group by seriesId
+                        union
+                         select seriesId, 0 as c from exercises_in_series
+                         where exId not in
+                            (select eId as exId
+                                from answers
+                                where success = 1
+                                group by seriesId)) agg
+                        group by seriesId');
 }
