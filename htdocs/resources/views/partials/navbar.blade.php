@@ -38,9 +38,9 @@
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5notifications); $x += 2)
                                 @if($last5notifications[$x + 1] == 0)
-                                    <li style="background-color: lightgrey">
+                                    <li  class="notification" style="background-color: lightgrey">
                                 @else
-                                    <li>
+                                    <li class="notification">
                                 @endif
                                 <div style="cursor: pointer;" onclick="window.location.href='';" onMouseOver="this.style.backgroundColor='rgba(0, 0, 0, .05)'" onMouseOut="this.style.backgroundColor='#fff'">
                                     <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
@@ -48,7 +48,7 @@
                                 </li>
                             @endfor
                             <li class="divider"></li>
-                            <li><a href="/notifications">See all notifications</a></li>
+                            <li style="width: 386px;"><a href="/notifications">See all notifications</a></li>
                         </ul>
                     </li>
 
@@ -63,20 +63,29 @@
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5conversations); $x += 6)
                                 @if($last5conversations[$x + 3] == 0 and $last5conversations[$x + 4] != \Auth::id())
-                                    <li style="background-color: lightgrey">
+                                    <li class="message" style="background-color: lightgrey">
                                 @else
-                                    <li>
+                                    <li class="message">
                                 @endif
-
-                                <a href="/messages/{{ $last5conversations[$x] }}">
-                                    <img src="/images/users/{{ $last5conversations[$x+1] }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float: left;padding: 0 5px 0 0;">
-                                    <p><b> {{ $last5conversations[$x] }} </b></p>
-                                    {{$last5conversations[$x+2]}}
+                                    <a href="/messages/{{ $last5conversations[$x] }}">
+                                        <div class="messageLeft">
+                                            <img src="/images/users/{{ $last5conversations[$x+1] }}" alt="Profile Picture">
+                                        </div>
+                                        <div class="messageRight">
+                                            <div class="messAuth">{{ $last5conversations[$x] }}</div>
+                                            <div class="messMess">
+                                                @if($last5conversations[$x+3] == 1)
+                                                    <span class="messSeen glyphicon glyphicon-ok""></span>
+                                                @endif
+                                                <div>{{ $last5conversations[$x+2] }}</div>
+                                            </div>
+                                            <div class="messDate">{{ $last5conversations[$x+5] }}</div>
+                                        </div>
+                                    </a></li>
                                     <div style="clear:both;"></div>
-                                </a></li>
                             @endfor
                             <li class="divider"></li>
-                            <li><a href="/messages">See all messages</a></li>
+                            <li style="width: 430px;"><a href="/messages">See all messages</a></li>
                         </ul>
                     </li>
 

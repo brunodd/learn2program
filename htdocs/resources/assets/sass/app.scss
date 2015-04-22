@@ -23,3 +23,66 @@ html, body {
   height: 6em;
   clear: both;
 }
+
+.notification {
+  width: 386px;
+}
+
+.message {
+  width: 430px;
+  height: 60px;
+  /*padding: 5px;*/
+  font-size: 12px;
+}
+
+.message .mya:hover {
+  text-decoration: none;
+}
+
+
+.message .messageLeft {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.message .messageRight {
+  width: 335px;
+  float: right;
+  direction: ltr;
+}
+
+.message img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.message .messAuth {
+  height: 18px;
+  color: black;
+  font-weight: bold;
+}
+
+
+.message .messAuth:hover {
+  text-decoration: none;
+}
+
+.message .messMess {
+  color: black;
+}
+
+
+.message .messDate {
+  color: black;
+}
+
+
+.message .messSeen {
+  font-size: 0.7pc;
+  float: left;
+  margin: 0 4px 0 0;
+}
