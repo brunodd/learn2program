@@ -170,11 +170,15 @@ class AuthController extends Controller implements AuthenticateUserListener {
         
         $facebook = new \Facebook(\Config::get('facebook'));
         $this->auth->logout();
-        $params = array( 'next' => 'http://localhost:8000/' );
-
-        //$facebook->getLogoutUrl($params);
-        //return redirect('/');
-        return redirect($facebook->getLogoutUrl($params));
+        $uid = $facebook->getUser();
+        
+        if($uid != 0) {
+            $params = array( 'next' => url('/'));
+            $facebookLogoutUrl = $facebook->getLogoutUrl($params);
+            $facebook->destroySession();
+            return redirect($facebookLogoutUrl);
+        }
+        return redirect('/');
     }
 
     public function loginFB(AuthenticateUser $authenticateUser, Request $request) {

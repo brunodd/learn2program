@@ -39,6 +39,11 @@
         <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
     @endforeach
 
+    <?php $seriesSameRating = returnSeriesSameRating($serie); ?>
+    @foreach($seriesSameRating as $temp)
+        <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+    @endforeach 
+        
     @if ( $serie->makerId === Auth::id() )
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
             <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>

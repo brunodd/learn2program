@@ -41,9 +41,6 @@ $(function () {
         }, {
             name: 'Exercises',
             data: <?php echo(json_encode($exercisesCounter)); ?>
-        }, {
-            name: 'Average exercises per series',
-            data: <?php echo(json_encode([$exercisesCounter[0]/$seriesCounter[0],1])); ?>
         }]
     });
 });
