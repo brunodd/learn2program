@@ -178,7 +178,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
             $facebook->destroySession();
             return redirect($facebookLogoutUrl);
         }
-        return redirect('/');
+        return redirect(url('/'));
     }
 
     public function loginFB(AuthenticateUser $authenticateUser, Request $request) {
