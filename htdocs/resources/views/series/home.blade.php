@@ -60,14 +60,15 @@
         <h4>Sort by</h4>
 
         <div class="options">
-            <button class="sort" data-sort="default:asc">Default</button>
-            <button class="sort" data-sort="random">Random</button>
+            <button class="sort" id="title1" data-sort="title:asc" onclick="myScripts.switchDataSort('title1')">Title</button>
+            <button class="sort" id="title2" data-sort="title:desc" hidden onclick="myScripts.switchDataSort('title2')">Title</button>
             <button class="sort" id="rating1" data-sort="rating:asc" onclick="myScripts.switchDataSort('rating1')">Rating</button>
             <button class="sort" id="rating2" data-sort="rating:desc" hidden onclick="myScripts.switchDataSort('rating2')">Rating</button>
             <button class="sort" id="subject1" data-sort="subject:asc" onclick="myScripts.switchDataSort('subject1')">Subject</button>
             <button class="sort" id="subject2" data-sort="subject:desc" hidden onclick="myScripts.switchDataSort('subject2')">Subject</button>
             <button class="sort" id="difficulty1" data-sort="difficulty:asc" onclick="myScripts.switchDataSort('difficulty1')">Difficulty</button>
             <button class="sort" id="difficulty2" data-sort="difficulty:desc" hidden onclick="myScripts.switchDataSort('difficulty2')">Difficulty</button>
+            <button class="sort" data-sort="random">Random</button>
         </div>
         <div style="clear: both"></div>
 

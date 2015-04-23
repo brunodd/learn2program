@@ -32,12 +32,14 @@ function storeReference($exercise)
 
 function addToSeries($exId, $seriesId)
 {
+    if(empty(DB::select('select * from exercises_in_series where exId = ? and seriesId = ?', [$exId, $seriesId]))) {
     DB::insert('insert into exercises_in_series(exId, seriesId, ex_index)
             select ?, ?, (agg.count + 1)
             from (select count(seriesId) as count 
                     from exercises_in_series
                     where exercises_in_series.seriesId = ?) agg',
             [$exId, $seriesId, $seriesId]);
+    }
 }
 
 function loadAllExercises()

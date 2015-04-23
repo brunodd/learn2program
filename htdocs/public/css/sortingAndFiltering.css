@@ -6616,16 +6616,15 @@ h5 {
 .options {
     width: 80%;
     margin: 10px 5px 5px 5px;
-    padding: 10px;
     float: right;
     font-size: 0;
-    border-radius: 50px;
+    border-radius: 10px;
     background: whitesmoke;
 }
 
 .options button {
-    width: 16.4%;
-    margin: 0px 15px;
+    width: 18.3%;
+    margin: 10px 0.85%;
     padding: 5px 0;
     border: none;
     outline: none;
@@ -6653,7 +6652,8 @@ h5 {
 }
 
 .series .ttr {
-    height: 45px;
+    min-height: 45px;
+    width: 100%;
     margin: 0 0 10px 0;
     padding: 15px;
     display: none;
@@ -6669,7 +6669,10 @@ h5 {
 
 .series .ttd {
     display: inline-block;
-    width: 24.7%;
+    width: calc(25% - 3px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .series .dd {
