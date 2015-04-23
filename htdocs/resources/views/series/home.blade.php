@@ -81,7 +81,7 @@
                 <div class="ttd dd">Difficulty</div>
             </div>
             @foreach($series as $serie)
-                <div class="mix ttr {{ loadType2($serie->tId)[0]->difficulty }} clickable-row" data-title="{{$serie->title}}" data-rating="{{ averageRating($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadDifficultyAsInt($serie->tId) }}" data-href="/series/{{$serie->title}}">
+                <div class="mix ttr {{ loadType2($serie->tId)[0]->difficulty }} clickable-row" data-title="{{$serie->title}}" data-rating="{{ loadRatingAsInt($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadDifficultyAsInt($serie->tId) }}" data-href="/series/{{$serie->title}}">
                     <div class="ttd">{{$serie->title}}</div>
                     <div class="ttd dd">{{ averageRating($serie->id) }}</div>
                     <div class="ttd dd">{{ loadType2($serie->tId)[0]->subject }}</div>
