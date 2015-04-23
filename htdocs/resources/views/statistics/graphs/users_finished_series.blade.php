@@ -1,7 +1,6 @@
 <!-- brunodd: Get data from database -->
 <?php
     $data = countUsersSucceededSeries();
-    dd($data);
     $series = [];
     $num_finished = [];
     // function loadSerieWithId($id)
