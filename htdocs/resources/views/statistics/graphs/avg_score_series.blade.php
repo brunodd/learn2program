@@ -24,12 +24,20 @@
             }
         }
     }
-    //dd($avgs);
+    // dd($avgs);
+    $series = [];
+    $scores = [];
+    foreach($avgs as $a) {
+        if($a->c >= 0) {
+            array_push($series, loadSerieWithId($a->seriesId)[0]->title);
+            array_push($scores, ($a->c * 100));
+        }
+    }
 ?>
 <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
 <script type="text/javascript">
 $(function () {
-    $('#container_succeeded_per_group').highcharts({
+    $('#container_avg_per_series').highcharts({
             chart: {
             type: 'column'
         },
@@ -40,17 +48,17 @@ $(function () {
             title: {
                 text: 'Series'
             },
-            categories: []
+            categories: <?php echo json_encode($series);?>
         },
         yAxis: {
             title: {
-                text: 'score'
+                text: 'Average Score (in %)'
             },
             allowDecimals: false
         },
         series: [{
-            name: 'Series completed',
-            data: []
+            name: 'Average score per series',
+            data: <?php echo(json_encode($scores));?>
         }]
     });
 });
