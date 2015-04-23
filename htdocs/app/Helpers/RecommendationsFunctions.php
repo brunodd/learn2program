@@ -19,7 +19,7 @@ function returnSeriesSameDifficulty($serie) {
                         and types.difficulty = ?',
                         [$serie->title, $difficulty[0]->difficulty]);
 }
-
+/*
 function returnSeriesSameRating($serie) {
     $rating = DB::select('SELECT *
                           FROM series, series_ratings
@@ -31,13 +31,13 @@ function returnSeriesSameRating($serie) {
                         and series_ratings.rating = ? ',
                         [$serie->id, $rating[0]->rating]));
 }
-
+*/
 function returnRecommendations($serie) {
   $sameMaker = returnSeriesSameMaker($serie);
   $sameDifficulty = returnSeriesSameDifficulty($serie);
-  $sameRating = returnSeriesSameRating($serie);
+  //$sameRating = returnSeriesSameRating($serie);
 
-  $result = $sameRating + $sameMaker + $sameDifficulty;
+  $result = $sameDifficulty + $sameMaker;
 
   return $result;
 }
