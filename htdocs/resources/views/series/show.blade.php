@@ -31,7 +31,9 @@
     <h4>Aanbevelingen:</h4>
     <?php $result = returnRecommendations($serie); ?>
     @foreach($result as $temp)
-        <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+        @if ( !isEmptySeries($temp) )
+            <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+        @endif
     @endforeach     
 
     @if ( $serie->makerId === Auth::id() )
