@@ -19,10 +19,25 @@ function storeExercise($exercise)
     DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?)',
         [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId]);
 
+    storeReference($exercise);
+}
+
+function storeReference($exercise)
+{
     // Add link with series
     DB::insert('insert into exercises_in_series (exId, seriesId, ex_index)
             select max(exercises.id), ?, (agg.count + 1)
             from exercises, (select count(seriesId) as count from exercises_in_series where exercises_in_series.seriesId = ?) agg', [$exercise->seriesId, $exercise->seriesId]);
+}
+
+function addToSeries($exId, $seriesId)
+{
+    DB::insert('insert into exercises_in_series(exId, seriesId, ex_index)
+            select ?, ?, (agg.count + 1)
+            from (select count(seriesId) as count 
+                    from exercises_in_series
+                    where exercises_in_series.seriesId = ?) agg',
+            [$exId, $seriesId, $seriesId]);
 }
 
 function loadAllExercises()

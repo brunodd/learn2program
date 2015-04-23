@@ -3,8 +3,16 @@
 <?php
     $fullExercises = loadAllExercises();
     $titles = [];
+    $start_code = [];
+    $tips = [];
+    $expected_result = [];
+    $exId = [];
     foreach($fullExercises as $ex) {
         array_push($titles, $ex->question);
+        array_push($start_code, $ex->start_code);
+        array_push($tips, $ex->tips);
+        array_push($expected_result, $ex->expected_result);
+        array_push($exId, $ex->id);
     }
 ?>
 @section('title')
@@ -14,19 +22,24 @@
 @section('content')
     <script>
         // Need to add the selected id so I can use queries to find the useful data.
-        function fillAll() {
-            document.getElementById("question").value = "Put needed question here";
-            document.getElementById("start_code").value = "Put needed start code here";
-            document.getElementById("tips").value = "Put needed tips here";
-            document.getElementById("expected_result").value = "Put needed expected result here";
+        function fillAll(id) {
+            document.getElementById("question").value = <?php echo(json_encode($titles));?>[id];
+            document.getElementById("start_code").value = <?php echo(json_encode($start_code));?>[id];
+            document.getElementById("tips").value = <?php echo(json_encode($tips));?>[id];
+            document.getElementById("expected_result").value = <?php echo(json_encode($expected_result));?>[id];
+            document.getElementById("id").value = <?php echo(json_encode($exId));?>[id];
         }
     </script>
 
 
     {!! Form::open() !!}
         {!! Form::label('exercise_selection', 'Choose the exercise: ') !!}
-        {!! Form::select('exercise_selection', $titles, null, ['class' => 'form-control']) !!}
-        {!! Form::submit('Check exercise', ['class' => 'btn btn-primary form-control', 'onclick' => 'fillAll()']) !!}
+        {!! Form::select('exercise_selection', $titles, null, ['class' => 'form-control', 'onchange'=>'fillAll(this.selectedIndex)']) !!}
+
+        <div class="form-group">
+            {!! Form::label('id', 'ID') !!}
+            {!! Form::text('id', null, ['class' => 'form-control']) !!}
+        </div>
 
         <div class="form-group">
             {!! Form::label('question', 'Question: ') !!}
@@ -47,6 +60,7 @@
             {!! Form::label('expected_result', 'Expected result, i.e. the output of the program: ') !!}
             {!! Form::textarea('expected_result', null, ['class' => 'form-control']) !!}
         </div>
+
 
         <div class="form-group">
             {!! Form::submit('Add exercise', ['class' => 'btn btn-primary form-control']) !!}

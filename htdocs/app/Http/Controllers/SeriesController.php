@@ -302,6 +302,16 @@ class SeriesController extends Controller {
 
         return redirect('series/' . $id);
     }
+    public function storeReference($id, Request $request)
+    {
+
+        $input = $request::all();
+
+        addToSeries($input['id'], $id);
+
+        return redirect('series/' . $id);
+
+    }
 
     public function storeRating($id, CreateRatingRequest $request)
     {

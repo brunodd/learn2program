@@ -49,6 +49,7 @@ Route::get('series/{id}/referenceexercise', 'SeriesController@referenceExercise'
 Route::get('series/{id}/copyexercise', 'SeriesController@copyExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
+Route::post('series/{id}/referenceexercise', 'SeriesController@storeReference');
 
 
 Route::resource('groups', 'GroupsController');
