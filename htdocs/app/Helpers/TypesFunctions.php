@@ -30,3 +30,21 @@ function storeType($type)
 {
     DB::insert('insert into types (subject, difficulty) VALUES (?, ?)', [$type->subject, $type->difficulty]);
 }
+
+function loadDifficultyAsInt($id) {
+    $bla = DB::select('SELECT difficulty FROM types WHERE id = ?', [$id])[0]->difficulty;
+    switch($bla) {
+        case "Easy":
+            return 0;
+            break;
+        case "Intermediate":
+            return 1;
+            break;
+        case "Hard":
+            return 2;
+            break;
+        case "Insane":
+            return 3;
+            break;
+    }
+}
