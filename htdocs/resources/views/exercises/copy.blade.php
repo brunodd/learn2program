@@ -33,7 +33,7 @@
 
     {!! Form::open() !!}
         {!! Form::label('exercise_selection', 'Choose the exercise: ') !!}
-        {!! Form::select('exercise_selection', $titles, null, ['class' => 'form-control', 'onchange'=>'fillAll(this.selectedIndex)']) !!}
+        {!! Form::select('exercise_selection', $titles, "", ['class' => 'form-control', 'onchange'=>'fillAll(this.selectedIndex)']) !!}
 
         <div class="form-group">
             {!! Form::label('id', 'ID') !!}
