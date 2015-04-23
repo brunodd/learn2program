@@ -24,8 +24,9 @@
 
 
     {!! Form::open() !!}
-        {!! Form::select('Exercise', $titles, null, ['class' => 'form-control']) !!}
-        {!! Form::button('Check exercise', ['class' => 'btn btn-primary form-control', 'onclick' => 'fillAll()']) !!}
+        {!! Form::label('exercise_selection', 'Choose the exercise: ') !!}
+        {!! Form::select('exercise_selection', $titles, null, ['class' => 'form-control']) !!}
+        {!! Form::submit('Check exercise', ['class' => 'btn btn-primary form-control', 'onclick' => 'fillAll()']) !!}
 
         <div class="form-group">
             {!! Form::label('question', 'Question: ') !!}
