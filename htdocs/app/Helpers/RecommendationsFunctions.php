@@ -14,15 +14,31 @@ function returnSeriesSameDifficulty($serie) {
 
     return DB::select(' SELECT *
                         FROM series, types
-                        WHERE series.title != ? and series.tId = types.id and types.difficulty = ?',
+                        WHERE series.title != ? 
+                        and series.tId = types.id 
+                        and types.difficulty = ?',
                         [$serie->title, $difficulty[0]->difficulty]);
 }
 
 function returnSeriesSameRating($serie) {
-    $rating = DB::select('SELECT rating
+    $rating = DB::select('SELECT *
                           FROM series, series_ratings
                           WHERE series.id = series_ratings.seriesId and series.id = ?', [$serie->id]);
+
     return DB::select( 'SELECT *
                         FROM series, series_ratings 
-                        WHERE series.id = series_ratings.seriesId and series_ratings.rating = ?',[$rating[0]]);
+                        WHERE series.id = series_ratings.seriesId 
+                        and series.id != ?
+                        and series_ratings.rating = ? ',
+                        [$serie->id, $rating[0]->rating]);
+}
+
+function returnRecommendations($serie) {
+  $sameMaker = returnSeriesSameMaker($serie);
+  $sameDifficulty = returnSeriesSameDifficulty($serie);
+  $sameRating = returnSeriesSameRating($serie);
+
+  $result = $sameRating + $sameMaker + $sameDifficulty;
+
+  return $result;
 }
