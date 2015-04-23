@@ -38,7 +38,7 @@
 
         <div class="form-group">
             {!! Form::label('id', 'ID') !!}
-            {!! Form::text('id', null, ['class' => 'form-control']) !!}
+            {!! Form::hidden('id', null) !!}
         </div>
 
         <div class="form-group">
