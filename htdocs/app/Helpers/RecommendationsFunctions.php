@@ -24,7 +24,9 @@ function returnSeriesSameRating($serie) {
     $rating = DB::select('SELECT *
                           FROM series, series_ratings
                           WHERE series.id = series_ratings.seriesId and series.id = ?', [$serie->id]);
-
+    if (count($rating) == 0) {
+      return;
+    }
     return DB::select( 'SELECT *
                         FROM series, series_ratings 
                         WHERE series.id = series_ratings.seriesId 
