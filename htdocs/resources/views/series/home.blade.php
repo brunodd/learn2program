@@ -28,12 +28,14 @@
      </tr>
 
       @foreach($series as $serie)
+      @if( SerieContainsExercises($serie->id) || isMakerOfSeries($serie->id, Auth::id()) )
         <tr>
          <td align="center"><h3><a href="{{ action('SeriesController@show', [$serie->title])}}">{{$serie->title}}</a></h3></td>
          <td align="center"><h3>{{ averageRating($serie->id) }}</h3></td>
          <td align="center"><h3>{{ loadType2($serie->tId)[0]->subject }}</h3></td>
          <td align="center"><h3>{{ loadType2($serie->tId)[0]->difficulty }}</h3></td>
         </tr>
+      @endif
       @endforeach
     </table>
 
