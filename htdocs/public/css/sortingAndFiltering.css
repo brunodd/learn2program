@@ -6585,15 +6585,15 @@ button.close {
 
 .container {
     width: 90%;
-    background: #ededed;
+    background: #7aed43;
 }
 
 h4 {
     width: 15%;
     margin: 10px 5px 5px 5px;
     padding: 15px;
-    color: white;
-    background: #222222;
+    color: #5645ff;
+    background: #52131b;
     border-radius: 50px;
     float: left;
     font-weight: 700;
@@ -6605,8 +6605,8 @@ h5 {
     width: 50%;
     margin: 10px auto;
     padding: 15px;
-    color: white;
-    background: #222222;
+    color: #ff95ce;
+    background: #9c6e45;
     border-radius: 15px;
     font-weight: 700;
     font-size: 21px;
@@ -6620,7 +6620,7 @@ h5 {
     float: right;
     font-size: 0;
     border-radius: 50px;
-    background: whitesmoke;
+    background: #f031f5;
 }
 
 .options button {
@@ -6629,15 +6629,15 @@ h5 {
     padding: 5px 0;
     border: none;
     outline: none;
-    color: black;
+    color: #c88b33;
     font-size: 14px;
     font-weight: 600;
-    background: #EBEBEB;
+    background: #3fdfeb;
 }
 
 .options button:hover {
-    color: white;
-    background: #5e5e5e;
+    color: #ff26ed;
+    background: #63bd50;
 }
 
 .options button.active {
@@ -6649,7 +6649,7 @@ h5 {
 .series {
     padding: 15px 15px 5px 15px;
     margin-bottom: 15px;
-    background: whitesmoke;
+    background: #763bf5;
 }
 
 .series .ttr {
@@ -6659,12 +6659,12 @@ h5 {
     display: none;
     color: black;
     font-size: 14px;
-    background: #EBEBEB;
+    background: #aeeb3a;
 }
 
 .series .ttr:hover {
     cursor: pointer;
-    background: #99cfe0;
+    background: #e0640a;
 }
 
 .series .ttd {
@@ -6679,7 +6679,7 @@ h5 {
 #tr1 {
     display: block;
     font-weight: bold;
-    background: #CCCCCC;
+    background: #cc11cb;
 }
 
 #tr1:hover {
