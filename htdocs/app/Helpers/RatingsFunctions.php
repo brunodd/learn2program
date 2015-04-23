@@ -34,3 +34,7 @@ function averageRating($sId)
     }
     else return "Not rated yet";
 }
+
+function loadRatingAsInt($id) {
+    return (averageRating($id) == "Not rated yet") ? 0 : averageRating($id);
+}
