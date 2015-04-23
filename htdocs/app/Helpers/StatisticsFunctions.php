@@ -186,7 +186,12 @@ function countUsersSucceededSeries() {
                             (select eId as exId
                                 from answers
                                 where success = 1
-                                group by seriesId)) agg
+                                group by seriesId)
+                        union
+                         select id as seriesId, 0 as c from series
+                         where id not in (select seriesId as id
+                                            from exercises_in_series
+                                            group by seriesId)) agg
                         group by seriesId');
 }
 
