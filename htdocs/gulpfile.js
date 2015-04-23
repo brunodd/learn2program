@@ -28,8 +28,6 @@ elixir(function(mix) {
         'libs/bootstrap.js',
         'my-scripts.js'
     ]).scripts([
-        'libs/jquery.js',
-        'libs/bootstrap.js',
         'libs/jquery.mixitup.js',
         'my-scripts.js'
     ], 'public/js/mixitup.js').scripts([
