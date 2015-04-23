@@ -3,20 +3,13 @@
     $data = countUsersSucceededSeries();
     $series = [];
     $num_finished = [];
-    // function loadSerieWithId($id)
 
     foreach($data as $d) {
         array_push($series, loadSerieWithId($d->seriesId)[0]->title);
         array_push($num_finished, $d->c);
     }
-    // $uId = 1;
-    // $count = countSeriesSucceededByUser($uId);
-    // $groupName = 'Group1';
-    // $username = loadName($uId)[0]->username;
-    // $users = [];
-    // array_push($users, $username);
-
 ?>
+
 <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
 <script type="text/javascript">
 $(function () {
