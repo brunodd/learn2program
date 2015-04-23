@@ -49,6 +49,7 @@ Route::get('series/{id}/referenceexercise', 'SeriesController@referenceExercise'
 Route::get('series/{id}/copyexercise', 'SeriesController@copyExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
+Route::post('series/{id}/referenceexercise', 'SeriesController@storeReference');
 
 
 Route::resource('groups', 'GroupsController');
@@ -81,3 +82,11 @@ Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
 
 Route::get('/login-fb', 'Auth\AuthController@loginFB');
+
+
+Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
+
+
+Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');
+
+Route::get('/facebook/error', 'Problem singing in with Facebook.');

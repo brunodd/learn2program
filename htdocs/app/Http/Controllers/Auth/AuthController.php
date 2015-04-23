@@ -9,6 +9,8 @@ use App\Http\Requests\CreateUserRequest;
 
 use App\AuthenticateUser;
 use App\AuthenticateUserListener;
+use App\Repositories\UserRepository;
+
 
 class MyGuard extends \Illuminate\Auth\Guard {
     public function attempt(array $credentials = [], $remember = false, $login = true)
@@ -165,8 +167,17 @@ class AuthController extends Controller implements AuthenticateUserListener {
      * @return \Illuminate\Http\Response
      */
     public function getLogout() {
-        $this->auth->logout();
 
+        $facebook = new \Facebook(\Config::get('facebook'));
+        $this->auth->logout();
+        $uid = $facebook->getUser();
+
+        if($uid != 0) {
+            $params = array( 'next' => url('/facebook/callback'));
+            $facebookLogoutUrl = $facebook->getLogoutUrl($params);
+            $facebook->destroySession();
+            return redirect($facebookLogoutUrl);
+        }
         return redirect('/');
     }
 
@@ -182,4 +193,34 @@ class AuthController extends Controller implements AuthenticateUserListener {
     public function userHasLoggedIn($user) {
         return redirect('/');
     }
+
+    public function facebookLogin() {
+        $facebook = new \Facebook(\Config::get('facebook'));
+        $params = array(
+            'redirect_uri' => url('/facebook/callback'),
+            'scope' => 'email',
+        );
+        //dd($facebook->getLoginUrl($params));
+        return redirect($facebook->getLoginUrl($params));
+    }
+
+    public function facebookCallback(\App\Repositories\UserRepository $listener) {
+        $code = \Input::get('code');
+        if (strlen($code) == 0) return redirect('/login')->with('message', 'There was an error communicating with Facebook');
+
+        $facebook = new \Facebook(\Config::get('facebook'));
+        $uid = $facebook->getUser();
+        
+        if ($uid == 0) return redirect('/login')->with('message', 'There was an error');
+
+        $me = $facebook->api('/me');
+       
+        $user = $listener->findByUsernameOrCreate($me);
+
+        \Auth::login($user);
+
+        return redirect('/')->with('message', 'Logged in with Facebook');
+    }
+
+
 }

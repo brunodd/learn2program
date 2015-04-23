@@ -8,8 +8,8 @@ class UserRepository {
 	private $user;
 	private $count;
 
-	public function findByUsernameOrCreate($userData) {
-		if($userData->email == '') {
+	public function findByUsernameOrCreate($me) {
+		/*if($userData->email == '') {
 			$userData->email = "not initialized";;
 		}
 		$count = User::where('username', '=', $userData->name)->count();
@@ -23,7 +23,23 @@ class UserRepository {
 			return User::firstOrCreate([
 				'username' 	=> $userData->name
 			]);
-		}
+		}*/
+		if($me['email'] == '') {
+            $me['email'] = "not initialized";;
+        }
+        $count = \App\User::where('username', '=', $me['name'])->count();
+        $user = new \App\User;
+        if ($count == 0) {
+            return \App\User::firstOrCreate([
+                'username'  => $me['name'],
+                'mail'      => $me['email'],
+                'pass'      => $me['updated_time']
+            ]);
+        } else {
+            return \App\User::firstOrCreate([
+                'username'  => $me['name']
+            ]);
+        }
 		//return $user;
 	}
 

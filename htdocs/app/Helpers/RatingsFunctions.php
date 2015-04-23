@@ -22,11 +22,15 @@ function unratedSeries($sId)
 function averageRating($sId)
 {
     $ratings = DB::select('select * from series_ratings where seriesId = ?', [$sId]);
-    $avg = 0;
-    foreach( $ratings as $r )
+    if( count($ratings) > 0 )
     {
-        $avg = $avg + $r->rating;
+        $avg = 0;
+        foreach( $ratings as $r )
+        {
+            $avg = $avg + $r->rating;
+        }
+        $avg = $avg / count($ratings);
+        return $avg;
     }
-
-    return (count($ratings) != 0) ? $avg / count($ratings) : 0;
+    else return "Not rated yet";
 }
