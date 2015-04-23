@@ -5,62 +5,81 @@
 @stop
 
 @section('content')
-    <div style="float: left;height:400px;width: 30%;overflow:auto;">
+    <div class="mmessage">
+        <div class="mmessageLeft">
 
-        <div class="form-group" role="form" method="POST" action="">
-            <input type="text" class="form-control" placeholder="Search for users">
-            <button type="submit" class="btn btn-default" style="visibility: hidden;">Submit</button>
+            <!-- TODO: implement this  some day
+            <div class="mmessageSearch form-group" role="form" method="POST" action="">
+                <input type="text" class="form-control" placeholder="Search for users">
+                <button type="submit" class="btn btn-default" style="visibility: hidden;">Submit</button>
+            </div-->
+
+            @foreach ($conversations as $conversation)
+                <div class="conversationElem" onclick="window.location.href='/messages/{{ $conversation->userB }}'">
+                    <img src="/images/users/{{ loadUser($conversation->userB)[0]->image }}" alt="Profile Picture">
+
+                    <div>
+                        <b><a href={{ action('MessagesController@show', $conversation->userB) }}> {{ $conversation->userB }} </a></b><br>
+                        {{$conversation->message}}<br>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            @endforeach
         </div>
 
-        @foreach ($conversations as $conversation)
-            <img src="/images/users/{{ loadUser($conversation->userB)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
 
-            <div>
-                <b><a href={{ action('MessagesController@show', $conversation->userB) }}> {{ $conversation->userB }} </a></b><br>
-                {{$conversation->message}}<br>
+        <div class="mmessageRight">
+            <div id="messageBox" class="mmessageBox">
+                @foreach ($messages as $message)
+                    <div class="mmessageElem">
+                        <div class="mmessageRightLeft">
+                            <a href="/users/{{$message->username}}">
+                                <img src="/images/users/{{ loadUser($message->username)[0]->image }}" alt="Profile Picture">
+                            </a>
+                        </div>
+                        <div class="mmessageRightRight">
+                            <div class="mmessageAuthor">
+                                <a href="/users/{{$message->username}}">
+                                    {{$message->username}}
+                                </a>
+                            </div>
+                            <div class="mmessageDate">
+                                {{$message->carbon->diffForHumans()}}
+                            </div>
+                            <div style="clear:both;"></div>
+                            <div class="mmessageMessage">
+                                <p style="margin: 0;">{!! $message->message !!}</p>
+                                @if($message->seen == 1) <!-- TODO: if($message->seen) -->
+                                    <span class="glyphicon glyphicon-ok"> <small>Seen</small></span>
+                                @endif
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                @endforeach
             </div>
-            <hr>
-        @endforeach
-    </div>
 
+            <script>
+                myScripts.SetScrollBoxToBottom('messageBox');
+            </script>
 
-    <!-- TODO: copy facebook for prettier displaying -->
-    <div id="messageBox" style="height:400px;width:100% solid #ccc;font:16px/26px;overflow:auto;padding-left: 15px;">
-        @foreach ($messages as $message)
-            <a href="/users/{{$message->username}}">
-                <img src="/images/users/{{ loadUser($message->username)[0]->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float: left;padding: 0 5px 0 0;">
-            </a>
-            <a href="/users/{{$message->username}}">
-                <p style="float:left;"><b> {{$message->username}} </b></p>
-            </a>
-            <p style="float:right;"> {{$message->carbon->diffForHumans()}} </p><br>
-            <div style="clear:both;"></div>
-            <p> {{$message->message}} </p>
-            @if($message->seen == 1) <!-- TODO: if($message->seen) -->
-                <i><small>seen</small></i>
+            @if ($user->username != '')
+                {!! Form::open(['action' => 'MessagesController@store', 'id' => 'myForm']) !!}
+                    {!! Form::textarea('message', null, ['class' => 'mmessageText', 'rows' => 1, 'cols' => 1, 'id' => 'fucker']) !!}
+                    {!! Form::hidden('username', $user->username) !!}
+                    {!! Form::submit('Send', ['class' => 'btn btn-primary mmessageButton']) !!}
+                {!! Form::close() !!}
             @endif
-            <hr>
-        @endforeach
+        </div>
     </div>
+
 
     <script>
-        myScripts.SetScrollBoxToBottom('messageBox');
+        $('document').ready(function () {
+            document.getElementById('fucker').removeAttribute('rows');
+            document.getElementById('fucker').removeAttribute('cols');
+        });
     </script>
-
-    <br>
-
-    <!-- TODO: copy facebook for prettier displaying -->
-    @if ($user->username != '')
-        {!! Form::open(['action' => 'MessagesController@store']) !!}
-            <div class="form-group" >
-                {!! Form::textarea('message', null, ['class' => 'form-control']) !!}
-            </div>
-                {!! Form::hidden('username', $user->username) !!}
-            <div class="form-group" >
-                {!! Form::submit('Send', ['class' => 'btn btn-primary form-control']) !!}
-            </div>
-        {!! Form::close() !!}
-    @endif
-
     @include('errors.list')
 @stop

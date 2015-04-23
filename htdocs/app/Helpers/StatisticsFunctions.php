@@ -200,12 +200,15 @@ function countUserSucceededExercisesBySeries($uId) {
     return DB::select('select * from
                         (select seriesId, count(exId) as c
                           from exercises_in_series join answers on eId=exId
-                          where success = 1 and uId = ?
+                          where success = 1 and uId = 1
                           group by seriesId
                         union
                          select seriesId, 0 as c from exercises_in_series
                           where exId not in
                               (select eId as exId from answers
-                               where success=1 and eId=exId and uId=?) ) agg
+                               where success=1 and eId=exId and uId=1)
+                        union
+                         select id as seriesId, 0 as c from series
+                          where id not in (select seriesId as id from exercises_in_series)) agg
                        group by seriesId', [$uId, $uId]);
 }

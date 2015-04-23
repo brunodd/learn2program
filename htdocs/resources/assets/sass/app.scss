@@ -1,6 +1,3 @@
-body {
-  padding-top: 60px;
-}
 
 body, label, .checkbox label {
   font-weight: 300;
@@ -11,6 +8,8 @@ body, label, .checkbox label {
 }
 
 html, body {
+  margin:0;
+  padding:0;
   height: 100%;
 }
 
@@ -24,21 +23,34 @@ html, body {
   clear: both;
 }
 
+body {
+  padding-top: 60px;
+}
+
+
+//Navigation bar
+
 .notification {
   width: 386px;
+  height: 30px;
+  padding: 5px;
 }
 
 .message {
   width: 430px;
   height: 60px;
-  /*padding: 5px;*/
   font-size: 12px;
+  padding: 4px 0px;
+}
+
+.message .mya {
+  padding: 0 15px;
 }
 
 .message .mya:hover {
-  text-decoration: none;
+  background: rgb(245, 245, 245);
+  cursor: pointer;
 }
-
 
 .message .messageLeft {
   width: 50px;
@@ -54,8 +66,8 @@ html, body {
 }
 
 .message img {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   float: left;
   margin: 0 5px 0 0;
 }
@@ -86,3 +98,120 @@ html, body {
   float: left;
   margin: 0 4px 0 0;
 }
+
+
+//Messages page
+
+.mmessage {
+  width: 97.6%;
+  height: 75%;
+  position: absolute;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgb(238, 238, 238);
+}
+
+.mmessageSearch { }
+
+.mmessageLeft {
+  border: solid 1px rgb(222, 223, 226);
+  float: left;
+  height: 100%;
+  overflow-y: auto;
+  width: 20%;
+}
+
+.conversationElem {
+  width: 100%;
+  height: 64px;
+  padding: 7px 5px;
+  border-bottom-color: rgb(222, 223, 226);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: rgb(222, 223, 226);
+  border-left-style: solid;
+  border-left-width: 0px;
+  border-right-color: rgb(222, 223, 226);
+  border-right-style: solid;
+  border-right-width: 0px;
+  color: rgb(20, 24, 35);
+}
+
+.conversationElem img, .mmessageElem img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+
+.conversationElem:hover {
+  background: rgb(222, 223, 226);
+  cursor: pointer;
+}
+
+.mmessageRight {
+  width: 80%;
+  height: 100%;
+  float: right;
+}
+
+.mmessageBox {
+  border-left: solid 1px rgb(222, 223, 226);
+  border-top: solid 1px rgb(222, 223, 226);
+  border-right: solid 1px rgb(222, 223, 226);
+  height: 71%;
+  overflow-y: auto;
+}
+
+.mmessageElem {
+  width: 100%;
+  min-height: 60px;
+  height: auto;
+  padding: 5px;
+}
+
+.mmessageRightLeft {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.mmessageRightRight {
+  width: calc(100% - 55px);
+  float: right;
+  direction: ltr;
+}
+
+.mmessageAuthor {
+  float: left;
+  font-weight: bold;
+}
+
+.mmessageDate {
+  float: right;
+}
+
+.mmessageMessage {
+  word-wrap: break-word;
+}
+
+#myForm {
+  border: solid 1px rgb(222, 223, 226);
+  padding: 10px 20px;
+  height: 29%;
+}
+
+.mmessageText {
+  display: block;
+  height: 78%;
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+.mmessageButton {
+  height: 20%;
+  width: 100%;
+}
+/*style="float: left;height:400px;width: 30%;overflow:auto;*/
