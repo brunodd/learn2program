@@ -304,13 +304,28 @@ class SeriesController extends Controller {
     }
     public function storeReference($id, Request $request)
     {
-
         $input = $request::all();
 
         addToSeries($input['id'], $id);
 
         return redirect('series/' . $id);
+    }
 
+    public function storeCopy($id, Request $request)
+    {
+        $input = $request::all();
+
+        $exercise = new Exercise;
+        $exercise->question = $input['question'];
+        $exercise->tips = $input['tips'];
+        $exercise->start_code = $input['start_code'];
+        $exercise->expected_result = $input['expected_result'];
+        $exercise->seriesId = $id;
+        $exercise->makerId = Auth::id();
+
+        storeExercise($exercise);
+
+        return redirect('series/' . $id);
     }
 
     public function storeRating($id, CreateRatingRequest $request)

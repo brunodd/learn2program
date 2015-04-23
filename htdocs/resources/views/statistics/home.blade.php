@@ -11,6 +11,7 @@
         @include('statistics.graphs.series_per_user_bar')
         @include('statistics.graphs.series_per_user_pie')
         @include('statistics.graphs.users_finished_series')
+        {{-- @include('statistics.graphs.avg_score_series') --}}
 
 @stop
 
