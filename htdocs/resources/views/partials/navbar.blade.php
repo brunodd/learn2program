@@ -11,19 +11,18 @@
                 <li><a href="/series">Series</a></li>
                 <li><a href="/exercises">Exercises</a></li>
                 <li><a href="/groups">Groups</a></li>
-                <li><a href="/about">About</a></li>
                 <li><a href="/users">Users</a></li>
                 <li><a href="/statistics">Statistics</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <!--li>
                     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return myScripts.CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right']) !!}
                         <div class="form-group" >
                             {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
                         </div>
                     {!! Form::close() !!}
-                </li>
+                </li-->
 
                 @if (Auth::user())
                     <li class="dropdown">
@@ -42,7 +41,8 @@
                                 @else
                                     <li class="notification">
                                 @endif
-                                <div style="cursor: pointer;" onclick="window.location.href='';" onMouseOver="this.style.backgroundColor='rgba(0, 0, 0, .05)'" onMouseOut="this.style.backgroundColor='#fff'">
+                                <!-- onclick="window.location.href='';"-->
+                                <div onMouseOver="this.style.backgroundColor='rgba(0, 0, 0, .05)'" onMouseOut="this.style.backgroundColor='#fff'">
                                     <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
                                 </div>
                                 </li>
@@ -62,26 +62,28 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5conversations); $x += 6)
+                                <li class="message">
                                 @if($last5conversations[$x + 3] == 0 and $last5conversations[$x + 4] != \Auth::id())
-                                    <li class="message" style="background-color: lightgrey">
+                                    <div class="mya" onclick="location.href='/messages/{{ $last5conversations[$x] }}'" style="background-color: lightgrey">
                                 @else
-                                    <li class="message">
+                                    <div class="mya"  onclick="location.href='/messages/{{ $last5conversations[$x] }}'">
                                 @endif
-                                    <a href="/messages/{{ $last5conversations[$x] }}">
-                                        <div class="messageLeft">
-                                            <img src="/images/users/{{ $last5conversations[$x+1] }}" alt="Profile Picture">
+                                    <div class="messageLeft">
+                                        <img src="/images/users/{{ $last5conversations[$x+1] }}" alt="Profile Picture">
+                                    </div>
+                                    <div class="messageRight">
+                                        <div class="messAuth">{{ $last5conversations[$x] }}</div>
+                                        <div class="messMess">
+                                            @if($last5conversations[$x+3] == 1)
+                                                <span class="messSeen glyphicon glyphicon-ok"></span>
+                                            @endif
+                                            <div>{{ $last5conversations[$x+2] }}</div>
                                         </div>
-                                        <div class="messageRight">
-                                            <div class="messAuth">{{ $last5conversations[$x] }}</div>
-                                            <div class="messMess">
-                                                @if($last5conversations[$x+3] == 1)
-                                                    <span class="messSeen glyphicon glyphicon-ok""></span>
-                                                @endif
-                                                <div>{{ $last5conversations[$x+2] }}</div>
-                                            </div>
-                                            <div class="messDate">{{ $last5conversations[$x+5] }}</div>
-                                        </div>
-                                    </a></li>
+                                        <div class="messDate">{{ $last5conversations[$x+5] }}</div>
+                                    </div>
+                                    <div style="clear:both;"></div>
+                                    </div>
+                                </li>
                                     <div style="clear:both;"></div>
                             @endfor
                             <li class="divider"></li>
