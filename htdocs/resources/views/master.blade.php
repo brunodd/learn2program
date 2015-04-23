@@ -13,6 +13,8 @@
     </head>
 
     <body>
+
+        
         @include('partials.navbar')
 
         <div class="wrapper">
@@ -37,6 +39,7 @@
             @yield('footer')
             <p>This <strong>CSS Sticky Footer</strong> simply stays put.</p>
             @include('partials.translator')
+            @include('socialmedia.FacebookShare')
         </div>
     </body>
 </html>
