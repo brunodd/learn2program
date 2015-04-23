@@ -167,7 +167,7 @@ function countExercisesBySeries() {
 }
 
 //return a list of pairs, seriesId & the number of users that have successfully completed all the exercises for that serie
-function countUsersSucceededSerie() {
+function countUsersSucceededSeries() {
     return DB::select('select * from
                         (select seriesId, c from
                             (select count(distinct(uId)) as c, seriesId
