@@ -142,6 +142,7 @@ class SeriesController extends Controller {
 	 */
 	public function show($id)
 	{
+        \Session::put('currentSerie', $id);
         $series = loadSerieWithIdOrTitle($id);
         if(empty($series))
         {

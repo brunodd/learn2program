@@ -3,7 +3,7 @@
 function loadExercisesFromSerie($sId)
 {
     return DB::select('select * from exercises, (select * from exercises_in_series where seriesId = ?) eps
-                where exercises.id = eps.exId',
+                where exercises.id = eps.exId order by ex_index',
         [$sId]);
 }
 
@@ -57,15 +57,15 @@ function isMakerOfExercise($eId, $uId)
     return ( !empty(DB::select('select * from exercises where makerId = ? and id = ?', [$uId, $eId])) );
 }
 
-function nextExerciseInLine($eId, $uId)
+function nextExerciseInLine($eId, $uId, $sId)
 {
     return DB::select('select * from exercises_in_series
-                        where ex_index not in
+                        where seriesId = ? and ex_index not in
                             (select ex_index from (exercises_in_series eis) join answers on eis.exId = eId
                                 where eis.seriesId in (select seriesId from exercises_in_series where exId=?) and uId=? and success=1
                                 group by exId)
                         group by exId
-                        order by ex_index', [$eId, $uId]);
+                        order by ex_index', [$sId, $eId, $uId]);
 }
 
 function firstExerciseOfSerie($eId)
@@ -74,10 +74,10 @@ function firstExerciseOfSerie($eId)
     else return false;
 }
 
-function completedAllPreviousExercisesOfSeries($eId, $uId)
+function completedAllPreviousExercisesOfSeries($eId, $uId, $sId)
 {
-    if (in_array($eId, nextExerciseInLine($eId, $uId))) return true;
-    else if( firstExerciseOfSerie($eId) ) return true;
+    if( !empty(nextExerciseInLine($eId, $uId, $sId)) && nextExerciseInLine($eId, $uId, $sId)[0]->exId == $eId ) return true;
+    //else if( firstExerciseOfSerie($eId) ) return true;
     else return userCompletedExercise($eId, $uId);
 }
 

@@ -56,16 +56,37 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercise($id, Auth::id()) )
+        $sId = \Session::get('currentSerie');
+        $series = loadSerieWithIdOrTitleAndExercise($sId, $id);
+        if( empty($series) ) {
+            $series = loadSeriesWithExercise($id);
+            if( count($series) == 1 ) $sId = $series[0]->id;
+            elseif( count($series) > 1 ) return view('series.duplicates', compact('series'));
+            else {
+                flash()->error("Something went horribly wrong. Try reproducing the problem & notify the devs please...")->important();
+                return redirect('/');
+            }
+        }
+        elseif( count($series) == 1 ) $sId = $series[0]->id;
+        elseif( count($series) > 1 ) return view('series.duplicates', compact('series'));
+        else {
+                flash()->error("Something went horribly wrong. Try reproducing the problem & notify the devs please...")->important();
+                return redirect('/');
+        }
+        \Session::get('currentSerie', $sId);
+
+
+        if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
+                                                                        or isMakerOfSeries($sId, Auth::id()) )
         {
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
-		    return view('exercises.show', compact('exercise', 'result', 'answer'));
+		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
         }
         else {
             flash()->error("You must first complete one or more preceding exercises.");
-            $exercise = nextExerciseInLine($id, Auth::id())[0];
+            $exercise = nextExerciseInLine($id, Auth::id(), $sId)[0];
             $result = null;
             $answer = null;
             return redirect('exercises/' . $exercise->exId);
