@@ -22,11 +22,5 @@ function first20chars($string)
 
 function ExNrOfSerie($eId, $sId)
 {
-    $exercises = loadExercisesFromSerie($sId);
-    $index = 1;
-    foreach($exercises as $ex)
-    {
-        if( $ex->id == $eId ) return $index;
-        $index++;
-    }
+    return DB::select('select * from exercises_in_series where exId = ? and seriesId = ?', [$eId, $sId])[0]->ex_index;
 }

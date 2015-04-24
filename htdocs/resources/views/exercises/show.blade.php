@@ -6,7 +6,7 @@
 @stop
 
 @section('title')
-    <em>Exercise {{ $exercise->id }}</em>
+<em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
 
     @if( Auth::check() and isMakerOfExercise($exercise->id, Auth::id()) )
         <br>

@@ -56,16 +56,20 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        if( completedAllPreviousExercisesOfSeries($id, Auth::id()) or isMakerOfExercise($id, Auth::id()) )
+        $sId = loadSerieWithIdOrTitle(\Session::get('currentSerie'));
+        if( !empty($sId) ) $sId = $sId[0]->id;
+        else $sId = loadSeriesWithExercise($id)[0]->id;
+        if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
+                                                                        or isMakerOfSeries($sId, Auth::id()) )
         {
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
-		    return view('exercises.show', compact('exercise', 'result', 'answer'));
+		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
         }
         else {
             flash()->error("You must first complete one or more preceding exercises.");
-            $exercise = nextExerciseInLine($id, Auth::id())[0];
+            $exercise = nextExerciseInLine($id, Auth::id(), $sId)[0];
             $result = null;
             $answer = null;
             return redirect('exercises/' . $exercise->exId);
