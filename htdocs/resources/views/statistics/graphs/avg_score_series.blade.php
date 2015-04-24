@@ -37,7 +37,7 @@
 <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
 <script type="text/javascript">
 $(function () {
-    $('#container_avg_per_series').highcharts({
+    $('#container_avg_score_per_series').highcharts({
             chart: {
             type: 'column'
         },
