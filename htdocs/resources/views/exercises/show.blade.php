@@ -25,6 +25,10 @@
         }
     </script>
 
+    <h3>{{ $exercise->question }}</h3>
+    <p> {{ $exercise->tips }}</p> <br \>
+    <h4>Your code :</h4>
+
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
         @if ( $answer === null )
             <div class="form-group">

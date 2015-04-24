@@ -51,12 +51,14 @@
                 <div class="ttd dd">Difficulty</div>
             </div>
             @foreach($series as $serie)
+            @if( SerieContainsExercises($serie->id) || isMakerOfSeries($serie->id, Auth::id()) )
                 <div class="mix ttr {{ loadType2($serie->tId)[0]->difficulty }}" data-title="{{$serie->title}}" data-rating="{{ loadRatingAsInt($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadDifficultyAsInt($serie->tId) }}" onclick="window.location.href='/series/{{$serie->title}}';">
                     <div class="ttd">{{$serie->title}}</div>
                     <div class="ttd dd">{{ averageRating($serie->id) }}</div>
                     <div class="ttd dd">{{ loadType2($serie->tId)[0]->subject }}</div>
                     <div class="ttd dd">{{ loadType2($serie->tId)[0]->difficulty }}</div>
                 </div>
+            @endif
             @endforeach
         </div>
     </div>
