@@ -42,7 +42,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: "title"
+            text: "Average score per series"
         },
         xAxis: {
             title: {
@@ -54,7 +54,10 @@ $(function () {
             title: {
                 text: 'Average Score (in %)'
             },
-            allowDecimals: false
+            allowDecimals: true
+        },
+        tooltip: {
+            pointFormat: 'Average score over all users: <b>{point.y:.1f} %</b>'
         },
         series: [{
             name: 'Average score per series',

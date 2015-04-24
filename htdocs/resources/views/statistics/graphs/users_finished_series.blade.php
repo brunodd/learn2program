@@ -28,7 +28,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Amount created'
+                text: 'Users'
             },
             allowDecimals: false
         },
