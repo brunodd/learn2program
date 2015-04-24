@@ -71,3 +71,13 @@ function declineFriend($id) {
                        WHERE    id1 = ? AND id2 = ?',
                        [\Auth::id(), min(\Auth::id(), $id), max(\Auth::id(), $id)]);
 }
+
+function loadMyFriends() {
+    return DB::select('SELECT *
+                       FROM users
+                       WHERE id <> ?
+                       AND id IN (SELECT CASE WHEN id1 = ? THEN id2 ELSE id1 END
+                                  FROM friends
+                                  WHERE (id1 = ? OR id2 = ?) AND status = \'accepted\')',
+        [\Auth::id(), \Auth::id(), \Auth::id(), \Auth::id()]);
+}

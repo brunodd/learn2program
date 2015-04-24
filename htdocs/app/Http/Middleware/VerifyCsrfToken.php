@@ -14,6 +14,8 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
+        //TODO: armin, see how to include csrf into ajax request
+        if ($request->path() == "notificationsRead") return $next($request);
 		return parent::handle($request, $next);
 	}
 

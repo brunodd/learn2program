@@ -91,3 +91,10 @@ function storeAnswer($ans)
 {
     DB::insert('insert into answers (given_code, success, uId, eId) values (?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId]);
 }
+
+function loadMyExercises() {
+    return DB::select('SELECT *
+                       FROM exercises
+                       WHERE makerId = ?',
+                       [\Auth::id()]);
+}

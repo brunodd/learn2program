@@ -232,4 +232,9 @@ class UsersController extends Controller {
         flash()->error('Could not decline the request, try again.');
         return redirect('users/' . $id1);
     }
+
+    public function myFriends() {
+        $friends = loadMyFriends();
+        return view('users.my_friends')->with('users', $friends);
+    }
 }

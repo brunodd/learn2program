@@ -149,4 +149,9 @@ class ExercisesController extends Controller {
         return view('exercises.show', compact('exercise', 'result', 'answer'));
     }
 
+    public function myExercises() {
+        $exercises = loadMyExercises();
+        return view('exercises.my_exercises', compact('exercises'));
+    }
+
 }

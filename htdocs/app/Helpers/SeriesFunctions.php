@@ -165,3 +165,10 @@ function loadSeriesWithExercise($eId)
 {
     return DB::select('select * from series join exercises_in_series on id = seriesId where exId = ?', [$eId]);
 }
+
+function loadMySeries() {
+    return DB::select('SELECT *
+                       FROM series
+                       WHERE makerId = ?',
+                       [\Auth::id()]);
+}

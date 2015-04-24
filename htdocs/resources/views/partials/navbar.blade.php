@@ -25,10 +25,10 @@
                 </li-->
 
                 @if (Auth::user())
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" onclick="{{ updateNotificationsToSeen() }}; myScripts.changeElementColor('drop', 'darkgrey')">
+                    <li id="notifclick" class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             @if($unreadNotification)
-                                <span id="drop" class="glyphicon glyphicon-certificate" style="color: red;"></span>
+                                <span id="drop" class="glyphicon glyphicon-certificate" style="color: red;" onclick="myScripts.changeElementColor('drop', 'darkgrey')"></span>
                             @else
                                 <span id="drop" class="glyphicon glyphicon-certificate"></span>
                             @endif
@@ -98,10 +98,10 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">My Series</a></li>
-                            <li><a href="#">My Exercises</a></li>
-                            <li><a href="#">My Friends</a></li>
-                            <li><a href="#">My Groups</a></li>
+                            <li><a href="/my_series">My Series</a></li>
+                            <li><a href="/my_exercises">My Exercises</a></li>
+                            <li><a href="/my_friends">My Friends</a></li>
+                            <li><a href="/my_groups">My Groups</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>
@@ -114,3 +114,11 @@
         </div>
     </div>
 </nav>
+
+<script>
+    jQuery(document).ready( function() {
+        //Clicking on the notifications icon will send an ajax request to set all notifications to seen
+        //TODO: armin, improve function
+        myScripts.ajaxPostNotificationsRead();
+    });
+</script>
