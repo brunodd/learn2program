@@ -172,3 +172,11 @@ function loadMySeries() {
                        WHERE makerId = ?',
                        [\Auth::id()]);
 }
+
+function loadSeriesSearch($s) {
+    return DB::select('SELECT *
+                       FROM series
+                       WHERE title LIKE ?
+                             OR description LIKE ?',
+                       ['%'.$s.'%', '%'.$s.'%']);
+}

@@ -16,13 +16,13 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <!--li>
-                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return myScripts.CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right']) !!}
+                <li>
+                    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@search', 'onsubmit' => "return myScripts.CheckEmptySearchForm('searchword')", 'class' => 'navbar-form navbar-right', 'role' => 'search']) !!}
                         <div class="form-group" >
-                            {!! Form::text('searchword', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off' ]) !!}
+                            {!! Form::text('s', null, ['class' => 'form-control', 'placeholder' => 'Search', 'id' => 'searchword', 'autocomplete' => 'off', 'class' => 'form-control']) !!}
                         </div>
                     {!! Form::close() !!}
-                </li-->
+                <li>
 
                 @if (Auth::user())
                     <li id="notifclick" class="dropdown">

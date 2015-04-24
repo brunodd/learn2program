@@ -128,3 +128,10 @@ function loadMyGroups() {
                                    WHERE memberId = ?)',
                        [\Auth::id()]);
 }
+
+function loadGroupsSeach($s) {
+    return DB::select('SELECT *
+                       FROM groups
+                       WHERE name LIKE ?',
+                       ['%'.$s.'%']);
+}

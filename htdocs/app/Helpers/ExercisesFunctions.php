@@ -98,3 +98,10 @@ function loadMyExercises() {
                        WHERE makerId = ?',
                        [\Auth::id()]);
 }
+
+function loadExercisesSearch($s) {
+    return DB::select('SELECT *
+                       FROM exercises
+                       WHERE question LIKE ?',
+                       ['%'.$s.'%']);
+}

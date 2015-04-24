@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 class SearchController extends Controller {
 
 	public function search(Request $request) {
-        $searchword = $request->searchword;
+        $s = $request->s;
+        $series = loadSeriesSearch($s);
+        $exercises = loadExercisesSearch($s);
+        $users = loadUsersSearch($s);
+        $groups = loadGroupsSeach($s);
 
-        //TODO: sql queries for search
-
-        $results = [ 'searchword' => $request->searchword, 'series' => '', 'exercises' => '', 'users' => '', 'graphs' => ''];
-        return view('pages.search', compact('results'));
+        return view('pages.search', compact('s', 'series', 'exercises', 'users', 'groups'));
     }
 
 }
