@@ -13,6 +13,8 @@
     </head>
 
     <body>
+        @include('partials.navbar')
+
         <div class="wrapper">
 
             <header>
@@ -38,6 +40,8 @@
         <footer>
             @yield('footer')
             @include('partials.translator')
+            @include('socialmedia.FacebookShare')
         </footer>
+        </div>
     </body>
 </html>

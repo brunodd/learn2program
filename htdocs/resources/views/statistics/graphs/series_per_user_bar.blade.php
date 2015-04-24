@@ -21,7 +21,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Created per user'
+            text: 'Contributions per user'
         },
         xAxis: {
             title: {

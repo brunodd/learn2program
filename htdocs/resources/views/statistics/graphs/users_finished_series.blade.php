@@ -13,7 +13,7 @@
 <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
 <script type="text/javascript">
 $(function () {
-    $('#container_succeeded_per_group').highcharts({
+    $('#container_user_finished_per_series').highcharts({
             chart: {
             type: 'column'
         },
@@ -28,7 +28,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Amount created'
+                text: 'Users'
             },
             allowDecimals: false
         },

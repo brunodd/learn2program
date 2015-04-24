@@ -19,25 +19,70 @@ function returnSeriesSameDifficulty($serie) {
                         and types.difficulty = ?',
                         [$serie->title, $difficulty[0]->difficulty]);
 }
-/*
+
 function returnSeriesSameRating($serie) {
     $rating = DB::select('SELECT *
                           FROM series, series_ratings
                           WHERE series.id = series_ratings.seriesId and series.id = ?', [$serie->id]);
-    return !empty(DB::select( 'SELECT *
-                        FROM series, series_ratings 
-                        WHERE series.id = series_ratings.seriesId 
-                        and series.id != ?
-                        and series_ratings.rating = ? ',
-                        [$serie->id, $rating[0]->rating]));
+    
+    if (!empty($rating)) {
+        return DB::select( 'SELECT *
+                            FROM series, series_ratings 
+                            WHERE series.id = series_ratings.seriesId 
+                            and series.id != ?
+                            and series_ratings.rating = ? ',
+                            [$serie->id, $rating[0]->rating]); 
+    } 
+    return DB::select('SELECT *
+                       FROM series
+                       WHERE series.id != series.id');
+  
 }
-*/
+
+function isEmptySeries($serie) {
+    $variable = DB::select('SELECT * 
+                          FROM series, exercises, exercises_in_series
+                          WHERE series.id = exercises_in_series.seriesId
+                          and exercises.id = exercises_in_series.exId
+                          and series.id = ?', [$serie->id]);
+    if (!empty($variable)) {
+            return false;
+    }
+    return true; 
+
+}
+
+function mergeSeries($array1, $array2) {
+  //function array_merge_callback($array1, $array2, $predicate) {
+//    $result = $array1;   //= array();
+    $boolean = false;
+    foreach ($array2 as $item2) {
+        foreach ($array1 as $item1) {
+            if($item1->title == $item2->title and $item1->tId == $item2->tId) {
+              //array_pop($array1);
+              $boolean = true;
+              break;
+            }
+        }
+        if(!$boolean) {
+          array_push($array1, $item2);
+          $boolean = false;
+        }     
+    }
+    return $array1;
+}
+
 function returnRecommendations($serie) {
   $sameMaker = returnSeriesSameMaker($serie);
   $sameDifficulty = returnSeriesSameDifficulty($serie);
-  //$sameRating = returnSeriesSameRating($serie);
+  $sameRating = returnSeriesSameRating($serie);
 
-  $result = $sameDifficulty + $sameMaker;
+  $result = array();
+
+  $result = mergeSeries($result, $sameMaker);
+  $result = mergeSeries($result, $sameRating);
+  $result = mergeSeries($result, $sameDifficulty);
+  //= $sameDifficulty + $sameMaker + $sameRating;
 
   return $result;
 }
