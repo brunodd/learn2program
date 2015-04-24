@@ -56,9 +56,26 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-        $sId = loadSerieWithIdOrTitle(\Session::get('currentSerie'));
-        if( !empty($sId) ) $sId = $sId[0]->id;
-        else $sId = loadSeriesWithExercise($id)[0]->id;
+        $sId = \Session::get('currentSerie');
+        $series = loadSerieWithIdOrTitleAndExercise($sId, $id);
+        if( empty($series) ) {
+            $series = loadSeriesWithExercise($id);
+            if( count($series) == 1 ) $sId = $series[0]->id;
+            elseif( count($series) > 1 ) return view('series.duplicates', compact('series'));
+            else {
+                flash()->error("Something went horribly wrong. Try reproducing the problem & notify the devs please...")->important();
+                return redirect('/');
+            }
+        }
+        elseif( count($series) == 1 ) $sId = $series[0]->id;
+        elseif( count($series) > 1 ) return view('series.duplicates', compact('series'));
+        else {
+                flash()->error("Something went horribly wrong. Try reproducing the problem & notify the devs please...")->important();
+                return redirect('/');
+        }
+        \Session::get('currentSerie', $sId);
+
+
         if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
                                                                         or isMakerOfSeries($sId, Auth::id()) )
         {

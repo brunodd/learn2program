@@ -15,6 +15,14 @@ function loadSerieWithIdOrTitle($id)
     return DB::select('select * from series where id = ? or title = ?', [$id, $id]);
 }
 
+function loadSerieWithIdOrTitleAndExercise($sId, $eId)
+{
+    return DB::select('select * from series where (id = ? or title = ?)
+                                            and id in (select seriesId as id
+                                                        from exercises_in_series
+                                                        where exId = ?)', [$sId, $sId, $eId]);
+}
+
 function loadSerie($title, $tId)
 {
     return DB::select('select * from series where title = ? and tId = ?', [$title, $tId]);

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Multiple series exist for this title
+    Multiple series were found
 @stop
 
 @section('content')
