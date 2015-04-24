@@ -11607,7 +11607,7 @@ var myScripts = (function () {
                 $(".nav #notifclick").click(function() {
                     $.ajax({
                         type: 'POST',
-                        url: 'notificationsRead',
+                        url: 'http://localhost:8000/notificationsRead',
 
                         success: function(data) {
                             console.log('succes', data);

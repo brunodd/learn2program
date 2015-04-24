@@ -114,11 +114,3 @@
         </div>
     </div>
 </nav>
-
-<script>
-    jQuery(document).ready( function() {
-        //Clicking on the notifications icon will send an ajax request to set all notifications to seen
-        //TODO: armin, improve function
-        myScripts.ajaxPostNotificationsRead();
-    });
-</script>
