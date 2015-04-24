@@ -1,35 +1,44 @@
-body, label, .checkbox label {
-  font-weight: 300; }
-
-* {
-  margin: 0; }
-
 html, body {
   margin: 0;
-  padding: 0;
-  height: 100%; }
-
-.wrapper {
-  min-height: 100%;
-  margin: 0 auto -6em; }
-
-.footer, .push {
-  height: 6em;
-  clear: both; }
+  height: 100%;
+  width: 100%; }
 
 body {
   padding-top: 60px; }
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -45px; }
+
+.wrapper:after {
+  content: "";
+  display: block;
+  height: 45px; }
+
+footer {
+  padding-left: 5px;
+  height: 45px; }
 
 .notification {
   width: 386px;
   height: 30px;
   padding: 5px; }
 
+.notification:hover {
+  background-color: #f5f5f5; }
+
+.newnotification {
+  background-color: lightgrey; }
+
+.newnotification:hover {
+  background-color: #f5f5f5; }
+
 .message {
   width: 430px;
   height: 60px;
   font-size: 12px;
-  padding: 4px 0px; }
+  padding: 4px 0px;
+  display: block; }
 
 .message .mya {
   padding: 0 15px; }
@@ -47,7 +56,11 @@ body {
 .message .messageRight {
   width: 335px;
   float: right;
-  direction: ltr; }
+  direction: ltr;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .message img {
   width: 52px;
@@ -74,13 +87,17 @@ body {
   float: left;
   margin: 0 4px 0 0; }
 
+.container-fluid {
+  height: 100%; }
+
 .mmessage {
   width: 97.6%;
-  height: 75%;
-  position: absolute;
+  height: 600px;
   overflow: auto;
   border-radius: 10px;
-  background: #eeeeee; }
+  background: #eeeeee;
+  margin-bottom: 15px;
+  display: block; }
 
 .mmessageLeft {
   border: solid 1px #dedfe2;
@@ -102,7 +119,11 @@ body {
   border-right-color: #dedfe2;
   border-right-style: solid;
   border-right-width: 0px;
-  color: #141823; }
+  color: #141823;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .conversationElem img, .mmessageElem img {
   width: 50px;
@@ -113,6 +134,10 @@ body {
 .conversationElem:hover {
   background: #dedfe2;
   cursor: pointer; }
+
+.conversationElem a:hover {
+  color: #337ab7;
+  text-decoration: none; }
 
 .mmessageRight {
   width: 80%;

@@ -210,6 +210,7 @@ class UsersController extends Controller {
         if (isFriendRequestPending($id)) {
             acceptFriend($id);
 
+            storeNotification($id, 'friend request accepted', \Auth::id());
             flash()->success('You are now friends.');
             return redirect('users/' . $id1);
         }
@@ -223,6 +224,7 @@ class UsersController extends Controller {
         if (isFriendRequestPending($id)) {
             declineFriend($id);
 
+            storeNotification($id, 'friend request declined', \Auth::id());
             flash()->info('You declined the friend request.');
             return redirect('users/' . $id1);
         }

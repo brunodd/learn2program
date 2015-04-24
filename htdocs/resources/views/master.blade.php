@@ -13,9 +13,12 @@
     </head>
 
     <body>
-        @include('partials.navbar')
-
         <div class="wrapper">
+
+            <header>
+                @include('partials.navbar')
+            </header>
+
             <div class="container-fluid">
                 @include('flash::message')
                 <script>
@@ -25,18 +28,16 @@
 
                 <div class="jumbotron">
                     <h1><div class="small">
-                        @yield('title')
-                    </div></h1>
+                            @yield('title')
+                        </div></h1>
                 </div>
                 @yield('content')
             </div>
-            <div class="push"></div>
         </div>
 
-        <div class="footer">
+        <footer>
             @yield('footer')
-            <p>This <strong>CSS Sticky Footer</strong> simply stays put.</p>
             @include('partials.translator')
-        </div>
+        </footer>
     </body>
 </html>

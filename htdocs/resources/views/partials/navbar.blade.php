@@ -37,12 +37,12 @@
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5notifications); $x += 2)
                                 @if($last5notifications[$x + 1] == 0)
-                                    <li  class="notification" style="background-color: lightgrey">
+                                    <li  class="notification newnotification">
                                 @else
                                     <li class="notification">
                                 @endif
                                 <!-- onclick="window.location.href='';"-->
-                                <div onMouseOver="this.style.backgroundColor='rgba(0, 0, 0, .05)'" onMouseOut="this.style.backgroundColor='#fff'">
+                                <div>
                                     <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
                                 </div>
                                 </li>

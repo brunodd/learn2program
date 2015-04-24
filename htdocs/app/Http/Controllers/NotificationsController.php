@@ -52,15 +52,24 @@ class NotificationsController extends Controller {
         $notifications = array();
 
         foreach($noti as $notification) {
+            $username = loadUser($notification->object_id)[0]->username;
+
             switch($notification->type) {
                 case "friend request":
-                    $username = loadUser($notification->object_id)[0]->username;
-
                     $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has sent you a friend request.') );
-                    array_push($notifications, $notification);
+                    break;
+
+                case "friend request accepted":
+                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has accepted your friend request.') );
+                    break;
+
+                case "friend request declined":
+                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has declined your friend request.') );
                     break;
             }
+            array_push($notifications, $notification);
         }
+
         return $notifications;
     }
 }

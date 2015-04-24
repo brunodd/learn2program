@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+
     <div class="mmessage">
         <div class="mmessageLeft">
 
@@ -48,7 +49,7 @@
                             </div>
                             <div style="clear:both;"></div>
                             <div class="mmessageMessage">
-                                <p style="margin: 0;">{!! $message->message !!}</p>
+                                <p style="margin: 0;">{!! nl2br($message->message) !!}</p>
                                 @if($message->seen == 1) <!-- TODO: if($message->seen) -->
                                     <span class="glyphicon glyphicon-ok"> <small>Seen</small></span>
                                 @endif
@@ -73,7 +74,7 @@
             @endif
         </div>
     </div>
-
+    <div style="clear:both;"></div>
 
     <script>
         $('document').ready(function () {
