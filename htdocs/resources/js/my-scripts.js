@@ -48,7 +48,7 @@ var myScripts = (function () {
             /*document.getElementById(id).removeClass("active");*/
             if (id.search(1) > -1) {
                 document.getElementById(id.replace('1', '2')).removeAttribute("hidden");
-                document.getElementById(id.replace('1', '2')).addClass("active");
+                //document.getElementById(id.replace('1', '2')).addClass("active");
             } else {
                 document.getElementById(id.replace('2', '1')).removeAttribute("hidden");
                 /*document.getElementById(s.replace('2', '1')).addClass("active");*/
@@ -66,12 +66,33 @@ var myScripts = (function () {
                         console.log(state)
                     }
                 },
+                controls: {
+                    activeClass: 'derp'
+                },
                 layout: {
                     display: 'block'
                 },
-                controls: {
-                    activeClass: 'derp'
+                load: {
+                    sort: 'title:asc'
                 }
+            });
+        },
+
+        ajaxPostNotificationsRead: function() {
+            $(function (){
+                $(".nav #notifclick").click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8000/notificationsRead',
+
+                        success: function(data) {
+                            console.log('succes', data);
+                        },
+                        error: function(data) {
+                            console.log('fail', data);
+                        }
+                    });
+                });
             });
         }
     }

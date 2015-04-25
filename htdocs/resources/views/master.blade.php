@@ -13,23 +13,16 @@
     </head>
 
     <body>
-        @include('partials.navbar')
-
         <div class="wrapper">
-
             <header>
                 @include('partials.navbar')
             </header>
 
             <div class="container-fluid">
                 @include('flash::message')
-                <script>
-                    myScripts.doModal();
-                    myScripts.alertSlideUp();
-                </script>
 
                 <div class="jumbotron">
-                    <h1><div class="small">
+                    <h1><div id="pieceofshit5" class="small">
                             @yield('title')
                         </div></h1>
                 </div>
@@ -42,6 +35,15 @@
             @include('partials.translator')
             @include('socialmedia.FacebookShare')
         </footer>
-        </div>
+
+        <script>
+            myScripts.doModal();
+            myScripts.alertSlideUp();
+            jQuery(document).ready( function() {
+                //Clicking on the notifications icon will send an ajax request to set all notifications to seen
+                //TODO: armin, improve function
+                myScripts.ajaxPostNotificationsRead();
+            });
+        </script>
     </body>
 </html>

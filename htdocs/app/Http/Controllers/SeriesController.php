@@ -355,4 +355,9 @@ class SeriesController extends Controller {
     {
         //TODO: Allow users to update their rating in case they change their mind or series get updated
     }
+
+    public function mySeries() {
+        $series = loadMySeries();
+        return view('series.my_series', compact('series'));
+    }
 }

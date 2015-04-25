@@ -22,6 +22,7 @@ Route::get('list_all_users', 'UsersController@list_all_users'); // For Developme
 Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For Development mode - check content of messages table.
 Route::get('search', 'SearchController@search');
 Route::get('notifications', 'NotificationsController@index'); //TODO: don't forget, armin
+Route::post('notificationsRead', 'NotificationsController@setNotificationsToRead');
 
 Route::get('code', 'PagesController@code'); //can be removed??
 
@@ -33,6 +34,7 @@ Route::post('users/{id}/addFriend', 'UsersController@addFriend');
 Route::post('users/{id}/removeFriend', 'UsersController@removeFriend');
 Route::post('users/{id}/acceptFriend', 'UsersController@acceptFriend');
 Route::post('users/{id}/declineFriend', 'UsersController@declineFriend');
+Route::get('my_friends', 'UsersController@myFriends');
 
 
 Route::resource('series', 'SeriesController');
@@ -51,6 +53,7 @@ Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
 Route::post('series/{id}/referenceexercise', 'SeriesController@storeReference');
 Route::post('series/{id}/copyexercise', 'SeriesController@storeCopy');
+Route::get('my_series', 'SeriesController@mySeries');
 
 
 Route::resource('groups', 'GroupsController');
@@ -62,10 +65,12 @@ Route::get('groupsSortedByMCASC', 'GroupsController@indexSortedByMCASC');
 Route::get('groupsSortedByNameDESC', 'GroupsController@indexSortedByNameDESC');
 Route::get('groupsSortedByFounderDESC', 'GroupsController@indexSortedByFounderDESC');
 Route::get('groupsSortedByMCDESC', 'GroupsController@indexSortedByMCDESC');
+Route::get('my_groups', 'GroupsController@myGroups');
 
 
 Route::resource('exercises', 'ExercisesController');
 Route::post('exercises/{id}/storeAnswer', 'ExercisesController@storeAnswer');
+Route::get('my_exercises', 'ExercisesController@myExercises');
 
 
 Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);

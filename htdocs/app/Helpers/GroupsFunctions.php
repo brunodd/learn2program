@@ -119,3 +119,19 @@ function loadAllGroupsSortedByMCDESC()
 {
     return MyGroupsSort(0);
 }
+
+function loadMyGroups() {
+    return DB::select('SELECT *
+                       FROM groups
+                       WHERE id IN (SELECT DISTINCT groupId
+                                   FROM members_of_groups
+                                   WHERE memberId = ?)',
+                       [\Auth::id()]);
+}
+
+function loadGroupsSeach($s) {
+    return DB::select('SELECT *
+                       FROM groups
+                       WHERE name LIKE ?',
+                       ['%'.$s.'%']);
+}

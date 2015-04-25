@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Guzzle\Http\Message\Response;
 use Illuminate\Http\Request;
 
 class NotificationsController extends Controller {
@@ -71,5 +72,12 @@ class NotificationsController extends Controller {
         }
 
         return $notifications;
+    }
+
+    public function setNotificationsToRead() {
+        updateNotificationsToSeen();
+        $response = array('message' => 'notifications set to read');
+
+        return response()->json($response);
     }
 }

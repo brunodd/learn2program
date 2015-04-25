@@ -173,4 +173,9 @@ class ExercisesController extends Controller {
         return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
     }
 
+    public function myExercises() {
+        $exercises = loadMyExercises();
+        return view('exercises.my_exercises', compact('exercises'));
+    }
+
 }

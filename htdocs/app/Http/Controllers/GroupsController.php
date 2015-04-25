@@ -215,4 +215,9 @@ class GroupsController extends Controller {
             return redirect('groups/' . $id);
         }
     }
+
+    public function myGroups() {
+        $groups = loadMyGroups();
+        return view('groups.my_groups', compact('groups'));
+    }
 }
