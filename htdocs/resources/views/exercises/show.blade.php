@@ -53,6 +53,11 @@
                         || isMakerOfExercise(nextExerciseOfSerie($exercise->id, Session::get('currentSerie'))[0]->id, Auth::id())) )
                     <a href="/exercises/{{ nextExerciseOfSerie($exercise->id, Session::get('currentSerie'))[0]->id }}"
                         class="btn btn-primary">Next exercise</a>
+                @elseif( empty(nextExerciseOfSerie($exercise->id, Session::get('currentSerie')))
+                        && (userCompletedExercise($exercise->id, Auth::id())
+                        || isMakerOfSeries(Session::get('currentSerie'), Auth::id())))
+                    <a href="/series/"
+                        class="btn btn-primary">Finished series</a>
                 @endif
             </div>
 
@@ -66,7 +71,7 @@
         </script>
     @endif
 
-    @if ( userCompletedExercise($exercise->id, Auth::id()) && $exercise->expected_result != "*")
+    {{-- @if ( userCompletedExercise($exercise->id, Auth::id()) && $exercise->expected_result != "*") --}}
             <pre>Expected output : {{ $exercise->expected_result }}</pre>
-    @endif
+    {{-- @endif --}}
 @stop

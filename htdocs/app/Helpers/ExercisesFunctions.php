@@ -96,8 +96,9 @@ function nextExerciseOfSerie($eId, $sId)
     return DB::select('select * from exercises
                         where id in (select exId as id from exercises_in_series
                                         where (ex_index-1) in (select ex_index from exercises_in_series
-                                                                where exId=? and seriesId=?))
-                        group by id', [$eId, $sId]);
+                                                                where exId=? and seriesId=?)
+                                        and seriesId = ?)
+                        group by id', [$eId, $sId, $sId]);
 }
 
 function nextExerciseInLine($eId, $uId, $sId)
