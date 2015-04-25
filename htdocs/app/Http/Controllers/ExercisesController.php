@@ -149,9 +149,6 @@ class ExercisesController extends Controller {
         $ans = new Answer;
         $ans->given_code = $input['given_code'];
 
-        //something fishy happens here with the strings, hence the self written compare function
-        //must test situations where output is shown on multiple lines!
-        //ask raphael for more details!
         if($exercise->expected_result == '*') {
             $ans->success = true;
         }
@@ -163,11 +160,21 @@ class ExercisesController extends Controller {
                 // dd("true");
                 $ans->success = true;
             }
+            //something fishy happens here with the strings, hence the self written compare function
+            //must test situations where output is shown on multiple lines!
+            //ask raphael for more details!
+            elseif (compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)))) {
+                $ans->success = true;
+            }
             else {
                 // dd("false");
                 $ans->success = false;
             }
         }
+
+        //something fishy happens here with the strings, hence the self written compare function
+        //must test situations where output is shown on multiple lines!
+        //ask raphael for more details!
         // $ans->success = compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)));
         $ans->uId = Auth::id();
         $ans->eId = $id;

@@ -11,7 +11,7 @@ class ExercisesTableSeeder extends Seeder {
 
 
         Exercise::create([
-            'question' => 'Execute this code 1',
+            'question' => 'Print \'Hello, world\'.',
             'tips' => 'Click the button',
             'start_code' =>
                 'print("Hello, world")',
@@ -20,68 +20,56 @@ class ExercisesTableSeeder extends Seeder {
             'makerId' => 1]);
 
         Exercise::create([
-            'question' => 'Execute this code 2',
-            'tips' => 'Click the button',
-            'start_code' =>
-'name = ""
-print("Hello, " + name)',
-            'expected_result' => 'Hello, [A-Za-z]+',
-            'makerId' => 1]);
+            'question' => 'Print \'Hello, \'*your name*.',
+            'tips' => '',
+            'start_code' => 'print("")',
+            'expected_result' => 
+'[hH]ello, [A-Za-z]+',
+            'makerId' => 1
+        ]);
 
         Exercise::create([
-            'question' => 'Execute this code 3',
-            'tips' => 'Click the button',
-            'start_code' =>
-'import turtle
-
-alex = turtle.Turtle()
-screen = alex.getscreen()
-screen.setup(750,750)
-alex.speed(0)
-
-def draw_track(r, color):
-    i = 0
-    while i < 50:
-        alex.pencolor(color)
-        alex.circle(r)
-        alex.right(360/49)
-        alex.forward(5)
-        i = i + 1
-
-colors = ["green","purple","magenta","blue","yellow","orange","red"]
-
-for color in colors:
-    if color == "green":
-        r = 140
-        draw_track(r, color)
-    if color == "purple":
-        r = 120
-        draw_track(r, color)
-    if color == "magenta":
-        r = 100
-        draw_track(r, color)
-    if color == "blue":
-        r = 80
-        draw_track(r, color)
-    if color == "yellow":
-        r = 60
-        draw_track(r, color)
-    if color == "orange":
-        r = 40
-        draw_track(r, color)
-    if color == "red":
-        r = 20
-        draw_track(r, color)
-',
-            'expected_result' => '*',
-            'makerId' => 2]);
+            'question' => 'Using multiple variables.',
+            'tips' => 'Take the sentence \'All work and no play makes Jack a dull boy\' and store each word in a seperate variable. Print the sentence on a single line.',
+            'start_code' => '"All work and no play makes Jack a dull boy"',
+            'expected_result' => 
+'All work and no play makes Jack a dull boy',
+            'makerId' => 2
+        ]);
 
         Exercise::create([
-            'question' => 'Question for series example 4',
-            'tips' => 'None',
-            'start_code' =>
-'Some code...',
-            'expected_result' => 'Anything',
-            'makerId' => 3]);
+            'question' => 'Add parenthesis to the expression 6 * 1 - 2 to change its value from 4 to -6.',
+            'tips' => 'Learn your basic maths!',
+            'start_code' => 
+'result = 6 * 1 - 2
+print(result)',
+            'expected_result' => 
+'-6',
+            'makerId' => 2
+        ]);
+
+        Exercise::create([
+            'question' => 'Create a function nine_dots(), using the function three_dots().',
+            'tips' => 'You can concatenate string with the \'+\'-operator.',
+            'start_code' => 
+'def three_dots():
+    value = "..."
+    return value
+
+print(nine_dots())',
+            'expected_result' =>
+'.........',
+            'makerId' => 2
+        ]);
+
+//         Exercise::create([
+//             'question' => '',
+//             'tips' => '',
+//             'start_code' => '',
+//             'expected_result' => 
+// '',
+//             'makerId' => 2
+//         ]);
+
     }
 }

@@ -42,7 +42,7 @@
 
         @if ( Auth::check() )
             <div class="form-group">
-                {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly', 'hidden']) !!}
+                {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
             </div>
 
             <div class="form-group">
@@ -71,7 +71,5 @@
         </script>
     @endif
 
-    {{-- @if ( userCompletedExercise($exercise->id, Auth::id()) && $exercise->expected_result != "*") --}}
             <pre>Expected output : {{ $exercise->expected_result }}</pre>
-    {{-- @endif --}}
 @stop
