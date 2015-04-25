@@ -47,6 +47,13 @@
 
             <div class="form-group">
                 {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' => 'Run()']) !!}
+                @if( !empty(nextExerciseOfSerie($exercise->id, Session::get('currentSerie')))
+                        && (userCompletedExercise($exercise->id, Auth::id())
+                        || isMakerOfSeries(Session::get('currentSerie'), Auth::id())
+                        || isMakerOfExercise(nextExerciseOfSerie($exercise->id, Session::get('currentSerie'))[0]->id, Auth::id())) )
+                    <a href="/exercises/{{ nextExerciseOfSerie($exercise->id, Session::get('currentSerie'))[0]->id }}"
+                        class="btn btn-primary">Next exercise</a>
+                @endif
             </div>
 
             <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>

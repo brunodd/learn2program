@@ -91,6 +91,15 @@ function isMakerOfExercise($eId, $uId)
     return ( !empty(DB::select('select * from exercises where makerId = ? and id = ?', [$uId, $eId])) );
 }
 
+function nextExerciseOfSerie($eId, $sId)
+{
+    return DB::select('select * from exercises
+                        where id in (select exId as id from exercises_in_series
+                                        where (ex_index-1) in (select ex_index from exercises_in_series
+                                                                where exId=? and seriesId=?))
+                        group by id', [$eId, $sId]);
+}
+
 function nextExerciseInLine($eId, $uId, $sId)
 {
     return DB::select('select * from exercises_in_series
