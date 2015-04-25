@@ -152,7 +152,18 @@ class ExercisesController extends Controller {
         //something fishy happens here with the strings, hence the self written compare function
         //must test situations where output is shown on multiple lines!
         //ask raphael for more details!
-        $ans->success = compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)));
+        $rule = "/" . $exercise->expected_result . "/";
+        // dd($rule);
+        // if(preg_match("/Hello, world/", $input['result'])) { //     dd("true");
+        if(preg_match($rule, $input['result'])) {
+            // dd("true");
+            $ans->success = true;
+        }
+        else {
+            // dd("false");
+            $ans->success = false;
+        }
+        // $ans->success = compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)));
         $ans->uId = Auth::id();
         $ans->eId = $id;
 

@@ -25,7 +25,7 @@ class ExercisesTableSeeder extends Seeder {
             'start_code' =>
 'name = ""
 print("Hello, " + name)',
-            'expected_result' => 'Hello, *your name*',
+            'expected_result' => 'Hello, [A-Za-z]+',
             'makerId' => 1]);
 
         Exercise::create([
