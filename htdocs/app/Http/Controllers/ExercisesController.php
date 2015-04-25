@@ -23,7 +23,9 @@ class ExercisesController extends Controller {
 	 */
 	public function index()
 	{
-		$exercises = loadAllExercises();
+		$exercises = [];
+        if( Auth::check() ) $exercises = loadAllAccessableExercises(Auth::id());
+        else $exercises = loadAllFirstExercises();
 		return view('exercises.home', compact('exercises'));
 	}
 
@@ -73,7 +75,7 @@ class ExercisesController extends Controller {
                 flash()->error("Something went horribly wrong. Try reproducing the problem & notify the devs please...")->important();
                 return redirect('/');
         }
-        \Session::get('currentSerie', $sId);
+        \Session::put('currentSerie', $sId);
 
 
         if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
@@ -167,7 +169,8 @@ class ExercisesController extends Controller {
         $result = $input['result'];
         $answer = $input['given_code'];
         // TODO: return redirect('exercises/' . $id);
-        return view('exercises.show', compact('exercise', 'result', 'answer'));
+        $sId = \Session::get('currentSerie');
+        return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
     }
 
 }

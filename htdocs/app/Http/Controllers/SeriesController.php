@@ -37,6 +37,7 @@ class SeriesController extends Controller {
 	 */
 	public function index()
 	{
+        \Session::forget('currentSerie');
         $series = loadAllDistinctSeries();
 		return view('series.home', compact('series'));
 	}

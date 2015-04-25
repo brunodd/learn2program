@@ -47,6 +47,40 @@ function loadAllExercises()
     return DB::select('select * from exercises');
 }
 
+function loadAllAccessableExercises($uId)
+{
+    return DB::select('select * from exercises
+                        where id in (select exId as id
+                                        from exercises_in_series
+                                        where ex_index = 1)
+                        group by id
+                       union
+                        select * from exercises where makerId = ?
+                       union
+                        select * from exercises
+                        where id in
+                            (select exId as id
+                                from exercises_in_series join answers on exId = eId
+                                where uId = ? and success = 1)
+                        or id in
+                            (select exId as id from exercises_in_series
+                                where (ex_index-1) in
+                                    (select ex_index
+                                        from exercises_in_series join answers on exId = eId
+                                        where uId = ? and success = 1))
+                        group by id', [$uId, $uId, $uId]);
+}
+
+//Especially for guests
+function loadAllFirstExercises()
+{
+    return DB::select('select * from exercises
+                        where id in (select exId as id
+                                        from exercises_in_series
+                                        where ex_index = 1)
+                        group by id');
+}
+
 function loadExercise($id)
 {
     return DB::select('select * from exercises where id = ?', [$id]);
@@ -77,7 +111,7 @@ function firstExerciseOfSerie($eId)
 function completedAllPreviousExercisesOfSeries($eId, $uId, $sId)
 {
     if( !empty(nextExerciseInLine($eId, $uId, $sId)) && nextExerciseInLine($eId, $uId, $sId)[0]->exId == $eId ) return true;
-    //else if( firstExerciseOfSerie($eId) ) return true;
+    else if( firstExerciseOfSerie($eId) ) return true;
     else return userCompletedExercise($eId, $uId);
 }
 
