@@ -152,7 +152,7 @@ class ExercisesController extends Controller {
         //something fishy happens here with the strings, hence the self written compare function
         //must test situations where output is shown on multiple lines!
         //ask raphael for more details!
-        if($exercise->expected_result = '*') {
+        if($exercise->expected_result == '*') {
             $ans->success = true;
         }
         else {
