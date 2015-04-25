@@ -66,9 +66,7 @@
         </script>
     @endif
 
-    @if ( userCompletedExercise($exercise->id, Auth::id()) )
-        @if ( $exercise->expected_result != "*")
+    @if ( userCompletedExercise($exercise->id, Auth::id()) && $exercise->expected_result != "*")
             <pre>Expected output : {{ $exercise->expected_result }}</pre>
-        @endif
     @endif
 @stop
