@@ -73,7 +73,7 @@ for color in colors:
         r = 20
         draw_track(r, color)
 ',
-            'expected_result' => 'A drawing',
+            'expected_result' => '*',
             'makerId' => 2]);
 
         Exercise::create([
