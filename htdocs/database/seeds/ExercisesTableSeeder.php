@@ -75,13 +75,5 @@ for color in colors:
 ',
             'expected_result' => '*',
             'makerId' => 2]);
-
-        Exercise::create([
-            'question' => 'Question for series example 4',
-            'tips' => 'None',
-            'start_code' =>
-'Some code...',
-            'expected_result' => 'Anything',
-            'makerId' => 3]);
     }
 }

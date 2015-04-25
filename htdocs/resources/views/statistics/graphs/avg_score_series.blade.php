@@ -31,7 +31,7 @@
             // Again, length of $total & $avgs SHOULD BE THE SAME!
             for( $i=0; $i < count($avgs); $i++ ) {
                 if( $total[$i]->seriesId == $avgs[$i]->seriesId && $total[$i]->c > 0 ) {
-                    $avgs[$i]->c = $avgs[$i]->c / ($total[$i]->c * count($users));
+                    $avgs[$i]->c = $avgs[$i]->c / count($users);
                 }
                 elseif( $total[$i]->seriesId == $avgs[$i]->seriesId && $total[$i]->c == 0 ) $avgs[$i]->c = -1;
             }
