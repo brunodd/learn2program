@@ -3,15 +3,28 @@
     $total = countExercisesBySeries();
     $users = loadusers();
     if( count($users) > 0 ) {
-        $avgs = countUserSucceededExercisesBySeries($users[0]->id);
+        $avgs = countUserSucceededExercisesBySeries($users[1]->id);
+        // dd($avgs);
         if( count($avgs) > 0 ) {
             for( $i = 1; $i < count($users); $i++ ) {
                  $userScores = countUserSucceededExercisesBySeries($users[$i]->id);
+                 // dd($userScores);
+                 foreach ($userScores as $singleScore) {
+                     // singleScore->c = 0 <= c <= 1 -> to be converterd in % 
+                     // later on
+                     if($singleScore->c != 0) {
+                        $singleScore->c /= countExercisesInSeries($singleScore->seriesId)[0]->c;
+                     }
+                 }
+                 // dd($userScores);
                  // Length of $userScores & $avgs SHOULD BE THE SAME! Otherwise something must have gone horribly wrong
                  for( $j=0; $j < count($avgs); $j++ ) {
                     // Again a "useless" safety check since this should allways match
                     if( $avgs[$j]->seriesId == $userScores[$j]->seriesId ) {
                         $avgs[$j]->c += $userScores[$j]->c;
+                     }
+                     else {
+                         dd("Shit");
                      }
                  }
             }

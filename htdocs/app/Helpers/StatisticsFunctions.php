@@ -195,10 +195,17 @@ function countUsersSucceededSeries() {
                         group by seriesId');
 }
 
-//returns a list of pairs, seriesId & the number of exercises successfully completed for that serie for the given user
+function countExercisesInSeries($seriesId) {
+    return DB::select('select count(distinct(exId)) as c
+                        from exercises_in_series eis
+                        where eis.seriesId = ?',
+                        [$seriesId]);
+}
+
+// returns a list of pairs, seriesId & the number of exercises successfully completed for that serie for the given user
 function countUserSucceededExercisesBySeries($uId) {
-    return DB::select('select * from
-                        (select seriesId, count(exId) as c
+    return DB::select('select seriesId, c from
+                        (select seriesId, count(distinct(exId)) as c
                           from exercises_in_series join answers on eId=exId
                           where success = 1 and uId = ?
                           group by seriesId
@@ -209,6 +216,32 @@ function countUserSucceededExercisesBySeries($uId) {
                                where success=1 and eId=exId and uId=?)
                         union
                          select id as seriesId, 0 as c from series
-                          where id not in (select seriesId as id from exercises_in_series)) agg
+                          where id not in (select seriesId as id from exercises_in_series)
+                      ) agg
                        group by seriesId', [$uId, $uId]);
 }
+
+// function countUserSucceededExercisesBySeries($uId) {
+//     return DB::select('select * from 
+//                     (select seriesId, count(distinct(exId)) as c
+//                         from exercises_in_series eis, answers
+//                         where answers.eId = eis.exId
+//                             and answers.success = 1
+//                             and answers.uId = ?
+//                     union
+//                         select seriesId, 0 as c
+//                         from exercises_in_series eis2
+//                         where exId not in
+//                             (select eId as exId
+//                             from answers
+//                             where success = 1
+//                                 and eId = exId
+//                                 and uId = ?
+//                             )
+//                     union
+//                         select id as seriesId, 0 as c from series
+//                         where id not in (select seriesId as id from exercises_in_series)
+//                     ) agg
+//                     group by seriesId', 
+//                         [$uId, $uId]);
+// }

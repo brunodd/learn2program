@@ -24,9 +24,6 @@ $(function () {
         title: {
             text: "Average rating per series"
         },
-        subtitle: {
-            text: "<i>(Unrated series are not listed in the graph.)</i>"
-        },
         xAxis: {
             title: {
                 text: 'Series'
