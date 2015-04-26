@@ -1,8 +1,10 @@
 filteren op type: ok
 
-grafieken nog laten zien:
+grafieken nog laten zien: ok
     data per reeks: #gebruikers die de reeks hebben voltooid, gemmidelde resultaat
 
 resultaten overzicht krijgen per reeks, inclusief welke vragen juist of fout waren.
 
 resultaten delen tussen vrienden
+
+leden van een groep laten zien.
