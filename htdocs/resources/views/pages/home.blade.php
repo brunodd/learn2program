@@ -4,6 +4,18 @@
     Home page
 @stop
 
+
+@section('head')
+@include('web.homepagehead')
+@stop
+
+@section('content')
+@include('web.homepagebody')
+@stop
+
+<!--
+
+
 @section('content')
     <h2>Welcome to Learn2Program</h2>
 
@@ -20,4 +32,4 @@
             <a href="/register"><h3>Create a new user</h3></a>
         </ul>
     @endif
-@stop
+@stop-->
