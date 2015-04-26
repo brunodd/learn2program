@@ -3,6 +3,12 @@
 @section('head')
     <script src="/js/mixitup.js"></script>
     <link rel="stylesheet" href="/css/sortingAndFiltering.css">
+
+    <style>
+        .dd {
+            float: right;
+        }
+    </style>
 @stop
 
 @section('title')
@@ -27,14 +33,14 @@
         <div class="series" id="mix-wrapper">
             <div class="ttr" id="tr1">
                 <div class="ttd">Name</div>
-                <div class="ttd dd">Founder</div>
                 <div class="ttd dd">Member Count</div>
+                <div class="ttd dd">Founder</div>
             </div>
             @foreach($groups as $group)
                 <div class="mix ttr" data-name="{{ $group->name }}" data-founder="{{ loadUser($group->founderId)[0]->username }}" data-memberc="{{ count(listUsersOfGroup($group->id)) }}" onclick="window.location.href='/groups/{{$group->name}}';">
                     <div class="ttd">{{ $group->name }}</div>
-                    <div class="ttd dd">{{ loadUser($group->founderId)[0]->username }}</div>
                     <div class="ttd dd">{{ count(listUsersOfGroup($group->id)) }}</div>
+                    <div class="ttd dd">{{ loadUser($group->founderId)[0]->username }}</div>
                 </div>
             @endforeach
         </div>

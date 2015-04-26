@@ -36,6 +36,8 @@
             <button class="sort" data-sort="random">Random</button>
         </div>
         <div style="clear: both"></div>
+    </div>
+    <div class="container">
 
         <div class="series" id="mix-wrapper">
             <div class="ttr" id="tr1">

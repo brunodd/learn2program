@@ -1,8 +1,8 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                <span class="glyphicon glyphicon-heart"></span> Learn2Program
+                <span class="glyphicon glyphicon-heart"></span> <b>Learn2Program</b>
             </a>
         </div>
 
@@ -26,14 +26,12 @@
 
                 @if (Auth::user())
                     <li id="notifclick" class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            @if($unreadNotification)
-                                <span id="drop" class="glyphicon glyphicon-certificate" style="color: red;" onclick="myScripts.changeElementColor('drop', 'darkgrey')"></span>
-                            @else
-                                <span id="drop" class="glyphicon glyphicon-certificate"></span>
-                            @endif
+                        @if($unreadNotification)
+                            <a href="" id="drop" class="dropdown-toggle glyphicon glyphicon-certificate" data-toggle="dropdown" role="button" style="color: red;" onclick="myScripts.changeElementColor('drop', 'darkgrey')"></a>
+                        @else
+                            <a href="" id="drop" class="dropdown-toggle glyphicon glyphicon-certificate" data-toggle="dropdown" role="button"></a>
+                        @endif
 
-                        </a>
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5notifications); $x += 2)
                                 @if($last5notifications[$x + 1] == 0)
@@ -53,13 +51,11 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            @if($unreadMessage)
-                                <span class="glyphicon glyphicon-envelope" style="color: red;"></span>
-                            @else
-                                <span class="glyphicon glyphicon-envelope"></span>
-                            @endif
-                        </a>
+                        @if($unreadMessage)
+                            <a href="" class="dropdown-toggle glyphicon glyphicon-envelope" data-toggle="dropdown" role="button" style="color: red;"></a>
+                        @else
+                            <a href="" class="dropdown-toggle glyphicon glyphicon-envelope" data-toggle="dropdown" role="button"></a>
+                        @endif
                         <ul class="dropdown-menu" role="menu">
                             @for($x = 0; $x < sizeof($last5conversations); $x += 6)
                                 <li class="message">

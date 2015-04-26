@@ -3,10 +3,62 @@ html, body {
   height: 100%;
   width: 100%;
 }
+/*
+#CFF09E;
+#A8DBA8;
+#79BD9A;
+#3B8686;
+#0B486B;
+*/
+.navbar {
+  color: white;
+  background-color: #0b3557;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.nav > li > a {
+  color: white;
+}
+
+.nav > li > a {
+  margin: 10px 10px 0;
+  padding: 5px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  color: #0B486B;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.nav > li > a:hover > .glyphicon:hover {
+  color: #0B486B;
+}
 
 body {
   background: url(/images/cream_dust.png) repeat 0 0;
   padding-top: 60px;
+}
+/*
+body::after {
+  content: "";
+  background: url(/images/cream_dust.png) repeat 0 0;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+*/
+.jumbotron {
+  color: white;
+  background-color: #3B8686;
 }
 
 .wrapper {
@@ -28,6 +80,7 @@ footer {
 //Navigation bar
 
 .notification {
+  color: black;
   width: 386px;
   height: 30px;
   padding: 5px;
