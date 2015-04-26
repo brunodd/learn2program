@@ -26,15 +26,11 @@
         <!-- 3. Add the container -->
         <div id="container_created_per_user" style="width: 600px; height: 400px; margin: 0 auto"></div>
         <hr>
-        <hr>
         <div id="container_pie_example" style="width: 600px; height: 400px; margin: 0 auto"></div>
-        <hr>
         <hr>
         <div id="container_user_finished_per_series" style="width: 600px; height: 400px; margin: 0 auto"></div>
         <hr>
-        <hr>
         <div id="container_avg_score_per_series" style="width: 600px; height: 400px; margin: 0 auto"></div>
-        <hr>
         <hr>
         <div id="container_avg_rating_per_series" style="width: 600px; height: 400px; margin: 0 auto"></div>
 

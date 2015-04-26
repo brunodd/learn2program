@@ -10,10 +10,6 @@
 @stop
 
 @section('content')
-    <h2>List of all series:</h2>
-
-    <hr/>
-
     <div class="container">
         <h4>Filter on</h4>
 
