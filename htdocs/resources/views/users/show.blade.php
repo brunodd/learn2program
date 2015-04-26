@@ -1,11 +1,31 @@
 @extends('master')
 
+@section('head')
+    <style>
+        .profileheader {
+            float: left;
+            padding: 5px;
+        }
+
+        .profileheader img {
+            width:50px;
+            height:50px;
+            float:left;
+            margin-right: 5px;
+        }
+    </style>
+@stop
+
 @section('title')
-    <em>{{ $user->username }}'s</em> main page
+    <div class="profileheader">
+        <img src="/images/users/{{ $user->image }}" alt="Profile Picture">
+        <b><em>{{ $user->username }}</em></b>
+    </div>
+
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <br>
-        <small><a href="{{ action('UsersController@edit', $user->username )}}">Edit</a></small>
+        <div style="float: right"><a href="{{ action('UsersController@edit', $user->username )}}">Edit</a></div>
     @endif
+    <div style="clear: both;"></div>
 @stop
 
 @section('content')

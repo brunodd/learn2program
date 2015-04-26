@@ -10,10 +10,6 @@
 @stop
 
 @section('content')
-    <h2>List of all series:</h2>
-
-    <hr/>
-
     <div class="container">
         <h4>Filter on</h4>
 
@@ -41,8 +37,6 @@
         </div>
         <div style="clear: both"></div>
 
-        <h5>Series</h5>
-
         <div class="series" id="mix-wrapper">
             <div class="ttr" id="tr1">
                 <div class="ttd">Title</div>
@@ -67,10 +61,6 @@
         myScripts.initializeMixItUp();
     </script>
 
-    @if ( Auth::check() )
-        <h2><a href="series/create">Create new series</a></h2>
-    @else
-        <h2><a href="/login">User login</a></h2>
-    @endif
-
+    <div style="height: 50px;"></div>
+    <h3><a href="series/create">Create new series</a></h3>
 @stop

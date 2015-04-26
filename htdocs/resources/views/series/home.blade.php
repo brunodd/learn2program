@@ -6,14 +6,10 @@
 @stop
 
 @section('title')
-    Series home page
+    Series
 @stop
 
 @section('content')
-    <h2>List of all series:</h2>
-
-    <hr/>
-
     <div class="container">
         <h4>Filter on</h4>
 
@@ -40,8 +36,8 @@
             <button class="sort" data-sort="random">Random</button>
         </div>
         <div style="clear: both"></div>
-
-        <h5>Series</h5>
+    </div>
+    <div class="container">
 
         <div class="series" id="mix-wrapper">
             <div class="ttr" id="tr1">
@@ -69,8 +65,6 @@
 
     @if ( Auth::check() )
         <h2><a href="series/create">Create new series</a></h2>
-    @else
-        <h2><a href="/login">User login</a></h2>
     @endif
 
 @stop

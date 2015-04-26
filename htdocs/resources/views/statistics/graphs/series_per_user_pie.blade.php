@@ -4,7 +4,7 @@
     $seriesPerUser = [];
     foreach($raw as $pair) {
         $temp[0] = loadName($pair->makerId)[0]->username;
-        $temp[1] = $pair->c;
+        $temp[1] = (int) $pair->c;
         array_push($seriesPerUser, $temp);
     }
 ?>
@@ -40,6 +40,7 @@ $(function () {
             type: 'pie',
             name: 'Series per user',
             data: <?php echo(json_encode($seriesPerUser)); ?>
+            //data: <?//php echo(dd(json_encode($seriesPerUser), $seriesPerUser)); ?>
         }]
     });
 });

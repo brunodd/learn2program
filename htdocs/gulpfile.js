@@ -18,8 +18,6 @@ elixir(function(mix) {
         'libs/bootstrap.css',
         'app.css'
     ]).styles([
-        'libs/bootstrap.css',
-        'app.css',
         'sortingAndFiltering.css'
     ], 'public/css/sortingAndFiltering.css');
 

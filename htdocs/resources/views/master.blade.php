@@ -22,9 +22,9 @@
                 @include('flash::message')
 
                 <div class="jumbotron">
-                    <h1><div id="pieceofshit5" class="small">
-                            @yield('title')
-                        </div></h1>
+                    <h2>
+                        @yield('title')
+                    </h2>
                 </div>
                 @yield('content')
             </div>
