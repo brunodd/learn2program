@@ -4,13 +4,7 @@
     Welcome to Learn2Program
 @stop
 
-
 @section('head')
-    <style>
-        .jumbotron a {
-            width: 200px;
-        }
-    </style>
     @include('web.homepagehead')
 @stop
 

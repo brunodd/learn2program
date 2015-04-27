@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="/css/all.css">
         <link rel="stylesheet" href="/css/app.css">
         <script src="/js/all.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
 
         @yield('head')
     </head>
