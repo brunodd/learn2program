@@ -7,10 +7,10 @@
     $exercisesCounter = [];
     foreach($raw as $pair) {
         array_push($makers, loadName($pair->makerId)[0]->username);
-        array_push($seriesCounter, $pair->c);
+        array_push($seriesCounter, (int) $pair->c);
     }
     foreach($raw2 as $pair) {
-        array_push($exercisesCounter, $pair->c);
+        array_push($exercisesCounter, (int) $pair->c);
     }
 ?>
 <!-- 3. Add the JavaScript with the Highchart options to initialize the chart -->
