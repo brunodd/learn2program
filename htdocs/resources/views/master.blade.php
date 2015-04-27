@@ -35,7 +35,7 @@
             @include('partials.translator')
             @include('socialmedia.FacebookShare')
             <div class="copy text-center">
-                <span> All rights reserved | Design by Learn2program-team</span>
+                <span> &#169; All rights reserved | Design by Learn2program-team</span>
             </div>
         </footer>
 
