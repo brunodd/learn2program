@@ -40,7 +40,6 @@ $(function () {
             type: 'pie',
             name: 'Series per user',
             data: <?php echo(json_encode($seriesPerUser)); ?>
-            //data: <?//php echo(dd(json_encode($seriesPerUser), $seriesPerUser)); ?>
         }]
     });
 });
