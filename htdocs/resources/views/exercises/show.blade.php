@@ -6,10 +6,10 @@
 @stop
 
 @section('title')
-    <em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
+    <b><em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em></b>
 
     @if( Auth::check() and isMakerOfExercise($exercise->id, Auth::id()) )
-        <a href="{{ action('ExercisesController@edit', $exercise->id )}}" style="float:right;color: #ffffff">Edit</a>
+        <a href="{{ action('ExercisesController@edit', $exercise->id )}}" style="float:right;color: #ffffff" class="btn btn-primary">Edit</a>
     @endif
     <div style="clear: both;"></div>
 @stop
@@ -71,5 +71,5 @@
         </script>
     @endif
 
-            <pre>Expected output : {{ $exercise->expected_result }}</pre>
+    <pre>Expected output : {{ $exercise->expected_result }}</pre>
 @stop

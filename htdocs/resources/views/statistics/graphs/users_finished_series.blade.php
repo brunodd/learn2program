@@ -7,7 +7,7 @@
 
     foreach($data as $d) {
         array_push($series, loadSerieWithId($d->seriesId)[0]->title);
-        array_push($num_finished, $d->c);
+        array_push($num_finished, (int) $d->c);
     }
 ?>
 

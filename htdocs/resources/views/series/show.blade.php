@@ -8,9 +8,9 @@
     </div>
     @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
         @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
-            <a href="{{ action('SeriesController@edit', $serie->title )}}" style="float:right; color: white;">Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->title )}}" class="btn btn-primary" style="float:right; color: white;">Edit</a>
         @else
-            <a href="{{ action('SeriesController@edit', $serie->id )}}" style="float:right;">Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->id )}}" class="btn btn-primary" style="float:right; color:white;">Edit</a>
         @endif
     @endif
     <div style="clear: both;"></div>

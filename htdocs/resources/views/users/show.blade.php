@@ -23,7 +23,7 @@
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <div style="float: right"><a href="{{ action('UsersController@edit', $user->username )}}"><font color="white">Edit</font></a></div>
+        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">Edit</a></div>
     @endif
     <div style="clear: both;"></div>
 @stop

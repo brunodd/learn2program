@@ -45,7 +45,7 @@
     <em>{{ $group->name }}</em>
 
     @if( Auth::check() and isFounderOfGroup($group->id, Auth::id()) )
-        <a href="{{ action('GroupsController@edit', $group->name )}}" style="color: #ffffff; float:right;">Edit</a>
+        <a href="{{ action('GroupsController@edit', $group->name )}}" class="btn btn-primary" style="color: #ffffff; float:right;">Edit</a>
     @endif
     <div style="clear: both"></div>
 @stop
