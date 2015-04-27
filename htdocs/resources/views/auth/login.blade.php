@@ -2,6 +2,10 @@
 
 @section('head')
     <style>
+        #derpderp {
+            width: 100%;
+        }
+
         #derpderp:hover {
             color: white;
             background-color: #3B5998;
@@ -70,13 +74,16 @@
 							</div>
                             </div>
                         -->
-		   				<h6 align="center" style="position: relative;left: +30px;">By creating an account, you agree to our <span class="term"><a href="#">Terms & Conditions</a></span></h6>
 
+                        <!--
+		   				<h6 align="center" style="position: relative;left: +30px;">By creating an account, you agree to our <span class="term"><a href="#">Terms & Conditions</a></span></h6>
+                        -->
                         <div class="form-group">
-							<div class="col-md-8 col-md-offset-4">
-								<button id="derpderp" type="submit" class="btn btn-primary-large" style="margin-right: 15px; width: 360px;">
-									Login
-								</button>
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-6">
+                                <div id="derpderp" type="submit" class="btn btn-primary-large">
+                                    Login
+                                </div>
                             </div>
                         </div>
 
@@ -84,15 +91,9 @@
                         <a href="/email" style="position: relative;left: -50px; top:10px;" ><Forgot Your Password?</a>
                         </div-->
 
-                        <!--div class="form-group">
-                            <div class="col-md-8 col-md-offset-5">
-                                <a href="/register" style="margin-left: 14px; position:relative; left:100px; top:-25px;">Don't have an account? Sign Up!</a>
-                            </div>
-                        </div-->
-
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-5" style="padding: 0;">
-                                <a href="/register" style="margin: 0 auto;">Don't have an account? Sign Up!</a>
+                                <a href="/register" style="margin: 15px auto 0 auto;">Don't have an account? Sign Up!</a>
                             </div>
                         </div>
 					</form>
