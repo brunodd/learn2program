@@ -6,12 +6,12 @@
 @stop
 
 @section('title')
-<em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
+    <em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
 
     @if( Auth::check() and isMakerOfExercise($exercise->id, Auth::id()) )
-        <br>
-        <small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
+        <a href="{{ action('ExercisesController@edit', $exercise->id )}}" style="float:right;color: #ffffff">Edit</a>
     @endif
+    <div style="clear: both;"></div>
 @stop
 
 @section('content')
@@ -26,7 +26,7 @@
     </script>
 
     <h3>{{ $exercise->question }}</h3>
-    <p> {{ $exercise->tips }}</p> <br \>
+    <p> Tips: {{ $exercise->tips }}</p> <br \>
     <h4>Your code :</h4>
 
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
