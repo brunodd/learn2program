@@ -6,12 +6,12 @@
 @stop
 
 @section('title')
-<em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
+    <em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em>
 
     @if( Auth::check() and isMakerOfExercise($exercise->id, Auth::id()) )
-        <br>
-        <small><a href="{{ action('ExercisesController@edit', $exercise->id )}}">Edit</a></small>
+        <a href="{{ action('ExercisesController@edit', $exercise->id )}}" style="float:right;color: #ffffff">Edit</a>
     @endif
+    <div style="clear: both;"></div>
 @stop
 
 @section('content')

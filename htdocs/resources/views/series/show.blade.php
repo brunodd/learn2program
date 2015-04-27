@@ -1,19 +1,19 @@
 @extends('master')
 
 @section('title')
-    <em>{{ $serie->title }}'s</em> page <br>
-    <small>
-        Subject : {{$type->subject}}<br>
-        Difficulty : {{$type->difficulty}}
-        @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
-            <br>
-            @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
-                <a href="{{ action('SeriesController@edit', $serie->title )}}">Edit</a>
-            @else
-                <a href="{{ action('SeriesController@edit', $serie->id )}}">Edit</a>
-            @endif
+    <div style="float:left">
+        <b><em>{{ $serie->title }}</em></b><br>
+        <h4>Subject : {{$type->subject}}<br>
+        Difficulty : {{$type->difficulty}}</h4>
+    </div>
+    @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
+        @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
+            <a href="{{ action('SeriesController@edit', $serie->title )}}" style="float:right; color: white;">Edit</a>
+        @else
+            <a href="{{ action('SeriesController@edit', $serie->id )}}" style="float:right;">Edit</a>
         @endif
-    </small>
+    @endif
+    <div style="clear: both;"></div>
 @stop
 
 @section('content')
