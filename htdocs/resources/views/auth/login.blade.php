@@ -1,5 +1,14 @@
 @extends('master')
 
+@section('head')
+    <style>
+        #derpderp:hover {
+            color: white;
+            background-color: #3B5998;
+        }
+    </style>
+@stop
+
 @section('title')
     Login
 @stop
@@ -66,18 +75,26 @@
 		   				-->
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary-large" style="margin-right: 15px;">
+								<button id="derpderp" type="submit" class="btn btn-primary-large" style="margin-right: 15px;">
 									Login
 								</button>
+
 								<!--
 							    <div class="col-md-6 col-md-offset-0">	
 								<a href="/email" style="position: relative;left: -50px; top:10px;" >Forgot Your Password?</a>
                                 </div>-->
 							</div>
 						</div>
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <div class="col-md-8 col-md-offset-5">
                                 <a href="/register" style="margin-left: 14px; position:relative; left:-30px;">Don't have an account? Sign Up!</a>
+                            </div>
+                        </div-->
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-5" style="padding: 0;">
+
+                                <a href="/register" style="margin: 0 auto;">Don't have an account? Sign Up!</a>
                             </div>
                         </div>
 					</form>
