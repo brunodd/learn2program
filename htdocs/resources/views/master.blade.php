@@ -35,6 +35,9 @@
             @yield('footer')
             @include('partials.translator')
             @include('socialmedia.FacebookShare')
+            <div class="copy text-center">
+                <p class="link"><span>&#169; All rights reserved | Design by Learn2program-team&nbsp;</span></p>
+            </div>
         </footer>
 
         <script>

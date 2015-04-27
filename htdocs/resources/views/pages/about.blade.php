@@ -6,23 +6,55 @@
 
 
 @section('content')
-    <h2>The Creators</h2>
-    <div class="row">
-        <div class="col-md-3">
-            <h3>Bruno De Deken</h3>
-            <p> Something about BDD </p>
+<h2>The Creators</h2>
+
+<!----start-img-cursual---->
+<div id="owl-demo" class="owl-carousel text-center">
+    <div class="item">
+        <div class="cau_left">
+            <img class="lazyOwl" data-src="/images/web/armin2.png" alt="Lazy Owl Image">
         </div>
-        <div class="col-md-3"> 
-            <h3>Raphael Assa</h3>
-            <p> Something about RA </p>
-        </div>
-        <div class="col-md-3"> 
-            <h3>Armin Halilovic</h3>
-            <p> Something about AH </p>
-        </div>
-        <div class="col-md-3"> 
-            <h3>Fouad Kichauat</h3>
-            <p> Something about FK </p>
+        <div class="cau_left">
+            <br><h4><a href="#">Armin Halilovic</a></h4>
+            <p>
+                Founder & CEO.
+            </p>
         </div>
     </div>
+    <div class="item">
+        <div class="cau_left">
+            <img class="lazyOwl" data-src="/images/web/fouad2.png" alt="Lazy Owl Image">
+        </div>
+        <div class="cau_left">
+            <br>
+            <h4><a href="#">Fouad Kichauat</a></h4>
+            <p>
+                Visual graphic expert.
+            </p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="cau_left">
+            <img class="lazyOwl" data-src="/images/web/raphael2.png" alt="Lazy Owl Image">
+        </div>
+        <div class="cau_left">
+            <br><h4><a href="#">Raphael </a></h4>
+            <p>
+                Database engineer.
+            </p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="cau_left">
+            <img class="lazyOwl" data-src="/images/web/bruno2.png" alt="Lazy Owl Image">
+        </div>
+        <div class="cau_left">
+            <br><h4><a href="">Bruno De Deken</a></h4>
+            <p>
+                IT architect.
+            </p>
+        </div>
+    </div>
+</div>
+<!----//End-img-cursual---->
 @stop
