@@ -105,6 +105,10 @@
             </div>
 
             <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>
+            @if( $answer != null )
+                <a href="/sendnotification/"
+                        class="btn btn-primary">Share with friend</a>
+            @endif            
         @endif
     {!! Form::close() !!}
 

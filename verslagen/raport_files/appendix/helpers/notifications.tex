@@ -1,0 +1,34 @@
+\subsubsection{Notifications}
+\begin{lstlisting}[language=sql]
+/* function loadAllNotifications() */
+SELECT *
+FROM notifications
+WHERE userId = ?,
+[\Auth::id()];
+
+/* function loadUnreadNotifications() */
+return \db::select(select *
+from notifications
+where userid = ? and is_read = 0,
+[\Auth::id()];
+
+/* function loadLastNNotifications($n) */
+select *
+from notifications
+where userid = ?
+order by id desc
+limit ?,
+[\Auth::id(), $n];
+
+/* function updateNotificationsToSeen() { */
+update   notifications
+set      is_read = true
+where    userid = ?,
+[\Auth::id()];
+
+/* function storeNotification($id, $type, $objectId) */
+insert into notifications (userid, type, object_id)
+value (?, ?, ?),
+[$id, $type, $objectId];
+
+\end{lstlisting}

@@ -80,4 +80,14 @@ class NotificationsController extends Controller {
 
         return response()->json($response);
     }
+
+    public function shareNotification() {
+        return view('pages.sendNotification');
+    }
+
+    public function sendNotification($user) {
+        storeNotification($user->id, 'friend update', \Auth::id());
+        return view('pages.sendNotification');
+    }
+
 }

@@ -1,0 +1,138 @@
+\subsubsection{Series}
+\begin{lstlisting}[language=sql]
+/* function storeSerie($serie) */
+insert into series (title, description, makerId, tId)
+values (?, ?, ?, ?),
+[$serie->title, $serie->description, $serie->makerId, $serie->tId];
+
+/* function loadSerieWithId($id) */
+select * 
+from series 
+where id = ?,
+[$id];
+
+/* function loadSerieWithIdOrTitle($id) */
+select * 
+from series 
+where id = ? 
+or title = ?,
+[$id, $id];
+
+/* function loadSerieWithIdOrTitleAndExercise($sId, $eId) */
+select * 
+from series 
+where (id = ? or title = ?)
+and id in (select seriesId as id
+    from exercises_in_series
+    where exId = ?),
+[$sId, $sId, $eId];
+
+/* function loadSerie($title, $tId) */
+select * 
+from series 
+where title = ? 
+and tId = ?,
+[$title, $tId];
+
+/* function loadAllSeries() */
+select * 
+from series;
+
+/* function loadAllDistinctSeries() */
+select * 
+from series 
+group by title;
+
+
+/* function updateSerie($id, $serie, $typeId) */
+update series
+set title = ?, description = ?, tid = ?
+where id = ?,
+[$serie->title, $serie->description, $typeId, $id];
+
+
+/* function isMakerOfSeries($sId, $mId) */
+select *
+from series
+where (id = ? or title = ?)
+and makerId = ?,
+[$sId, $sId, $mId];
+
+
+/* function SerieContainsExercises($sId) */
+select *
+from exercises, (select *
+    from exercises_in_series
+    where seriesId = ?) eps
+where exercises.id = eps.exId,
+[$sId];
+
+
+/* function loadSeriesSortedByNameASC() */
+select *
+from series
+group by title
+order by title ASC;
+
+/* function loadSeriesSortedByDiffASC() */
+select *
+from series
+join types on tId = types.id
+order by difficulty ASC;
+
+/* function loadSeriesSortedBySubASC() */
+select *
+from series
+join types on tId = types.id
+order by subject ASC;
+
+
+/* function loadSeriesSortedByNameDESC() */
+select *
+from series
+group by title
+order by title DESC;
+
+
+/* function loadSeriesSortedByRatingDESC() */
+/* $avgs = averageRatingsBySeries(); */
+select * 
+from series 
+where id = ?,
+$avg[0];
+
+/* function loadSeriesSortedByDiffDESC() */
+select *
+from series
+join types on tId = types.id
+order by difficulty DESC;
+
+
+/* function loadSeriesSortedBySubDESC() */
+select *
+from series
+join types on tId = types.id
+order by subject DESC;
+
+/* function loadSeriesWithExercise($eId) */
+select *
+from series
+join exercises_in_series on id = seriesId
+where exId = ?,
+[$eId];
+
+/* function loadMySeries() */
+select *
+from series
+where makerid = ?,
+[\Auth::id()];
+
+
+/* function loadSeriesSearch($s) */
+select *
+from series
+where title like ?
+or description like ?,
+[%.$s.%, %.$s.%];
+
+\end{lstlisting}

@@ -1,0 +1,101 @@
+\subsubsection{Exercises}
+\begin{lstlisting}[language=sql]
+/* function loadExercisesFromSerie($sId) */
+select * from exercises, (select * from exercises_in_series where seriesId = ?) eps
+where exercises.id = eps.exId order by ex_index,
+[$sId];
+
+/* function storeExercise($exercise) */
+insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?),
+[$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId];
+
+/* function storeReference($exercise) */
+insert into exercises_in_series (exId, seriesId, ex_index)
+select max(exercises.id), ?, (agg.count + 1)
+from exercises, (select count(seriesId) as count from exercises_in_series where exercises_in_series.seriesId = ?) agg, [$exercise->seriesId, $exercise->seriesId];
+
+/* function addToSeries($exId, $seriesId) */
+insert into exercises_in_series(exId, seriesId, ex_index)
+select ?, ?, (agg.count + 1)
+from (select count(seriesId) as count 
+        from exercises_in_series
+        where exercises_in_series.seriesId = ?) agg,
+[$exId, $seriesId, $seriesId];
+
+/* function loadAllExercises() */
+select * from exercises;
+
+/* function loadAllAccessableExercises($uId) */
+select * from exercises
+where id in (select exId as id
+                from exercises_in_series
+                where ex_index = 1)
+group by id
+union
+select * from exercises where makerId = ?
+union
+select * from exercises
+where id in
+    (select exId as id
+        from exercises_in_series join answers on exId = eId
+        where uId = ? and success = 1)
+or id in
+    (select exId as id from exercises_in_series
+        where (ex_index-1) in
+            (select ex_index
+                from exercises_in_series join answers on exId = eId
+                where uId = ? and success = 1))
+group by id, [$uId, $uId, $uId];
+
+/* function loadAllFirstExercises() */
+select * from exercises
+where id in (select exId as id
+                from exercises_in_series
+                where ex_index = 1)
+group by id;
+
+/* function loadExercise($id) */
+select * from exercises where id = ?, [$id];
+
+/* function isMakerOfExercise($eId, $uId) */
+select * from exercises where makerId = ? and id = ?, [$uId, $eId];
+
+/* function nextExerciseOfSerie($eId, $sId) */
+select * from exercises
+where id in (select exId as id from exercises_in_series
+                where (ex_index-1) in (select ex_index from exercises_in_series
+                                        where exId=? and seriesId=?)
+                and seriesId = ?)
+group by id, [$eId, $sId, $sId];
+
+/* function nextExerciseInLine($eId, $uId, $sId) */
+select * from exercises_in_series
+where seriesId = ? and ex_index not in
+    (select ex_index from (exercises_in_series eis) join answers on eis.exId = eId
+        where eis.seriesId in (select seriesId from exercises_in_series where exId=?) and uId=?
+        group by exId)
+group by exId
+order by ex_index, [$sId, $eId, $uId];
+
+/* function firstExerciseOfSerie($eId) */
+select * from exercises_in_series where exId = ? and ex_index = 1, [$eId];
+
+/* function userCompletedExercise($eId, $uId) */
+select * from answers where eId = ? and uId = ?, [$eId, $uId];
+
+/* function storeAnswer($ans) */
+insert into answers (given_code, success, uId, eId) values (?, ?, ?, ?), [$ans->given_code, $ans->success, $ans->uId, $ans->eId];
+
+/* function loadMyExercises() */
+select *
+from exercises
+where makerId = ?,
+[\Auth::id()];
+
+/* function loadExercisesSearch($s) */
+select *
+from exercises
+where question like ?,
+[%.$s.%];
+
+\end{lstlisting}

@@ -21,7 +21,7 @@ delimiter ;
 /* Make sure the answer is not empty. */
 delimiter //
 CREATE TRIGGER check_answer
-BEFORE INSERT ON exercises_answers
+BEFORE INSERT ON answers
 FOR EACH ROW 
 BEGIN
     IF NEW.given_code = "" THEN
@@ -89,20 +89,4 @@ BEGIN
         SET NEW.expected_result = Null;
     END IF;
 END;//
-
-/* Make sure question, start_code and expected_result are not empty. */
-delimiter //
-CREATE TRIGGER check_friends
-BEFORE INSERT ON friends
-FOR EACH ROW 
-BEGIN
-    IF NEW.id1 = NEW.id2 THEN
-        SET NEW.id1 = Null;
-    END IF;
-    IF EXISTS (SELECT * FROM friends WHERE (id1 = NEW.id1 and id2 = NEW.id2) or (id1 = NEW.id2 and id2 = NEW.id1)) THEN
-        SET NEW.id1 = Null;
-    END IF;
-END;//
-
-
-\end{lstlisting}    
+\end{lstlisting}
