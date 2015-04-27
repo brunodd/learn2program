@@ -3,8 +3,9 @@
 @section('title')
     About the site
 @stop
-
-
+@section('head')
+@include('web.homepagehead')
+@stop
 @section('content')
 <h2>The Creators</h2>
 
