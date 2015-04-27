@@ -21,7 +21,7 @@ function storeUser($user) {
 
 function updateUser($id, $data)
 {
-    DB::statement('update users SET username = ?, mail = ?, pass = ?, image = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $data->image, $id, $id]);
+    DB::statement('update users SET username = ?, mail = ?, pass = ?, image = ? , info = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $data->image, $data->info, $id, $id]);
 }
 
 function loadUsersSearch($s) {
