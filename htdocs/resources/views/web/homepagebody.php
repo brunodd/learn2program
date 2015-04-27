@@ -150,7 +150,7 @@
 							<div class="cau_left">
 								<br><h4><a href="#">Bruno De Deken</a></h4>
 								<p>
-									IT architect.
+									Design architect.
 								</p>
 							</div>
 						</div>
