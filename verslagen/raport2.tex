@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+
+% Settings for sql queries
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=SQL,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{Raport 1 - Project Databases}
+\author{
+    Raphael Assa (s0102981) \\
+    Bruno De Deken (s0080968) \\
+    Armin Halilovic (s0122210) \\
+    Fouad Kichauat (s0121821) \\
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\section{Status}
+\input{raport_files/status/main.tex}
+\clearpage
+
+\section{Design}
+\subsection{Keuzes}
+\input{raport_files/design/keuzes.tex}
+\subsection{Database schema}
+\input{raport_files/design/database_schema.tex}
+\subsection{UML Schema}
+\input{raport_files/design/uml_schema.tex}
+\clearpage
+
+\section{Product}
+\subsection{User Interface}
+\input{raport_files/product/user_interface.tex}
+\subsection{Extra functionaliteit}
+\input{raport_files/product/extra.tex}
+\clearpage
+
+\section{Planning}
+\input{raport_files/planning/main.tex}
+\clearpage
+
+\section{Appendix}
+\input{raport_files/appendix/main.tex}
+\clearpage
+
+\end{document}

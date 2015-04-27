@@ -184,10 +184,11 @@ class ExercisesController extends Controller {
         //flash()->success("Your answer was successfully stored.");
         // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
 
-        /*
-         * if( $ans->success ) flash()->success("Your answer was successfully stored & correct.");
-         * else flash()->error("Your answer was successfully stored, however the result was incorrect. Try again...");
-         */
+        if($exercise->expected_result != '*') {
+            if( $ans->success ) flash()->success("Correct!!!");
+            else flash()->error("Too bad, the answer was wrong.");
+        }
+
 
         $result = $input['result'];
         $answer = $input['given_code'];
