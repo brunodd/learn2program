@@ -17,7 +17,7 @@
         <div class="cau_left">
             <br><h4><a href="#">Armin Halilovic</a></h4>
             <p>
-                Founder & CEO.
+                Senior Front End Engineer.
             </p>
         </div>
     </div>
@@ -29,7 +29,7 @@
             <br>
             <h4><a href="#">Fouad Kichauat</a></h4>
             <p>
-                Visual graphic expert.
+                Lead Visual graphic expert.
             </p>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="cau_left">
             <br><h4><a href="#">Raphael Assa</a></h4>
             <p>
-                Database engineer.
+                Lead Database engineer.
             </p>
         </div>
     </div>
@@ -51,7 +51,7 @@
         <div class="cau_left">
             <br><h4><a href="">Bruno De Deken</a></h4>
             <p>
-                Application designer.
+                Senior Application designer.
             </p>
         </div>
     </div>
