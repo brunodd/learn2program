@@ -9,6 +9,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     mail VARCHAR(50) NOT NULL,
     image VARCHAR(50) NOT NULL DEFAULT 'NoProfileImage.jpg', /* Link to image name in /images/users/* */
+    info TEXT,
     PRIMARY KEY (id)
 );
 
