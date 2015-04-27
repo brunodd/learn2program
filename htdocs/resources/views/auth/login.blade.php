@@ -1,5 +1,18 @@
 @extends('master')
 
+@section('head')
+    <style>
+        #derpderp {
+            width: 100%;
+        }
+
+        #derpderp:hover {
+            color: white;
+            background-color: #3B5998;
+        }
+    </style>
+@stop
+
 @section('title')
     Login
 @stop
@@ -61,22 +74,26 @@
 							</div>
                             </div>
                         -->
+
+                        <!--
 		   				<h6 align="center" style="position: relative;left: +30px;">By creating an account, you agree to our <span class="term"><a href="#">Terms & Conditions</a></span></h6>
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary-large" style="margin-right: 15px;">
-									Login
-								</button>
-
-							    <div class="col-md-6 col-md-offset-0">	
-								<a href="/email" style="position: relative;left: -50px; top:10px;" >Forgot Your Password?</a>
-                                </div>
-							</div>
-						</div>
+                        -->
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-5">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-6">
+                                <div id="derpderp" type="submit" class="btn btn-primary-large">
+                                    Login
+                                </div>
+                            </div>
+                        </div>
 
-                                <a href="/register" style="margin-left: 14px; position:relative; left:100px; top:-25px;">Don't have an account? Sign Up!</a>
+                        <!--div class="col-md-6 col-md-offset-0">
+                        <a href="/email" style="position: relative;left: -50px; top:10px;" ><Forgot Your Password?</a>
+                        </div-->
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-5" style="padding: 0;">
+                                <a href="/register" style="margin: 15px auto 0 auto;">Don't have an account? Sign Up!</a>
                             </div>
                         </div>
 					</form>

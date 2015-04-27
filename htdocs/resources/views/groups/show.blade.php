@@ -42,12 +42,12 @@
 @stop
 
 @section('title')
-    <em>{{ $group->name }}'s</em> main page
+    <em>{{ $group->name }}</em>
 
     @if( Auth::check() and isFounderOfGroup($group->id, Auth::id()) )
-        <br>
-        <small><a href="{{ action('GroupsController@edit', $group->name )}}">Edit</a></small>
+        <a href="{{ action('GroupsController@edit', $group->name )}}" style="color: #ffffff; float:right;">Edit</a>
     @endif
+    <div style="clear: both"></div>
 @stop
 
 @section('content')
