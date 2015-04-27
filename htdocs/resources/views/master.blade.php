@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="/css/all.css">
         <link rel="stylesheet" href="/css/app.css">
         <script src="/js/all.js"></script>
-        @include('web.homepagehead')
+        <link rel="stylesheet" href="/css/style.css">
 
         @yield('head')
     </head>
@@ -36,7 +36,7 @@
             @include('partials.translator')
             @include('socialmedia.FacebookShare')
             <div class="copy text-center">
-                <span>&#169</span> All rights reserved | Design by Learn2program-team
+                <span> All rights reserved | Design by Learn2program-team</span>
             </div>
         </footer>
 

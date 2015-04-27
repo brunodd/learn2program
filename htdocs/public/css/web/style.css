@@ -3,7 +3,11 @@
      font-family: 'open_sansregular';
       src:url('/fonts/web/OpenSans-Regular-webfont.ttf') format('truetype');
 }
-
+body {
+	font-family: 'open_sansregular';
+	background:#ffffff;
+	font-size: 100%;
+}
 /* start header */
 .header_bg{
 	border-top:0px groove #3b3b3b;
