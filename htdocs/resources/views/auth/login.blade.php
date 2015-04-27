@@ -81,9 +81,9 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
                             <div class="col-md-6">
-                                <div id="derpderp" type="submit" class="btn btn-primary-large">
+                                <button id="derpderp" type="submit" class="btn btn-primary-large">
                                     Login
-                                </div>
+                                </button>
                             </div>
                         </div>
 
