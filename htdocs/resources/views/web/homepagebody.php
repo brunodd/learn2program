@@ -148,7 +148,7 @@
 								<img class="lazyOwl" data-src="/images/web/bruno2.png" alt="Lazy Owl Image">
 							</div>
 							<div class="cau_left">
-								<br><h4><a href="#">Bruno De Deken</a></h4>
+								<br><h4><a href="">Bruno De Deken</a></h4>
 								<p>
 									IT architect.
 								</p>

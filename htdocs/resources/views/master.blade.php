@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/css/all.css">
         <link rel="stylesheet" href="/css/app.css">
         <script src="/js/all.js"></script>
+        @include('web.homepagehead')
 
         @yield('head')
     </head>

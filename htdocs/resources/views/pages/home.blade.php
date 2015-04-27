@@ -11,7 +11,8 @@
             width: 200px;
         }
     </style>
-@include('web.homepagehead')
+    <link href="/css/web/style2.css" rel="stylesheet" type="text/css" media="all" />
+
 @stop
 
 @section('content')

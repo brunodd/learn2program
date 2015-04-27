@@ -4,6 +4,7 @@
     About the site
 @stop
 
+
 @section('content')
     <h2>The Creators</h2>
     <div class="row">
