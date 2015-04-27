@@ -3,6 +3,43 @@
 @section('head')
     <script src="/js/skulpt.js"></script>
     <script src="/editarea/edit_area/edit_area_full.js"></script>
+    <style>
+        .mytooltip {
+            color: white;
+            float: right;
+            position: relative;
+        }
+
+        .mytooltip:hover:after {
+            content: attr(title);
+            border-radius: 5px;
+            background: rgba(0, 0, 0, .8);
+            padding: 5px 15px;
+
+            min-height: 26px;
+            max-height: 500px;
+            height: auto;
+            width: 400px;
+            position: absolute;
+            right: 67px;
+            top: -7px;
+            z-index: 98;
+            white-space: pre;
+            word-wrap: break-word;
+            overflow-y: auto;
+        }
+
+        .mytooltip:hover:before{
+             border: solid;
+             border-color: transparent transparent transparent #333;
+             border-width: 10px 0 7px 15px;
+             bottom: 20px;
+             content: "";
+             right: 52px;
+             position: absolute;
+             z-index: 97;
+         }
+    </style>
 @stop
 
 @section('title')
@@ -25,8 +62,14 @@
         }
     </script>
 
-    <h3>{{ $exercise->question }}</h3>
-    <p> Tips: {{ $exercise->tips }}</p> <br \>
+    <h3 style="float:left;margin-top: 0;padding-top: 0">{{ $exercise->question }}</h3>
+
+    <div class="mytooltip" title="{{ str_replace('\n', '&#xa;', $exercise->tips) }}">
+        <div title=" " class="btn btn-primary">Tips</div>
+    </div>
+
+    <div style="clear: both;"></div>
+
     <h4>Your code :</h4>
 
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
