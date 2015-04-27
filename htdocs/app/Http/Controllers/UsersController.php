@@ -123,6 +123,7 @@ class UsersController extends Controller {
 
         $user->username = $request->username;
         $user->mail = $request->mail;
+        $user->info = $request->info;
 
         //TODO: make image handler/uploader class
         if (Input::hasFile('image'))

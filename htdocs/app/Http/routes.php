@@ -95,4 +95,4 @@ Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
 
 Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');
 
-Route::get('/facebook/error', 'Problem singing in with Facebook.');
+Route::get('/facebook/error', function() {return 'Problem singing in with Facebook.';});
