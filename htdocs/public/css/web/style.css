@@ -1,10 +1,17 @@
-
+@font-face {
+    font-family: 'texgyreadventorregular';
+    src: url('/fonts/web/texgyreadventor-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+     font-family: 'open_sansregular';
+      src:url('/fonts/web/OpenSans-Regular-webfont.ttf') format('truetype');
+}
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
+	font-family: 'open_sansregular';
+	background:#ffffff;
+	font-size: 100%;
 }
 /* start header */
 .header_bg{

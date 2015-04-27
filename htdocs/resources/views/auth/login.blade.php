@@ -57,17 +57,13 @@
 								<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
 									Login
 								</button>
-							    <div class="col-md-6 col-md-offset-0">	
-                                <a href="/facebook/login" >Login with Facebook</a> 
-								
-								<a href="/email" >Forgot Your Password?</a>
-                                </div>
-							</div>
+                                <a class="btn btn-primary col-md-offset-4" href="/facebook/login" role="button">Login with Facebook</a>
+                            </div>
 						</div>
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-5">
+                            <div class="col-md-8 col-md-offset-4">
 
-                                <a href="/register"  style="margin-left: 14px;">Create an account</a>
+                                <a href="/register">Create an account</a>
                             </div>
                         </div>
 					</form>

@@ -2079,7 +2079,7 @@ var myScripts = (function () {
 
         //Slide up non-important alerts/messages after 3 seconds.
         alertSlideUp: function () {
-            $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+            $('div.alert').not('.alert-danger').delay(3000).slideUp(300);
         },
 
         //Initialize the python syntax highlighter

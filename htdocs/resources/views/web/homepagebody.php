@@ -1,3 +1,54 @@
+<!--<div class="header_bg">
+<div class="container">
+	<div class="row header">
+		<div class="logo navbar-left">
+			<h1><a href="index.html">Learner </a></h1>
+		</div>
+		<div class="h_search navbar-right">
+			<form>
+				<input type="text" class="text" value="Enter text here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter text here';}">
+				<input type="submit" value="search">
+			</form>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div> 
+</div>  --> <!--
+<div class="container">
+	<div class="row h_menu">
+		<nav class="navbar navbar-default navbar-left" role="navigation">
+		   --> <!-- Brand and toggle get grouped for better mobile display -->
+<!--		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		    </div>
+		    --><!-- Collect the nav links, forms, and other content for toggling -->
+<!--		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li class="active"><a href="index.html">Home</a></li>
+		        <li><a href="technology.html">Technologies</a></li>
+		        <li><a href="about.html">About</a></li>
+		        <li><a href="blog.html">Blog</a></li>
+		        <li><a href="contact.html">Contact</a></li>
+		      </ul>
+		    </div> --><!-- /.navbar-collapse -->
+		    <!-- start soc_icons -->
+<!--		</nav>
+		<div class="soc_icons navbar-right">
+			<ul class="list-unstyled text-center">
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+			</ul>	
+		</div>
+	</div>
+</div> -->
 <div class="slider_bg"><!-- start slider -->
 	<div class="container">
 		<div id="da-slider" class="da-slider text-center">
@@ -56,5 +107,54 @@
 				<a href="/login" class="fa-btn btn-1 btn-1e">Join Learn2Program</a>
 			</div>
 		</div>
+				<!----start-img-cursual---->
+					<div id="owl-demo" class="owl-carousel text-center">
+						<div class="item" onclick="window.location='/users/armin'">
+							<div class="cau_left">
+								<img class="lazyOwl" data-src="/images/web/armin2.png" alt="Lazy Owl Image">
+							</div>
+							<div class="cau_left">
+								<br><h4><a href="/users/armin">Armin Halilovic</a></h4>
+								<p>
+									Founder & CEO.
+								</p>
+							</div>
+						</div>
+						<div class="item" onclick="window.location='/users/fouad'">
+							<div class="cau_left">
+								<img class="lazyOwl" data-src="/images/web/fouad2.png" alt="Lazy Owl Image">
+							</div>
+							<div class="cau_left">
+								<br>
+								<h4><a href="/users/fouad">Fouad Kichauat</a></h4>
+								<p>
+									Visual graphic expert.
+								</p>
+							</div>
+						</div>
+						<div class="item" onclick="window.location='/users/raphael'">
+							<div class="cau_left">
+								<img class="lazyOwl" data-src="/images/web/raphael2.png" alt="Lazy Owl Image">
+							</div>
+							<div class="cau_left">
+								<br><h4><a href="/users/raphael">Raphael </a></h4>
+								<p>
+									Database engineer.
+								</p>
+							</div>
+						</div>
+						<div class="item" onclick="window.location='/users/bruno'">
+							<div class="cau_left">
+								<img class="lazyOwl" data-src="/images/web/bruno2.png" alt="Lazy Owl Image">
+							</div>
+							<div class="cau_left">
+								<br><h4><a href="/users/bruno">Bruno De Deken</a></h4>
+								<p>
+									IT architect.
+								</p>
+							</div>
+						</div>
+					</div>
+					<!----//End-img-cursual---->
 	</div>
 </div>
