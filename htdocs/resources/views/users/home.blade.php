@@ -50,7 +50,6 @@
                 </div>
                 <div class="profiledata">
                     <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
-                    <p>Some info about user: e.g. completed x series/has rating y</p>
                 </div>
             </div>
             <div style="clear: both;"></div>

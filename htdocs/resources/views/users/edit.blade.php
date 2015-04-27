@@ -12,31 +12,36 @@
 
         <div class="form-group">
             {!! Form::label('username', 'New Username: ') !!}
-            {!! Form::text('username') !!}
+            {!! Form::text('username', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('pass', 'New Password: ') !!}
-            {!! Form::password('pass') !!}
+            {!! Form::password('pass', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('pass_confirmation', 'Confirm Password: ') !!}
-            {!! Form::password('pass_confirmation') !!}
+            {!! Form::password('pass_confirmation', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('mail', 'New Email: ') !!}
-            {!! Form::text('mail') !!}
+            {!! Form::text('mail', null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('info', 'Tell us about yourself: ') !!}
+            {!! Form::text('info', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('image', 'Choose profile image: ') !!}
-            {!! Form::file('image') !!}
+            {!! Form::file('image', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::submit('Save') !!}
+            {!! Form::submit('Save changes', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     {!! Form::close() !!}
 

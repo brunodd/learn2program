@@ -67,7 +67,7 @@ function listGroupsOfUser($id)
 
 function listUsersOfGroup($id)
 {
-    return DB::select('select username from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId', [$id]);
+    return DB::select('select * from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId', [$id]);
 }
 
 function loadAllGroupsSortedByNameASC()

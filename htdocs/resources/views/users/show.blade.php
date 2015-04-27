@@ -23,13 +23,13 @@
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <div style="float: right"><a href="{{ action('UsersController@edit', $user->username )}}">Edit</a></div>
+        <div style="float: right"><a href="{{ action('UsersController@edit', $user->username )}}"><font color="white">Edit</font></a></div>
     @endif
     <div style="clear: both;"></div>
 @stop
 
 @section('content')
-    <p> This page shows whatever needs to be shown about {{ $user->username }}. </p>
+    <p> {{ $user->info }}</p>
 
     @if (Auth::check() and $user->id != Auth::id())
         <div class="form-group" >
