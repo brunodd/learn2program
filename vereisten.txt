@@ -7,4 +7,4 @@ resultaten overzicht krijgen per reeks, inclusief welke vragen juist of fout war
 
 resultaten delen tussen vrienden
 
-leden van een groep laten zien.
+leden van een groep laten zien: ok

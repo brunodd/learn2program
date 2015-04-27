@@ -103,10 +103,11 @@ function nextExerciseOfSerie($eId, $sId)
 
 function nextExerciseInLine($eId, $uId, $sId)
 {
+                                // where eis.seriesId in (select seriesId from exercises_in_series where exId=?) and uId=? and success=1
     return DB::select('select * from exercises_in_series
                         where seriesId = ? and ex_index not in
                             (select ex_index from (exercises_in_series eis) join answers on eis.exId = eId
-                                where eis.seriesId in (select seriesId from exercises_in_series where exId=?) and uId=? and success=1
+                                where eis.seriesId in (select seriesId from exercises_in_series where exId=?) and uId=?
                                 group by exId)
                         group by exId
                         order by ex_index', [$sId, $eId, $uId]);
@@ -127,7 +128,8 @@ function completedAllPreviousExercisesOfSeries($eId, $uId, $sId)
 
 function userCompletedExercise($eId, $uId)
 {
-    if( empty(DB::select('select * from answers where eId = ? and uId = ? and success = 1', [$eId, $uId])) ) return false;
+    // if( empty(DB::select('select * from answers where eId = ? and uId = ? and success = 1', [$eId, $uId])) ) return false;
+    if( empty(DB::select('select * from answers where eId = ? and uId = ?', [$eId, $uId])) ) return false;  // completed mag ook fout zijn?
     else return true;
 }
 
