@@ -61,22 +61,23 @@
 							</div>
                             </div>
                         -->
+                        <!--
 		   				<h6 align="center" style="position: relative;left: +30px;">By creating an account, you agree to our <span class="term"><a href="#">Terms & Conditions</a></span></h6>
+		   				-->
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary-large" style="margin-right: 15px;">
 									Login
 								</button>
-
+								<!--
 							    <div class="col-md-6 col-md-offset-0">	
 								<a href="/email" style="position: relative;left: -50px; top:10px;" >Forgot Your Password?</a>
-                                </div>
+                                </div>-->
 							</div>
 						</div>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-5">
-
-                                <a href="/register" style="margin-left: 14px; position:relative; left:100px; top:-25px;">Don't have an account? Sign Up!</a>
+                                <a href="/register" style="margin-left: 14px; position:relative; left:-30px;">Don't have an account? Sign Up!</a>
                             </div>
                         </div>
 					</form>
