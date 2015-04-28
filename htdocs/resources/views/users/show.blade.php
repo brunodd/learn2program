@@ -83,7 +83,11 @@
             <?php $exercises = getAllExercisesOfSeries($serie); ?>
             @foreach($exercises as $exercise)
                 @if ( getAccomplishedExercise($user, $exercise) )
-                    Exercise {{$exercise->id}} accomplished! <br>
+                    @if ( userSucceededExercise($user->id, $exercise->id) )
+                        Exercise {{$exercise->id}} was solved correctly! <br>
+                    @else
+                        Exercise {{$exercise->id}} was incorrect... <br>
+                    @endif
                 @endif
             @endforeach
         @endif

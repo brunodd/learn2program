@@ -35,7 +35,7 @@ function addToSeries($exId, $seriesId)
     if(empty(DB::select('select * from exercises_in_series where exId = ? and seriesId = ?', [$exId, $seriesId]))) {
     DB::insert('insert into exercises_in_series(exId, seriesId, ex_index)
             select ?, ?, (agg.count + 1)
-            from (select count(seriesId) as count 
+            from (select count(seriesId) as count
                     from exercises_in_series
                     where exercises_in_series.seriesId = ?) agg',
             [$exId, $seriesId, $seriesId]);
@@ -130,6 +130,18 @@ function userCompletedExercise($eId, $uId)
 {
     // if( empty(DB::select('select * from answers where eId = ? and uId = ? and success = 1', [$eId, $uId])) ) return false;
     if( empty(DB::select('select * from answers where eId = ? and uId = ?', [$eId, $uId])) ) return false;  // completed mag ook fout zijn?
+    else return true;
+}
+
+function userSucceededExercise($eId, $uId)
+{
+    if( empty(DB::select('select *
+        from answers
+        where eId = ?
+        and uId = ?
+        and success = 1',
+        [$eId, $uId])) )
+    return false;
     else return true;
 }
 
