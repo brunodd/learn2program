@@ -67,8 +67,10 @@
                                     <?php $exercises = getAllExercisesOfSeries($serie); ?>
                                     <div class=container-fluid>
                                     @foreach($exercises as $exercise)
-                                        @if ( getAccomplishedExercise($user, $exercise) )
-                                            Exercise {{$exercise->id}} accomplished! <br>
+                                        @if ( userSucceededExercise($exercise->exId, $user->id) )
+                                            Exercise {{$exercise->exId}} was solved correctly!
+                                        @elseif ( getAccomplishedExercise($user, $exercise) )
+                                            <em>Exercise {{$exercise->exId}} was incorrect... </em>
                                         @else
                                             Exercise {{$exercise->id}} not started! <br>
                                         @endif
