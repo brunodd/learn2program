@@ -3,15 +3,18 @@
 		<div id="da-slider" class="da-slider text-center">
 			<div class="da-slide">
 				<h2>education portal</h2>
-				<p>Learn2Program is de community waar elk individu zich tot een volwaardige Python-expert kan 'upgraden'.<span class="hide_text"> 
-					Deze website is geschikt voor iedereen van zowel jonge leeftijd als oudere personen die graag wat willen bijleren.
-					Tevens is het een community voor zowel mensen met veel ervaring alsook mensen die nog helemaal geen ervaring hebben.</span></p>
+				<p>Learn2Program is the community where each individual can 'upgrade' himself to become a real Python-expert.<span class="hide_text"> 
+					This website is suitable for everybody; from very young genius-babies to every old person that would love to learn Python.
+					Also, this is not simply a community for people with low/no-programming-skills. This is also for the real Python-goeroes out there
+					that try everyday to master more skills! 
+					</span></p>
 			</div>
 			<div class="da-slide">
 				<h2>online educations</h2>
-				<p>Door gebruik te maken van online oefeningen-sessies kan men steeds een beter inzicht bekomen in het programmeerdomein Python.
-				 Oefeningen-sessies zijn makkelijk aan te maken door medegebruikers van de Learn2Program-website en door uzelf! Zo kan iedereen
-				 zijn steentje bijdragen tot het verbeteren van de programmeer-skills van de andere gebruikers.  <span class="hide_text"></span></p>
+				<p> To be able to develop better and really high Python programming-skills you will have to complete exercise-sessions.
+				These exercise-sessions have easy exercises for the beginners as real though one for the brave ones. These sessions are
+				 easily made by you and all the other users on this community. So you guys are the moderators of this website!
+				 That way everybody can add there peace of work to grow and beautify this community even more! <span class="hide_text"></span></p>
 			</div>
 	   </div>
 	</div>
@@ -21,23 +24,23 @@
 		<div class="main row">
 			<div class="col-md-3 images_1_of_4 text-center">
 				<span class="bg"><i class="fa fa-globe"></i></span>
-				<h4><a href="#">Internationaal</a></h4>
-				<p class="para">Learn2progam is een website voor iedereen. Daarom dat we ook meer dan 50 verschillende internationale talen ondersteunen.</p>
+				<h4><a href="#">International</a></h4>
+				<p class="para">Learn2program is the community that every should and can join. That's why we support more than 50 different internatilan languages.</p>
 			</div>
 			<div class="col-md-3 images_1_of_4 bg1 text-center">
 				<span class="bg"><i class="fa fa-laptop"></i></span>
-				<h4><a href="#">Mobiel</a></h4>
-				<p class="para">Deze website is net zoals jij mobiel. Vanaf nu zal je op eender welke computer, zonder iets te installeren, verder kunnen oefenen!	</p>
+				<h4><a href="#">Mobile</a></h4>
+				<p class="para">This website is mobile just like you! From this point on you will be able to train yourself without installing anything!</p>
 			</div>
 			<div class="col-md-3 images_1_of_4 bg1 text-center">
 				<span class="bg"><i class="fa fa-cog"></i></span>
-				<h4><a href="#">Aanpasbaar</a></h4>
-				<p class="para">Learn2Progam is ook de website die zich het best aanpast aan zijn gebruikers om zo alle gebruikers van 'beginner' tot 'expert' te helpen.</p>
+				<h4><a href="#">Adaptable</a></h4>
+				<p class="para">Learn2program is also the website that adapts itself the best to there users need to support everybody from 'starter' to 'expert'.</p>
 			</div>		
 			<div class="col-md-3 images_1_of_4 bg1 text-center">
 				<span class="bg"><i class="fa fa-shield"></i> </span>
-				<h4><a href="#">Veilig</a></h4>
-				<p class="para">Onze website biedt u een veilige reis doorheen het studeren van Python, met de mogelijkheden u in te loggen via Facebook, etc.</p>
+				<h4><a href="#">Secure</a></h4>
+				<p class="para">Our website guarantees you a safe and secure journey while developing you Python-skills, with the possibilities to login with Facebook, etc.</p>
 			</div>	
 		</div>
 	</div>
