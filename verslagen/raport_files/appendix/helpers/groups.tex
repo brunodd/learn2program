@@ -1,0 +1,59 @@
+\subsubsection{Groups}
+\begin{lstlisting}[language=sql]
+/* function storeGroup($group) */
+insert into groups (name, founderId) VALUES (?, ?), [$group->name, $group->founderId];
+
+/* function loadAllGroups() */
+select * from groups ;
+
+/* function loadGroup($group) */
+select * from groups where id = ? or name = ?, [$group, $group];
+
+/* function isFounderOfGroup($groupId, $founderId) */
+select * from groups where (id = ? or name = ?) and founderId = ?,[$groupId, $groupId, $founderId];
+
+/* function addMember2Group($uId, $gId) */
+insert into members_of_groups (memberid, groupid) values (?, ?), [$uid, $group[0]->id];
+
+/* function deleteMemberFromGroup($uId, $gId) */
+delete from members_of_groups where memberId = ? and groupId = ?, [$uId, $group[0]->id];
+
+/* function noMemberYet($uId, $gId) */
+DB::select(select * from members_of_groups where memberId = ? and groupId = ?,[$uId, $group[0]->id];
+
+/* function updateGroup($id, $groupname) */
+update groups SET name = ? where id = ?, [$groupname, $group[0]->id];
+
+/* function listGroupsOfUser($id) */
+select groupname from groups join (select distinct(groupId) from members_of_groups where memberId = ?) agg on id=groupId, [$id];
+
+/* function listUsersOfGroup($id) */
+select * from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId, [$id];
+
+/* function loadAllGroupsSortedByNameASC() */
+select * from groups order by name asc;
+
+/* function loadAllGroupsSortedByNameDESC() */
+select * from groups order by name desc;
+
+/* function loadAllGroupsSortedByFounderASC() */
+select * from groups join users on founderid = users.id order by username asc;
+
+/* function loadAllGroupsSortedByFounderDESC() */
+select * from groups join users on founderid = users.id order by username desc;
+
+/* function loadMyGroups() */
+select *
+from groups
+where id in (select distinct groupid
+        from members_of_groups
+        where memberid = ?),
+[\Auth::id()];
+
+/* function loadGroupsSeach($s) */
+SELECT *
+FROM groups
+WHERE name LIKE ?,
+[%.$s.%];
+
+\end{lstlisting}

@@ -1,0 +1,71 @@
+\subsubsection{Friends}
+\begin{lstlisting}[language=sql]
+/* function loadFriend($id) */
+select   *
+from friends
+where id1 = ? and id2 = ? and status = \accepted\,
+[min($id, \Auth::id()), max($id, \Auth::id())];
+
+/* function canSendFriendRequest($id) */
+select   *
+from     friends
+where    id1 = ? and id2 = ? and (status = \accepted\ or status = \pending\) and action_user_id = ?
+union
+select   *
+from     friends
+where    id1 = ? and id2 = ? and action_user_id = ?,
+[$a, $b, \Auth::id(), $a, $b, $id];
+
+/* function storeFriendRequest($id) */
+/* insert if not exists: */
+insert into friends (id1, id2, status, action_user_id)
+values      (?, ?, ?, ?),
+[min(\auth::id(), $id), max(\auth::id(), $id), pending, \auth::id()];
+/* update if exists: */
+update friends
+set    status = \pending\, action_user_id = ?
+where  id1 = ? and id2 = ?,
+[\Auth::id(), min($id, \Auth::id()), max($id, \Auth::id())];
+
+/* function deleteFriend($id) */
+update friends
+set    status = \declined\, action_user_id = ?
+where  id1 = ? and id2 = ?,
+[\Auth::id(), min($id, \Auth::id()), max($id, \Auth::id())];
+
+/* function isFriendRequestPending($id) */
+select  *
+from    friends
+where   id1 = ? and id2 = ? and status = \pending\ and action_user_id = ?,
+[min($id, \Auth::id()), max($id, \Auth::id()), $id]);
+
+/* function isSentFriendRequestPending($id) */
+select  *
+from    friends
+where   id1 = ? and id2 = ? and status = \pending\ and action_user_id = ?,
+[min($id, \Auth::id()), max($id, \Auth::id()), \Auth::id()];
+
+/* function acceptFriend($id) */
+update   friends
+set      status = \accepted\, action_user_id = ?
+where    id1 = ? and id2 = ?,
+[\Auth::id(), min(\Auth::id(), $id), max(\Auth::id(), $id)];
+
+}
+
+/* function declineFriend($id) */
+update   friends
+set      status = \declined\, action_user_id = ?
+where    id1 = ? and id2 = ?,
+[\Auth::id(), min(\Auth::id(), $id), max(\Auth::id(), $id)];
+
+/* function loadMyFriends() */
+select *
+from users
+where id <> ?
+and id in (select case when id1 = ? then id2 else id1 end
+        from friends
+        where (id1 = ? or id2 = ?) and status = \accepted\),
+[\Auth::id(), \Auth::id(), \Auth::id(), \Auth::id()];
+
+\end{lstlisting}

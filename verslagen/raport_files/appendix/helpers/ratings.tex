@@ -1,0 +1,15 @@
+\subsubsection{Ratings}
+\begin{lstlisting}[language=sql]
+/* function notRatedYet($uId, $sId) */
+select * from series_ratings where userId = ? and seriesId = ?, [$uId, $sId];
+
+/* function addRating($nr) */
+insert into series_ratings (rating, userId, seriesId) VALUES (?, ?, ?), [$nr->rating, $nr->userId, $nr->seriesId];
+
+/* function unratedSeries($sId) */
+select * from series_ratings where seriesId = ?, [$sId];
+
+/* function averageRating($sId) */
+select * from series_ratings where seriesId = ?, [$sId];
+
+\end{lstlisting}

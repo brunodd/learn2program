@@ -1,100 +1,137 @@
 \begin{lstlisting}    
-/* In case a database is still loaded, remove it */
+/* In case a database is still loaded, remove it    */
 DROP DATABASE if exists learn2program_db;
 
-/* Load a new database */
+/* Load a new database  */
 CREATE DATABASE learn2program_db;
 USE learn2program_db;
 
 CREATE TABLE users (
-    id int AUTO_INCREMENT,
-    pass varchar(255) NOT NULL,
-    username varchar(50) NOT NULL UNIQUE,
-    mail varchar(50) NOT NULL,
-    PRIMARY KEY(id)
+    id INT AUTO_INCREMENT,
+    pass VARCHAR(60) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    mail VARCHAR(50) NOT NULL,
+    image VARCHAR(50) NOT NULL DEFAULT 'NoProfileImage.jpg', 
+    info TEXT,
+    PRIMARY KEY (id)
 );
 
+/* id1 < id2 */
 CREATE TABLE friends (
-    id1 int REFERENCES users(id),
-    id2 int REFERENCES users(id),
-    PRIMARY KEY(id1, id2)
+    id1 INT NOT NULL,
+    id2 INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') NOT NULL,
+    action_user_id INT NOT NULL,
+    PRIMARY KEY (id1, id2),
+    FOREIGN KEY (id1) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (action_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE conversations (
-    id int AUTO_INCREMENT,
-    userA int REFERENCES users(id),
-    userB int REFERENCES users(id),
-    PRIMARY KEY(id)
+    id INT AUTO_INCREMENT,
+    userA INT NOT NULL,
+    userB INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userA) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (userB) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE messages (
-    conversationId int REFERENCES conversations(id),
-    message varchar(512) NOT NULL,
-    author varchar(50) NOT NULL,     /* author stored as username for easier displaying */
-    date timestamp                   /* 'YYYY-MM-DD HH:MM:SS' format */
+    id INT AUTO_INCREMENT,
+    conversationId INT NOT NULL,
+    message VARCHAR(512) NOT NULL,
+    author int NOT NULL,
+    is_read BOOL NOT NULL DEFAULT 0,
+    date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
+    PRIMARY KEY (id),
+    FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups (
-    id int AUTO_INCREMENT,
-    name varchar(30) NOT NULL UNIQUE,
-    founderId int NOT NULL,
-    FOREIGN KEY (founderId) REFERENCES users(id),
-    PRIMARY KEY(id)
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    founderId INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (founderId) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE members_of_groups (
-    memberId int REFERENCES users(id),
-    groupId int REFERENCES Groups(id),
-    PRIMARY KEY (memberId, groupId)
+    memberId INT NOT NULL,
+    groupId INT NOT NULL,
+    PRIMARY KEY (memberId, groupId),
+    FOREIGN KEY (memberId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE
 );
 
-/* Only allow 4 values for difficulty? => easy, intermediate, hard, insane */
 CREATE TABLE types (
-    id int AUTO_INCREMENT,
-    subject varchar(50) NOT NULL,
-    difficulty ENUM('easy', 'intermediate', 'hard', 'insane') NOT NULL,
-    PRIMARY KEY(id),
-    UNIQUE(subject, difficulty)
+    id INT AUTO_INCREMENT,
+    subject VARCHAR(50) NOT NULL,
+    difficulty ENUM('Easy', 'Intermediate', 'Hard', 'Insane') NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (subject, difficulty)
 );
 
-/* Must make sure that at least 1 exercise belongs to a serie
-    => design the site so that this is always the case? */
 CREATE TABLE series (
-    id int AUTO_INCREMENT,
-    title varchar(50) NOT NULL,
-    description varchar(500),
-    makerId int NOT NULL,
-    FOREIGN KEY (makerId) REFERENCES users(id),
-    tId int NOT NULL,
-    FOREIGN KEY (tId) REFERENCES types(id),
-    PRIMARY KEY(id),
-    UNIQUE(title, tId)
+    id INT AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(500),
+    makerId INT NOT NULL,
+    tId INT NOT NULL,
+    UNIQUE (title, tId),
+    PRIMARY KEY (id),
+    FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (tId) REFERENCES types(id) ON DELETE CASCADE
 );
 
 CREATE TABLE series_ratings (
-    userId int REFERENCES users(id),
-    serieId int REFERENCES series(id),
+    userId INT,
+    seriesId INT NOT NULL,
     rating ENUM('0', '1', '2', '3', '4', '5') NOT NULL,
-    PRIMARY KEY (userId, serieId)
+    UNIQUE (userId, seriesId),
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (seriesId) REFERENCES series(id) ON DELETE CASCADE
 );
 
 CREATE TABLE exercises (
-    id int AUTO_INCREMENT,
-    question varchar(767) NOT NULL,
-    tips varchar(500),
-    start_code text NOT NULL,
-    expected_result text NOT NULL,
-    serieId int NOT NULL,
-    FOREIGN KEY (serieId) REFERENCES series(id),
-    PRIMARY KEY(id)
+    id INT AUTO_INCREMENT,
+    question VARCHAR(500) NOT NULL,
+    tips VARCHAR(500),
+    start_code TEXT NOT NULL,
+    expected_result TEXT NOT NULL,
+    makerId INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE exercises_answers (
-    id int AUTO_INCREMENT,
-    given_code text NOT NULL,
-    success bool NOT NULL,
-    uId int NOT NULL REFERENCES users(id),
-    eId int NOT NULL REFERENCES exercises(id),
-    PRIMARY KEY(id)
+CREATE TABLE exercises_in_series (
+    exId INT NOT NULL,
+    seriesId INT NOT NULL,
+    ex_index INT NOT NULL,
+    PRIMARY KEY (exId, seriesId),
+    FOREIGN KEY (exId) REFERENCES exercises(id) ON DELETE CASCADE,
+    FOREIGN KEY (seriesId) REFERENCES series(id) ON DELETE CASCADE
+);
+
+CREATE TABLE answers (
+    id INT AUTO_INCREMENT,
+    given_code TEXT NOT NULL,
+    success BOOL NOT NULL,
+    uId INT NOT NULL,
+    eId INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (uId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (eId) REFERENCES exercises(id) ON DELETE CASCADE
+);
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT,
+    userId INT NOT NULL,
+    type VARCHAR(128),
+    object_id INT,
+    is_read BOOL NOT NULL DEFAULT 0,
+    date TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
 );
 \end{lstlisting}    
