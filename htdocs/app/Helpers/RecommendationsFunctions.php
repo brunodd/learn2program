@@ -41,10 +41,10 @@ function returnSeriesSameRating($serie) {
 
 function isEmptySeries($serie) {
     $variable = DB::select('SELECT * 
-                          FROM series, exercises, exercises_in_series
-                          WHERE series.id = exercises_in_series.seriesId
-                          and exercises.id = exercises_in_series.exId
-                          and series.id = ?', [$serie->id]);
+                            FROM series, exercises, exercises_in_series
+                            WHERE series.id = exercises_in_series.seriesId
+                            and exercises.id = exercises_in_series.exId
+                            and series.id = ?', [$serie->id]);
     if (!empty($variable)) {
             return false;
     }

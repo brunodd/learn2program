@@ -68,4 +68,63 @@
             </div>
         @endif
     @endif
-@stop
+
+    <?php
+    $allseries = DB::select('SELECT *  
+                            FROM series
+                            WHERE series.id = series.id');
+    ?>
+
+    <h4>ACCOMPLISHMENT:</h4>
+
+    @foreach($allseries as $serie )
+        @if( hasCompletedAllExercisesInSerie($user, $serie) )
+            {{$serie->title}} <br>
+            <?php $exercises = getAllExercisesOfSeries($serie); ?>
+            @foreach($exercises as $exercise)
+                @if ( getAccomplishedExercise($user, $exercise) )
+                    Exercise {{$exercise->id}} accomplished! <br>
+                @endif
+            @endforeach
+        @endif
+    @endforeach
+    
+    <h4>NOT FINISHED:</h4>
+        <?php $oneNotFinishedSerie = false; ?>
+        @foreach($allseries as $serie )
+            @if( hasNotCompletedWholeSerie($user, $serie) )
+                {{$serie->title}} <br>
+                <?php $oneNotFinishedSerie = true; ?>
+                <?php $exercises = getAllExercisesOfSeries($serie); ?>
+                @foreach($exercises as $exercise)
+                    @if ( getAccomplishedExercise($user, $exercise) )
+                        Exercise {{$exercise->id}} accomplished! <br>
+                    @else
+                        Exercise {{$exercise->id}} not started! <br>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+        <?php if(!$oneNotFinishedSerie)
+                 echo "You don't have any 'not fully solved' Serie. \n"?>
+
+    <h4>NOT STARTED:</h4>
+        <?php $oneNotStartedSerie = false; ?>
+        @foreach($allseries as $serie )
+            @if( hasNotStartedSerie($user, $serie) )
+                {{$serie->title}} <br>
+                <?php $oneNotStartedSerie = true; ?>
+                <?php $exercises = getAllExercisesOfSeries($serie); ?>
+                @foreach($exercises as $exercise)
+                    @if ( getAccomplishedExercise($user, $exercise) )
+                        Exercise {{$exercise->id}} accomplished! <br>
+                    @else
+                        Exercise {{$exercise->id}} not started! <br>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+        <?php if(!$oneNotStartedSerie)
+            echo "You started all the serie! Nicely done! \n"?>
+
+    @stop
