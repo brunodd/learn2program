@@ -83,6 +83,7 @@
             </div>
         @endif
 
+        <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>
         @if ( Auth::check() )
             <div class="form-group">
                 {!! Form::textarea('result', $result, [ 'id' => 'output', 'rows' => 5, 'class' => 'form-control', 'readonly']) !!}
@@ -102,13 +103,12 @@
                     <a href="/series/"
                         class="btn btn-primary">Finished series</a>
                 @endif
+
+                @if( $answer != null )
+                    <a href="/sendnotification/" class="btn btn-primary">Share with friend</a>
+                @endif
             </div>
 
-            <div id="yourcanvas"><!-- Canvas for turtle graphics --></div>
-            @if( $answer != null )
-                <a href="/sendnotification/"
-                        class="btn btn-primary">Share with friend</a>
-            @endif            
         @endif
     {!! Form::close() !!}
 

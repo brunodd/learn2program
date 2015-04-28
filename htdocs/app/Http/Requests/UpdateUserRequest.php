@@ -24,8 +24,11 @@ class UpdateUserRequest extends Request {
 	public function rules()
 	{
 		return [
-
-            //TODO Armin: will use validator in userscontroller@update because rules change depending on which fields are filled in, something like that
+            //TODO: finish this
+            //'username' => 'required|unique:users|min:3|max:50',
+            //'mail' => 'required|max:50',
+            //TODO file image
+            //image -> png, jpg, ... only
 
 		];
 	}

@@ -13,6 +13,11 @@
             float:left;
             margin-right: 5px;
         }
+
+        .btn {
+            width: 175px;
+            margin-bottom: 10px;
+        }
     </style>
 
 @stop
@@ -36,8 +41,8 @@
                                 FROM series
                                 WHERE series.id = series.id');
         ?>
-        <div class="col-md-3">
-            <div class="jumbotron" style="padding: 10px 35px;max-height: 100%;overflow-y: auto;"><h3 style="text-align: center;">Accomplishments</h3>
+        <div class="col-md-3" style="height: 100%">
+            <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h3 style="text-align: center;">Accomplishments</h3>
                 <div class="row">
                     <u><h4>Completed series</h4></u>
                     @foreach($allseries as $serie )
@@ -102,43 +107,35 @@
                 </div>
             </div>
         </div>
-        <div class=col-md-9>
+        <div class=col-md-7>
             <h3>Something about me:</h3>
             <p>{{ $user->info }}</p>
+        </div>
+        <div class="col-md-2">
+
             @if (Auth::check() and $user->id != Auth::id())
-                <div class="form-group" >
-                    <a href="{{ action('MessagesController@show', $user->username )}}">
-                    <input class="btn btn-primary" type="submit" value="Send message"></a>
-                </div>
-                <br>
+                <a href="{{ action('MessagesController@show', $user->username )}}">
+                <input class="btn btn-primary" type="submit" value="Send message"></a>
 
                 @if (cansendfriendrequest($user->id))
                     {!! Form::open(['action' => ['UsersController@addFriend', $user->username]]) !!}
-                        <div class="form-group" >
-                            {!! Form::submit('add as friend', ['class' => 'btn btn-primary']) !!}
-                        </div>
+                        {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 @elseif (isfriendrequestpending($user->id))
-                    {!! Form::open(['action' => ['UsersController@acceptfriend', $user->username]]) !!}
-                    <div class="form-group" >
-                        {!! Form::submit('accept friend request', ['class' => 'btn btn-primary']) !!}
-                    </div>
+                    {!! Form::open(['action' => ['UsersController@acceptFriend', $user->username]]) !!}
+                        {!! Form::submit('Accept friend request', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
 
-                    {!! Form::open(['action' => ['UsersController@declinefriend', $user->username]]) !!}
-                    <div class="form-group" >
-                        {!! Form::submit('decline friend request', ['class' => 'btn btn-primary']) !!}
-                    </div>
+                    {!! Form::open(['action' => ['UsersController@declineFriend', $user->username]]) !!}
+                        {!! Form::submit('Decline friend request', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 @elseif (!empty(loadfriend($user->id)))
-                    {!! Form::open(['action' => ['UsersController@removefriend', $user->username]]) !!}
-                        <div class="form-group" >
-                            {!! Form::submit('remove friend', ['class' => 'btn btn-primary']) !!}
-                        </div>
+                    {!! Form::open(['action' => ['UsersController@removeFriend', $user->username]]) !!}
+                        {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 @elseif (issentfriendrequestpending($user->id))
                     <div class="form-group btn btn-primary disabled" >
-                        friend request pending
+                        Friend request pending
                     </div>
                 @endif
             @endif
