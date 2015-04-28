@@ -67,6 +67,9 @@ class NotificationsController extends Controller {
                 case "friend request declined":
                     $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has declined your friend request.') );
                     break;
+                case "friend completed exercise":
+                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has accomplished exercise ex_name.') );
+                    break;
             }
             array_push($notifications, $notification);
         }
@@ -81,13 +84,13 @@ class NotificationsController extends Controller {
         return response()->json($response);
     }
 
-    public function shareNotification() {
-        return view('pages.sendNotification');
+    public function shareNotification($userId) {
+        storeNotification( $userId, 'friend completed exercise', \Auth::id());
+        return view('pages.home');
     }
 
-    public function sendNotification($user) {
-        storeNotification($user->id, 'friend update', \Auth::id());
-        return view('pages.sendNotification');
+    public function createNotification() {
+        $user_options = loadMyFriends();
+        return \View::make('pages.sendNotification', array('user_options' => $user_options));
     }
-
 }

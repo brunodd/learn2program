@@ -23,7 +23,9 @@ Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For 
 Route::get('search', 'SearchController@search');
 Route::get('notifications', 'NotificationsController@index'); //TODO: don't forget, armin
 Route::post('notificationsRead', 'NotificationsController@setNotificationsToRead');
-Route::get('sendnotification', 'NotificationsController@sendnotification');
+Route::get('sendnotification', 'NotificationsController@createNotification');
+Route::any('sharenotification/{user}', array( 'as' => 'pages.sendNotification', 'uses' => 'NotificationsController@shareNotification'));
+//Route::post('sharenotification/{user}', array( 'as' => 'sharenotification', 'uses' => 'NotificationsController@shareNotification'));
 
 Route::get('code', 'PagesController@code'); //can be removed??
 
@@ -97,4 +99,3 @@ Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
 Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');
 
 Route::get('/facebook/error', function() {return 'Problem singing in with Facebook.';});
-

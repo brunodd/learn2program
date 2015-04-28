@@ -152,7 +152,8 @@ CREATE TABLE answers (
 
 /* Examples: type: friends;object_id: userId;message: userId->username wants to add you as a friend.
              type: series;object_id: seriesId;message: user X has completed your seriesId->title.
-             type: rating;object_id: seriesId;message: Your series seriesId->title has recieved a rating of X */
+             type: rating;object_id: seriesId;message: Your series seriesId->title has recieved a rating of X 
+             type: friend accomplished exercise;object_id: userId;message: userId->username accomplished new exercise */
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT,
     userId INT NOT NULL,
