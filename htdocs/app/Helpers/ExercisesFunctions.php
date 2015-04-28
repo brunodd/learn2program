@@ -140,9 +140,12 @@ function userSucceededExercise($eId, $uId)
         where eId = ?
         and uId = ?
         and success = 1',
-        [$eId, $uId])) )
-    return false;
-    else return true;
+        [$eId, $uId])) ) {
+        return false;
+        }
+    else {
+        return true;
+    }
 }
 
 function storeAnswer($ans)
