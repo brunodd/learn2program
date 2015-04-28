@@ -3,6 +3,12 @@
 @section('head')
     <link rel="stylesheet" href="/bootstrap-star-rating/css/star-rating.css">
     <script src="/bootstrap-star-rating/js/star-rating.js"></script>
+
+    <style>
+        #captioner {
+            float: right;
+        }
+    </style>
 @stop
 
 @section('title')
@@ -25,18 +31,21 @@
     <div style="float: right; margin-bottom: -74px;">
         @if( unratedSeries($serie->id) )
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
-            {!! Form::hidden('sId', $serie->id) !!}
-            <label class="control-label">Rating</label>
-            <input name="rating" id="notRatedYet" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()">
+                {!! Form::hidden('sId', $serie->id) !!}
+                <label class="control-label">Rating</label>
+                <div id="captioner"></div>
+                <input name="rating" id="notRatedYet" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()"> <br/>
             {!! Form::close() !!}
         @elseif(Auth::check() and notRatedYet(Auth::id(), $serie->id))
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
-            {!! Form::hidden('sId', $serie->id) !!}
-            <label class="control-label">Rating</label>
-            <input name="rating" class="rating" value=" {{ averageRating($serie->id) }}" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()">
+                {!! Form::hidden('sId', $serie->id) !!}
+                <label class="control-label">Rating</label>
+                <div id="captioner"></div>
+                <input name="rating" class="rating" value=" {{ ceil(averageRating($serie->id) * 2) / 2 }}" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()">
             {!! Form::close() !!}
         @else
             <label class="control-label">Rating</label>
+            <div id="captioner"></div>
             <input class="rating" value=" {{ ceil(averageRating($serie->id) * 2) / 2}}" data-min="0" data-max="5" data-step="1" data-show-clear="false" data-readonly="true">
         @endif
     </div>
@@ -62,6 +71,7 @@
     @endforeach     
 
     @if ( $serie->makerId === Auth::id() )
+        <hr/>
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
             <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>
         <h4><a href="{{$serie->id}}/referenceexercise">Reference an existing exercise</a></h4>
@@ -74,6 +84,13 @@
 
     <br><br>
     <script>
-        $("#notRatedYet").rating({clearCaption: "Not rated yet"});
+        $("#notRatedYet").rating({
+            clearCaption: "Not rated yet",
+            captionElement: "#captioner"
+        });
+
+        $(".rating").rating({
+            captionElement: "#captioner"
+        });
     </script>
 @stop
