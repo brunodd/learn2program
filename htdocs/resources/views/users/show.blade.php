@@ -61,11 +61,9 @@
                     </div>
                     <div class="row">
                         <u><h4>Work in progress</h4></u>
-                            <?php $oneNotFinishedSerie = false; ?>
                             @foreach($allseries as $serie )
                                 @if( hasNotCompletedWholeSerie($user, $serie) )
                                     <strong>{{$serie->title}}</strong>
-                                    <?php $oneNotFinishedSerie = true; ?>
                                     <?php $exercises = getAllExercisesOfSeries($serie); ?>
                                     <div class=container-fluid>
                                     @foreach($exercises as $exercise)
@@ -78,10 +76,6 @@
                                     </div>
                                 @endif
                             @endforeach
-                            <?php $pending = $oneNotFinishedSerie; ?>
-                            @if ( $pending == false )
-                                <div class="small"><em>(none)</em></div>
-                            @endif
                     </div>
                     <div class="row">
                         <u><h4>To do</h4></u>
@@ -118,29 +112,29 @@
                     <br>
 
                     @if (cansendfriendrequest($user->id))
-                        {!! form::open(['action' => ['userscontroller@addfriend', $user->username]]) !!}
+                        {!! Form::open(['action' => ['UsersController@addFriend', $user->username]]) !!}
                             <div class="form-group" >
-                                {!! form::submit('add as friend', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('add as friend', ['class' => 'btn btn-primary']) !!}
                             </div>
-                        {!! form::close() !!}
+                        {!! Form::close() !!}
                     @elseif (isfriendrequestpending($user->id))
-                        {!! form::open(['action' => ['userscontroller@acceptfriend', $user->username]]) !!}
+                        {!! Form::open(['action' => ['UsersController@acceptfriend', $user->username]]) !!}
                         <div class="form-group" >
-                            {!! form::submit('accept friend request', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('accept friend request', ['class' => 'btn btn-primary']) !!}
                         </div>
-                        {!! form::close() !!}
+                        {!! Form::close() !!}
 
-                        {!! form::open(['action' => ['userscontroller@declinefriend', $user->username]]) !!}
+                        {!! Form::open(['action' => ['UsersController@declinefriend', $user->username]]) !!}
                         <div class="form-group" >
-                            {!! form::submit('decline friend request', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('decline friend request', ['class' => 'btn btn-primary']) !!}
                         </div>
-                        {!! form::close() !!}
+                        {!! Form::close() !!}
                     @elseif (!empty(loadfriend($user->id)))
-                        {!! form::open(['action' => ['userscontroller@removefriend', $user->username]]) !!}
+                        {!! Form::open(['action' => ['UsersController@removefriend', $user->username]]) !!}
                             <div class="form-group" >
-                                {!! form::submit('remove friend', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('remove friend', ['class' => 'btn btn-primary']) !!}
                             </div>
-                        {!! form::close() !!}
+                        {!! Form::close() !!}
                     @elseif (issentfriendrequestpending($user->id))
                         <div class="form-group btn btn-primary disabled" >
                             friend request pending
