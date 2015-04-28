@@ -80,4 +80,9 @@ class NotificationsController extends Controller {
 
         return response()->json($response);
     }
+
+    public function sendNotification() {
+        return view('pages.sendNotification');
+    }
+
 }

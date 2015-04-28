@@ -23,6 +23,7 @@ Route::get('list_all_messages', 'MessagesController@list_all_messages'); // For 
 Route::get('search', 'SearchController@search');
 Route::get('notifications', 'NotificationsController@index'); //TODO: don't forget, armin
 Route::post('notificationsRead', 'NotificationsController@setNotificationsToRead');
+Route::get('sendnotification', 'NotificationsController@sendnotification');
 
 Route::get('code', 'PagesController@code'); //can be removed??
 

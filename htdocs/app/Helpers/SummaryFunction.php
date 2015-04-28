@@ -72,3 +72,13 @@ function hasNotStartedSerie($user, $serie) {
 	}
 	return true;
 }
+
+function pushNotification() {
+	DB::table('notifications')->insert(
+	    array(  'userId' => 1,
+	            'type' => 'shareMessage',
+	            'object_id' => 1
+	            )
+    );
+    dd(DB::table('notifications'));
+}
