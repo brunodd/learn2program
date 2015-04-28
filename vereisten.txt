@@ -1,10 +1,7 @@
-filteren op type: ok
-
-grafieken nog laten zien: ok
-    data per reeks: #gebruikers die de reeks hebben voltooid, gemmidelde resultaat
-
-resultaten overzicht krijgen per reeks, inclusief welke vragen juist of fout waren.
-
 resultaten delen tussen vrienden
-
-leden van een groep laten zien: ok
+notificaties
+laatste styling
+users edit, updateuserrequest rules afmaken.
+statistics verbeteren:
+    "number of users that succesfully completed series" telt niet alles, soms wel soms niet, raar
+    "average score per series" enkel users tellen die geprobeerd hebben, niet alle users

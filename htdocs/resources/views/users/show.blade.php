@@ -41,8 +41,8 @@
                                 FROM series
                                 WHERE series.id = series.id');
         ?>
-        <div class="col-md-3">
-            <div class="jumbotron" style="padding: 10px 35px;max-height: 100%;overflow-y: auto;"><h3 style="text-align: center;">Accomplishments</h3>
+        <div class="col-md-3" style="height: 100%">
+            <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h3 style="text-align: center;">Accomplishments</h3>
                 <div class="row">
                     <u><h4>Completed series</h4></u>
                     @foreach($allseries as $serie )
