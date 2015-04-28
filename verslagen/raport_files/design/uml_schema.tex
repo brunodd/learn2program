@@ -8,21 +8,19 @@ worden \textsl{licht cursief} weergegeven.
 \begin{description}
     \item[Users] zijn de essentie van de website. Zij maken uit hoe succesvol de website kan zijn.
         Een User is 'een geregistreerd bezoeker'. \textsl{Users zijn uitgebreid om nu ook een afbeelding
-        te bevatten, alsook een korte uitleg over de gebruiker. Beide zijn optionele attributen en mogen
-        dus leeg blijven.}
-    \item[Friends] is een 1-to-1 relatie. Om vrienden te worden moet een request verzonden worden.
-        Indien de andere gebruiker dit aanvaard, is de Friends-relatie gecre\"{e}erd.
+        te bevatten, alsook een (optionele) korte uitleg over de gebruiker.}
+    \item[Friends] is een 1-to-1 relatie. \textsl{Status kan waarden "pending", "accepted" en "declined" aannemen.
+        action\_user\_id wordt gebruikt om na te kijken welke gebruiker als laatste de status heeft gepdatet.}
     \item[Groups] zijn verzamelingen van Users. Een groep wordt opgericht door een gebuiker, de 'founder'
         van de groep. Meerdere Users kunnen dan zonder meer lid worden van de groep. De gebruikers kunnen
         nadien de groep verlaten (met uitzondering van de 'founder'). Dit maakt dat een groep altijd minstens
         1 lid heeft.
     \item[Members of groups] zijn de gebruikers die lid zijn van een groep.
-    \item[Converstations] zijn verzamelingen van berichten die tussen 2 gebruikers heen en weer gestuurd
-        werden.
-    \item[Messages] zijn de enkelvoudige berichten die van 1 gebruiker naar de andere gestuurd wordt.
-        Alle messages van de ene gebruiker naar de andere en eventuele antwoorden vormen samen een conversation.
-        \textsl{Een zeer kleine uitbreiding hierop is een controle of een bericht al dan niet gelezen is. Hierdoor
-        kan de zender zien of zijn bericht aangekomen/gelezen is.}
+    \item[Converstations] staat letterlijk voor een conversatie tussen 2 personen.
+    \item[Messages] zijn de berichten die van een gebruiker in een conversatie gestuurd worden.
+        \textsl{Gebruikers kunnen zien of hun bericht gelezen is of niet.} \\
+        from/to attributen werden gesplitst van Messsages om redundantie te vermijden en om makkelijker
+        uit te kunnen breiden naar conversaties tussen N personen, moest dit nuttig zijn. (dit d.m.v. een conversations\_participants table)
     \item[Series] zijn het tweede essentiele deel van de applicatie. Een serie bestaat uit een set
         van 'Exercises'. Iedere serie krijgt ook een type en een rating.
     \item[Series rating] zijn de ratings die gebruikers aan een serie kunnen geven. Deze rating
@@ -43,5 +41,6 @@ worden \textsl{licht cursief} weergegeven.
         van de interpreter. Zo kan een gebruiker de code later opnieuw opvragen en kan tegelijk snel
         opgevraagd worden of een gebruiker de oefening correct had opgelost.
     \item[\textsl{Notifications}] \textsl{zijn meldingen die een gebruiker kan krijgen. Denk hierbij aan bijvoorbeeld een
-        ontvangen vriendschapsverzoek.}
+        ontvangen vriendschapsverzoek. type is een korte beschrijving van de soort melding, object\_id(optioneel) is
+        de id van een object relevant aan de melding.}
 \end{description}

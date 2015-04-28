@@ -1,5 +1,10 @@
 @extends('master')
 
+@section('head')
+    <link rel="stylesheet" href="/bootstrap-star-rating/css/star-rating.css">
+    <script src="/bootstrap-star-rating/js/star-rating.js"></script>
+@stop
+
 @section('title')
     <div style="float:left">
         <b><em>{{ $serie->title }}</em></b><br>
@@ -17,7 +22,27 @@
 @stop
 
 @section('content')
-    <h3>Description :</h3>
+    <div style="float: right; margin-bottom: -74px;">
+        @if( unratedSeries($serie->id) )
+            {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
+            {!! Form::hidden('sId', $serie->id) !!}
+            <label class="control-label">Rating</label>
+            <input name="rating" id="notRatedYet" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()">
+            {!! Form::close() !!}
+        @elseif(Auth::check() and notRatedYet(Auth::id(), $serie->id))
+            {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
+            {!! Form::hidden('sId', $serie->id) !!}
+            <label class="control-label">Rating</label>
+            <input name="rating" class="rating" value=" {{ averageRating($serie->id) }}" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()">
+            {!! Form::close() !!}
+        @else
+            <label class="control-label">Rating</label>
+            <input class="rating" value=" {{ ceil(averageRating($serie->id) * 2) / 2}}" data-min="0" data-max="5" data-step="1" data-show-clear="false" data-readonly="true">
+        @endif
+    </div>
+
+    <h3 style="float: left; margin-top: 0;">Description :</h3>
+    <div style="clear: both;"></div>
     <p>{{$serie->description}}</p>
     <h3>List of {{ $serie->title }}'s exercises :</h3>
 
@@ -45,27 +70,10 @@
         <h4><a href="{{$serie->id}}/copyexercise">Copy an existing exercise</a></h4>
             <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
     @endif
+
+
     <br><br>
-
-    @if( unratedSeries($serie->id) )
-        <h4>No ratings found for this series.</h4>
-    @else
-        <h4>Average rating : {{ averageRating($serie->id) }} / 5</h4>
-    @endif
-
-    @if ( Auth::check() and notRatedYet(Auth::id(), $serie->id))
-        <br> <br>
-        {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
-            <div class="form-group">
-                {!! Form::label('rating', 'Rate this series: ') !!}
-                {!! Form::select('rating', [null => 'Select rating...', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::hidden('sId', $serie->id) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::submit('Submit rating', ['class' => 'btn btn-primary']) !!}
-            </div>
-        {!! Form::close() !!}
-    @endif
+    <script>
+        $("#notRatedYet").rating({clearCaption: "Not rated yet"});
+    </script>
 @stop

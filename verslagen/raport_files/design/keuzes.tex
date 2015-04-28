@@ -4,16 +4,15 @@ Aangezien niemand van ons enige ervaring had met webdevelopment of webdesign was
 enorme hulp om een soort template te hebben waar we op konden voortgaan. Een bijkomende reden
 om Laravel te gebruiken is dat het een zeer uitgebreide en actieve community bevat, evenals veel en
 duidelijke tutorials. \\
-Laravel gebruikt MVC design, wat we dan ook gevolgd hebben. Voor alle grote klassen
-werd een Controller aangemaakt. Deze Controller bevat de voornaamste php code. De resultaten die in de
+Laravel gebruikt MVC design, wat we dan ook gevolgd hebben. Voor alle grote paginas
+werd een Controller aangemaakt. De Controllers bevatten de voornaamste php code. De resultaten die in de
 Controller behaald worden, worden dan gebruikt om Views te cre\"{e}ren die de content geformatteerd renderen (als html code).
 
 \subsubsection{Database communicatie}
-Om met objecten te kunnen werken worden zogenaamde Models aangemaakt. Dit zijn php klassen die
-gebruikt worden als container voor de data die via SQL queries worden opgevraagd.
-Bovendien worden deze gebruikt om een zekere mate van beveiliging toe te voegen doordat
-in deze models gespecifieerd kan worden welke data wel of niet kan aangepast worden. \\
-SQL queries worden verzameld in een enkele file, en worden doorheen het programma gebruikt om te communiceren
+Om met objecten te kunnen werken worden zogenaamde Models aangemaakt. Laravel gebruikt het Eloquent ORM om met die models
+te werken. Aangezien we de functionaliteit van de Models niet mochten gebruiken voor het project,
+hebben we zelf alle SQL queries geschreven en worden de Models enkel gebruikt als data containers.
+De SQL queries worden verspreid door enkele files, en worden doorheen het programma gebruikt om te communiceren
 met de database.
 
 \subsubsection{Python interpreter}
@@ -26,7 +25,8 @@ Een nadeel van dit systeem is dan weer dat Skulpt een implementatie is van Pytho
 werkelijke python interpreter. Hierdoor is skulpt niet hetzelfde als de officiele python interpreter. Na
 afweging van voor- en nadelen hebben we besloten dat de voordelen zwaarder doorwegen. Voornamelijk omdat
 de applicatie dient om te leren programmeren. De nadruk ligt dus op relatief eenvoudige problemen, waardoor
-de meer gevorderde zaken die eventueel zouden ontbreken niet van toepassing zijn.
+de meer gevorderde zaken die eventueel zouden ontbreken niet van toepassing zijn. \\
+Als online text editor hebben we \href{http://www.cdolivet.com/editarea/}{\emph{EditArea}} gebruikt.
 
 \subsubsection{Oefeningen flow-control}
 \begin{description}
@@ -49,7 +49,8 @@ Door moeilijke reeksen en makkelijke reeksen gelijk te quoteren, is het voor een
 \begin{description}
 \item[Vrienden] Een gebruiker kan vrienden maken. Dit doet hij door een vriendschapsverzoek te verzenden. Dit verzoek moet dan weer door
 de potentiele vriend aanvaard worden. Iedere gebruiker heeft volledige controle over wie hij/zij bevriend. Nadat een vriendschapsverzoek
-geaccepteerd werd, kan iedere vriend dit annuleren. Een vriendschap is nu eenmaal niet definitief.
+geaccepteerd werd, kan iedere vriend dit annuleren. Een vriendschap is nu eenmaal niet definitief. \\
+Indien een vriendschap geweigerd werd, kan de aanvrager geen verzoek meet verzenden, dit om spam te vermijden.
 \item[Groepen] Een gebruiker kan een groep aanmaken of lid worden van een bestaande groep. Het voornaamste verschil met vrienden is dat
 een gebruiker geen controle heeft over wie er mede-lid wordt van een groep. Uiteraard kan iedere gebruiker, met uizondering van de oprichter,
 ook de groep weer verlaten.

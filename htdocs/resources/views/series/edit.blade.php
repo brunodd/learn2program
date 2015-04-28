@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Edit serie <em>{{ $serie->title }}</em>
+    Edit <em>{{ $serie->title }}</em>
 @stop
 
 @section('content')
