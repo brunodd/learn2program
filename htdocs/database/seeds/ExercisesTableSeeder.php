@@ -138,6 +138,26 @@ else:
             'makerId' => 4
         ]);
 
+        Exercise::create([
+            'question' => 'What is the answer to the ultimate question of life, the universe and everything?',
+            'tips' => 'It is not 24.',
+            'start_code' => 'the_answer =
+print(the_answer)',
+            'expected_result' =>
+'42',
+            'makerId' => 4
+        ]);
+
+        Exercise::create([
+            'question' => 'Given Fibonacci\'s row, what is the number with index 20',
+            'tips' => 'As computer scientists, the first element has index = 0.',
+            'start_code' => 'number = 
+print(number)',
+            'expected_result' =>
+'6765',
+            'makerId' => 4
+        ]);
+
 //         Exercise::create([
 //             'question' => '',
 //             'tips' => '',
