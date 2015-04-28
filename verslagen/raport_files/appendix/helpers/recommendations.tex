@@ -1,0 +1,45 @@
+\subsubsection{Recommendations}
+\begin{lstlisting}[language=sql]
+/* function returnSeriesSameMaker($serie) */
+select *
+from series
+where series.title != ? and makerid = ?,
+[$serie->title, $serie->makerId];
+
+/* function returnSeriesSameDifficulty($serie) */
+$difficulty = select *
+    from types
+    where types.id = ?, [$serie->tId]);
+
+select *
+from series, types
+where series.title != ? 
+and series.tid = types.id 
+and types.difficulty = ?,
+[$serie->title, $difficulty[0]->difficulty];
+
+/* function returnSeriesSameRating($serie) { */
+/* $rating = */
+select *
+from series, series_ratings
+where series.id = series_ratings.seriesid and series.id = ?, [$serie->id];
+/* if (!empty($rating)): */
+select *
+from series, series_ratings 
+where series.id = series_ratings.seriesid 
+and series.id != ?
+and series_ratings.rating = ? ,
+[$serie->id, $rating[0]->rating]; 
+/* return:  */
+select *
+from series
+where series.id != series.id;
+
+/* function isEmptySeries($serie) */
+select * 
+from series, exercises, exercises_in_series
+where series.id = exercises_in_series.seriesid
+and exercises.id = exercises_in_series.exid
+and series.id = ?, [$serie->id];
+
+\end{lstlisting}

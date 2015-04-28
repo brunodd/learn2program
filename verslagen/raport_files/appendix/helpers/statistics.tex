@@ -1,0 +1,264 @@
+\subsubsection{Statistics}
+\begin{lstlisting}[language=sql]
+/* function averageRatingByUser($id) */
+select * from series_ratings where userId = ?, [$id];
+
+/* function averageRatingsByTypes()  */
+select types.id, avg(rating) as a
+from series_ratings
+join series
+join types
+where series.id = seriesid
+and tid = types.id
+group by tid;
+
+/* function countSeriesByMakers()  */
+select makerId, count(id) as c
+from series
+group by makerId;
+
+/* function countExercisesByMakers()  */
+select makerId, count(exercises.id) as c
+from exercises
+group by makerId;
+
+/* function countSeriesCompletedByUsers()  */
+select uId, count(uId) as c
+from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2
+from answers
+join exercises
+join (select seriesId, count(id) as c2
+    from exercises
+    group by seriesId) agg
+on eId = exercises.id
+and exercises.seriesId = agg.seriesId
+group by uId, agg.seriesId having c1 = c2) agg
+group by uId;
+
+/* function countSeriesSucceededByUsers()  */
+select uId, count(uId) as c
+from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2
+    from answers
+    join exercises
+    join (select seriesId, count(id) as c2
+        from exercises
+        group by seriesId) agg
+    on eId = exercises.id
+    and exercises.seriesId = agg.seriesId
+    where success = 1
+    group by uId, agg.seriesId having c1 = c2) agg
+group by uId;
+
+/* function countSeriesInProgressByUsers()  */
+select uId, (agg2.c-count(uId)) as c
+from (select uId, count(distinct(eId)) as c1, agg.seriesId, agg.c2
+    from answers
+    join exercises
+    join (select seriesId, count(id) as c2
+        from exercises group by seriesId) agg
+    on eId = exercises.id
+    and exercises.seriesId = agg.seriesId
+    group by uId, agg.seriesId having c1 = c2) agg,
+    (select count(distinct(seriesId)) as c
+        from exercises) agg2
+group by uId;
+
+/* function countSeriesUnstartedByUsers()  */
+select *
+from (select users.id, agg.c as c
+    from users, (select count(id) as c
+        from series
+        where id in (select distinct(seriesId)
+            from exercises)) agg
+        where users.id not in (select uId from answers)
+        union (select uId as id, (agg.c-count(distinct(seriesId)))
+        from (answers join exercises on eId = exercises.id), (select count(id) as c
+            from series
+            where id in (select distinct(seriesId)
+                from exercises)) agg
+        group by uId)) agg
+group by id;
+
+/* function countExercisesCompletedByUsers()  */
+select uId,
+count(distinct(eId)) as c
+from answers
+group by uId;
+
+/* function countExercisesSucceededByUsers()  */
+select uId,
+count(distinct(eId)) as c
+from answers
+where success = 1
+group by uId;
+
+/* function countExercisesFailedByUsers()  */
+select uId, count(distinct(eId)) as c
+from answers
+where success = 0
+group by uId;
+
+/* function countExercisesUnstartedByUsers()  */
+select *
+from (select users.id, agg.c as c
+    from users, (select count(id) as c
+        from exercises) agg
+    where users.id not in (select uId
+        from answers)
+    union (select uId as id, (agg.c-count(distinct(eId)))
+        from answers, (select count(id) as c
+            from exercises) agg
+        group by uId)) agg
+group by id;
+
+/* function countTypesCompletedByUsers()  */
+select uId, count(agg1.tId) as c
+from (select agg.uId, count(agg.eId) as c, series.tId
+    from (select uId, eId
+        from answers group by uId, eId) agg
+    join exercises
+    join series on agg.eId = exercises.id
+    and seriesId = series.id
+    group by agg.uId, tId) agg1
+join (select tId, count(exercises.id) as c
+    from exercises
+    join series on seriesId = series.id
+    group by tId) agg2
+on agg1.tId = agg2.tId
+where agg1.c = agg2.c
+group by uId;
+
+/* function countTypesSucceededByUsers()  */
+select uId, count(agg1.tId) as c
+from (select agg.uId, count(agg.eId) as c, series.tId
+    from (select uId, eId
+        from answers
+        where success = 1
+        group by uId, eId) agg
+    join exercises
+    join series on agg.eId = exercises.id
+    and seriesId = series.id
+    group by agg.uId, tId) agg1
+join (select tId, count(exercises.id) as c
+    from exercises
+    join series on seriesId = series.id group by tId) agg2
+on agg1.tId = agg2.tId
+where agg1.c = agg2.c
+group by uId;
+
+/* function countTypesInProgressByUsers()  */
+select uId, (agg2.c-agg1.c) as c
+from (select agg.uId, count(agg.eId) as c, series.tId
+    from (select uId, eId
+        from answers group by uId, eId) agg
+    join exercises
+    join series on agg.eId = exercises.id
+    and seriesId = series.id group by agg.uId, tId) agg1
+    join (select tId, count(exercises.id) as c
+        from exercises join series on seriesId = series.id
+        group by tId) agg2
+    on agg1.tId = agg2.tId
+group by uId;
+
+/* function countTypesUnstartedByUsers()  */
+select *
+from (select users.id, agg.c as c
+    from users, (select count(id) as c
+        from types
+        where id in (select tId from series
+            where id in (select distinct(seriesId)
+                from exercises))) agg
+    where users.id not in (select uId from answers)
+    union (select uId as id, (agg.c-count(distinct(tId)))
+        from (answers join exercises join series join types on eId = exercises.id and seriesId = series.id and tId = types.id), (select count(id) as c
+            from types
+            where id in (select tId
+                from series
+                where id in (select distinct(seriesId)
+                    from exercises))) agg
+            )) agg
+group by id;
+
+/* function countSeriesByTypes()  */
+select tId, count(id) as c
+from series
+group by tId;
+
+
+/* function countUsersByGroups()  */
+select groupId, count(memberId) as c
+from members_of_groups
+group by groupId;
+
+/* function countGroupsByUsers()  */
+select memberId, count(groupId) as c
+from members_of_groups
+group by memberId;
+
+/* function countExercisesBySeries()  */
+select * from
+( (select id as seriesId, 0 as c
+    from series
+    where id not in
+        (select seriesId
+            from exercises_in_series
+            group by seriesId) )
+    union
+    (select seriesId, count(exId) as c
+    from exercises_in_series
+    group by seriesId) )
+agg
+group by seriesId;
+
+/* function countUsersSucceededSeries()  */
+select * from
+    (select seriesId, count(distinct(uId)) as c from
+        (select count(exId) as c, seriesId, uId
+            from exercises_in_series join answers on exId = eId
+            where success = 1
+            group by seriesId, uId) agg1
+        join
+        (select count(exId) as exCount, seriesId as sId
+            from exercises_in_series
+            group by sId) agg2
+        on (seriesId = sId and c = exCount)
+        group by seriesId
+    union
+        select seriesId, 0 as c from exercises_in_series
+        where exId not in
+        (select eId as exId
+            from answers
+            where success = 1
+            group by seriesId)
+    union
+        select id as seriesId, 0 as c from series
+        where id not in (select seriesId as id
+                        from exercises_in_series
+                        group by seriesId)) agg
+group by seriesId;
+
+/* function countExercisesInSeries($seriesId)  */
+select count(distinct(exId)) as c
+from exercises_in_series eis
+where eis.seriesId = ?,
+[$seriesId];
+
+/* function countUserSucceededExercisesBySeries($uId)  */
+select seriesId, c from
+    (select seriesId, count(distinct(exId)) as c
+        from exercises_in_series join answers on eId=exId
+        where success = 1 and uId = ?
+        group by seriesId
+    union
+        select seriesId, 0 as c from exercises_in_series
+        where exId not in
+            (select eId as exId from answers
+            where success=1 and eId=exId and uId=?)
+    union
+        select id as seriesId, 0 as c from series
+        where id not in (select seriesId as id from exercises_in_series)
+    ) agg
+group by seriesId,
+[$uId, $uId];
+
+\end{lstlisting}

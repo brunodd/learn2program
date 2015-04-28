@@ -1,0 +1,43 @@
+\subsubsection{Types}
+\begin{lstlisting}[language=sql]
+/* function removeUnusedTypes() */
+delete from types
+where id NOT IN (select distinct(tId)
+    from series);
+
+/* function loadTypeId($type) */
+select id
+from types
+where subject = ?
+and difficulty = ?,
+[$type->subject, $type->difficulty];
+
+/* function loadType1($type) */
+select *
+from types
+where subject = ?
+and difficulty = ?,
+[$type->subject, $type->difficulty];
+
+/* function loadType2($id) */
+select *
+from types
+where id = ?,
+[$id];
+
+/* function loadAllTypes() */
+select *
+from types;
+
+/* function storeType($type) */
+insert into types (subject, difficulty)
+values (?, ?),
+[$type->subject, $type->difficulty];
+
+/* function loadDifficultyAsInt($id)  */
+select difficulty
+from types
+where id = ?,
+[$id];
+
+\end{lstlisting}

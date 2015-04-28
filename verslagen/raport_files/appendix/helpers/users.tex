@@ -1,0 +1,43 @@
+\subsubsection{Users}
+\begin{lstlisting}[language=sql]
+/* function loadusers()  */
+select *
+from users;
+
+/* function loadUser($name)  */
+select *
+from users
+where username = ?
+or id = ?,
+[$name, $name];
+
+/* function loadName($id)  */
+select username
+from users
+where id = ?,
+[$id];
+
+/* function loadId($name)  */
+select id
+from users
+where username = ?,
+[$name];
+
+/* function storeUser($user)  */
+insert into users (pass, username, mail, info)
+VALUES (?, ?, ?, ?),
+[$user->pass, $user->username, $user->mail, $user->info];
+
+/* function updateUser($id, $data) */
+update users
+set username = ?, mail = ?, pass = ?, image = ? , info = ?
+where id = ?
+or username = ?,
+[$data->username, $data->mail, $data->pass, $data->image, $data->info, $id, $id];
+
+/* function loadUsersSearch($s)  */
+select *
+from users
+where username like ?,
+[%.$s.%];
+\end{lstlisting}
