@@ -60,7 +60,7 @@
                         @endforeach
                     </div>
                     <div class="row">
-                        <u><h4>Work in progress:</h4></u>
+                        <u><h4>Work in progress</h4></u>
                             <?php $oneNotFinishedSerie = false; ?>
                             @foreach($allseries as $serie )
                                 @if( hasNotCompletedWholeSerie($user, $serie) )
@@ -84,7 +84,7 @@
                             @endif
                     </div>
                     <div class="row">
-                        <u><h4>To do:</h4></u>
+                        <u><h4>To do</h4></u>
                             <?php $oneNotStartedSerie = false; ?>
                             @foreach($allseries as $serie )
                                 @if( hasNotStartedSerie($user, $serie) )
