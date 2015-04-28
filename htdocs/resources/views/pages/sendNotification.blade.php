@@ -5,16 +5,28 @@
 @stop
 
 @section('content')
+  			
+          {!! Form::open(['action' => 'storeNotification()', '']) !!}
+                <div class="form-group" >
+                	{{ Form::select('receiver', array(
+  					'user' => array('Fouad', 'Bruno', 'Raphael', 'Armin')
+						))}}
+                    {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
+                </div>
+            {!! Form::close() !!}
 
- 	<?php // dd(DB::table('notifications')->get()); ?>
 
+                	<!--receiver : {{ Form::textarea('receiver') }}-->
+
+<!-- 	<?php // dd(DB::table('notifications')->get()); ?>
+<!--
 	<h1>Sending a message</h1>
 
   	receiver: <input type="text" name="receiver" id="receiver"><br>
   	message: <input type="text" name="message" id="message"><br>
   	<!--<button onclick="add(document.getElementById('').value,document.getElementById('b').value)">Add</button>-->
- 	<button 
- 	width="30px" height onclick="return storeNotification(document.getElementById('$user').id, 'friends', document.getElementById('$user').id);">Share</button>   <br><br>
+ 	<!--<button
+ 	onclick="return storeNotification(document.getElementById('$user').id, 'friends', document.getElementById('$user').id);">Share</button>   <br><br>
 
 <!--	<div class="form-group">
         <label class="col-md-4 control-label"></label>
