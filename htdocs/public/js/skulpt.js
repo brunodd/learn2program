@@ -875,6 +875,7 @@ var skulptFunctions  = (function () {
                     console.log('success');
                 },
                 function(err) {
+                    alert('Error: ' + err.toString());
                     console.log(err.toString());
                 });
         }

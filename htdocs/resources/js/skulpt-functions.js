@@ -32,7 +32,7 @@ var skulptFunctions  = (function () {
                 return Sk.importMainWithBody("<stdin>", false, prog, true);
             });
             myPromise.then(function(mod) {
-                    console.log('success');
+                    console.log('worked!');
                 },
                 function(err) {
                     console.log(err.toString());
