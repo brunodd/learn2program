@@ -83,8 +83,8 @@ class ExercisesController extends Controller {
         {
             if (\Session::has('result')) {
                 $exercise = loadExercise($id)[0];
-                $result = \Session::get('result');
-                $answer = \Session::get('answer');
+                $result = \Session::pull('result', '');
+                $answer = \Session::pull('answer', '');
                 return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
             }
             $exercise = loadExercise($id)[0];
