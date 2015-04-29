@@ -63,12 +63,23 @@
     <br>
     
     <h3>Recommendations :</h3>
-    <?php $result = returnRecommendations($serie); ?>
+    <?php   $result = returnRecommendations($serie);
+            $emptyRecommendations = true; ?>
     @foreach($result as $temp)
         @if ( !isEmptySeries($temp) )
+            <?php $emptyRecommendations = false; ?>
             <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
         @endif
-    @endforeach     
+    @endforeach
+    @if ( $emptyRecommendations )
+        <?php $recommendations = returnSeriesRandom($serie); ?>
+        @foreach($recommendations as $temp)
+            @if ( !isEmptySeries($temp) )
+                <?php $emptyRecommendations = false; ?>
+                <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
+            @endif
+        @endforeach
+    @endif
 
     @if ( $serie->makerId === Auth::id() )
         <hr/>

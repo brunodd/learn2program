@@ -38,6 +38,21 @@ function returnSeriesSameRating($serie) {
                        WHERE series.id != series.id');
   
 }
+function returnSeriesRandom($serie) {
+    $result = DB::select(' SELECT *
+                        FROM series
+                        WHERE series.id != ?
+                        ORDER BY RAND()
+                        limit 2',
+                        [$serie->id]);
+    if(empty($result)) {
+        return returnSeriesRandom($serie);
+    }
+    if(isEmptySeries($result[0])) {
+        return returnSeriesRandom($serie);
+    }
+    return $result;
+}
 
 function isEmptySeries($serie) {
     $variable = DB::select('SELECT * 
@@ -53,13 +68,10 @@ function isEmptySeries($serie) {
 }
 
 function mergeSeries($array1, $array2) {
-  //function array_merge_callback($array1, $array2, $predicate) {
-//    $result = $array1;   //= array();
     $boolean = false;
     foreach ($array2 as $item2) {
         foreach ($array1 as $item1) {
             if($item1->title == $item2->title and $item1->tId == $item2->tId) {
-              //array_pop($array1);
               $boolean = true;
               break;
             }
