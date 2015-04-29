@@ -861,7 +861,7 @@ var skulptFunctions  = (function () {
         // get a reference to your pre element for output
         // configure the output function
         // call Sk.importMainWithBody()
-        runit: function () {
+        runit: function (alarm) {
             var prog = document.getElementById("yourcode").value;
             var mypre = document.getElementById("output");
             mypre.innerHTML = '';
@@ -875,8 +875,10 @@ var skulptFunctions  = (function () {
                     console.log('success');
                 },
                 function(err) {
-                    alert('Learn2Program found\n' + err.toString());
-                    console.log(err.toString());
+			if( alarm ) {
+				alert('Learn2Program found\n' + err.toString());
+			}
+			console.log(err.toString());
                 });
         }
     }

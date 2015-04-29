@@ -114,7 +114,7 @@
 
     @if( $answer != null )
         <script>
-            skulptFunctions.runit();
+            skulptFunctions.runit(true);
         </script>
     @endif
 
