@@ -170,7 +170,7 @@ function countExercisesBySeries() {
 function countUsersSucceededSeries() {
     return DB::select('select * from
                         (select seriesId, count(distinct(uId)) as c from
-                            (select count(exId) as c, seriesId, uId
+                            (select count(distinct(exId)) as c, seriesId, uId
                                 from exercises_in_series join answers on exId = eId
                                 where success = 1
                                 group by seriesId, uId) agg1

@@ -4,17 +4,18 @@
 			<div class="da-slide">
 				<h2>education portal</h2>
 				<p>Learn2Program is the community where each individual can 'upgrade' himself to become a real Python-expert.<span class="hide_text"> 
-					This website is suitable for everybody; from very young genius-babies to every old person that would love to learn Python.
-					Also, this is not simply a community for people with low/no-programming-skills. This is also for the real Python-goeroes out there
-					that try everyday to master more skills! 
+					This website is suitable for everybody; from very young genius-babies to every old people that would love to learn Python.
+					Also, this is not simply a community for people with low/no-programming-skills. This is also for the real Python-gurus out there
+					that try everyday to improve their skills!
 					</span></p>
 			</div>
 			<div class="da-slide">
 				<h2>online educations</h2>
 				<p> To be able to develop better and really high Python programming-skills you will have to complete exercise-sessions.
-				These exercise-sessions have easy exercises for the beginners as real though one for the brave ones. These sessions are
-				 easily made by you and all the other users on this community. So you guys are the moderators of this website!
-				 That way everybody can add there peace of work to grow and beautify this community even more! <span class="hide_text"></span></p>
+				These exercise-sessions have multiple levels of difficulty to challenge everyone, ranging from beginners upto real though 
+				ones for the braves amoung you. These sessions are easily made by you and all the other users on this community. So you
+				guys are the moderators of this website! That way everybody can add there part to grow and beautify this community even more!
+				<span class="hide_text"></span></p>
 			</div>
 	   </div>
 	</div>
