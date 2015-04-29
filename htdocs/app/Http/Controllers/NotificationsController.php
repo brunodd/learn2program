@@ -68,7 +68,7 @@ class NotificationsController extends Controller {
                     $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has declined your friend request.') );
                     break;
                 case "friend completed exercise":
-                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has accomplished exercise ex_name.') );
+                    $notification = (object) array_merge( (array)$notification, array('message' => '<a href=/users/'.$notification->object_id.'>'.$username.'</a> has accomplished a new exercise.') );
                     break;
             }
             array_push($notifications, $notification);
