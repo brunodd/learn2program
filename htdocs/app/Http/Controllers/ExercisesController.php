@@ -81,6 +81,12 @@ class ExercisesController extends Controller {
         if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
                                                                         or isMakerOfSeries($sId, Auth::id()) )
         {
+            if (\Session::has('result')) {
+                $exercise = loadExercise($id)[0];
+                $result = \Session::get('result');
+                $answer = \Session::get('answer');
+                return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
+            }
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
@@ -194,7 +200,10 @@ class ExercisesController extends Controller {
         $answer = $input['given_code'];
         // TODO: return redirect('exercises/' . $id);
         $sId = \Session::get('currentSerie');
-        return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
+        //return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
+
+
+        return redirect('exercises/' . $id)->with(['result' => $result, 'answer' => $answer]);
     }
 
     public function myExercises() {
