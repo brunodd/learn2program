@@ -875,7 +875,7 @@ var skulptFunctions  = (function () {
                     console.log('success');
                 },
                 function(err) {
-                    alert('Error: ' + err.toString());
+                    alert('Learn2Program found\n' + err.toString());
                     console.log(err.toString());
                 });
         }
