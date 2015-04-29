@@ -20,7 +20,7 @@
             // exercises (over all users).
             foreach($users as $user) {
                 $user_scores_per_series = countUserSucceededExercisesBySeries($user->id);
-                // dd(countUserSucceededExercisesBySeries(1));
+
                 // Length of $user_scores_per_series & $avg_scores_per_series SHOULD BE THE SAME! Otherwise something must have gone horribly wrong
                 // Iterate over all series.
                 for( $j = 0; $j < count($avg_scores_per_series); $j++ ) {
@@ -28,13 +28,11 @@
                     if( $avg_scores_per_series[$j]->seriesId == $user_scores_per_series[$j]->seriesId ) {
                         $avg_scores_per_series[$j]->c += $user_scores_per_series[$j]->c;
                     }
-                    if( $user_scores_per_series[$j]->c > 0) {
+                    if( attemptedSeries($user->id, $avg_scores_per_series[$j]->seriesId)) {
                         $active_users_per_series[$j] += 1;
                     }
                 }
             }
-            // dd($active_users_per_series);
-            // dd($avg_scores_per_series);
 
             // Calculate the average scores in avg_score_per_series[].
             for( $i = 0; $i < count($avg_scores_per_series); $i++ ) {

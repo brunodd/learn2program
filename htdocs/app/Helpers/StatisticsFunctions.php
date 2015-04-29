@@ -220,3 +220,15 @@ function countUserSucceededExercisesBySeries($uId) {
                       ) agg
                        group by seriesId', [$uId, $uId]);
 }
+
+function attemptedSeries($uId, $sId) {
+    if (empty(DB::select('  select *
+                            from answers, exercises_in_series
+                            where eId = exId
+                            and uId = ?
+                            and seriesId = ?',
+                        [$uId, $sId])))
+        return false;
+    else 
+        return true;
+}
