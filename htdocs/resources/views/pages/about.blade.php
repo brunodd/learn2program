@@ -16,7 +16,7 @@
             <img class="lazyOwl" data-src="/images/web/armin2-round.png" alt="Lazy Owl Image">
         </div>
         <div class="cau_left">
-            <br><h4><a href="#">Armin Halilovic</a></h4>
+            <br><h4><a href="/users/armin">Armin Halilovic</a></h4>
             <p>
                 Senior Front End Engineer.
             </p>
@@ -28,7 +28,7 @@
         </div>
         <div class="cau_left">
             <br>
-            <h4><a href="#">Fouad Kichauat</a></h4>
+            <h4><a href="/users/fouad">Fouad Kichauat</a></h4>
             <p>
                 Lead Visual graphic expert.
             </p>
@@ -39,7 +39,7 @@
             <img class="lazyOwl" data-src="/images/web/raphael2-round.png" alt="Lazy Owl Image">
         </div>
         <div class="cau_left">
-            <br><h4><a href="#">Raphael Assa</a></h4>
+            <br><h4><a href="/users/raphael">Raphael Assa</a></h4>
             <p>
                 Lead Database engineer.
             </p>
@@ -50,7 +50,7 @@
             <img class="lazyOwl" data-src="/images/web/bruno2-round.png" alt="Lazy Owl Image">
         </div>
         <div class="cau_left">
-            <br><h4><a href="">Bruno De Deken</a></h4>
+            <br><h4><a href="/users/bruno">Bruno De Deken</a></h4>
             <p>
                 Senior Application designer.
             </p>
