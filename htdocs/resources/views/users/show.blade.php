@@ -53,7 +53,7 @@
                             @foreach($exercises as $exercise)
                                 @if ( getAccomplishedExercise($user, $exercise) )
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                        Exercise {{$exercise->exId}} was solved correctly!
+                                        Exercise {{$exercise->exId}} was solved correctly!<br>
                                     @else
                                         <em>Exercise {{$exercise->exId}} was incorrect... </em>
                                     @endif
@@ -72,7 +72,7 @@
                                 <div class=container-fluid>
                                 @foreach($exercises as $exercise)
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                        Exercise {{$exercise->exId}} was solved correctly!
+                                        Exercise {{$exercise->exId}} was solved correctly!<br>
                                     @elseif ( getAccomplishedExercise($user, $exercise) )
                                         <em>Exercise {{$exercise->exId}} was incorrect... </em>
                                     @else
