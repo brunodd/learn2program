@@ -52,6 +52,7 @@ class UsersController extends Controller {
         //Create user without profile image, can be added in later under settings
 
         storeUser(new User(['username' => $username, 'mail' => $mail, 'pass' => $pass]));
+        flash()->success("Welcome, tell us something about yourself or edit your account in the  'Users' section.");
 
         $user = loadUser($username);
 

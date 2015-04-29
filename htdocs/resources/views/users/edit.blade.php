@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 {!! Form::label('pass', 'New Password: ') !!}
-                {!! Form::password('pass', ['class' => 'form-control', 'placeholder' => 'Leave blank if you dont wan\'t to change', 'required']) !!}
+                {!! Form::password('pass', ['class' => 'form-control', 'placeholder' => 'Leave blank if you dont wan\'t to change']) !!}
             </div>
 
             <div class="form-group">
