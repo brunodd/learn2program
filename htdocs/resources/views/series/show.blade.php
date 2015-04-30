@@ -65,7 +65,7 @@
 
     <h3>Recommended for you :</h3>
     <?php   $result = returnRecommendations($serie);
-            $emptyRecommendations = true; ?> ?>
+            $emptyRecommendations = true; ?>
             
     @foreach($result as $temp)
         @if ( !isEmptySeries($temp) )

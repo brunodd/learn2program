@@ -77,10 +77,6 @@ function countSeriesSucceededByUser($uId) {
     return 0;
 }
 
-function countUsersSucceededAllSeries() {
-    return ;
-}
-
 //return a list of pairs, userId & the number of series in progress (i.e. with exercises still unanswered)
 //in particular -> the number of series in progress equals (total number of series containing exercises - "completed" series)
 function countSeriesInProgressByUsers() {
