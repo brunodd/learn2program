@@ -13,7 +13,7 @@ class SeriesTableSeeder extends Seeder {
         Series::create(['title' => 'Chapter 2', 'description' => 'Variables, expressions and statements', 'makerId' => 2, 'tId' => 2]);
         Series::create(['title' => 'Chapter 3', 'description' => 'Functions', 'makerId' => 3, 'tId' => 3]);
         Series::create(['title' => 'Chapter 4', 'description' => 'Conditionals', 'makerId' => 4, 'tId' => 4]);
-        Series::create(['title' => 'Series 5', 'description' => 'Description about this series', 'makerId' => 1, 'tId' => 5]);
+        Series::create(['title' => 'Chapter 5', 'description' => 'Turtles', 'makerId' => 2, 'tId' => 5]);
         Series::create(['title' => 'Series 6', 'description' => 'Description about this series', 'makerId' => 2, 'tId' => 6]);
         Series::create(['title' => 'Series 7', 'description' => 'Description about this series', 'makerId' => 3, 'tId' => 7]);
         Series::create(['title' => 'Series 8', 'description' => 'Description about this series', 'makerId' => 4, 'tId' => 8]);
