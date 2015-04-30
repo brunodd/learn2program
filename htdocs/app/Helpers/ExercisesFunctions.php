@@ -7,6 +7,14 @@ function loadExercisesFromSerie($sId)
         [$sId]);
 }
 
+function updateExercise($exercise)
+{
+    return DB::statement('  update exercises
+                            set question=?, tips=?, start_code=?, expected_result=?
+                            where id = ?',
+                            [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->id]);
+}
+
 /*function loadExercisesFromSerie2($sId)
 {
     $seriesID = loadSerieWithIdOrTitle($sId);

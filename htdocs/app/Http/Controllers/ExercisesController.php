@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Answer;   // Added to find Answer model.
+use App\Exercise;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -122,10 +123,20 @@ class ExercisesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-        //TODO
-		return $result;
+	    $input = $request::all();
+	    $exercise = new Exercise;
+
+        $exercise->question = $input['question'];
+        $exercise->tips = $input['tips'];
+        $exercise->start_code = $input['start_code'];
+        $exercise->expected_result = $input['expected_result'];
+        $exercise->id = $id;
+
+        updateExercise($exercise);
+
+        return redirect('exercises/' . $id);
 	}
 
 	/**
