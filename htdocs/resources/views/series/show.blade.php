@@ -62,9 +62,11 @@
     @endif
     <br>
     
-    <h3>Recommendations :</h3>
+
+    <h3>Recommended for you :</h3>
     <?php   $result = returnRecommendations($serie);
-            $emptyRecommendations = true; ?>
+            $emptyRecommendations = true; ?> ?>
+            
     @foreach($result as $temp)
         @if ( !isEmptySeries($temp) )
             <?php $emptyRecommendations = false; ?>

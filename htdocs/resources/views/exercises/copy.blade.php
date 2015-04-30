@@ -1,4 +1,5 @@
 @extends('master')
+
 <?php
     $fullExercises = loadAllExercises();
     $titles = [];
@@ -6,12 +7,14 @@
     $tips = [];
     $expected_result = [];
     $exId = [];
+    $makerId = [];
     foreach($fullExercises as $ex) {
         array_push($titles, $ex->question);
         array_push($start_code, $ex->start_code);
         array_push($tips, $ex->tips);
         array_push($expected_result, $ex->expected_result);
         array_push($exId, $ex->id);
+        array_push($makerId, $ex->makerId);
     }
 ?>
 @section('title')
@@ -27,6 +30,7 @@
             document.getElementById("tips").value = <?php echo(json_encode($tips));?>[id];
             document.getElementById("expected_result").value = <?php echo(json_encode($expected_result));?>[id];
             document.getElementById("id").value = <?php echo(json_encode($exId));?>[id];
+            document.getElementById("makerId").value = <?php echo(json_encode($makerId));?>[id];
         }
     </script>
 
@@ -34,9 +38,11 @@
     {!! Form::open() !!}
         {!! Form::label('exercise_selection', 'Choose the exercise: ') !!}
         {!! Form::select('exercise_selection', $titles, "", ['class' => 'form-control', 'onchange'=>'fillAll(this.selectedIndex)']) !!}
+        {!! Form::label('makerId', 'makerId',  ['style' => 'display: none;']) !!}
+        {!! Form::hidden('makerId', null) !!}
 
         <div class="form-group">
-            {!! Form::label('id', 'ID') !!}
+            {!! Form::label('id', 'ID', ['style' => 'display: none;']) !!}
             {!! Form::hidden('id', null) !!}
         </div>
 

@@ -6,7 +6,7 @@
 @stop
 
 @section('title')
-    Search results for {{ $s }}
+    Search results for '{{ $s }}'
 @stop
 
 @section('content')
@@ -81,8 +81,6 @@
     @foreach($groups as $group)
         <h3><a href="{{ action('GroupsController@show', [$group->name])}}">{{$group->name}}</a></h3>
     @endforeach
-
-    <h2>Graphs</h2><hr>
 
     <script>
         myScripts.initializeMixItUp();

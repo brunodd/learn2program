@@ -18,6 +18,16 @@
             width: 175px;
             margin-bottom: 10px;
         }
+
+        .col-md-2 a, .col-md-2 form, .col-md-2 .btn {
+            float: right;
+        }
+
+        .col-md-2:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
     </style>
 
 @stop
@@ -41,7 +51,7 @@
                                 FROM series
                                 WHERE series.id = series.id');
         ?>
-        <div class="col-md-3" style="height: 100%">
+        <div class="col-md-3" style="height: 100%;">
             <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h3 style="text-align: center;">Accomplishments</h3>
                 <div class="row">
                     <u><h4>Completed series</h4></u>
@@ -55,7 +65,7 @@
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
                                         Exercise {{$exercise->exId}} was solved correctly!<br>
                                     @else
-                                        <em>Exercise {{$exercise->exId}} was incorrect... </em>
+                                        <em>Exercise {{$exercise->exId}} was incorrect... </em><br>
                                     @endif
                                 @endif
                             @endforeach
@@ -74,7 +84,7 @@
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
                                         Exercise {{$exercise->exId}} was solved correctly!<br>
                                     @elseif ( getAccomplishedExercise($user, $exercise) )
-                                        <em>Exercise {{$exercise->exId}} was incorrect... </em>
+                                        <em>Exercise {{$exercise->exId}} was incorrect... </em><br>
                                     @else
                                         Exercise {{$exercise->id}} not started! <br>
                                     @endif
@@ -113,10 +123,13 @@
         </div>
         <div class="col-md-2">
 
-            @if (Auth::check() and $user->id != Auth::id())
+            @if (Auth::check())
                 <a href="{{ action('MessagesController@show', $user->username )}}">
-                <input class="btn btn-primary" type="submit" value="Send message"></a>
+                    <input class="btn btn-primary" type="submit" value="Send message">
+                </a>
+            @endif
 
+            @if (Auth::check() and $user->id != Auth::id())
                 @if (cansendfriendrequest($user->id))
                     {!! Form::open(['action' => ['UsersController@addFriend', $user->username]]) !!}
                         {!! Form::submit('Add as friend', ['class' => 'btn btn-primary']) !!}
@@ -134,7 +147,7 @@
                         {!! Form::submit('Remove friend', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 @elseif (issentfriendrequestpending($user->id))
-                    <div class="form-group btn btn-primary disabled" >
+                    <div class="btn btn-primary disabled" >
                         Friend request pending
                     </div>
                 @endif

@@ -302,6 +302,10 @@ class SeriesController extends Controller {
 
         storeExercise($exercise);
 
+        $userIds = loadUsersBeganSeries($id);
+        foreach($userIds as $userId) {
+            storeNotification($userId->uId, 'series updated', -1, $id);
+        }
         return redirect('series/' . $id);
     }
     public function storeReference($id, Request $request)
@@ -310,6 +314,11 @@ class SeriesController extends Controller {
 
         addToSeries($input['id'], $id);
 
+        $userIds = loadUsersBeganSeries($id);
+        foreach($userIds as $userId) {
+            storeNotification($userId->uId, 'series updated', -1, $id);
+        }
+        storeNotification($input['makerId'], "exercise referenced", -1, $id);
         return redirect('series/' . $id);
     }
 
@@ -327,6 +336,11 @@ class SeriesController extends Controller {
 
         storeExercise($exercise);
 
+        $userIds = loadUsersBeganSeries($id);
+        foreach($userIds as $userId) {
+            storeNotification($userId->uId, 'series updated', -1, $id);
+        }
+        storeNotification($input['makerId'], "exercise copied", -1, $id);
         return redirect('series/' . $id);
     }
 
@@ -347,7 +361,7 @@ class SeriesController extends Controller {
         //we already know that the "requester" hasn't rated this serie yet
         addRating($newrating);
 
-        flash()->success("Your rating has been successfully stored.");
+        flash()->success("Your rating has been stored successfully.");
         return \Redirect::back();
     }
 

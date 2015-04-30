@@ -35,6 +35,7 @@ var skulptFunctions  = (function () {
                     console.log('worked!');
                 },
                 function(err) {
+                    alert('Learn2Program found\n' + err.toString());
                     console.log(err.toString());
                 });
         }

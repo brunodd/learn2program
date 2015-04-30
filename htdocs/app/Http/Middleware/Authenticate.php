@@ -43,7 +43,7 @@ class Authenticate {
 			{
                 flash()->error('You have to be logged in to do that.')->important();
 
-                return \Redirect::back();
+                return redirect('/login');
 			}
 		}
 

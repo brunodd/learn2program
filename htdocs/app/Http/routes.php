@@ -26,6 +26,10 @@ Route::post('notificationsRead', 'NotificationsController@setNotificationsToRead
 Route::get('sendnotification', 'NotificationsController@createNotification');
 Route::any('sharenotification/{user}', array( 'as' => 'pages.sendNotification', 'uses' => 'NotificationsController@shareNotification'));
 
+//Route::post('sharenotification/{user}', array( 'as' => 'sharenotification', 'uses' => 'NotificationsController@shareNotification'));
+Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
+
+
 Route::get('code', 'PagesController@code'); //can be removed??
 
 Route::get('statistics', 'StatisticsController@home');
@@ -75,7 +79,6 @@ Route::post('exercises/{id}/storeAnswer', 'ExercisesController@storeAnswer');
 Route::get('my_exercises', 'ExercisesController@myExercises');
 
 
-Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
 
 
 //Authentication related
@@ -88,7 +91,6 @@ Route::get('/email', 'Auth\PasswordController@getEmail');
 Route::post('/email', 'Auth\PasswordController@postEmail');
 Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
-
 
 Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
 Route::get('/twitter/error', function() {return 'Problem singing in with Twitter.';});

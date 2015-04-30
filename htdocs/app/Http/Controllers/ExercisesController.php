@@ -187,7 +187,10 @@ class ExercisesController extends Controller {
         // effe uitgezet voor presentatie want da gaf 2 of 3 keer na elkaar die message ook als ge naar bv groups ging
 
         if($exercise->expected_result != '*') {
-            if( $ans->success ) flash()->success("Correct!!!");
+            if( $ans->success ) {
+                flash()->success("Correct!!!");
+                \Session::flash('correctAnswer', 'blabla');
+            }
             else flash()->error("Too bad, the answer was wrong.");
         }
 
