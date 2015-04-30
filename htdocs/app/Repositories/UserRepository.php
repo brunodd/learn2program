@@ -8,22 +8,8 @@ class UserRepository {
 	private $user;
 	private $count;
 
+	// for facebook
 	public function findByUsernameOrCreate($me) {
-		/*if($userData->email == '') {
-			$userData->email = "not initialized";;
-		}
-		$count = User::where('username', '=', $userData->name)->count();
-		if ($count == 0) {
-			return User::firstOrCreate([
-				'username' 	=> $userData->name,
-				'mail'		=> $userData->email,
-				'pass' 		=> $userData->token
-			]);
-		} else {
-			return User::firstOrCreate([
-				'username' 	=> $userData->name
-			]);
-		}*/
 		if($me['email'] == '') {
             $me['email'] = "not initialized";;
         }
@@ -40,8 +26,26 @@ class UserRepository {
                 'username'  => $me['name']
             ]);
         }
-		//return $user;
 	}
 
+	// For twitter
+	public function findByUsernameOrCreate2($userData) {
+		if($userData->email == '') {
+			$userData->email = "not initialized";;
+		}
+		$count = User::where('username', '=', $userData->name)->count();
+		if ($count == 0) {
+			return User::firstOrCreate([
+				'username' 	=> $userData->name,
+				'mail'		=> $userData->email,
+				'pass' 		=> $userData->token
+			]);
+		} else {
+			return User::firstOrCreate([
+				'username' 	=> $userData->name
+			]);
+		}
+
+	}
 
 }

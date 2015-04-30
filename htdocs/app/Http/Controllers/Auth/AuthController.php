@@ -181,26 +181,12 @@ class AuthController extends Controller implements AuthenticateUserListener {
         return redirect('/');
     }
 
-    public function loginFB(AuthenticateUser $authenticateUser, Request $request) {
-
-        return $authenticateUser->execute($request->has('code'), $this);
-
-        //return \Socialite::with('facebook')->redirect();
-
-        //return view('auth.loginFB');
-    }
-
-    public function userHasLoggedIn($user) {
-        return redirect('/');
-    }
-
     public function facebookLogin() {
         $facebook = new \Facebook(\Config::get('facebook'));
         $params = array(
             'redirect_uri' => url('/facebook/callback'),
             'scope' => 'email',
         );
-        //dd($facebook->getLoginUrl($params));
         return redirect($facebook->getLoginUrl($params));
     }
 
@@ -222,5 +208,14 @@ class AuthController extends Controller implements AuthenticateUserListener {
         return redirect('/')->with('message', 'Logged in with Facebook');
     }
 
+    public function twitterLogin(AuthenticateUser $authenticateUser, Request $request) {
+        //return \Socialite::with('twitter')->redirect();
+        return $authenticateUser->execute($request->has('oauth_token'), $this);
+        //return \Socialite::with('facebook')->redirect();
+        //return view('auth.loginFB');
+    }
+    public function userHasLoggedIn($user) {
+        return redirect('/');
+    }
 
 }

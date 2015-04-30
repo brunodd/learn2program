@@ -149,7 +149,8 @@ return [
 
         'Laracasts\Flash\FlashServiceProvider',
 
-        'Laravel\Socialite\SocialiteServiceProvider'
+        'Laravel\Socialite\SocialiteServiceProvider',
+	    'Thujohn\Twitter\TwitterServiceProvider'
 
 	],
 
@@ -203,7 +204,8 @@ return [
 
         'Flash'     => 'Laracasts\Flash\Flash',
 
-        'Socialite' => 'Laravel\Socialite\Facades\Socialite'
+        'Socialite' => 'Laravel\Socialite\Facades\Socialite',
+        'Twitter' => 'Thujohn\Twitter\Facades\Twitter'
 
 	],
 

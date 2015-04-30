@@ -7,7 +7,7 @@
 	    </ul>
 	    </a>
 	 </div>	
-	 <div class="col_1_of_f span_1_of_f"><a href="#">
+	 <div class="col_1_of_f span_1_of_f"><a href="twitter/login">
 	    <ul class='twitter'>
 	      <i class="tw"> </i>
 	      <li>Connect with Twitter</li>

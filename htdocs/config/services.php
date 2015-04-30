@@ -41,4 +41,11 @@ return [
 		'redirect' => 'http://localhost:8000/login-fb'
 	],
 
+	// TWITTER INTEGRATION
+	'twitter' =>[
+		'client_id' => getenv('TWITTER_APP_ID'),
+		'client_secret' => getenv('TWITTER_APP_SECRET'),
+		'redirect' => 'http://localhost:8000/twitter/login',
+	],
+
 ];

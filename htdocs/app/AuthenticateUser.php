@@ -16,25 +16,23 @@ class AuthenticateUser {
 		$this->users = $users;
 		$this->socialite = $socialite;
 		$this->auth = $auth;
-
 	}
 
 	public function execute($hasCode, AuthenticateUserListener $listener) {
-		if (! $hasCode) return $this->getAuthorizationFirst();
-
-		$user = $this->users->findByUsernameOrCreate($this->getFacebookUser());
-
-		$this->auth->login($user);
-		//dd($user);
+		if (!$hasCode) {
+			return $this->getAuthorizationFirst();
+		}
+		$user = $this->users->findByUsernameOrCreate2($this->getTwitterUser());
+		$this->auth->login($user, true);
 		return $listener->userHasLoggedIn($user);
 	}
 
-	private function getFacebookUser() {
-		return $this->socialite->driver('facebook')->user();
+	private function getTwitterUser() {
+		return $this->socialite->driver('twitter')->user();
 	}
 
 	private function getAuthorizationFirst() {
-		return $this->socialite->driver('facebook')->redirect();
+		return $this->socialite->driver('twitter')->redirect();
 	}
 
 }
