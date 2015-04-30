@@ -302,6 +302,10 @@ class SeriesController extends Controller {
 
         storeExercise($exercise);
 
+        $userIds = loadUsersBeganSeries($id);
+        foreach($userIds as $userId) {
+            storeNotification($userId->uId, 'series updated', -1, $id);
+        }
         return redirect('series/' . $id);
     }
     public function storeReference($id, Request $request)
