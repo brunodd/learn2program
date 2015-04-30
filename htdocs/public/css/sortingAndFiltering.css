@@ -67,6 +67,7 @@ h5 {
     padding: 15px 15px 5px 15px;
     margin-bottom: 15px;
     background: whitesmoke;
+    border-radius: 10px;
 }
 
 .series .ttr {

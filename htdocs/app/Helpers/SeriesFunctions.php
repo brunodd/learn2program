@@ -188,3 +188,26 @@ function loadSeriesSearch($s) {
                              OR description LIKE ?',
                        ['%'.$s.'%', '%'.$s.'%']);
 }
+
+function userCompletedSeries($userId, $seriesId) {
+    $sId = loadSerieWithIdOrTitle($seriesId);
+    return DB::select('SELECT   *
+                       FROM     series S
+                                JOIN exercises_in_series EXS    ON S.id = EXS.seriesId
+                                JOIN exercises E                ON EXS.ex_index = E.id
+                                JOIN answers A                  ON E.id = A.eId
+                       WHERE    A.succes = false
+                                AND A.uId = ?
+                                AND S.id = ?', [$userId, $sId]);
+}
+
+function loadUsersBeganSeries($series_id) {
+    $sId = loadSerieWithIdOrTitle($series_id)[0]->id;
+
+    return DB::select('SELECT   DISTINCT A.uId
+                       FROM     series S
+                                JOIN exercises_in_series EXS    ON S.id = EXS.seriesId
+                                JOIN exercises E                ON EXS.exId = E.id
+                                JOIN answers A                  ON E.id = A.eId
+                       WHERE    S.id = ?', [$sId]);
+}

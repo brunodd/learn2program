@@ -3,21 +3,21 @@
 function loadAllNotifications() {
     return \DB::select('SELECT *
                         FROM notifications
-                        WHERE userId = ?',
+                        WHERE user_id = ?',
                         [\Auth::id()]);
 }
 
 function loadUnreadNotifications() {
     return \DB::select('SELECT *
                         FROM notifications
-                        WHERE userId = ? and is_read = 0',
+                        WHERE user_id = ? and is_read = 0',
                         [\Auth::id()]);
 }
 
 function loadLastNNotifications($n) {
     return \DB::select('SELECT *
                         FROM notifications
-                        WHERE userId = ?
+                        WHERE user_id = ?
                         ORDER BY id DESC
                         LIMIT ?',
                         [\Auth::id(), $n]);
@@ -26,12 +26,12 @@ function loadLastNNotifications($n) {
 function updateNotificationsToSeen() {
     return \DB::statement('UPDATE   notifications
                            SET      is_read = true
-                           WHERE    userId = ?',
+                           WHERE    user_id = ?',
                            [\Auth::id()]);
 }
 
-function storeNotification($id, $type, $objectId) {
-    \DB::insert('INSERT INTO notifications (userId, type, object_id)
-                 VALUE (?, ?, ?)',
-                 [$id, $type, $objectId]);
+function storeNotification($id, $type, $genId, $objectId = NULL) {
+    \DB::insert('INSERT INTO notifications (user_id, generator_user_id, type, object_id)
+                 VALUE (?, ?, ?, ?)',
+                 [$id, $genId, $type, $objectId]);
 }

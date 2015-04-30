@@ -62,7 +62,7 @@
     @endif
     <br>
     
-    <h4>Aanbevelingen:</h4>
+    <h4>Recommended for you:</h4>
     <?php $result = returnRecommendations($serie); ?>
     @foreach($result as $temp)
         @if ( !isEmptySeries($temp) )

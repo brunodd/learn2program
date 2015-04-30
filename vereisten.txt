@@ -1,7 +1,0 @@
-resultaten delen tussen vrienden
-notificaties
-laatste styling
-users edit, updateuserrequest rules afmaken.
-statistics verbeteren:
-    "number of users that succesfully completed series" telt niet alles, soms wel soms niet, raar
-    "average score per series" enkel users tellen die geprobeerd hebben, niet alle users

@@ -12,6 +12,4 @@
     </ul>
 
 
-    <div style="height: 50px;"></div>
-    <h3><a href="exercises/create">Create new exercise</a></h3s>
 @stop

@@ -21,10 +21,10 @@
                 {!! Form::password('pass', ['class' => 'form-control', 'placeholder' => 'Leave blank if you dont wan\'t to change']) !!}
             </div>
 
-            <div class="form-group">
+            <!--div class="form-group">
                 {!! Form::label('pass_confirmation', 'Confirm Password: ') !!}
                 {!! Form::password('pass_confirmation', ['class' => 'form-control', 'placeholder' => 'Leave blank if you dont wan\'t to change']) !!}
-            </div>
+            </div-->
 
             <div class="form-group">
                 {!! Form::label('mail', 'New Email: ') !!}

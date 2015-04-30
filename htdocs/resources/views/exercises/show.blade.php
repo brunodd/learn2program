@@ -55,7 +55,9 @@
 
     <!-- Python Syntax Highlight!! -->
     <script>
-        myScripts.initPythonSyntax();
+        $(window).load(function () {
+            myScripts.initPythonSyntax();
+        });
         function Run() {
             myScripts.initPythonSyntax();
             skulptFunctions.runit();
@@ -104,7 +106,7 @@
                         class="btn btn-primary">Finished series</a>
                 @endif
 
-                @if( $answer != null )
+                @if( $answer != null && Session::has('correctAnswer'))
                     <a href="/sendnotification/" class="btn btn-primary">Share with friend</a>
                 @endif
             </div>
@@ -114,7 +116,9 @@
 
     @if( $answer != null )
         <script>
-            skulptFunctions.runit(true);
+            $(document).ready(function() {
+                skulptFunctions.runit(true);
+            });
         </script>
     @endif
 
