@@ -81,15 +81,11 @@ class ExercisesController extends Controller {
         if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
                                                                         or isMakerOfSeries($sId, Auth::id()) )
         {
-            if (\Session::has('result')) {
-                $exercise = loadExercise($id)[0];
-                $result = \Session::pull('result', '');
-                $answer = \Session::pull('answer', '');
-                return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
-            }
             $exercise = loadExercise($id)[0];
             $result = null;
             $answer = null;
+            if (\Session::has('result')) $result = \Session::pull('result', '');
+            if (\Session::has('answer')) $answer = \Session::pull('answer', '');
 		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
         }
         else {
