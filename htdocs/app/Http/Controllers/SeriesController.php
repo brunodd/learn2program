@@ -268,24 +268,34 @@ class SeriesController extends Controller {
 
     public function referenceExercise($id)
     {
-        if ( !isMakerOfSeries($id, Auth::id()) )
+        if ( !userOwnsSeries(Auth::id()) )
         {
-            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
-            return redirect('series/' . $id);
+            flash()->error('You must own series in order to add exercises.')->important();
+            return redirect('exercises/' . $id);
         }
-        $serie = loadSerieWithId($id)[0];
-        return view('exercises.reference', compact('serie'));
+        $myseries = loadMySeries();
+        $series = [];
+        foreach( $myseries as $serie ) {
+            $series = ($series + [$serie->id => $serie->title]);
+        }
+        $exercise = loadExercise($id)[0];
+        return view('exercises.reference', compact('series', 'exercise'));
     }
 
     public function copyExercise($id)
     {
-        if ( !isMakerOfSeries($id, Auth::id()) )
+        if ( !userOwnsSeries(Auth::id()) )
         {
-            flash()->error('You must be logged in as the maker of this series in order to add exercises.')->important();
-            return redirect('series/' . $id);
+            flash()->error('You must own series in order to add exercises.')->important();
+            return redirect('exercises/' . $id);
         }
-        $serie = loadSerieWithId($id)[0];
-        return view('exercises.copy', compact('serie'));
+        $myseries = loadMySeries();
+        $series = [];
+        foreach( $myseries as $serie ) {
+            $series = ($series + [$serie->id => $serie->title]);
+        }
+        $exercise = loadExercise($id)[0];
+        return view('exercises.copy', compact('series', 'exercise'));
     }
 
     public function storeExercise($id, CreateExerciseRequest $request)
@@ -312,14 +322,14 @@ class SeriesController extends Controller {
     {
         $input = $request::all();
 
-        addToSeries($input['id'], $id);
+        addToSeries($id, $input['series_selection']);
 
-        $userIds = loadUsersBeganSeries($id);
+        $userIds = loadUsersBeganSeries($input['series_selection']);
         foreach($userIds as $userId) {
-            storeNotification($userId->uId, 'series updated', -1, $id);
+            storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
         }
-        storeNotification($input['makerId'], "exercise referenced", -1, $id);
-        return redirect('series/' . $id);
+        storeNotification($input['makerId'], "exercise referenced", -1, $input['series_selection']);
+        return redirect('series/' . $input['series_selection']);
     }
 
     public function storeCopy($id, Request $request)
@@ -331,17 +341,17 @@ class SeriesController extends Controller {
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
         $exercise->expected_result = $input['expected_result'];
-        $exercise->seriesId = $id;
+        $exercise->seriesId = $input['series_selection'];
         $exercise->makerId = Auth::id();
 
         storeExercise($exercise);
 
-        $userIds = loadUsersBeganSeries($id);
+        $userIds = loadUsersBeganSeries($input['series_selection']);
         foreach($userIds as $userId) {
-            storeNotification($userId->uId, 'series updated', -1, $id);
+            storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
         }
-        storeNotification($input['makerId'], "exercise copied", -1, $id);
-        return redirect('series/' . $id);
+        storeNotification($input['makerId'], "exercise copied", -1, $input['series_selection']);
+        return redirect('series/' . $input['series_selection']);
     }
 
     public function storeRating($id, CreateRatingRequest $request)

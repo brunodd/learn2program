@@ -123,4 +123,12 @@
     @endif
 
     <pre>Expected output : {{ $exercise->expected_result }}</pre>
+
+    @if( Auth::check() && userOwnsSeries(Auth::id()) )
+    <h4><a href="/exercises/{{$exercise->id}}/referenceexercise">Reference this exercise in one of your series</a></h4>
+            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise. 
+            When the original exercise gets updated (or deleted), so will this one.)</em></p>
+            <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
+            <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
+    @endif
 @stop

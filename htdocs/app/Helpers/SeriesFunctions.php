@@ -181,6 +181,11 @@ function loadMySeries() {
                        [\Auth::id()]);
 }
 
+function userOwnsSeries($uId) {
+    if( !empty( DB::select('select * from series where makerId = ?', [\Auth::id()]) ) ) return true;
+    else return false;
+}
+
 function loadSeriesSearch($s) {
     return DB::select('SELECT *
                        FROM series

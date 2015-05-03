@@ -53,8 +53,6 @@ Route::get('seriesSortedByRatingDESC', 'SeriesController@indexSortedByRatingDESC
 Route::get('seriesSortedByDifficultyDESC', 'SeriesController@indexSortedByDiffDESC');
 Route::get('seriesSortedBySubjectDESC', 'SeriesController@indexSortedBySubDESC');
 Route::get('series/{id}/newexercise', 'SeriesController@createExercise');
-Route::get('series/{id}/referenceexercise', 'SeriesController@referenceExercise');
-Route::get('series/{id}/copyexercise', 'SeriesController@copyExercise');
 Route::post('series/{id}/newexercise', 'SeriesController@storeExercise');
 Route::post('series/{id}/storeRating', 'SeriesController@storeRating');
 Route::post('series/{id}/referenceexercise', 'SeriesController@storeReference');
@@ -77,7 +75,10 @@ Route::get('my_groups', 'GroupsController@myGroups');
 Route::resource('exercises', 'ExercisesController');
 Route::post('exercises/{id}/storeAnswer', 'ExercisesController@storeAnswer');
 Route::get('my_exercises', 'ExercisesController@myExercises');
-
+Route::get('exercises/{id}/referenceexercise', 'SeriesController@referenceExercise');
+Route::get('exercises/{id}/copyexercise', 'SeriesController@copyExercise');
+Route::post('exercises/{id}/referenceexercise', 'SeriesController@storeReference');
+Route::post('exercises/{id}/copyexercise', 'SeriesController@storeCopy');
 
 
 

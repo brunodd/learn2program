@@ -83,7 +83,7 @@
         @endforeach
     @endif
 
-    @if ( $serie->makerId === Auth::id() )
+   <!-- @if ( $serie->makerId === Auth::id() )
         <hr/>
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
             <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>
@@ -92,7 +92,7 @@
             When the original exercise gets updated (or deleted), so will this one.)</em></p>
         <h4><a href="{{$serie->id}}/copyexercise">Copy an existing exercise</a></h4>
             <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
-    @endif
+        @endif -->
 
 
     <br><br>
