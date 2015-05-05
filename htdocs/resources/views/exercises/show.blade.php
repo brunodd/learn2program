@@ -117,7 +117,9 @@
     @if( $answer != null )
         <script>
             $(document).ready(function() {
-                skulptFunctions.runit(true);
+                try {
+                    skulptFunctions.runit(true);
+                }
             });
         </script>
     @endif

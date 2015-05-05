@@ -855,6 +855,7 @@ var skulptFunctions  = (function () {
         return Sk.builtinFiles["files"][x];
     };
 
+    var success = true;
     return {
         // Here's everything you need to run a python program in skulpt
         // grab the code from your textarea
@@ -873,13 +874,15 @@ var skulptFunctions  = (function () {
             });
             myPromise.then(function(mod) {
                     console.log('success');
-            },
-            function(err) {
-                if( alarm ) {
-                    alert('Learn2Program found\n' + err.toString());
+                },
+                function(err) {
+                    if( alarm ) {
+                        alert('Learn2Program found\n' + err.toString());
+                    }
+                    document.getElementById("output").innerHTML = err.toString();
+                    console.log(err.toString());
                 }
-                console.log(err.toString());
-            });
+            );
         }
     }
 }());
