@@ -866,20 +866,20 @@ var skulptFunctions  = (function () {
             var mypre = document.getElementById("output");
             mypre.innerHTML = '';
             Sk.pre = "output";
-            Sk.configure({output:outf, read:builtinRead});
+            Sk.configure({output:outf, read:builtinRead, execLimit:3000});
             (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'yourcanvas';
             var myPromise = Sk.misceval.asyncToPromise(function() {
                 return Sk.importMainWithBody("<stdin>", false, prog, true);
             });
             myPromise.then(function(mod) {
                     console.log('success');
-                },
-                function(err) {
-			if( alarm ) {
-				alert('Learn2Program found\n' + err.toString());
-			}
-			console.log(err.toString());
-                });
+            },
+            function(err) {
+                if( alarm ) {
+                    alert('Learn2Program found\n' + err.toString());
+                }
+                console.log(err.toString());
+            });
         }
     }
 }());
