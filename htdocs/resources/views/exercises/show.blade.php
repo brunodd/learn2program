@@ -53,6 +53,8 @@
 
 @section('content')
 
+    <?php $times = []; ?>
+    <?php array_push($times, $startTime) ?>
     <!-- Python Syntax Highlight!! -->
     <script>
         $(window).load(function () {
@@ -75,6 +77,7 @@
     <h4>Your code :</h4>
 
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
+        {!! Form::text('start_time', $startTime, ['id' => 'startTime', 'readonly', 'hidden']) !!}
         @if ( $answer === null )
             <div class="form-group">
                 {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
@@ -92,7 +95,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' => 'Run()']) !!}
+                {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' => 'Run();stopTimer()']) !!}
                 @if( !empty(nextExerciseOfSerie($exercise->id, Session::get('currentSerie')))
                         && (userCompletedExercise($exercise->id, Auth::id())
                         || isMakerOfSeries(Session::get('currentSerie'), Auth::id())
@@ -124,7 +127,7 @@
         </script>
     @endif
 
-    <pre>Expected output : {{ $exercise->expected_result }}</pre>
+    {{-- <pre>Expected output : {{ $exercise->expected_result }}</pre> --}}
 
     @if( Auth::check() && userOwnsSeries(Auth::id()) )
     <h4><a href="/exercises/{{$exercise->id}}/referenceexercise">Reference this exercise in one of your series</a></h4>

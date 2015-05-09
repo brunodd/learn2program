@@ -14,6 +14,60 @@ use App\Http\Requests\CreateAnswerRequest;
 //use App\Http\Requests\CreateExerciseRequest;
 use Auth;
 
+class Timer {
+
+   public $classname = "Timer";
+   public $start     = 0;
+   public $stop      = 0;
+   public $elapsed   = 0;
+
+   # Constructor
+   function Timer( $start = true ) {
+      if ( $start )
+         $this->start();
+   }
+
+   # Start counting time
+   function start() {
+      $this->start = $this->_gettime();
+   }
+
+   # Stop counting time
+   function stop() {
+      $this->stop    = $this->_gettime();
+      $this->elapsed = $this->_compute();
+   }
+
+   # Get Elapsed Time
+   function elapsed() {
+       if ( !$this->elapsed )
+         $this->stop();
+
+      return $this->elapsed;
+   }
+
+   # Resets Timer so it can be used again
+   function reset() {
+      $this->start   = 0;
+      $this->stop    = 0;
+      $this->elapsed = 0;
+   }
+
+   #### PRIVATE METHODS ####
+
+   # Get Current Time
+   function _gettime() {
+       return microtime(true);
+      // $mtime = microtime();
+      // $mtime = explode( " ", $mtime );
+      // return $mtime[1] + $mtime[0];
+   }
+
+   # Compute elapsed time
+   function _compute() {
+      return $this->stop - $this->start;
+   }
+}
 
 class ExercisesController extends Controller {
 
@@ -59,6 +113,9 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
+	    // $timer = new Timer();
+        // $timer->start();
+        $startTime = microtime(true);
         $sId = \Session::get('currentSerie');
         $series = loadSerieWithIdOrTitleAndExercise($sId, $id);
         if( empty($series) ) {
@@ -87,7 +144,7 @@ class ExercisesController extends Controller {
             $answer = null;
             if (\Session::has('result')) $result = \Session::pull('result', '');
             if (\Session::has('answer')) $answer = \Session::pull('answer', '');
-		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
+		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId', 'startTime'));
         }
         else {
             flash()->error("You must first complete one or more preceding exercises.");
@@ -152,15 +209,18 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
+        // Get time between exercise load and store answer.
+        $endTime = microtime(true);
+        $diffTime = $endTime - $input['start_time'];
 
         $exercise = loadExercise($id)[0];
         $input = $request->all();
 
         //must check for empty answers & stuff like that...
         //must also find a way to avoid duplicate answers since 'text' types can't be used as key
-
         $ans = new Answer;
         $ans->given_code = $input['given_code'];
+        $ans->time = $diffTime;
 
         if($exercise->expected_result == '*') {
             $ans->success = true;
@@ -178,7 +238,6 @@ class ExercisesController extends Controller {
                 $ans->success = true;
             }
             else {
-                // dd("false");
                 $ans->success = false;
             }
         }
@@ -190,7 +249,7 @@ class ExercisesController extends Controller {
 
         if($exercise->expected_result != '*') {
             if( $ans->success ) {
-                flash()->success("Correct!!!");
+                flash()->success("You solved the exercise in " . $diffTime . " seconds.");
                 \Session::flash('correctAnswer', 'blabla');
             }
             else flash()->error("Too bad, the answer was wrong.");
