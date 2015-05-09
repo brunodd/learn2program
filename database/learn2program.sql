@@ -145,6 +145,7 @@ CREATE TABLE answers (
     success BOOL NOT NULL,
     uId INT NOT NULL,
     eId INT NOT NULL,
+    time INT,
     PRIMARY KEY (id),
     FOREIGN KEY (uId) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (eId) REFERENCES exercises(id) ON DELETE CASCADE

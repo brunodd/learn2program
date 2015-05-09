@@ -209,12 +209,13 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
+        $input = $request->all();
+
         // Get time between exercise load and store answer.
         $endTime = microtime(true);
         $diffTime = $endTime - $input['start_time'];
 
         $exercise = loadExercise($id)[0];
-        $input = $request->all();
 
         //must check for empty answers & stuff like that...
         //must also find a way to avoid duplicate answers since 'text' types can't be used as key
