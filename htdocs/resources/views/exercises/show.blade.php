@@ -121,9 +121,7 @@
     @if( $answer != null )
         <script>
             $(document).ready(function() {
-                try {
-                    skulptFunctions.runit(true);
-                }
+                skulptFunctions.runit(true);
             });
         </script>
     @endif
