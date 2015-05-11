@@ -111,6 +111,7 @@
 
                 @if( $answer != null && Session::has('correctAnswer'))
                     <a href="/sendnotification/" class="btn btn-primary">Share with friend</a>
+                    <a href="/exercises/{{ $exercise->id }}/challenge/" class = "btn btn-primary"> Challenge a friend</a>
                 @endif
             </div>
 

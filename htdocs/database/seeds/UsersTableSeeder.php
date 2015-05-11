@@ -10,13 +10,13 @@ class UsersTableSeeder extends Seeder {
         DB::table('users')->delete();
         DB::statement('ALTER TABLE users AUTO_INCREMENT=1');
 
-        User::create(['username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin'),
+        User::create(['username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin'), 'score' => '5',
             'image' => 'user1ProfileImage.jpg', 'info' => 'Armin Halilovic is the driving force.']);
-        User::create(['username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno'),
+        User::create(['username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno'), 'score' => '10',
             'image' => 'user2ProfileImage.jpg', 'info' => 'Bruno De Deken is our main design architect.']);
-        User::create(['username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael'),
+        User::create(['username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael'), 'score' => '0',
             'image' => 'user3ProfileImage.jpg', 'info' => 'Raphael Assa is the database designer.']);
-        User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad'),
+        User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad'), 'score' => '0', 
             'image' => 'user4ProfileImage.jpg', 'info' => 'Fouad is the graphic designer.']);
     }
     /*

@@ -80,6 +80,9 @@ Route::get('exercises/{id}/copyexercise', 'SeriesController@copyExercise');
 Route::post('exercises/{id}/referenceexercise', 'SeriesController@storeReference');
 Route::post('exercises/{id}/copyexercise', 'SeriesController@storeCopy');
 
+Route::resource('challenges', 'ChallengesController');
+Route::get('exercises/{id}/challenge', 'ChallengesController@create');
+Route::get('challenge/{uId}/{exId}' , 'ChallengesController@store');
 
 
 //Authentication related

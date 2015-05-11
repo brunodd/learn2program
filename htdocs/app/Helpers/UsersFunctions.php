@@ -16,12 +16,15 @@ function loadId($name) {
 }
 
 function storeUser($user) {
-    DB::insert('insert into users (pass, username, mail, info) VALUES (?, ?, ?, ?)', [$user->pass, $user->username, $user->mail, $user->info]);
+    DB::insert('insert into users (pass, username, score, mail, info) VALUES (?, ?, ?, ?)', [$user->pass, $user->username, $user->score, $user->mail, $user->info]);
 }
 
 function updateUser($id, $data)
 {
-    DB::statement('update users SET username = ?, mail = ?, pass = ?, image = ? , info = ? where id = ? or username = ?', [$data->username, $data->mail, $data->pass, $data->image, $data->info, $id, $id]);
+    DB::statement('update users
+                    SET username = ?, mail = ?, pass = ?, score = ?, image = ? , info = ?
+                    where id = ? or username = ?',
+        [$data->username, $data->mail, $data->pass, $data->score, $data->image, $data->info, $id, $id]);
 }
 
 function loadUsersSearch($s) {

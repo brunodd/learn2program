@@ -113,8 +113,6 @@ class ExercisesController extends Controller {
 	 */
 	public function show($id)
 	{
-	    // $timer = new Timer();
-        // $timer->start();
         $startTime = microtime(true);
         $sId = \Session::get('currentSerie');
         $series = loadSerieWithIdOrTitleAndExercise($sId, $id);

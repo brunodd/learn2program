@@ -8,6 +8,7 @@ CREATE TABLE users (
     pass VARCHAR(60) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     mail VARCHAR(50) NOT NULL,
+    score INT,
     image VARCHAR(50) NOT NULL DEFAULT 'NoProfileImage.jpg', /* Link to image name in /images/users/* */
     info TEXT,
     PRIMARY KEY (id)
@@ -165,6 +166,19 @@ CREATE TABLE notifications (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     /*FOREIGN KEY (generator_user_id) REFERENCES users(id) ON DELETE CASCADE*/
+);
+
+CREATE TABLE challenges (
+    id INT AUTO_INCREMENT,
+    userA INT NOT NULL,
+    userB INT NOT NULL,
+    exId INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') NOT NULL,
+    winner INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userA) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (userB) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (exId) REFERENCES exercises(id) ON DELETE CASCADE
 );
 
 
