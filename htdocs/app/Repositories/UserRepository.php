@@ -30,14 +30,14 @@ class UserRepository {
 
 	// For twitter
 	public function findByUsernameOrCreate2($userData) {
-		if($userData->email == '') {
+		/*if($userData->email == '') {
 			$userData->email = "not initialized";;
-		}
+		}*/
 		$count = User::where('username', '=', $userData->name)->count();
 		if ($count == 0) {
 			return User::firstOrCreate([
 				'username' 	=> $userData->name,
-				'mail'		=> $userData->email,
+				'mail'		=> "not initialized",//$userData->email,
 				'pass' 		=> $userData->token
 			]);
 		} else {
