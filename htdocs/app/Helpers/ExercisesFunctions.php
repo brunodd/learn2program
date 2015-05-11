@@ -161,6 +161,15 @@ function storeAnswer($ans)
     DB::insert('insert into answers (given_code, success, uId, eId, time) values (?, ?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId, $ans->time]);
 }
 
+function loadAnswers($uId, $exId) {
+    return DB::select('SELECT *
+                        FROM answers
+                        WHERE uId = ?
+                        AND eId = ?
+                        order by time',
+                        [$uId, $exId]);
+}
+
 function loadMyExercises() {
     return DB::select('SELECT *
                        FROM exercises

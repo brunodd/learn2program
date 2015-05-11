@@ -12,6 +12,9 @@
                 <li><a href="/exercises">Exercises</a></li>
                 <li><a href="/groups">Groups</a></li>
                 <li><a href="/users">Users</a></li>
+                @if (\Auth::id())
+                    <li><a href="/challenges">Your challenges</a></li>
+                @endif
                 <li><a href="/statistics">Statistics</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
