@@ -257,7 +257,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
             if (is_object($credentials) && !isset($credentials->error))
             {
-                $newonee = new App\Repositories\UserRepository();
+                $newonee = new \App\Repositories\UserRepository();
                 $user = $newonee->findByUsernameOrCreate2($credentials);
                 \Auth::login($user);
                 \Session::put('access_token', $token);
