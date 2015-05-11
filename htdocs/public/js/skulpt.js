@@ -867,7 +867,7 @@ var skulptFunctions  = (function () {
             var mypre = document.getElementById("output");
             mypre.innerHTML = '';
             Sk.pre = "output";
-            Sk.configure({output:outf, read:builtinRead, execLimit:3000});
+            Sk.configure({output:outf, read:builtinRead, execLimit:120000}); // timelimit = 120 seconds (2 minutes)
             (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'yourcanvas';
             var myPromise = Sk.misceval.asyncToPromise(function() {
                 return Sk.importMainWithBody("<stdin>", false, prog, true);
