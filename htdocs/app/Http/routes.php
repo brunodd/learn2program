@@ -96,8 +96,13 @@ Route::post('/email', 'Auth\PasswordController@postEmail');
 Route::get('/reset', 'Auth\PasswordController@getReset');
 Route::post('/reset', 'Auth\PasswordController@postReset');
 
-Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
+//Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
 Route::get('/twitter/error', function() {return 'Problem singing in with Twitter.';});
+
+//['as' => 'twitter.login', 
+Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
+
+Route::get('/twitter/callback', ['as' => 'twitter.callback', 'uses' => 'Auth\AuthController@twitterCallback']);
 
 Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
 Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');

@@ -209,11 +209,65 @@ class AuthController extends Controller implements AuthenticateUserListener {
     }
 
     public function twitterLogin(AuthenticateUser $authenticateUser, Request $request) {
-        //return \Socialite::with('twitter')->redirect();
-        return $authenticateUser->execute($request->has('oauth_token'), $this);
-        //return \Socialite::with('facebook')->redirect();
-        //return view('auth.loginFB');
+        $sign_in_twitter = true;
+        $force_login = true;
+
+        \Twitter::reconfig(['token' => '', 'secret' => '']);
+        $token = \Twitter::getRequestToken(route('twitter.callback'));
+
+        if (isset($token['oauth_token_secret']))
+        {
+            $url = \Twitter::getAuthorizeURL($token, $sign_in_twitter, $force_login);
+
+            \Session::put('oauth_state', 'start');
+            \Session::put('oauth_request_token', $token['oauth_token']);
+            \Session::put('oauth_request_token_secret', $token['oauth_token_secret']);
+
+            return \Redirect::to($url);
+        }
+
+        return \Redirect::route('twitter.error');
     }
+    public function twitterCallback() {
+        if (\Session::has('oauth_request_token'))
+        {
+            $request_token = [
+                'token'  => \Session::get('oauth_request_token'),
+                'secret' => \Session::get('oauth_request_token_secret'),
+            ];
+
+            \Twitter::reconfig($request_token);
+
+            $oauth_verifier = false;
+
+            if (\Input::has('oauth_verifier'))
+            {
+                $oauth_verifier = \Input::get('oauth_verifier');
+            }
+
+            // getAccessToken() will reset the token for you
+            $token = \Twitter::getAccessToken($oauth_verifier);
+
+            if (!isset($token['oauth_token_secret']))
+            {
+                return \Redirect::route('twitter.login')->with('flash_error', 'We could not log you in on Twitter.');
+            }
+
+            $credentials = \Twitter::getCredentials();
+
+            if (is_object($credentials) && !isset($credentials->error))
+            {
+                $newonee = new \App\Repositories\UserRepository();
+                $user = $newonee->findByUsernameOrCreate2($credentials);
+                \Auth::login($user);
+                \Session::put('access_token', $token);
+
+                return \Redirect::to('/')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
+            }
+            return \Redirect::route('twitter.error')->with('flash_error', 'Crab! Something went wrong while signing you up!');
+        }
+    }
+
     public function userHasLoggedIn($user) {
         return redirect('/');
     }
