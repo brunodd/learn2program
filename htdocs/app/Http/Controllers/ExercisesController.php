@@ -142,6 +142,7 @@ class ExercisesController extends Controller {
             $answer = null;
             if (\Session::has('result')) $result = \Session::pull('result', '');
             if (\Session::has('answer')) $answer = \Session::pull('answer', '');
+
 		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId', 'startTime'));
         }
         else {

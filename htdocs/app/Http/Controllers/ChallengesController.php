@@ -19,10 +19,52 @@ class ChallengesController extends Controller {
         $challengesB = [];
 
         foreach($_challenges as $c) {
-            if ($c->winner == \Auth::id())
+            $user = [];
+            if($c->userA == \Auth::id()) {
+                $user = loadUser($c->userB)[0];
+            }
+            else {
+                $user = loadUser($c->userA)[0];
+            }
+            $answer1 = loadAnswers(\Auth::id(), $c->exId);
+            $answer2 = loadAnswers($user->id, $c->exId);
+            if(!empty($answer2)) {
+                if(!empty($answer1)) {
+                    //U1 beats U2
+                    if ($answer1[0]->time < $answer2[0]->time) {
+                        setWinner($c->id, \Auth::id());
+                    }
+                    // U2 beats U1
+                    else if ($answer1[0]->time > $answer2[0]->time) {
+                        setWinner($c->id, $user->id);
+                    }
+                    // tie
+                    else {
+                        setWinner($c->id, NULL);
+                    }
+                }
+                // U1 hasn't played yet => U2 winner
+                else {
+                    setWinner($c->id, $user->id);
+                }
+            }
+            // U2 hasn't played yet -> U1 is winner.
+            else {
+                if(!empty($answer1)) {
+                    setWinner($c->id, \Auth::id());
+                }
+                // None have played (not possible).
+                else {
+                    setWinner($c->id, NULL);
+                }
+            }
+
+            if ($c->winner == \Auth::id()) {
                 array_push($challengesB, $c);
-            else
+            }
+            else {
                 array_push($challengesA, $c);
+            }
         }
 
 	    return view('challenges.home', compact('challengesA', 'challengesB'));
@@ -98,8 +140,6 @@ class ChallengesController extends Controller {
 	public function show($id)
 	{
         $challenge = loadChallenge($id)[0];
-        // $user1 = loadUser($challenge->userA);
-        // $user2 = loadUser($challenge->userB);
 
         if (!empty(loadAnswers($challenge->userA, $challenge->exId))) {
             $answersA = loadAnswers($challenge->userA, $challenge->exId)[0];

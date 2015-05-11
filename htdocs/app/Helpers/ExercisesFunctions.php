@@ -158,7 +158,9 @@ function userSucceededExercise($eId, $uId)
 
 function storeAnswer($ans)
 {
-    DB::insert('insert into answers (given_code, success, uId, eId, time) values (?, ?, ?, ?, ?)', [$ans->given_code, $ans->success, $ans->uId, $ans->eId, $ans->time]);
+    DB::insert('insert into answers (given_code, success, uId, eId, time)
+            values (?, ?, ?, ?, ?)',
+        [$ans->given_code, $ans->success, $ans->uId, $ans->eId, $ans->time]);
 }
 
 function loadAnswers($uId, $exId) {

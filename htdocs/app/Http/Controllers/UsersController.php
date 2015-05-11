@@ -51,7 +51,7 @@ class UsersController extends Controller {
         $pass = Hash::make($request->pass);
         //Create user without profile image, can be added in later under settings
 
-        storeUser(new User(['username' => $username, 'mail' => $mail, 'pass' => $pass]));
+        storeUser(new User(['username' => $username, 'mail' => $mail, 'pass' => $pass, 'score' => 0]));
         flash()->success("Welcome, tell us something about yourself or edit your account in the  'Users' section.");
 
         $user = loadUser($username);
@@ -75,6 +75,15 @@ class UsersController extends Controller {
             return redirect('users');
         }
         else {
+            $user = loadUser($id)[0];
+            $challenges = loadChallengesByUser($user->id);
+            $counter = 0;
+            foreach($challenges as $c) {
+                if ($c->winner == $user->id)
+                    $counter += 1;
+            }
+            // dd($counter);
+            setUserScore($user->id, $counter);
             $user = loadUser($id)[0];
             return view('users.show', compact('user'));
         }
