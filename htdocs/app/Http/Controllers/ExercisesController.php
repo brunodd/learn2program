@@ -1,73 +1,15 @@
 <?php namespace App\Http\Controllers;
 
 use App\Answer;   // Added to find Answer model.
+use App\Timer;
 use App\Exercise;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-// use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateAnswerRequest;
-//use App\Http\Requests\CreateSerieRequest;
-//use App\Http\Requests\UpdateSerieRequest;
-//use App\Http\Requests\CreateExerciseRequest;
 use Auth;
-
-class Timer {
-
-   public $classname = "Timer";
-   public $start     = 0;
-   public $stop      = 0;
-   public $elapsed   = 0;
-
-   # Constructor
-   function Timer( $start = true ) {
-      if ( $start )
-         $this->start();
-   }
-
-   # Start counting time
-   function start() {
-      $this->start = $this->_gettime();
-   }
-
-   # Stop counting time
-   function stop() {
-      $this->stop    = $this->_gettime();
-      $this->elapsed = $this->_compute();
-   }
-
-   # Get Elapsed Time
-   function elapsed() {
-       if ( !$this->elapsed )
-         $this->stop();
-
-      return $this->elapsed;
-   }
-
-   # Resets Timer so it can be used again
-   function reset() {
-      $this->start   = 0;
-      $this->stop    = 0;
-      $this->elapsed = 0;
-   }
-
-   #### PRIVATE METHODS ####
-
-   # Get Current Time
-   function _gettime() {
-       return microtime(true);
-      // $mtime = microtime();
-      // $mtime = explode( " ", $mtime );
-      // return $mtime[1] + $mtime[0];
-   }
-
-   # Compute elapsed time
-   function _compute() {
-      return $this->stop - $this->start;
-   }
-}
 
 class ExercisesController extends Controller {
 
@@ -92,7 +34,6 @@ class ExercisesController extends Controller {
 	public function create()
 	{
 		//handled in SeriesController
-        return "create";
 	}
 
 	/**
@@ -132,7 +73,6 @@ class ExercisesController extends Controller {
                 return redirect('/');
         }
         \Session::put('currentSerie', $sId);
-
 
         if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
                                                                         or isMakerOfSeries($sId, Auth::id()) )
@@ -260,8 +200,29 @@ class ExercisesController extends Controller {
         $answer = $input['given_code'];
         // TODO: return redirect('exercises/' . $id);
         $sId = \Session::get('currentSerie');
-        //return view('exercises.show', compact('exercise', 'result', 'answer', 'sId'));
 
+        $challenges = loadChallengesByUserExercise(\Auth::id(), $id);
+        foreach($challenges as $c) {
+            if ($c->winner != \Auth::id()) {
+                if($c->userA == \Auth::id()) {
+                    if ($diffTime < loadAnswers($c->userB, $id)[0]->time) {
+                        $newScore = loadUser(\Auth::id())[0]->score;
+                        $newScore += 1;
+                        setUserScore(\Auth::id(), $newScore);
+                        setWinner($c->id, \Auth::id());
+                    }
+                }
+                else {
+                    if ($diffTime < loadAnswers($c->userA, $id)[0]->time) {
+                        $newScore = loadUser(\Auth::id())[0]->score;
+                        $newScore += 1;
+                        setUserScore(\Auth::id(), $newScore);
+                        setWinner($c->id, \Auth::id());
+                    }
+                }
+            }
+        }
+        // dd($challenges);
 
         return redirect('exercises/' . $id)->with(['result' => $result, 'answer' => $answer]);
     }

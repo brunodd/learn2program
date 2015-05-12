@@ -13,6 +13,14 @@ function loadChallengesByUser($userId) {
                         [$userId, $userId]);
 }
 
+function loadChallengesByUserExercise($uId, $eId) {
+    return DB::select('SELECT * FROM challenges
+                        WHERE userA = ?
+                        OR userB = ?
+                        and exId = ?',
+                        [$uId, $uId, $eId]);
+}
+
 function loadChallengesByUsers($user1, $user2) {
     return DB::select('SELECT * from challenges
                         WHERE (userA = ? AND userB = ?)

@@ -15,6 +15,7 @@ class ChallengesController extends Controller {
 	public function index()
 	{
 	    $_challenges = loadChallengesByUser(\Auth::id());
+	    // dd($_challenges);
         $challengesA = [];
         $challengesB = [];
 
@@ -28,37 +29,37 @@ class ChallengesController extends Controller {
             }
             $answer1 = loadAnswers(\Auth::id(), $c->exId);
             $answer2 = loadAnswers($user->id, $c->exId);
-            if(!empty($answer2)) {
-                if(!empty($answer1)) {
-                    //U1 beats U2
-                    if ($answer1[0]->time < $answer2[0]->time) {
-                        setWinner($c->id, \Auth::id());
-                    }
-                    // U2 beats U1
-                    else if ($answer1[0]->time > $answer2[0]->time) {
-                        setWinner($c->id, $user->id);
-                    }
-                    // tie
-                    else {
-                        setWinner($c->id, NULL);
-                    }
-                }
-                // U1 hasn't played yet => U2 winner
-                else {
-                    setWinner($c->id, $user->id);
-                }
-            }
-            // U2 hasn't played yet -> U1 is winner.
-            else {
-                if(!empty($answer1)) {
-                    setWinner($c->id, \Auth::id());
-                }
-                // None have played (not possible).
-                else {
-                    setWinner($c->id, NULL);
-                }
-            }
-
+            // if(!empty($answer2)) {
+            //     if(!empty($answer1)) {
+            //         //U1 beats U2
+            //         if ($answer1[0]->time < $answer2[0]->time) {
+            //             setWinner($c->id, \Auth::id());
+            //         }
+            //         // U2 beats U1
+            //         else if ($answer1[0]->time > $answer2[0]->time) {
+            //             setWinner($c->id, $user->id);
+            //         }
+            //         // tie
+            //         else {
+            //             setWinner($c->id, NULL);
+            //         }
+            //     }
+            //     // U1 hasn't played yet => U2 winner
+            //     else {
+            //         setWinner($c->id, $user->id);
+            //     }
+            // }
+            // // U2 hasn't played yet -> U1 is winner.
+            // else {
+            //     if(!empty($answer1)) {
+            //         setWinner($c->id, \Auth::id());
+            //     }
+            //     // None have played (not possible).
+            //     else {
+            //         setWinner($c->id, NULL);
+            //     }
+            // }
+            //
             if ($c->winner == \Auth::id()) {
                 array_push($challengesB, $c);
             }
@@ -92,36 +93,16 @@ class ChallengesController extends Controller {
 
         if(loadChallengeByUsersExercise(\Auth::id(), $user->id, $exId) == []) {
             storeChallenge(\Auth::id(), $user->id, $exId);
+            // dd(loadChallengeByUsersExercise(\Auth::id(), $user->id, $exId));
+            $challengeId = loadChallengeByUsersExercise(\Auth::id(), $user->id, $exId)[0]->id;
+            setWinner($challengeId, \Auth::id());
+
+            $newScore = loadUser(\Auth::id())[0]->score+1;
+            setUserScore(\Auth::id(), $newScore);
             flash()->success("$user->username was challenged succefully");
         }
         else {
             flash()->error("This challenge already exists");
-        }
-        // dd(loadAnswers(\Auth::id(), $exId));
-        $answersU1 = loadAnswers(\Auth::id(), $exId)[0];
-        // dd(loadChallengesByUsers(\Auth::id(), $user->id));
-        $challengeId = loadChallengeByUsersExercise(\Auth::id(), $user->id, $exId)[0]->id;
-        if(!empty(loadAnswers($user->id, $exId))) {
-            // dd('determining winner');
-            $answersU2 = loadAnswers($user->id, $exId)[0];
-
-            //U1 beats U2
-            if ($answersU1->time < $answersU2->time) {
-                setWinner($challengeId, \Auth::id());
-            }
-            // U2 beats U1
-            else if ($answersU1->time > $answersU2->time) {
-                setWinner($challengeId, $user->id);
-            }
-            // tie
-            else {
-                setWinner($challengeId, NULL);
-            }
-        }
-        // U2 hasn't played yet -> U1 is winner.
-        else {
-            setWinner($challengeId, \Auth::id());
-            // dd(loadChallenge($challengeId));
         }
 
         $sId = \Session::get('currentSerie');
