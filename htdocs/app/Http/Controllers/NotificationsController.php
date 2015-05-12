@@ -78,6 +78,12 @@ class NotificationsController extends Controller {
             case "answer shared":
                 $string = (object)array_merge((array)$notification, array('message' => $username . ' has shared <a href=/sreies/>an answer</a> with you.'));
                 break;
+            case "challenged":
+                $string = (object)array_merge((array)$notification, array('message' => $username . ' has <a href=/challenges/>challenged</a> you.'));
+                break;
+            case "challenge beaten":
+                $string = (object)array_merge((array)$notification, array('message' => $username . ' has beaten your <a href=/challenges/>challenge</a>!'));
+                break;
         }
 
         return $string;

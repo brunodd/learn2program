@@ -67,6 +67,7 @@ class ChallengesController extends Controller {
             $newScore = loadUser(\Auth::id())[0]->score+1;
             setUserScore(\Auth::id(), $newScore);
             flash()->success("$user->username was challenged succefully");
+            storeNotification($user->id, "challenged", \Auth::id(), $challengeId);
         }
         else {
             flash()->error("This challenge already exists");

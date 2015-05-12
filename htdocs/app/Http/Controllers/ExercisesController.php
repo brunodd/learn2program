@@ -210,6 +210,8 @@ class ExercisesController extends Controller {
                         $newScore += 1;
                         setUserScore(\Auth::id(), $newScore);
                         setWinner($c->id, \Auth::id());
+
+                        storeNotification($c->userB, "challenge beaten", \Auth::id(), $c->id);
                     }
                 }
                 else {
@@ -218,6 +220,7 @@ class ExercisesController extends Controller {
                         $newScore += 1;
                         setUserScore(\Auth::id(), $newScore);
                         setWinner($c->id, \Auth::id());
+                        storeNotification($c->userA, "challenge beaten", \Auth::id(), $c->id);
                     }
                 }
             }
