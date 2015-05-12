@@ -35,7 +35,8 @@
 @section('title')
     <div class="profileheader">
         <img src="/images/users/{{ $user->image }}" alt="Profile Picture">
-        <b><em>{{ $user->username }}</em></b>
+        <b><em>{{ $user->username }}</em></b></br>
+        <small><em><font color="white">Score: {{ $user->score }}</font></em></small>
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )

@@ -76,15 +76,6 @@ class UsersController extends Controller {
         }
         else {
             $user = loadUser($id)[0];
-            $challenges = loadChallengesByUser($user->id);
-            $counter = 0;
-            foreach($challenges as $c) {
-                if ($c->winner == $user->id)
-                    $counter += 1;
-            }
-            // dd($counter);
-            setUserScore($user->id, $counter);
-            $user = loadUser($id)[0];
             return view('users.show', compact('user'));
         }
 	}

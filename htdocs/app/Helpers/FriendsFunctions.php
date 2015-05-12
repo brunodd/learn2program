@@ -81,3 +81,14 @@ function loadMyFriends() {
                                   WHERE (id1 = ? OR id2 = ?) AND status = \'accepted\')',
         [\Auth::id(), \Auth::id(), \Auth::id(), \Auth::id()]);
 }
+
+function loadMeAndFriends() {
+    return DB::select('SELECT *
+                       FROM users
+                       WHERE id IN (SELECT CASE WHEN id1 = ? THEN id2 ELSE id1 END
+                                  FROM friends
+                                  WHERE (id1 = ? OR id2 = ?) AND status = \'accepted\')
+                        OR id = ?
+                        ORDER BY score DESC',
+        [\Auth::id(), \Auth::id(), \Auth::id(), \Auth::id()]);
+}

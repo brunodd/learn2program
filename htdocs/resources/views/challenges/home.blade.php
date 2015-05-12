@@ -1,18 +1,31 @@
 @extends('master')
 
+@section('head')
+<?php
+    $user = loadUser(\Auth::id())[0];
+    $friends = loadMeAndFriends();
+?>
+@stop
+
 @section('title')
 Your challenges
-<?php $user = loadUser(\Auth::id())[0] ?>
 <u><h4>Current score: {{ $user->score }} </h4></u>
 @stop
 
 @section('content')
 <div class="col-md-3" style="height: 100%;">
     <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h4 style="text-align: center;">Ranking</h4>
-        <div class="row">
-            Here comes a list of all your friends, </br>
-            order based on their current score.
-        </div>
+        <?php $index = 0; ?>
+        @foreach($friends as $f)
+            <?php $index += 1; ?>
+            <div class="row">
+                @if($f->id == $user->id)
+                    <font color="white"><em><b>{{ $index }}. {{$f->username }} ({{ $f->score }})</b></em></font>
+                @else
+                    <a href="/users/{{ $f->username }}"><font color="white"><em>{{ $index }}. {{$f->username }} ({{ $f->score }})</em></font></a>
+                @endif
+            </div>
+        @endforeach
     </div>
 </div>
 <div class=col-md-7>
