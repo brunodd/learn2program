@@ -13,6 +13,7 @@ Your challenges
 @stop
 
 @section('content')
+<div class="row" style="height: 100%;width: 100%">
 <div class="col-md-3" style="height: 100%;">
     <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h4 style="text-align: center;">Ranking</h4>
         <?php $index = 0; ?>
@@ -59,6 +60,7 @@ Your challenges
     @endforeach
     </ul>
 @endif
+</div>
 </div>
 @stop
 
