@@ -26,14 +26,14 @@
     @else
     <div>
         <h2> Winner: {{ $winner->username }} </h2>
-        ({{ loadAnswers($winner->id, $challenge->exId)[0]->time }} seconds)
+        ({{ loadCorrectAnswers($winner->id, $challenge->exId)[0]->time }} seconds)
     </div>
     <div>
         <h3> Loser: {{ $loser->username }} </h3>
-            @if(empty(loadAnswers($loser->id, $challenge->exId)))
+            @if(empty(loadCorrectAnswers($loser->id, $challenge->exId)))
                 (not tried yet)
             @else
-                ({{ loadAnswers($loser->id, $challenge->exId)[0]->time }} seconds)
+                ({{ loadCorrectAnswers($loser->id, $challenge->exId)[0]->time }} seconds)
             @endif
     </div>
     @endif

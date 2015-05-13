@@ -90,10 +90,10 @@ class ChallengesController extends Controller {
 	{
         $challenge = loadChallenge($id)[0];
 
-        if (!empty(loadAnswers($challenge->userA, $challenge->exId))) {
-            $answersA = loadAnswers($challenge->userA, $challenge->exId)[0];
-            if(!empty(loadAnswers($challenge->userB, $challenge->exId))) {
-                $answersB = loadAnswers($challenge->userB, $challenge->exId)[0];
+        if (!empty(loadCorrectAnswers($challenge->userA, $challenge->exId))) {
+            $answersA = loadCorrectAnswers($challenge->userA, $challenge->exId)[0];
+            if(!empty(loadCorrectAnswers($challenge->userB, $challenge->exId))) {
+                $answersB = loadCorrectAnswers($challenge->userB, $challenge->exId)[0];
 
                 //A beats B
                 if ($answersA->time < $answersB->time)
@@ -111,7 +111,7 @@ class ChallengesController extends Controller {
         }
         else {
             // A not answered => B wins
-            if(!empty(loadAnswers($challenge->userB, $challenge->exId)))
+            if(!empty(loadCorrectAnswers($challenge->userB, $challenge->exId)))
                 setWinner($id, $challenge->userB);
             // No one answered => tie
             else

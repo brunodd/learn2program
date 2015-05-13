@@ -172,6 +172,16 @@ function loadAnswers($uId, $exId) {
                         [$uId, $exId]);
 }
 
+function loadCorrectAnswers($uId, $exId) {
+    return DB::select('SELECT *
+                        FROM answers
+                        WHERE uId = ?
+                        AND eId = ?
+                        AND success = 1
+                        ORDER BY time',
+                        [$uId, $exId]);
+}
+
 function loadMyExercises() {
     return DB::select('SELECT *
                        FROM exercises
