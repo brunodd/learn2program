@@ -202,25 +202,28 @@ class ExercisesController extends Controller {
         $sId = \Session::get('currentSerie');
 
         $challenges = loadChallengesByUserExercise(\Auth::id(), $id);
-        foreach($challenges as $c) {
-            if ($c->winner != \Auth::id()) {
-                if($c->userA == \Auth::id()) {
-                    if ($diffTime < loadAnswers($c->userB, $id)[0]->time) {
-                        $newScore = loadUser(\Auth::id())[0]->score;
-                        $newScore += 1;
-                        setUserScore(\Auth::id(), $newScore);
-                        setWinner($c->id, \Auth::id());
+        // Only update challenge if the given answer is correct. 
+        if( $ans->success) {
+            foreach($challenges as $c) {
+                if ($c->winner != \Auth::id()) {
+                    if($c->userA == \Auth::id()) {
+                        if ($diffTime < loadAnswers($c->userB, $id)[0]->time) {
+                            $newScore = loadUser(\Auth::id())[0]->score;
+                            $newScore += 1;
+                            setUserScore(\Auth::id(), $newScore);
+                            setWinner($c->id, \Auth::id());
 
-                        storeNotification($c->userB, "challenge beaten", \Auth::id(), $c->id);
+                            storeNotification($c->userB, "challenge beaten", \Auth::id(), $c->id);
+                        }
                     }
-                }
-                else {
-                    if ($diffTime < loadAnswers($c->userA, $id)[0]->time) {
-                        $newScore = loadUser(\Auth::id())[0]->score;
-                        $newScore += 1;
-                        setUserScore(\Auth::id(), $newScore);
-                        setWinner($c->id, \Auth::id());
-                        storeNotification($c->userA, "challenge beaten", \Auth::id(), $c->id);
+                    else {
+                        if ($diffTime < loadAnswers($c->userA, $id)[0]->time) {
+                            $newScore = loadUser(\Auth::id())[0]->score;
+                            $newScore += 1;
+                            setUserScore(\Auth::id(), $newScore);
+                            setWinner($c->id, \Auth::id());
+                            storeNotification($c->userA, "challenge beaten", \Auth::id(), $c->id);
+                        }
                     }
                 }
             }
