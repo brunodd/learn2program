@@ -13,10 +13,14 @@ function compare($s1, $s2)
 
 function first20chars($string)
 {
-    if( strlen($string) > 20 )
-    {
-        return (substr($string, 0, 20) . "...");
-    }
+    return firstChars($string, 20);
+}
+
+function firstChars($string, $limit)
+{
+    if( strlen($string) > $limit)
+        return (substr($string, 0, $limit) . "...");
+
     return $string;
 }
 

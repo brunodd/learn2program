@@ -15,7 +15,7 @@
         $loser = $userA;
     }
 ?>
-<u><a href="/exercises/{{$challenge->exId}}"><font color="white">Exercise {{ $challenge->exId }}</font></a></u>: 
+<u><a href="/exercises/{{$challenge->exId}}"><font color="white">Exercise {{ loadExercise($challenge->exId)[0]->question }}</font></a></u>: </br>
     <a href="/users/{{ $userA->username }}"><font color="white">{{ $userA->username }}</font></a> vs <a href="/users/{{ $userB->username }}"><font color="white">{{ $userB->username }}</font></a>
 @stop
 

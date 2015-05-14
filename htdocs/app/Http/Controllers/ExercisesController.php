@@ -207,7 +207,7 @@ class ExercisesController extends Controller {
             foreach($challenges as $c) {
                 if ($c->winner != \Auth::id()) {
                     if($c->userA == \Auth::id()) {
-                        if ($diffTime < loadCorrectAnswers($c->userB, $id)[0]->time) {
+                        if (!empty(loadCorrectAnswers($c->userB, $id)) && $diffTime < loadCorrectAnswers($c->userB, $id)[0]->time) {
                             $newScore = loadUser(\Auth::id())[0]->score;
                             $newScore += 1;
                             setUserScore(\Auth::id(), $newScore);
@@ -217,7 +217,7 @@ class ExercisesController extends Controller {
                         }
                     }
                     else {
-                        if ($diffTime < loadCorrectAnswers($c->userA, $id)[0]->time) {
+                        if (!empty(loadCorrectAnswers($c->userA, $id)) && $diffTime < loadCorrectAnswers($c->userA, $id)[0]->time) {
                             $newScore = loadUser(\Auth::id())[0]->score;
                             $newScore += 1;
                             setUserScore(\Auth::id(), $newScore);
