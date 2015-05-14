@@ -13,9 +13,9 @@ function compare($s1, $s2)
 
 function first20chars($string)
 {
-    if( strlen($string) > 50 )
+    if( strlen($string) > 20 )
     {
-        return (substr($string, 0, 50) . "...");
+        return (substr($string, 0, 20) . "...");
     }
     return $string;
 }

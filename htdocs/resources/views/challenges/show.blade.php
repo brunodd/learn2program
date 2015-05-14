@@ -15,7 +15,8 @@
         $loser = $userA;
     }
 ?>
-<u><a href="/exercises/{{$challenge->exId}}"><font color="white">Exercise {{ $challenge->exId }}</font></a></u>: {{ $userA->username }} vs {{ $userB->username }}
+<u><a href="/exercises/{{$challenge->exId}}"><font color="white">Exercise {{ $challenge->exId }}</font></a></u>: 
+    <a href="/users/{{ $userA->username }}"><font color="white">{{ $userA->username }}</font></a> vs <a href="/users/{{ $userB->username }}"><font color="white">{{ $userB->username }}</font></a>
 @stop
 
 @section('content')
@@ -25,11 +26,11 @@
 
     @else
     <div>
-        <h2> Winner: {{ $winner->username }} </h2>
+        <a href="/users/{{ $winner->username }}"><h2> Winner: {{ $winner->username }} </h2></a>
         ({{ loadCorrectAnswers($winner->id, $challenge->exId)[0]->time }} seconds)
     </div>
     <div>
-        <h3> Loser: {{ $loser->username }} </h3>
+        <a href="/users/{{ $loser->username }}"><h3> Loser: {{ $loser->username }} </h3></a>
             @if(empty(loadCorrectAnswers($loser->id, $challenge->exId)))
                 (not tried yet)
             @else

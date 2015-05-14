@@ -64,9 +64,19 @@
                             @foreach($exercises as $exercise)
                                 @if ( getAccomplishedExercise($user, $exercise) )
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                        Exercise {{$exercise->exId}} was solved correctly!<br>
+                                    <div style="float: left", "color: white">
+                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        was solved correctly!
+                                        </div></br>
                                     @else
-                                        <em>Exercise {{$exercise->exId}} was incorrect... </em><br>
+                                    <div style="float: left", "color: white">
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        was incorrect...</em>
+                                        </div></br>
                                     @endif
                                 @endif
                             @endforeach
@@ -83,11 +93,26 @@
                                 <div class=container-fluid>
                                 @foreach($exercises as $exercise)
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                        Exercise {{$exercise->exId}} was solved correctly!<br>
+                                    <div style="float: left", "color: white">
+                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        was solved correctly!
+                                        </div></br>
                                     @elseif ( getAccomplishedExercise($user, $exercise) )
-                                        <em>Exercise {{$exercise->exId}} was incorrect... </em><br>
+                                    <div style="float: left", "color: white">
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        was incorrect...</em>
+                                        </div></br>
                                     @else
-                                        Exercise {{$exercise->id}} not started! <br>
+                                    <div style="float: left", "color: white">
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        has not been started yet!</em>
+                                        </div></br>
                                     @endif
                                 @endforeach
                                 </div>
@@ -105,16 +130,26 @@
                                 <div class="container-fluid">
                                 @foreach($exercises as $exercise)
                                     @if ( getAccomplishedExercise($user, $exercise) )
-                                        Exercise {{$exercise->id}} accomplished! <br>
+                                    <div style="float: left", "color: white">
+                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        has been accomplished!
+                                        </div></br>
                                     @else
-                                        Exercise {{$exercise->id}} not started! <br>
+                                    <div style="float: left", "color: white">
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ first20chars($exercise->question) }} </font></a>
+                                        </div></br>
+                                    <div style="float: right">
+                                        has not been started yet!</em>
+                                        </div></br>
                                     @endif
                                 @endforeach
                                 </div>
                             @endif
                         @endforeach
                         <?php if(!$oneNotStartedSerie)
-                            echo "You started all the serie! Nicely done! \n"?>
+                            echo "You started all the series! Nicely done! \n"?>
                 </div>
             </div>
         </div>

@@ -42,8 +42,8 @@ Your challenges
         @else
             <?php $name = loadUser($challenge->userA)[0]->username; ?>
         @endif
-        <li><a href="/challenges/{{$challenge->id}}">Exercise {{ $challenge->exId }} vs {{ $name }}.</a>
-            <u><a href="/exercises/{{$challenge->exId}}">Do this!</a></u></li>
+        <li><a href="/exercises/{{$challenge->exId}}">Exercise {{ first20chars(loadExercise($challenge->exId)[0]->question) }} </a></br>
+            <a href="/challenges/{{$challenge->id}}"><em>(Challenged by {{ $name }} )</em></a>
     @endforeach
     </ul>
     <h3> Challenges you won </h3>
@@ -55,8 +55,8 @@ Your challenges
         @else
             <?php $name = loadUser($challenge->userA)[0]->username; ?>
         @endif
-        <li><a href="/challenges/{{$challenge->id}}">Exercise {{ $challenge->exId }} vs {{ $name }}.</a>
-            <u><a href="/exercises/{{$challenge->exId}}">Improve your time!</a></u></li>
+        <li><a href="/exercises/{{$challenge->exId}}">Exercise {{ first20chars(loadExercise($challenge->exId)[0]->question) }} </a></br>
+            <a href="/challenges/{{$challenge->id}}"><em>(Challenged by {{ $name }} )</em></a>
     @endforeach
     </ul>
 @endif
