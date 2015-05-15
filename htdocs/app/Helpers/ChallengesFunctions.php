@@ -1,9 +1,9 @@
 <?php
 
-function storeChallenge($userA, $userB, $exId, $status = 'pending', $winner = NULL) {
-    return DB::insert('INSERT INTO challenges (userA, userB, exId, status, winner)
-                        VALUE (?, ?, ?, ?, ?)',
-                    [$userA, $userB, $exId, $status, $winner]);
+function storeChallenge($userA, $userB, $exId, $winner = NULL) {
+    return DB::insert('INSERT INTO challenges (userA, userB, exId, winner)
+                        VALUE (?, ?, ?, ?)',
+                    [$userA, $userB, $exId, $winner]);
 }
 
 function loadChallengesByUser($userId) {

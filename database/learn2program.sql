@@ -173,7 +173,6 @@ CREATE TABLE challenges (
     userA INT NOT NULL,
     userB INT NOT NULL,
     exId INT NOT NULL,
-    status ENUM('pending', 'accepted', 'declined') NOT NULL,
     winner INT,
     PRIMARY KEY (id),
     FOREIGN KEY (userA) REFERENCES users(id) ON DELETE CASCADE,
