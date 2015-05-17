@@ -28,6 +28,19 @@
 @stop
 
 @section('content')
+    <?php $accomplishedPercentage = 0; ?>
+    @if( Auth::check() )
+        <?php $accomplishedPercentage = returnAccomplishedPercentageSeries(Auth::user(), $serie); ?>
+    @endif
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{$accomplishedPercentage}}%">
+                {{$accomplishedPercentage}}% Complete (success)
+        </div>
+        @if($accomplishedPercentage == 0)
+            0% Non accomplished yet
+        @endif
+    </div>
     <div style="float: right; margin-bottom: -74px;">
         @if( unratedSeries($serie->id) )
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}

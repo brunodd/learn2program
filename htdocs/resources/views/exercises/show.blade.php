@@ -73,7 +73,6 @@
     </div>
 
     <div style="clear: both;"></div>
-
     <h4>Your code :</h4>
 
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}

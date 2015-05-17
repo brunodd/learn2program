@@ -216,3 +216,16 @@ function loadUsersBeganSeries($series_id) {
                                 JOIN answers A                  ON E.id = A.eId
                        WHERE    S.id = ?', [$sId]);
 }
+
+
+function returnAccomplishedPercentageSeries($user, $serie) {
+    $allExercises = loadExercisesFromSerie($serie->id);
+    $totalExercises = count($allExercises);
+    $count = 0;
+    foreach ($allExercises as $exercise) {
+        if( userCompletedExercise($exercise->id, $user->id) ) {
+            $count += 1;
+        }
+    }
+    return (100*$count/$totalExercises); //result in percentage
+}
