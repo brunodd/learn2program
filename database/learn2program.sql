@@ -100,6 +100,7 @@ CREATE TABLE series (
     description VARCHAR(500),
     makerId INT NOT NULL,
     tId INT NOT NULL,
+	views INT DEFAULT 0,
     UNIQUE (title, tId),
     PRIMARY KEY (id),
     FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE,

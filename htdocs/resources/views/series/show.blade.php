@@ -47,7 +47,7 @@
                 {!! Form::hidden('sId', $serie->id) !!}
                 <label class="control-label">Rating</label>
                 <div id="captioner"></div>
-                <input name="rating" id="notRatedYet" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()"> <br/>
+                <input name="rating" id="notRatedYet" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" onchange="this.form.submit()"> 
             {!! Form::close() !!}
         @elseif(Auth::check() and notRatedYet(Auth::id(), $serie->id))
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
@@ -61,10 +61,15 @@
             <div id="captioner"></div>
             <input class="rating" value=" {{ ceil(averageRating($serie->id) * 2) / 2}}" data-min="0" data-max="5" data-step="1" data-show-clear="false" data-readonly="true">
         @endif
+        <label> Views: {{ $serie->views }}  </label>
+        {{ addViewToSeries($serie) }}
     </div>
+    <div style="float: right; margin-bottom: -74px;">
 
+    </div>
     <h3 style="float: left; margin-top: 0;">Description :</h3>
     <div style="clear: both;"></div>
+
     <p>{{$serie->description}}</p>
     <h3>List of {{ $serie->title }}'s exercises :</h3>
 
@@ -74,6 +79,7 @@
         @endforeach
     @endif
     <br>
+
     
 
     <h3>Recommended for you :</h3>

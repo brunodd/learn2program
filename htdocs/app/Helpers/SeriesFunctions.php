@@ -229,3 +229,8 @@ function returnAccomplishedPercentageSeries($user, $serie) {
     }
     return (100*$count/$totalExercises); //result in percentage
 }
+
+function addViewToSeries($serie) {
+    DB::table('series')->where('id', '=', $serie->id)->increment('views', 1);
+    //return DB::table('series')->where('id', '=', $serie->id)->select('views');
+}
