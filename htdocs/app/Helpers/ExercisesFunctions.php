@@ -195,10 +195,3 @@ function loadExercisesSearch($s) {
                        WHERE question LIKE ?',
                        ['%'.$s.'%']);
 }
-
-function returnViews($exercise) {
-    return DB::select('SELECT views
-                       FROM exercises
-                       where id =?',
-                       [$exercise->id]);
-}

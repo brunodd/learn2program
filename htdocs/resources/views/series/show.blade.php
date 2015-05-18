@@ -64,9 +64,7 @@
         <label> Views: {{ $serie->views }}  </label>
         {{ addViewToSeries($serie) }}
     </div>
-    <div style="float: right; margin-bottom: -74px;">
 
-    </div>
     <h3 style="float: left; margin-top: 0;">Description :</h3>
     <div style="clear: both;"></div>
 
