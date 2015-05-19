@@ -18,7 +18,7 @@
                 @include('partials.navbar')
             </header>
 
-            <div class="container-fluid">
+            <div class="container-fluid" style="overflow-wrap: break-word;">
                 @include('flash::message')
 
                 <div class="jumbotron">

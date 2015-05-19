@@ -1,5 +1,5 @@
 .container {
-    padding: 15px;
+    padding: 15px 15px 0;
     width: 90%;
     background: #ededed;
     margin-bottom: 15px;
@@ -52,7 +52,25 @@ h5 {
     background: #EBEBEB;
 }
 
-.options button:hover {
+.ttr button {
+    width: 18.3%;
+    margin: 10px 0;
+    padding: 5px 5px;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    background: #EBEBEB;
+
+    width: calc(25% - 3px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+ }
+
+.options button:hover, .ttr button:hover {
     color: white;
     background: #5e5e5e;
 }
@@ -67,7 +85,6 @@ h5 {
     padding: 15px 15px 5px 15px;
     margin-bottom: 15px;
     background: whitesmoke;
-    border-radius: 10px;
 }
 
 .series .ttr {
@@ -79,6 +96,11 @@ h5 {
     color: black;
     font-size: 14px;
     background: #EBEBEB;
+}
+
+.ttr span {
+    font-size: 0.8em;
+    display: none;
 }
 
 .series .ttr:hover {
@@ -101,7 +123,7 @@ h5 {
 #tr1 {
     display: block;
     font-weight: bold;
-    background: #CCCCCC;
+    background: #d4d4d4;
 }
 
 #tr1:hover {

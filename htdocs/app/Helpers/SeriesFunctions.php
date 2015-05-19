@@ -227,7 +227,7 @@ function returnAccomplishedPercentageSeries($user, $serie) {
             $count += 1;
         }
     }
-    return (100*$count/$totalExercises); //result in percentage
+    return ($totalExercises == 0) ? 0 : (100*$count/$totalExercises); //result in percentage
 }
 
 function addViewToSeries($serie) {

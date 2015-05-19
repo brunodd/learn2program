@@ -15,29 +15,34 @@ var skulptFunctions  = (function () {
         return Sk.builtinFiles["files"][x];
     };
 
+    var success = true;
     return {
         // Here's everything you need to run a python program in skulpt
         // grab the code from your textarea
         // get a reference to your pre element for output
         // configure the output function
         // call Sk.importMainWithBody()
-        runit: function () {
+        runit: function (alarm) {
             var prog = document.getElementById("yourcode").value;
             var mypre = document.getElementById("output");
             mypre.innerHTML = '';
             Sk.pre = "output";
-            Sk.configure({output:outf, read:builtinRead});
+            Sk.configure({output:outf, read:builtinRead, execLimit:120000}); // timelimit = 120 seconds (2 minutes)
             (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'yourcanvas';
             var myPromise = Sk.misceval.asyncToPromise(function() {
                 return Sk.importMainWithBody("<stdin>", false, prog, true);
             });
             myPromise.then(function(mod) {
-                    console.log('worked!');
+                    console.log('success');
                 },
                 function(err) {
-                    alert('Learn2Program found\n' + err.toString());
+                    if( alarm ) {
+                        alert('Learn2Program found\n' + err.toString());
+                    }
+                    document.getElementById("output").innerHTML = err.toString();
                     console.log(err.toString());
-                });
+                }
+            );
         }
     }
 }());

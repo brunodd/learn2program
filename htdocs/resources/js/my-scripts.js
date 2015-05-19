@@ -45,12 +45,26 @@ var myScripts = (function () {
 
         switchDataSort: function (id) {
             document.getElementById(id).setAttribute("hidden", true);
+            var children = document.getElementById(id).parentNode.childNodes;
+
+            var siblingList = [];
+            for (var n = children.length - 1; n >= 0; n--) {
+                if (children[n].nodeName == "BUTTON") {
+                    var herrderr = children[n].getElementsByTagName("SPAN")[0];
+                    herrderr.style.display = "none";
+                    siblingList.push(herrderr);
+                }
+            }
+
+            console.log("hi", siblingList);
             /*document.getElementById(id).removeClass("active");*/
             if (id.search(1) > -1) {
                 document.getElementById(id.replace('1', '2')).removeAttribute("hidden");
+                document.getElementById(id.replace('1', '2')).getElementsByTagName("SPAN")[0].style.display = "inline";
                 //document.getElementById(id.replace('1', '2')).addClass("active");
             } else {
                 document.getElementById(id.replace('2', '1')).removeAttribute("hidden");
+                document.getElementById(id.replace('2', '1')).getElementsByTagName("SPAN")[0].style.display = "inline";
                 /*document.getElementById(s.replace('2', '1')).addClass("active");*/
             }
         },

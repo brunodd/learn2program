@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom: 0; background: none">
         <h4>Filter on</h4>
 
         <div class="options">
@@ -21,29 +21,22 @@
             <button class="filter" data-filter=".Insane">Insane</button>
         </div>
         <div style="clear: both"></div>
+    </div>
 
-        <h4>Sort by</h4>
+    <div class="container">
 
-        <div class="options">
-            <button class="sort" id="title1" data-sort="title:asc" onclick="myScripts.switchDataSort('title1')">Title</button>
-            <button class="sort" id="title2" data-sort="title:desc" hidden onclick="myScripts.switchDataSort('title2')">Title</button>
-            <button class="sort" id="rating1" data-sort="rating:asc" onclick="myScripts.switchDataSort('rating1')">Rating</button>
-            <button class="sort" id="rating2" data-sort="rating:desc" hidden onclick="myScripts.switchDataSort('rating2')">Rating</button>
-            <button class="sort" id="subject1" data-sort="subject:asc" onclick="myScripts.switchDataSort('subject1')">Subject</button>
-            <button class="sort" id="subject2" data-sort="subject:desc" hidden onclick="myScripts.switchDataSort('subject2')">Subject</button>
-            <button class="sort" id="difficulty1" data-sort="difficulty:asc" onclick="myScripts.switchDataSort('difficulty1')">Difficulty</button>
-            <button class="sort" id="difficulty2" data-sort="difficulty:desc" hidden onclick="myScripts.switchDataSort('difficulty2')">Difficulty</button>
-            <button class="sort" data-sort="random">Random</button>
+        <div class="series ttr" id="tr1" style="padding-top: 5px">
+            <button class="sort" id="title1" data-sort="title:asc" onclick="myScripts.switchDataSort('title1')">Title <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="title2" data-sort="title:desc" hidden onclick="myScripts.switchDataSort('title2')">Title <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="rating1" data-sort="rating:asc" onclick="myScripts.switchDataSort('rating1')">Rating <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="rating2" data-sort="rating:desc" hidden onclick="myScripts.switchDataSort('rating2')">Rating <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="subject1" data-sort="subject:asc" onclick="myScripts.switchDataSort('subject1')">Subject <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="subject2" data-sort="subject:desc" hidden onclick="myScripts.switchDataSort('subject2')">Subject <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="difficulty1" data-sort="difficulty:asc" onclick="myScripts.switchDataSort('difficulty1')">Difficulty <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="difficulty2" data-sort="difficulty:desc" hidden onclick="myScripts.switchDataSort('difficulty2')">Difficulty <span class="glyphicon glyphicon-triangle-top"></span></button>
         </div>
-        <div style="clear: both"></div>
 
         <div class="series" id="mix-wrapper">
-            <div class="ttr" id="tr1">
-                <div class="ttd">Title</div>
-                <div class="ttd dd">Rating</div>
-                <div class="ttd dd">Subject</div>
-                <div class="ttd dd">Difficulty</div>
-            </div>
             @foreach($series as $serie)
                 @if( SerieContainsExercises($serie->id) || isMakerOfSeries($serie->id, Auth::id()) )
                     <div class="mix ttr {{ loadType2($serie->tId)[0]->difficulty }}" data-title="{{$serie->title}}" data-rating="{{ loadRatingAsInt($serie->id) }}" data-subject="{{ loadType2($serie->tId)[0]->subject }}" data-difficulty="{{ loadDifficultyAsInt($serie->tId) }}" onclick="window.location.href='/series/{{$serie->title}}';">

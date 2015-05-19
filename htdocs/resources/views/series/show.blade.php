@@ -41,7 +41,7 @@
             0% Non accomplished yet
         @endif
     </div>
-    <div style="float: right; margin-bottom: -74px;">
+    <div style="float: right;">
         @if( unratedSeries($serie->id) )
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
                 {!! Form::hidden('sId', $serie->id) !!}
@@ -65,10 +65,13 @@
         {{ addViewToSeries($serie) }}
     </div>
 
-    <h3 style="float: left; margin-top: 0;">Description :</h3>
+    <div style="float: left; width: calc(99% - 230px);">
+        <h3 style="margin-top: 0;">Description :</h3>
+
+        <p>{{$serie->description}}</p>
+    </div>
     <div style="clear: both;"></div>
 
-    <p>{{$serie->description}}</p>
     <h3>List of {{ $serie->title }}'s exercises :</h3>
 
     @if ( $exercises )
