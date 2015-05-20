@@ -63,6 +63,7 @@
         function Run() {
             myScripts.initPythonSyntax();
             skulptFunctions.runit();
+            result = skulptFunctions.result;
         }
     </script>
 
@@ -118,14 +119,6 @@
 
         @endif
     {!! Form::close() !!}
-
-    @if( $answer != null )
-        <script>
-            $(document).ready(function() {
-                skulptFunctions.runit(true);
-            });
-        </script>
-    @endif
 
     {{-- <pre>Expected output : {{ $exercise->expected_result }}</pre> --}}
 
