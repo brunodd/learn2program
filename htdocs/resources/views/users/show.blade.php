@@ -65,14 +65,14 @@
                                 @if ( getAccomplishedExercise($user, $exercise) )
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
                                     <div style="float: left", "color: white">
-                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 50) }} </font></a>
+                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
                                         </div></br>
                                     <div style="float: right">
                                         was solved correctly!
                                         </div></br>
                                     @else
                                     <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 50) }} </font></a>
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
                                         </div></br>
                                     <div style="float: right">
                                         was incorrect...</em>
