@@ -31,7 +31,7 @@ Your challenges
 </div>
 <div class=col-md-7>
 @if(empty($challengesA) && empty($challengesB))
-    No one dares challenge you!
+    No one challenged you so far!
 @else
     <h3> Challenges to win! </h3>
     <ul>
