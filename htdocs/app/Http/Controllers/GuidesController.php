@@ -135,4 +135,15 @@ class GuidesController extends Controller {
         }
     }
 
+    public function myGuides() {
+        if( Auth::check() ) {
+            $guides = loadMyGuides(Auth::id());
+            return view('guides.my_guides', compact('guides'));
+        }
+        else {
+            flash()->error('You must be logged in.')->important();
+            return redirect('login');
+        }
+    }
+
 }

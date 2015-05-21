@@ -19,5 +19,9 @@ function deleteGuideByTitleOrId($id){
     DB::statement('delete from guides where id = ? or title = ?', [$id, $id]);
 }
 
+function loadMyGuides($id) {
+    return DB::select('select * from guides where writerId = ?', [$id]);
+}
+
 ?>
 

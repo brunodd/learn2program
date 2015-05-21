@@ -15,7 +15,7 @@
     @endforeach
 
     @if ( Auth::check() )
-        <h2><a href="/guides/create">Create new guide</a></h2>
+        <h2><a href="/guides/create">Create a new guide</a></h2>
     @endif
 
 @stop

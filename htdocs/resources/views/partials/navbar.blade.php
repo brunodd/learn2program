@@ -101,6 +101,7 @@
                             <li><a href="/my_friends">My Friends</a></li>
                             <li><a href="/my_groups">My Groups</a></li>
                             <li><a href="/challenges">My Challenges</a></li>
+                            <li><a href="/my_guides">My Guides</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>

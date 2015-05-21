@@ -9,5 +9,8 @@
 @stop
 
 @section('content')
-    <h3><a href="guides/create">Create new guide</a></h3>
+    @foreach( $guides as $guide )
+    <h3><a href="/guides/{{$guide->title}}">{{ $guide->title }}</a></h3>
+    @endforeach
+    <h3><a href="guides/create">Create a new guide</a></h3>
 @stop
