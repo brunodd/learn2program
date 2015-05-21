@@ -45,7 +45,8 @@
     <em>{{ $group->name }}</em>
 
     @if( Auth::check() and isFounderOfGroup($group->id, Auth::id()) )
-        <a href="{{ action('GroupsController@edit', $group->name )}}" class="btn btn-primary" style="color: #ffffff; float:right;">Edit</a>
+        <a href="{{ action('GroupsController@edit', $group->name )}}" class="btn btn-primary"
+            style="color: #ffffff; float:right;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
     @endif
     <div style="clear: both"></div>
 @stop
