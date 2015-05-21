@@ -84,6 +84,8 @@ Route::resource('challenges', 'ChallengesController');
 Route::get('exercises/{id}/challenge', 'ChallengesController@create');
 Route::get('challenge/{uId}/{exId}' , 'ChallengesController@store');
 
+Route::resource('guides', 'GuidesController');
+
 
 //Authentication related
 Route::get('/register', 'UsersController@getRegister');
