@@ -12,10 +12,8 @@
                 <li><a href="/exercises">Exercises</a></li>
                 <li><a href="/groups">Groups</a></li>
                 <li><a href="/users">Users</a></li>
-                @if (\Auth::id())
-                    <li><a href="/challenges">Your challenges</a></li>
-                @endif
                 <li><a href="/statistics">Statistics</a></li>
+                <li><a href="/guides">Guides</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
 
@@ -102,6 +100,7 @@
                             <li><a href="/my_exercises">My Exercises</a></li>
                             <li><a href="/my_friends">My Friends</a></li>
                             <li><a href="/my_groups">My Groups</a></li>
+                            <li><a href="/challenges">My Challenges</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>

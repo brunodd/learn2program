@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 // use Illuminate\Http\Request;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGuideRequest;
+use App\Http\Requests\UpdateGuideRequest;
 use Auth;
 
 
@@ -61,6 +62,11 @@ class GuidesController extends Controller {
 	 */
 	public function show($id)
 	{
+        if(empty(loadGuideByTitleOrId($id)))
+        {
+            flash()->error('That guide does not exist.')->important();
+            return redirect('guides');
+        }
 		$guide = loadGuideByTitleOrId($id)[0];
         $author = loadUser($guide->writerId)[0];
         return view('guides.show', compact('guide', 'author'));
@@ -74,7 +80,20 @@ class GuidesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        if(empty(loadGuideByTitleOrId($id)))
+        {
+            flash()->error('That guide does not exist.')->important();
+            return redirect('guides');
+        }
+        else if( Auth::id() != loadGuideByTitleOrId($id)[0]->writerId ) {
+            flash()->error('You must be logged in as the writer of this guide in order to edit.')->important();
+            return redirect('guides/' . $id);
+        }
+        else
+        {
+		    $guide = loadGuideByTitleOrId($id)[0];
+            return view('guides.edit', compact('guide'));
+        }
 	}
 
 	/**
@@ -83,9 +102,13 @@ class GuidesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, UpdateGuideRequest $request)
 	{
-		//
+        $guide = loadGuideByTitleOrId($id)[0];
+        $guide->content = $request['content'];
+        updateGuide($guide);
+        flash()->success('Your guide has been successfully updated.');
+        return redirect('guides/' . $guide->title);
 	}
 
 	/**
@@ -96,7 +119,20 @@ class GuidesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
-	}
+        if(empty(loadGuideByTitleOrId($id)))
+        {
+            flash()->error('That guide does not exist.')->important();
+            return redirect('guides');
+        }
+        else if( Auth::id() != loadGuideByTitleOrId($id)[0]->writerId ) {
+            flash()->error('You must be logged in as the writer of this guide in order to delete it.')->important();
+            return redirect('guides/' . $id);
+        }
+        else
+        {
+		    deleteGuideByTitleOrId($id);
+            return redirect('guides');
+        }
+    }
 
 }
