@@ -55,7 +55,7 @@
         }
 
         .members {
-            overflow-x: auto;
+            overflow-y: auto;
             position: absolute;
             width: 95%;
             height: calc(100% - 65px);
