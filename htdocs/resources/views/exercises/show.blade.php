@@ -62,10 +62,29 @@
         $(window).load(function () {
             myScripts.initPythonSyntax();
         });
-        function Run() {
+        function RunPython() {
             myScripts.initPythonSyntax();
             skulptFunctions.runit();
             result = skulptFunctions.result;
+        }
+        function RunCpp() {
+            var http = new XMLHttpRequest();
+            http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
+            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": arguments[0] }));
+            alert(http.response);
+            result = http.response;
+        }
+        function Run() {
+            var exercise = <?php echo json_encode($exercise) ?>;
+            if(exercise.language == 'python') {
+                RunPython();
+            } else if(exercise.language == 'cpp') {
+                var antwoord = <?php echo json_encode($answer) ?>;
+                RunCpp(antwoord);
+            } else {
+                //alert("Problem: No programming language found -> using Python by default ");
+                RunPython();
+            }
         }
     </script>
 
