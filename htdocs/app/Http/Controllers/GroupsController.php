@@ -182,6 +182,7 @@ class GroupsController extends Controller {
         updateGroup($id, $request);
 
         //TODO: Notify members of change
+        flash()->success('Your group has been successfully updated.');
         return redirect('groups/' . $request->name);
 	}
 
