@@ -2,11 +2,13 @@
 
 var skulptFunctions  = (function () {
     var outf, builtinRead;
+    var result;
 
     // output functions are configurable. This one just appends some text to a pre element.
     outf = function (text) {
         var mypre = document.getElementById("output");
         mypre.innerHTML = mypre.innerHTML + text;
+        result = text;
     };
 
     builtinRead = function (x) {
@@ -22,7 +24,7 @@ var skulptFunctions  = (function () {
         // get a reference to your pre element for output
         // configure the output function
         // call Sk.importMainWithBody()
-        runit: function (alarm) {
+        runit: function () {
             var prog = document.getElementById("yourcode").value;
             var mypre = document.getElementById("output");
             mypre.innerHTML = '';
@@ -36,10 +38,8 @@ var skulptFunctions  = (function () {
                     console.log('success');
                 },
                 function(err) {
-                    if( alarm ) {
-                        alert('Learn2Program found\n' + err.toString());
-                    }
-                    document.getElementById("output").innerHTML = err.toString();
+                    alert('Learn2Program found\n' + err.toString());
+                    document.getElementById("output").innerHTML = err.toString(); //this is useless atm
                     console.log(err.toString());
                 }
             );

@@ -3,8 +3,6 @@
 
 @section('title')
     Edit <em>{{ $serie->title }}</em>
-    <div style="float: right;color: white;"><a href="{{ action('SeriesController@show', $serie->id )}}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
@@ -37,12 +35,16 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Update serie', ['class' => 'btn btn-primary pull-right']) !!}
+                <div style="color: white;">
+                    <a href="{{ action('SeriesController@show', $serie->id )}}" class="btn btn-primary pull-right" style="margin-left: 5px">
+                        <i class="glyphicon glyphicon-remove-sign"></i> Cancel
+                    </a>
+                </div>
+                {!! Form::submit('Save changes', ['class' => 'btn btn-primary pull-right']) !!}
+                <div style="clear: both"></div>
             </div>
         {!! Form::close() !!}
-    <div><br><br>
-    @include('errors.list')
+        @include('errors.list')
     </div>
-</div>
 @stop
 

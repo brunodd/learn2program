@@ -2,8 +2,6 @@
 
 @section('title')
     Edit your exercise and all its references.
-    <div style="float: right;color: white;"><a href="{{ action('ExercisesController@show', $exercise->id )}}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
@@ -48,11 +46,16 @@
         </div>
 
         <div class="form-group">
-            {!! Form::submit('Save changes', ['class' => 'btn btn-primary form-control']) !!}
+            <div style="color: white;">
+                <a href="{{ action('ExercisesController@show', $exercise->id )}}" class="btn btn-primary pull-right" style="margin-left: 5px">
+                    <i class="glyphicon glyphicon-remove-sign"></i> Cancel
+                </a>
+            </div>
+            {!! Form::submit('Save changes', ['class' => 'btn btn-primary pull-right']) !!}
         </div>
+        <div style="clear:both;"></div>
     {!! Form::close() !!}
-
-@include('errors.list')
-
-@stop
+    @include('errors.list')
+    <div style="height: 25px"></div>
+    @stop
 

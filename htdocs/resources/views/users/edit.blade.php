@@ -16,8 +16,6 @@
 
 @section('title')
     Edit your account
-    <div style="float: right;color: white;"><a href="{{ action('UsersController@show', $user->username )}}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
@@ -55,12 +53,19 @@
             <div class="form-group">
                 {!! Form::label('image', 'Choose profile image: ') !!}
                 {!! Form::file('image', null, ['class' => 'form-control']) !!}
+            </div>
+
+             <div class="form-group">
+                <div style="color: white;">
+                    <a href="{{ action('UsersController@show', $user->username )}}" class="btn btn-primary pull-right" style="margin-left: 5px">
+                        <i class="glyphicon glyphicon-remove-sign"></i> Cancel
+                    </a>
+                </div>
                 {!! Form::submit('Save changes', ['class' => 'btn btn-primary pull-right']) !!}
+                <div style="clear: both"></div>
             </div>
         {!! Form::close() !!}
-    <div><br><br>
-    @include('errors.list')
+        @include('errors.list')
     </div>
-</div>
 @stop
 

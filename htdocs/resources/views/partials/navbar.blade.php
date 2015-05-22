@@ -96,14 +96,15 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/my_series">My Series</a></li>
-                            <li><a href="/my_exercises">My Exercises</a></li>
+                            <li><a href="{{ action('UsersController@show', Auth::user()->username )}}">My Profile</a></li>
                             <li><a href="/my_friends">My Friends</a></li>
-                            <li><a href="/my_groups">My Groups</a></li>
                             <li><a href="/challenges">My Challenges</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/my_series">My Series</a></li>
+                            <li><a href="/my_groups">My Groups</a></li>
+                            <li><a href="/my_exercises">My Exercises</a></li>
                             <li><a href="/my_guides">My Guides</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{ action('UsersController@show', Auth::user()->username )}}">My Profile</a></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>
                         </ul>

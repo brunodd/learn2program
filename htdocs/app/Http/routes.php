@@ -1,6 +1,6 @@
 <?php
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
@@ -15,7 +15,9 @@
 //Event::listen('illuminate.query', function($sql) { var_dump($sql); });
 
 // List all routes with: $ php artisan route:list
-//Miscellaneous routes
+
+
+// Miscellaneous routes
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
@@ -68,6 +70,8 @@ Route::resource('challenges', 'ChallengesController');
 Route::get('exercises/{id}/challenge', 'ChallengesController@create');
 Route::get('challenge/{uId}/{exId}' , 'ChallengesController@store');
 
+
+//Guides routes
 Route::resource('guides', 'GuidesController');
 Route::get('guides/{id}/delete', 'GuidesController@destroy');
 Route::get('my_guides', 'GuidesController@myGuides');

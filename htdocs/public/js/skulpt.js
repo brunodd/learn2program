@@ -843,6 +843,7 @@ Sk.builtinFiles={"files": {"src/lib/py_compile.py": "raise NotImplementedError(\
 var skulptFunctions  = (function () {
     var outf, builtinRead;
     var result;
+
     // output functions are configurable. This one just appends some text to a pre element.
     outf = function (text) {
         var mypre = document.getElementById("output");

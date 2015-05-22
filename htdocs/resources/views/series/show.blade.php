@@ -19,11 +19,9 @@
     </div>
     @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
         @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
-            <a href="{{ action('SeriesController@edit', $serie->title )}}" class="btn btn-primary"
-                style="float:right; color: white;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->title )}}" class="btn btn-primary" style="float:right; color: white;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
         @else
-            <a href="{{ action('SeriesController@edit', $serie->id )}}" class="btn btn-primary"
-            style="float:right; color:white;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->id )}}" class="btn btn-primary" style="float:right; color:white;"><i class="glyphicon glyphicon-edit"></i> Edit </a>
         @endif
     @endif
     <div style="clear: both;"></div>
@@ -107,16 +105,16 @@
         @endforeach
     @endif
 
-   <!-- @if ( $serie->makerId === Auth::id() )
-        <hr/>
+    @if ( $serie->makerId === Auth::id() )
+        <hr style="margin-top: 50px;"/>
         <h4><a href="{{$serie->id}}/newexercise">Create a new exercise</a></h4>
-            <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>
+        <p><em>(This means you create a new exercise from scratch. This is the recommended action for creating a most personalised series.)</em></p>
         <h4><a href="{{$serie->id}}/referenceexercise">Reference an existing exercise</a></h4>
-            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise. 
-            When the original exercise gets updated (or deleted), so will this one.)</em></p>
+        <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise.
+        When the original exercise gets updated (or deleted), so will this one.)</em></p>
         <h4><a href="{{$serie->id}}/copyexercise">Copy an existing exercise</a></h4>
-            <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
-        @endif -->
+        <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
+    @endif
 
 
     <br><br>

@@ -3,6 +3,8 @@
 @section('head')
     <style>
         .profileheader {
+            min-width: 250px;
+            color: white;
             float: left;
             padding: 5px;
         }
@@ -35,13 +37,12 @@
 @section('title')
     <div class="profileheader">
         <img src="/images/users/{{ $user->image }}" alt="Profile Picture">
-        <b><em>{{ $user->username }}</em></b></br>
-        <small><em><font color="white">Score: {{ $user->score }}</font></em></small>
+        <b>{{ $user->username }}</b>
+        <p style="margin: 0"><i>Score: {{ $user->score }}</i></p>
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-edit"></i> Edit</a></div>
+        <a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary"  style="float:right; width: auto;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
     @endif
     <div style="clear: both;"></div>
 @stop
@@ -54,110 +55,114 @@
                                 WHERE series.id = series.id');
         ?>
         <div class="col-md-3" style="height: 100%;">
-            <div class="jumbotron" style="padding: 10px 35px;max-height: 60%;overflow-y: auto;position: fixed;"><h3 style="text-align: center;">Accomplishments</h3>
+            <div class="jumbotron" style="padding: 10px 35px;max-height: 600px;overflow-y: auto;position: relative;">
+                <h3 style="text-align: center;">Accomplishments</h3>
                 <div class="row">
-                    <u><h4>Completed series</h4></u>
+                <u><h4>Completed series</h4></u>
+                @foreach($allseries as $serie )
+                    @if( hasCompletedAllExercisesInSerie($user, $serie) )
+                        <strong> {{$serie->title}} </strong>
+                        <?php $exercises = getAllExercisesOfSeries($serie); ?>
+                        <div class="container-fluid">
+                        @foreach($exercises as $exercise)
+                            @if ( getAccomplishedExercise($user, $exercise) )
+                                @if ( userSucceededExercise($exercise->exId, $user->id) )
+                                <div style="float: left;">
+                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a>
+                                </div></br>
+                                <div style="float: right">
+                                    was solved correctly!
+                                </div></br>
+                                @else
+                                <div style="float: left">
+                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    was incorrect.
+                                </div></br>
+                                @endif
+                            @endif
+                        @endforeach
+                        </div>
+                    @endif
+                @endforeach
+                </div>
+
+                <div class="row">
+                <u><h4>Work in progress</h4></u>
                     @foreach($allseries as $serie )
-                        @if( hasCompletedAllExercisesInSerie($user, $serie) )
-                            <strong> {{$serie->title}} </strong>
+                        @if( hasNotCompletedWholeSerie($user, $serie) )
+                            <strong>{{$serie->title}}</strong>
                             <?php $exercises = getAllExercisesOfSeries($serie); ?>
-                            <div class="container-fluid">
+                            <div class=container-fluid>
                             @foreach($exercises as $exercise)
-                                @if ( getAccomplishedExercise($user, $exercise) )
-                                    @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                    <div style="float: left", "color: white">
-                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        was solved correctly!
-                                        </div></br>
-                                    @else
-                                    <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        was incorrect...</em>
-                                        </div></br>
-                                    @endif
+                                @if ( userSucceededExercise($exercise->exId, $user->id) )
+                                <div style="float: left">
+                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    was solved correctly!
+                                </div></br>
+                                @elseif ( getAccomplishedExercise($user, $exercise) )
+                                <div style="float: left">
+                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }} </a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    was incorrect.
+                                </div></br>
+                                @else
+                                <div style="float: left">
+                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    has not been started yet!
+                                </div></br>
                                 @endif
                             @endforeach
                             </div>
                         @endif
                     @endforeach
                 </div>
-                <div class="row">
-                    <u><h4>Work in progress</h4></u>
-                        @foreach($allseries as $serie )
-                            @if( hasNotCompletedWholeSerie($user, $serie) )
-                                <strong>{{$serie->title}}</strong>
-                                <?php $exercises = getAllExercisesOfSeries($serie); ?>
-                                <div class=container-fluid>
-                                @foreach($exercises as $exercise)
-                                    @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                    <div style="float: left", "color: white">
-                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        was solved correctly!
-                                        </div></br>
-                                    @elseif ( getAccomplishedExercise($user, $exercise) )
-                                    <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        was incorrect...</em>
-                                        </div></br>
-                                    @else
-                                    <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        has not been started yet!</em>
-                                        </div></br>
-                                    @endif
-                                @endforeach
-                                </div>
-                            @endif
-                        @endforeach
-                </div>
+
                 <div class="row">
                     <u><h4>To do</h4></u>
-                        <?php $oneNotStartedSerie = false; ?>
-                        @foreach($allseries as $serie )
-                            @if( hasNotStartedSerie($user, $serie) )
-                                <strong> {{$serie->title}} </strong>
-                                <?php $oneNotStartedSerie = true; ?>
-                                <?php $exercises = getAllExercisesOfSeries($serie); ?>
-                                <div class="container-fluid">
-                                @foreach($exercises as $exercise)
-                                    @if ( getAccomplishedExercise($user, $exercise) )
-                                    <div style="float: left", "color: white">
-                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        has been accomplished!
-                                        </div></br>
-                                    @else
-                                    <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
-                                        </div></br>
-                                    <div style="float: right">
-                                        has not been started yet!</em>
-                                        </div></br>
-                                    @endif
-                                @endforeach
-                                </div>
-                            @endif
-                        @endforeach
-                        <?php if(!$oneNotStartedSerie)
-                            echo "You started all the series! Nicely done! \n"?>
+                    <?php $oneNotStartedSerie = false; ?>
+                    @foreach($allseries as $serie )
+                        @if( hasNotStartedSerie($user, $serie) )
+                            <strong> {{$serie->title}} </strong>
+                            <?php $oneNotStartedSerie = true; ?>
+                            <?php $exercises = getAllExercisesOfSeries($serie); ?>
+                            <div class="container-fluid">
+                            @foreach($exercises as $exercise)
+                                @if ( getAccomplishedExercise($user, $exercise) )
+                                <div style="float: left">
+                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    has been accomplished!
+                                </div></br>
+                                @else
+                                <div style="float: left">
+                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                </div></br>
+                                <div style="float: right">
+                                    has not been started yet!
+                                </div></br>
+                                @endif
+                            @endforeach
+                            </div>
+                        @endif
+                    @endforeach
+                    <?php if(!$oneNotStartedSerie) echo "You started all the series! Nicely done! \n"?>
                 </div>
             </div>
         </div>
+
         <div class=col-md-7>
-        <h1>Something about {{$user->username}}:</h1>
+        <h2>About {{$user->username}}:</h2>
             <p>{!! $user->info !!}</p>
         </div>
+
         <div class="col-md-2">
 
             @if (Auth::check())

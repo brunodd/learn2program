@@ -27,9 +27,18 @@
         }
 
         .profiledata {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             float: right;
             direction: ltr;
             width: calc(100% - 55px);
+        }
+
+        .profiledata * {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .profiledata a {
@@ -64,6 +73,15 @@
 
         #messageBox {
             border-bottom: 1px solid rgb(222, 223, 226);;
+        }
+
+        .aboutuser {
+            height: 15px;
+        }
+
+        .aboutuser * {
+            margin: 0;
+            padding: 0;
         }
     </style>
     <?php
@@ -179,7 +197,7 @@
                     </div>
                     <div class="profiledata">
                         <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
-                        <p> {!! firstChars($user->info, 45) !!} </p>
+                        <div class="aboutuser">{!! $user->info !!}</div>
                     </div>
                     <div style="clear: both;"></div>
                 </div>

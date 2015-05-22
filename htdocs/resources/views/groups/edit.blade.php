@@ -2,15 +2,12 @@
 
 @section('title')
     Edit group: <em>{{ $group->name }}</em>
-    <div style="float: right;color: white;"><a href="{{ action('GroupsController@show', $group->name )}}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
 
     <!-- TODO: armin PUT vs PATCH -->
     <div class="container col-md-8 col-lg-offset-2">
-        @include('errors.list')
         {!! Form::model($group, ['url' => '/groups/' . $group->name, 'method' => 'PUT']) !!}
             <div class="form-group">
                 {!! Form::label('name', 'Name of your group: ') !!}
@@ -32,9 +29,16 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Update group', ['class' => 'btn btn-primary pull-right']) !!}
+                <div style="color: white;">
+                    <a href="{{ action('GroupsController@show', $group->name )}}" class="btn btn-primary pull-right" style="margin-left: 5px">
+                        <i class="glyphicon glyphicon-remove-sign"></i> Cancel
+                    </a>
+                </div>
+                {!! Form::submit('Save changes', ['class' => 'btn btn-primary pull-right']) !!}
             </div>
+            <div style="clear:both;"></div>
         {!! Form::close() !!}
+        @include('errors.list')
     </div>
 @stop
 
