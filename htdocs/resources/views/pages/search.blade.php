@@ -82,6 +82,11 @@
         <h3><a href="{{ action('GroupsController@show', [$group->name])}}">{{$group->name}}</a></h3>
     @endforeach
 
+    <h2>Guides</h2><hr>
+    @foreach($guides as $guide)
+        <h3><a href="{{ action('GuidesController@show', [$guide->title])}}">{{$guide->title}}</a></h3>
+    @endforeach
+
     <script>
         myScripts.initializeMixItUp();
     </script>

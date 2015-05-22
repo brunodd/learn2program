@@ -23,5 +23,12 @@ function loadMyGuides($id) {
     return DB::select('select * from guides where writerId = ?', [$id]);
 }
 
+function loadGuidesSearch($s) {
+    return DB::select('SELECT   *
+                       FROM     guides
+                       WHERE    title LIKE ? or content LIKE ?',
+                       ['%'.$s.'%', '%'.$s.'%']);
+}
+
 ?>
 

@@ -13,8 +13,9 @@ class SearchController extends Controller {
         $exercises = loadExercisesSearch($s);
         $users = loadUsersSearch($s);
         $groups = loadGroupsSeach($s);
+        $guides = loadGuidesSearch($s);
 
-        return view('pages.search', compact('s', 'series', 'exercises', 'users', 'groups'));
+        return view('pages.search', compact('s', 'series', 'exercises', 'users', 'groups', 'guides'));
     }
 
 }
