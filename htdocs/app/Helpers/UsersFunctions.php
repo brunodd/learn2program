@@ -22,21 +22,21 @@ function storeUser($user) {
 function updateUser($id, $data)
 {
     DB::statement('update users
-                    SET username = ?, mail = ?, pass = ?, score = ?, image = ? , info = ?
-                    where id = ? or username = ?',
-        [$data->username, $data->mail, $data->pass, $data->score, $data->image, $data->info, $id, $id]);
+                   SET username = ?, mail = ?, pass = ?, score = ?, image = ? , info = ?
+                   where id = ? or username = ?',
+                   [$data->username, $data->mail, $data->pass, $data->score, $data->image, $data->info, $id, $id]);
 }
 
 function setUserScore($id, $score) {
-    DB::statement('update users
-                    SET score = ?
-                    where id = ?',
-                    [$score, $id]);
+    DB::statement('update   users
+                   SET      score = ?
+                   where    id = ?',
+                   [$score, $id]);
 }
 
 function loadUsersSearch($s) {
-    return DB::select('SELECT *
-                       FROM users
-                       WHERE username LIKE ?',
+    return DB::select('SELECT   *
+                       FROM     users
+                       WHERE    username LIKE ?',
                        ['%'.$s.'%']);
 }

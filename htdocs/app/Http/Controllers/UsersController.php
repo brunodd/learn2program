@@ -112,6 +112,7 @@ class UsersController extends Controller {
 	 */
 	public function update($id, UpdateUserRequest $request)
 	{
+        $oldUser = loadUser($id)[0];
         $user = new User;
 
         $newpass = $request->pass;
@@ -125,6 +126,7 @@ class UsersController extends Controller {
         $user->username = $request->username;
         $user->mail = $request->mail;
         $user->info = $request->info;
+        $user->score = $oldUser->score;
 
         //TODO: make image handler/uploader class
         if (Input::hasFile('image'))
@@ -140,11 +142,10 @@ class UsersController extends Controller {
                 flash()->error('Something went wrong while uploading your image, try again.');
                 return redirect('users/' . $user->username . '/edit');
             }
-
         }
         else
         {
-            $user->image = loadUser($id)[0]->image;
+            $user->image = $oldUser->image;
         }
 
         updateUser($id, $user);
