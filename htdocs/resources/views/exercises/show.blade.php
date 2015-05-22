@@ -68,10 +68,10 @@
             result = skulptFunctions.result;
         }
         function RunCpp() {
+            myScripts.initPythonSyntax();
             var http = new XMLHttpRequest();
             http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
             http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
-            alert(http.response);
             document.getElementById("output").value = http.response;
         }
         function Run() {
