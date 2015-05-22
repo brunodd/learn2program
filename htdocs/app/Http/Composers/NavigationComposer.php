@@ -23,10 +23,10 @@ Class NavigationComposer {
         }
 
         $conv = array();
+        //TODO: just use array of objects
         for ($x = 0; $x < sizeof($last5conversations); $x++) {
-            $conversation = $last5conversations[$x];       //Get the xth message
-            $user = loadUser($conversation->otherUser)[0]; //Get the authors information
-            array_push($conv, $user->username, $user->image, $conversation->message, $conversation->is_read, $conversation->author, $conversation->date);
+            $conversation = $last5conversations[$x];
+            array_push($conv, $conversation->username, $conversation->image, $conversation->message, $conversation->is_read, $conversation->author, $conversation->date);
         }
 
         $view->with(array('last5notifications' => $noti,

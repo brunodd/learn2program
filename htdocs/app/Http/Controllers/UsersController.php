@@ -149,7 +149,7 @@ class UsersController extends Controller {
 
         updateUser($id, $user);
         flash()->success('You successfully edited your profile.');
-        return redirect('users/' . $user->username . '/edit');
+        return redirect('users/' . $user->username);
 	}
 
 	/**

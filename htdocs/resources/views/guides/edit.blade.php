@@ -1,44 +1,39 @@
 @extends('master')
 
+@section('head')
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons" });</script>
+@stop
+
 @section('title')
-    Edit <em>{{ $serie->title }}</em>
+    Edit <em>{{ $guide->title }}</em>
 @stop
 
 @section('content')
     <!-- TODO: armin PUT vs PATCH -->
-    <div class="container col-md-8 col-md-offset-2">
-        {!! Form::model($serie, ['url' => '/series/' . $serie->title, 'method' => 'PUT']) !!}
+    <div class="container col-md-10 col-md-offset-1">
+        {!! Form::model($guide, ['url' => '/guides/' . $guide->title, 'method' => 'PUT']) !!}
             <div class="form-group">
-                {!! Form::label('title', 'Title: ') !!}
-                {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                {!! Form::label('content', 'Content: ') !!}
+                {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
             </div>
 
             <div class="form-group">
-                {!! Form::label('description', 'Description: ') !!}
-                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
-            </div>
-
-            {!! Form::model($type, ['method' => 'PATCH']) !!}
-            <div class="form-group">
-                {!! Form::label('subject', 'Subject: ') !!}
-                {!! Form::text('subject', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('difficulty', 'Difficulty: ') !!}
-                {!! Form::select('difficulty', ['' => '', 'easy' => 'Easy', 'intermediate' => 'Intermediate', 'hard' => 'Hard', 'insane' => 'Insane'], null, ['class' => 'form-control']) !!}
-            </div>
-
-            <div class="form-group">
-                {!! Form::hidden('id', $serie->id) !!}
-            </div>
-
-            <div class="form-group">
-                {!! Form::submit('Update serie', ['class' => 'btn btn-primary pull-right']) !!}
+                {!! Form::submit('Update guide', ['class' => 'btn btn-primary pull-right']) !!}
             </div>
         {!! Form::close() !!}
-    </div>
-
+    <div><br><br>
     @include('errors.list')
+    </div>
+</div>
 @stop
 

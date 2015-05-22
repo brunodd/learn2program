@@ -19,9 +19,11 @@
     </div>
     @if( Auth::check() and isMakerOfSeries($serie->id, Auth::id()) )
         @if( count(loadSerieWithIdOrTitle($serie->title)) === 1 )
-            <a href="{{ action('SeriesController@edit', $serie->title )}}" class="btn btn-primary" style="float:right; color: white;">Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->title )}}" class="btn btn-primary"
+                style="float:right; color: white;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
         @else
-            <a href="{{ action('SeriesController@edit', $serie->id )}}" class="btn btn-primary" style="float:right; color:white;">Edit</a>
+            <a href="{{ action('SeriesController@edit', $serie->id )}}" class="btn btn-primary"
+            style="float:right; color:white;"><i class="glyphicon glyphicon-edit"></i> Edit</a>
         @endif
     @endif
     <div style="clear: both;"></div>
@@ -35,10 +37,12 @@
     <div class="progress">
         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{$accomplishedPercentage}}%">
-                {{$accomplishedPercentage}}% Complete (success)
+                {{$accomplishedPercentage}}% Complete
         </div>
         @if($accomplishedPercentage == 0)
-            0% Non accomplished yet
+            <div class="zeropercent">
+                0% Complete
+            </div>
         @endif
     </div>
     <div style="float: right;">

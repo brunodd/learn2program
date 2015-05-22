@@ -40,7 +40,8 @@
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">Edit</a></div>
+        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-edit"></i> Edit</a></div>
     @endif
     <div style="clear: both;"></div>
 @stop
@@ -154,8 +155,8 @@
             </div>
         </div>
         <div class=col-md-7>
-            <h3>Something about me:</h3>
-            <p>{{ $user->info }}</p>
+        <h1>Something about {{$user->username}}:</h1>
+            <p>{!! $user->info !!}</p>
         </div>
         <div class="col-md-2">
 

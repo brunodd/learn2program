@@ -68,7 +68,7 @@ h5 {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
- }
+}
 
 .options button:hover, .ttr button:hover {
     color: white;
@@ -120,10 +120,22 @@ h5 {
     text-align: right;
 }
 
+#name1, #name2, #title1, #title2 {
+    text-align: left;
+}
+
+#name1 span, #name2 span, #title1 span, #title2 span {
+    position: relative;
+    top: 5px;
+    width: 12px;
+    height: 13px;
+    float: right;
+}
+
 #tr1 {
     display: block;
     font-weight: bold;
-    background: #d4d4d4;
+    background: #CCCCCC;
 }
 
 #tr1:hover {
@@ -133,4 +145,5 @@ h5 {
 .mix {
     display: none;
 }
+/*# sourceMappingURL=sortingAndFiltering.css.map */
 /*# sourceMappingURL=sortingAndFiltering.css.map */

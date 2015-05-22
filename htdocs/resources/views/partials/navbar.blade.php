@@ -12,10 +12,8 @@
                 <li><a href="/exercises">Exercises</a></li>
                 <li><a href="/groups">Groups</a></li>
                 <li><a href="/users">Users</a></li>
-                @if (\Auth::id())
-                    <li><a href="/challenges">Your challenges</a></li>
-                @endif
                 <li><a href="/statistics">Statistics</a></li>
+                <li><a href="/guides">Guides</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
 
@@ -45,12 +43,12 @@
                                 @endif
                                 <!-- onclick="window.location.href='';"-->
                                 <div>
-                                    <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
+                                    <?php echo $last5notifications[$x] ?>
                                 </div>
                                 </li>
                             @endfor
                             <li class="divider"></li>
-                            <li style="width: 386px;"><a href="/notifications">See all notifications</a></li>
+                            <li style="width: 386px;"><a style="padding: 3px 10px" href="/notifications">See all notifications</a></li>
                         </ul>
                     </li>
 
@@ -102,7 +100,10 @@
                             <li><a href="/my_exercises">My Exercises</a></li>
                             <li><a href="/my_friends">My Friends</a></li>
                             <li><a href="/my_groups">My Groups</a></li>
+                            <li><a href="/challenges">My Challenges</a></li>
+                            <li><a href="/my_guides">My Guides</a></li>
                             <li class="divider"></li>
+                            <li><a href="{{ action('UsersController@show', Auth::user()->username )}}">My Profile</a></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>
                         </ul>

@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder {
 
 		//Model::unguard();
 
+        $this->call('ConversationsTableSeeder');
+        $this->command->info('conversations table seeded!');
+
         $this->call('UsersTableSeeder');
         $this->command->info('users table seeded!');
 
@@ -28,7 +31,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('GroupsTableSeeder');
         $this->command->info('groups table seeded!');
 
-        $this->call('MemersOfGroupsTableSeeder');
+        $this->call('MembersOfGroupsTableSeeder');
         $this->command->info('members_of_groups table seeded!');
 
         $this->call('TypesTableSeeder');
@@ -48,9 +51,6 @@ class DatabaseSeeder extends Seeder {
 
         $this->call('ExercisesInSeriesTableSeeder');
         $this->command->info('exercises_in_series table seeded!');
-
-        $this->call('ConversationsTableSeeder');
-        $this->command->info('conversations table seeded!');
 
         $this->call('MessagesTableSeeder');
         $this->command->info('messages table seeded!');

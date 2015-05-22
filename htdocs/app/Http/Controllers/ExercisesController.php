@@ -131,7 +131,7 @@ class ExercisesController extends Controller {
         $exercise->id = $id;
 
         updateExercise($exercise);
-
+        flash()->success('Your exercise has been successfully updated.');
         return redirect('exercises/' . $id);
 	}
 

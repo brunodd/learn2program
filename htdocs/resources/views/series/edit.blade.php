@@ -1,7 +1,10 @@
 @extends('master')
 
+
 @section('title')
     Edit <em>{{ $serie->title }}</em>
+    <div style="float: right;color: white;"><a href="{{ action('SeriesController@show', $serie->id )}}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
@@ -37,8 +40,9 @@
                 {!! Form::submit('Update serie', ['class' => 'btn btn-primary pull-right']) !!}
             </div>
         {!! Form::close() !!}
-    </div>
-
+    <div><br><br>
     @include('errors.list')
+    </div>
+</div>
 @stop
 

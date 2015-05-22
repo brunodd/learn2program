@@ -2,6 +2,8 @@
 
 @section('title')
     Edit your exercise and all its references.
+    <div style="float: right;color: white;"><a href="{{ action('ExercisesController@show', $exercise->id )}}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')
@@ -20,7 +22,6 @@
         </tr>
     @endforeach
     </table> <br \>
-    <p> For now, nothing can be updated... </p>
 
     {!! Form::open(['url' => ['exercises', $exercise->id], 'method'=>'put']) !!}
         <div class="form-group">

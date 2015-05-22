@@ -3,6 +3,7 @@
 use App\User;   // Added to find User model.
 use App\Group;   // Added to find Group model.
 use App\Http\Requests;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
-use App\Http\Requests\JoinGroupRequest;
+use App\Http\Requests\SendMessageRequest;
 use Auth;
 
 use Laracasts\Flash\Flash;
@@ -21,10 +22,7 @@ class GroupsController extends Controller {
      * Middleware checks if the user is logged in
      */
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index',
-                                            'indexSortedByNameASC', 'indexSortedByNameDESC',
-                                            'indexSortedByFounderASC', 'indexSortedByFounderDESC',
-                                            'indexSortedByMCASC', 'indexSortedByMCDESC', 'show']]);
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
 	/**
@@ -98,9 +96,15 @@ class GroupsController extends Controller {
         $group->name = $input['name'];
         $group->founderId = Auth::id();
 
+        \DB::insert('INSERT INTO conversations VALUE ()');
+        $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
+        $group->conversationId = $conversationId;
+
+        $group->private = $request->type == "private" ? true : false;
+
         storeGroup($group);
         $mygroup = loadGroup($group->name)[0];
-        addMember2Group($mygroup->founderId, $mygroup->id);
+        addMemberToGroup($mygroup->founderId, $mygroup->id);
 
         return redirect('groups/' . $mygroup->id);
     }
@@ -124,8 +128,18 @@ class GroupsController extends Controller {
             //WILL ALSO NEED TO LOAD ALL MEMBERS
             // i.e. if we want to show them on the group's page
             $group = loadGroup($id)[0];
-            $isMember = !noMemberYet(Auth::id(), $id);
-            return view('groups.show', compact('group', 'isMember'));
+            $isMember = isMemberOfGroup($group->id);
+
+            //Load last 100 chat messages
+            $messages = loadLastNMessages($group->conversationId, 100);
+
+            foreach($messages as &$message) {
+                //Add a Carbon time object to each message
+                $carbon = Carbon::createFromFormat('Y-n-j G:i:s', $message->date);
+                $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
+            }
+
+            return view('groups.show', compact('group', 'isMember', 'messages'));
         }
 	}
 
@@ -164,15 +178,12 @@ class GroupsController extends Controller {
      */
 	public function update($id, UpdateGroupRequest $request)
 	{
-        $groupname = $request->name;
+        $request->type = $request->type == "private" ? true : false;
+        updateGroup($id, $request);
 
-        //this check is probably redundant since UpdateGroupRequest already took care of this
-        if(empty(loadGroup($groupname)))
-        {
-            updateGroup($id, $groupname);
-        }
-
-        return redirect('groups/' . $groupname . '/edit');
+        //TODO: Notify members of change
+        flash()->success('Your group has been successfully updated.');
+        return redirect('groups/' . $request->name);
 	}
 
 	/**
@@ -186,23 +197,56 @@ class GroupsController extends Controller {
 		//TODO
 	}
 
+
+    public function manageMembers($id) {
+        if(empty(loadGroup($id)))
+        {
+            flash()->error('That group does not exist')->important();
+            return redirect('groups');
+            return redirect('groups');
+        }
+        else if (!isFounderOfGroup($id, Auth::id()))
+        {
+            flash()->error('You must be logged in as the founder of the group in order to manage members.')->important();
+            return redirect('groups');
+        }
+        else
+        {
+            $group = loadGroup($id)[0];
+            $members = listUsersOfGroup($group->id);
+            $membersRequests = loadGroupMembersRequests($group->id);
+            $membersDeclined = loadGroupMembersDeclined($group->id);
+
+            return view('groups.manageMembers', compact('group', 'isMember', 'members', 'membersRequests', 'membersDeclined'));
+        }
+    }
+
     public function join($id)
     {
-        $member = noMemberYet(Auth::id(), $id);
-        if ($member)
-        {
-            addMember2Group(Auth::id(), $id);
-            flash()->success('You succesfully joined the group.');
-            return redirect('groups/' . $id);
+        $group = loadGroup($id)[0];
+
+        if (isMemberOfGroup($id)) {
+            flash()->error('You are already a member of this group.');
+            return redirect('groups/' . $group->name);
         }
 
-        flash()->error('You are already a member of this group.');
-        return redirect('groups/' . $id);
+        if ($group->private == true) {
+            storeJoinGroupRequest(\Auth::id(), $id);
+            storeNotification($group->founderId, 'join group request', \Auth::id(), $id);
+            flash()->info('You have sent a request to join the group.');
+
+            return redirect('groups/' . $group->name);
+        } else {
+            addMemberToGroup(\Auth::id(), $id);
+            flash()->success('You succesfully joined the group.');
+
+            return redirect('groups/' . $group->name);
+        }
     }
 
     public function leave($id)
     {
-        //we already know that the "requester" is a member of this group & logged in -> no more checks needed
+
         if ( !isFounderOfGroup($id, Auth::id()) )
         {
             deleteMemberFromGroup(Auth::id(), $id);
@@ -214,6 +258,56 @@ class GroupsController extends Controller {
             flash()->error('You can not leave the group because you are the founder.');
             return redirect('groups/' . $id);
         }
+    }
+
+    public function acceptMember($groupId, $userId) {
+        $group = loadGroup($groupId)[0];
+
+        if (isGroupRequestPending($userId, $groupId) or isGroupRequestDeclined($userId, $groupId)) {
+            acceptMemberToGroup($userId, $groupId);
+
+            storeNotification($userId, 'group request accepted', -1, $groupId);
+            flash()->success('You have accepted the user to your group.');
+            return redirect('groups/' . $group->name . '/manageMembers');
+        }
+
+        flash()->error('Could not accept the request, try again.');
+        return redirect('groups/' . $group->name . '/manageMembers');
+    }
+
+    public function declineMember($groupId, $userId) {
+        $group = loadGroup($groupId)[0];
+
+        if (isGroupRequestPending($userId, $groupId)) {
+            declineMemberToGroup($userId, $groupId);
+
+            storeNotification($userId, 'group request declined', -1, $groupId);
+            flash()->error('You have declined the user from your group. They will not be able to request to join your group again.');
+            return redirect('groups/' . $group->name . '/manageMembers');
+        }
+
+        flash()->error('Could not decline the request, try again.');
+        return redirect('groups/' . $group->name . '/manageMembers');
+    }
+
+    public function removeMember($groupId, $userId) {
+        $group = loadGroup($groupId)[0];
+
+        if (loadUser($userId)) {
+            declineMemberToGroup($userId, $groupId);    //Just the user as "declined"
+
+            flash()->error('You have kicked the user from your group. They will not be able to request to join your group again.');
+            return redirect('groups/' . $group->name . '/manageMembers');
+        }
+
+        flash()->error('Could not kick member, try again.');
+        return redirect('groups/' . $group->name . '/manageMembers');
+    }
+
+    public function storeMessage(SendMessageRequest $request) {
+        storeMessage($request->conversationId, $request->message);
+
+        return redirect('groups/' . $request->groupname);
     }
 
     public function myGroups() {
