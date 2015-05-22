@@ -16,7 +16,7 @@ function loadId($name) {
 }
 
 function storeUser($user) {
-    DB::insert('insert into users (pass, username, score, mail, info) VALUES (?, ?, ?, ?)', [$user->pass, $user->username, $user->score, $user->mail, $user->info]);
+    DB::insert('insert into users (pass, username, score, mail, info) VALUES (?, ?, ?, ?, ?)', [$user->pass, $user->username, $user->score, $user->mail, $user->info]);
 }
 
 function updateUser($id, $data)

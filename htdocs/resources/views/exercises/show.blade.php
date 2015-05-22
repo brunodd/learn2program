@@ -46,7 +46,9 @@
     <b><em>Exercise {{ ExNrOfSerie($exercise->id, $sId) }}</em></b>
 
     @if( Auth::check() and isMakerOfExercise($exercise->id, Auth::id()) )
-        <a href="{{ action('ExercisesController@edit', $exercise->id )}}" style="float:right;color: #ffffff" class="btn btn-primary">Edit</a>
+        <a href="{{ action('ExercisesController@edit', $exercise->id )}}"
+            style="float:right;color: #ffffff" class="btn btn-primary">
+            <i class="glyphicon glyphicon-edit"></i> Edit</a>
     @endif
     <div style="clear: both;"></div>
 @stop
@@ -63,6 +65,7 @@
         function Run() {
             myScripts.initPythonSyntax();
             skulptFunctions.runit();
+            result = skulptFunctions.result;
         }
     </script>
 
@@ -118,14 +121,6 @@
 
         @endif
     {!! Form::close() !!}
-
-    @if( $answer != null )
-        <script>
-            $(document).ready(function() {
-                skulptFunctions.runit(true);
-            });
-        </script>
-    @endif
 
     {{-- <pre>Expected output : {{ $exercise->expected_result }}</pre> --}}
 

@@ -40,7 +40,8 @@
     </div>
 
     @if( Auth::check() and ($user->id == Auth::id()) )
-        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">Edit</a></div>
+        <div style="float: right;color: white;"><a href="{{ action('UsersController@edit', $user->username )}}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-edit"></i> Edit</a></div>
     @endif
     <div style="clear: both;"></div>
 @stop
@@ -65,14 +66,14 @@
                                 @if ( getAccomplishedExercise($user, $exercise) )
                                     @if ( userSucceededExercise($exercise->exId, $user->id) )
                                     <div style="float: left", "color: white">
-                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 50) }} </font></a>
+                                        <a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
                                         </div></br>
                                     <div style="float: right">
                                         was solved correctly!
                                         </div></br>
                                     @else
                                     <div style="float: left", "color: white">
-                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 50) }} </font></a>
+                                        <em><a href="/exercises/{{ $exercise->id }}"><font color="white">{{ firstChars($exercise->question, 20) }} </font></a>
                                         </div></br>
                                     <div style="float: right">
                                         was incorrect...</em>

@@ -96,11 +96,11 @@
 
         @if( Auth::check() and isFounderOfGroup($group->id, Auth::id()) )
             <a href="{{ action('GroupsController@manageMembers', $group->name )}}" class="btn btn-primary">Manage members</a>
-            <a href="{{ action('GroupsController@edit', $group->name )}}" class="btn btn-primary">Edit</a>
+            <a href="{{ action('GroupsController@edit', $group->name )}}" class="btn btn-primary" ><i class="glyphicon glyphicon-edit"></i> Edit</a>
         @endif
     </div>
-    @endif
     <div style="clear: both"></div>
+    @endif
 @stop
 
 @section('content')

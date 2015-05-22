@@ -189,6 +189,14 @@ CREATE TABLE challenges (
     FOREIGN KEY (exId) REFERENCES exercises(id) ON DELETE CASCADE
 );
 
+CREATE TABLE guides (
+    id INT AUTO_INCREMENT,
+    writerId INT NOT NULL,
+    title VARCHAR(50) NOT NULL UNIQUE,
+    content TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (writerId) REFERENCES users(id) ON DELETE CASCADE
+);
 
 
 /* Make sure password, username and mail are not empty. */
@@ -279,5 +287,19 @@ BEGIN
     END IF;
     IF NEW.expected_result = "" THEN
         SET NEW.expected_result = Null;
+    END IF;
+END;//
+
+/* Make sure title and content are not empty. */
+delimiter //
+CREATE TRIGGER check_guide
+BEFORE INSERT ON guides
+FOR EACH ROW 
+BEGIN
+    IF NEW.title = "" THEN
+        SET NEW.title = Null;
+    END IF;
+    IF NEW.content = "" THEN
+        SET NEW.content = Null;
     END IF;
 END;//

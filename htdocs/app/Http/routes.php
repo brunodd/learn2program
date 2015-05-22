@@ -68,6 +68,10 @@ Route::resource('challenges', 'ChallengesController');
 Route::get('exercises/{id}/challenge', 'ChallengesController@create');
 Route::get('challenge/{uId}/{exId}' , 'ChallengesController@store');
 
+Route::resource('guides', 'GuidesController');
+Route::get('guides/{id}/delete', 'GuidesController@destroy');
+Route::get('my_guides', 'GuidesController@myGuides');
+
 
 //Notifications routes
 Route::get('search', 'SearchController@search');
