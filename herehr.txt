@@ -1,0 +1,24 @@
+Many changes: ...
+Messages:
+    Complete overhaul of messaging system.
+    Now allows for more than 2 users per conversations -> used in groups.
+    conversations(id, userA, userB) changed to
+    conversations(id)   +   conversations_participants(conversationId, userId)
+
+Groups:
+    groups(id, name, founderId) -> groups(id, name, founderId, CONVERSATIONID, PRIVATE)
+    members_of_groups(memberId, groupId) -> members_of_groups(memberId, GROUPID, STATUS)
+
+    Now has a chat box, only members of the group can chat.
+    Can be public or private.
+    Public groups:
+        Anyone can look at the page
+        Anyone who joins will be accepted
+    Private groups:
+        Only members can look at the page
+        Anyone who joins has to be accepted by the founder
+        A notification will be sent to the founder when a user wants to join their group
+        A notification will be sent to the user to let them know whether or not they were accepted
+
+    Groups can switch between public and private at any time
+    Members can be kicked by the founder

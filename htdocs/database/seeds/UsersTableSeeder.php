@@ -18,6 +18,15 @@ class UsersTableSeeder extends Seeder {
             'image' => 'user3ProfileImage.jpg', 'info' => 'Raphael Assa is the database designer.']);
         User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad'), 'score' => '0', 
             'image' => 'user4ProfileImage.jpg', 'info' => 'Fouad is the graphic designer.']);
+
+        //For each user, create a conversation with themselves
+
+        for ($x = 1; $x < 5; $x++) {
+            DB::insert('INSERT INTO conversations VALUE ()');
+            $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
+            echo $conversationId;
+            \DB::insert('INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)', [$conversationId, $x]);
+        }
     }
     /*
     public function runn() {

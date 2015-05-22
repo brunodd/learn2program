@@ -45,12 +45,12 @@
                                 @endif
                                 <!-- onclick="window.location.href='';"-->
                                 <div>
-                                    <p style="padding: 0px 10px"> <?php echo $last5notifications[$x] ?> </p>
+                                    <?php echo $last5notifications[$x] ?>
                                 </div>
                                 </li>
                             @endfor
                             <li class="divider"></li>
-                            <li style="width: 386px;"><a href="/notifications">See all notifications</a></li>
+                            <li style="width: 386px;"><a style="padding: 3px 10px" href="/notifications">See all notifications</a></li>
                         </ul>
                     </li>
 

@@ -13,12 +13,12 @@
     <div class="container">
 
         <div class="series ttr" id="tr1" style="padding: 5px 15px">
-            <button class="sort" id="name1" data-sort="name:asc" style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('name1')">Name <span class="glyphicon glyphicon-triangle-bottom"></span></button>
-            <button class="sort" id="name2" data-sort="name:desc" hidden style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('name2')">Name <span class="glyphicon glyphicon-triangle-top"></span></button>
-            <button class="sort dd" id="founder1" data-sort="founder:asc" style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('founder1')">Founder <span class="glyphicon glyphicon-triangle-bottom"></span></button>
-            <button class="sort dd" id="founder2" data-sort="founder:desc" hidden style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('founder2')">Founder <span class="glyphicon glyphicon-triangle-top"></span></button>
-            <button class="sort dd" id="memberc1" data-sort="memberc:asc" style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('memberc1')">Member Count <span class="glyphicon glyphicon-triangle-bottom"></span></button>
-            <button class="sort dd" id="memberc2" data-sort="memberc:desc" hidden style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('memberc2')">Member Count <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="name1" data-sort="name:asc" style=" width: calc(33.3333333% - 3px); text-align: left;" onclick="myScripts.switchDataSort('name1')">Name <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="name2" data-sort="name:desc" hidden style=" width: calc(33.3333333% - 3px); text-align: left;" onclick="myScripts.switchDataSort('name2')">Name <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="founder1" data-sort="founder:asc" style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('founder1')">Founder <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="founder2" data-sort="founder:desc" hidden style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('founder2')">Founder <span class="glyphicon glyphicon-triangle-top"></span></button>
+            <button class="sort" id="memberc1" data-sort="memberc:asc" style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('memberc1')">Member Count <span class="glyphicon glyphicon-triangle-bottom"></span></button>
+            <button class="sort" id="memberc2" data-sort="memberc:desc" hidden style=" width: calc(33.3333333% - 3px);" onclick="myScripts.switchDataSort('memberc2')">Member Count <span class="glyphicon glyphicon-triangle-top"></span></button>
         </div>
 
         <div class="series" id="mix-wrapper">

@@ -33,11 +33,15 @@ CREATE TABLE friends (
 */
 CREATE TABLE conversations (
     id INT AUTO_INCREMENT,
-    userA INT NOT NULL,
-    userB INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (userA) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (userB) REFERENCES users(id) ON DELETE CASCADE
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE conversations_participants (
+    conversationId INT NOT NULL,
+    userId INT NOT NULL,
+    PRIMARY KEY (conversationId, userId),
+    FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
 );
 
 /* TODO: again, maybe add an archived_messages table?
@@ -48,8 +52,8 @@ CREATE TABLE conversations (
 CREATE TABLE messages (
     id INT AUTO_INCREMENT,
     conversationId INT NOT NULL,
-    message VARCHAR(512) NOT NULL,
-    author int NOT NULL,
+    message TEXT NOT NULL,
+    author INT NOT NULL,
     is_read BOOL NOT NULL DEFAULT 0,
     date TIMESTAMP, /* 'YYYY-MM-DD HH:MM:SS' format */
     PRIMARY KEY (id),
@@ -64,13 +68,17 @@ CREATE TABLE groups (
     id INT AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
     founderId INT NOT NULL,
+    conversationId INT NOT NULL,
+    private BOOL NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    FOREIGN KEY (founderId) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (founderId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (conversationId) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
 CREATE TABLE members_of_groups (
     memberId INT NOT NULL,
     groupId INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') NOT NULL,
     PRIMARY KEY (memberId, groupId),
     FOREIGN KEY (memberId) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE

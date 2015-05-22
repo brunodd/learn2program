@@ -2,92 +2,162 @@
 
 function storeGroup($group)
 {
-    DB::insert('insert into groups (name, founderId) VALUES (?, ?)', [$group->name, $group->founderId]);
+    DB::insert('INSERT INTO groups (name, founderId, conversationId, private) VALUES (?, ?, ?, ?)',
+                                   [$group->name, $group->founderId, $group->conversationId, $group->private]);
 }
 
 function loadAllGroups()
 {
-    return DB::select('select * from groups ');
+    return DB::select('SELECT   *
+                       FROM     groups ');
 }
 
 function loadGroup($group)
 {
-    return DB::select('select * from groups where id = ? or name = ?', [$group, $group]);
+    return DB::select('SELECT   *
+                       FROM     groups
+                       WHERE    id = ?
+                       OR name = ?',
+                       [$group, $group]);
+}
+
+function updateGroup($id, $request)
+{
+    $group = loadGroup($id);
+    if ( !empty($group) ) DB::statement('UPDATE groups SET name = ?, private = ? WHERE id = ?', [$request->name, $request->type, $group[0]->id]);
 }
 
 function isFounderOfGroup($groupId, $founderId)
 {
-    if ( !empty(DB::select('select * from groups where (id = ? or name = ?) and founderId = ?',[$groupId, $groupId, $founderId])) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ( !empty(DB::select('SELECT  *
+                                FROM    groups
+                                WHERE   (id = ? OR name = ?)
+                                AND     founderId = ?',
+                                [$groupId, $groupId, $founderId])) );
 }
 
-function addMember2Group($uId, $gId)
+function storeJoinGroupRequest($uId, $gId)
 {
-    $group = loadGroup($gId);
-    if ( !empty($group) ) DB::insert('insert into members_of_groups (memberId, groupId) VALUES (?, ?)', [$uId, $group[0]->id]);
-    //else we must throw an error, however theoretically this should never be the case...
+    DB::insert('INSERT INTO members_of_groups (memberId, groupId, status) VALUES (?, ?, ?)',
+                                              [$uId, $gId, 'pending']);
+}
+
+function isGroupRequestPending($uId, $gId) {
+    return (\DB::select('SELECT *
+                         FROM   members_of_groups
+                         WHERE  groupId = ?
+                         AND    memberId = ?
+                         AND    status = ?',
+                         [$gId, $uId, 'pending']));
+}
+
+function isGroupRequestDeclined($uId, $gId) {
+    return (\DB::select('SELECT *
+                         FROM   members_of_groups
+                         WHERE  groupId = ?
+                         AND    memberId = ?
+                         AND    status = ?',
+        [$gId, $uId, 'declined']));
+}
+
+function addMemberToGroup($uId, $gId)
+{
+    DB::insert('INSERT INTO members_of_groups (memberId, groupId, status) VALUES (?, ?, ?)',
+                                              [$uId, $gId, 'accepted']);
+}
+
+
+function acceptMemberToGroup($uId, $gId) {
+    DB::statement('UPDATE   members_of_groups
+                   SET      status = \'accepted\'
+                   WHERE    groupId = ?
+                   AND      memberId = ?',
+                   [$gId, $uId]);
+}
+
+function declineMemberToGroup($uId, $gId) {
+    DB::statement('UPDATE   members_of_groups
+                   SET      status = \'declined\'
+                   WHERE    groupId = ?
+                   AND      memberId = ?',
+                   [$gId, $uId]);
 }
 
 function deleteMemberFromGroup($uId, $gId)
 {
-    $group = loadGroup($gId);
-    if ( !empty($group) ) DB::statement('delete from members_of_groups where memberId = ? and groupId = ?', [$uId, $group[0]->id]);
-    //else we must throw an error, however theoretically this should never be the case...
+    DB::statement('DELETE FROM members_of_groups WHERE memberId = ? AND groupId = ?', [$uId, $gId]);
 }
 
-function noMemberYet($uId, $gId)
-{
-    $group = loadGroup($gId);
-    if ( !empty($group) and !empty(DB::select('select * from members_of_groups where memberId = ? and groupId = ?',[$uId, $group[0]->id])) )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-function updateGroup($id, $groupname)
-{
-    $group = loadGroup($id);
-    if ( !empty($group) ) DB::statement('update groups SET name = ? where id = ?', [$groupname, $group[0]->id]);
+function isMemberOfGroup($id) {
+    return !empty(\DB::select('SELECT  *
+                               FROM    members_of_groups
+                               WHERE   groupId = ?
+                               AND     memberId = ?
+                               AND     status = \'accepted\'',
+                               [$id, \Auth::id()]));
 }
 
 function listGroupsOfUser($id)
 {
-    return DB::select('select groupname from groups join (select distinct(groupId) from members_of_groups where memberId = ?) agg on id=groupId', [$id]);
+    return DB::select('SELECT   groupname
+                       FROM     groups
+                       JOIN     (SELECT distinct(groupId)
+                                FROM members_of_groups
+                                WHERE memberId = ?) agg ON id=groupId',
+                       [$id]);
 }
 
 function listUsersOfGroup($id)
 {
-    return DB::select('select * from users join (select memberId from members_of_groups where groupId = ?) agg on id=memberId', [$id]);
+    return DB::select('SELECT   *
+                       FROM     users
+                       JOIN     (SELECT     memberId
+                                FROM        members_of_groups
+                                WHERE       groupId = ?
+                                AND         status = \'accepted\') agg ON id=memberId',
+                      [$id]);
+}
+
+function loadGroupMembersRequests($id) {
+    return DB::select('SELECT   *
+                       FROM     users
+                       WHERE    id  IN  (SELECT memberId
+                                        FROM    members_of_groups
+                                        WHERE   memberId = id
+                                        AND     groupId = ?
+                                        AND     status = \'pending\')',
+                       [$id]);
+}
+
+function loadGroupMembersDeclined($id) {
+    return DB::select('SELECT   *
+                       FROM     users
+                       WHERE    id  IN  (SELECT memberId
+                                        FROM    members_of_groups
+                                        WHERE   memberId = id
+                                        AND     groupId = ?
+                                        AND     status = \'declined\')',
+                       [$id]);
 }
 
 function loadAllGroupsSortedByNameASC()
 {
-    return DB::select('select * from groups order by name ASC');
+    return DB::select('SELECT * FROM groups order by name ASC');
 }
 
 function loadAllGroupsSortedByNameDESC()
 {
-    return DB::select('select * from groups order by name DESC');
+    return DB::select('SELECT * FROM groups order by name DESC');
 }
 
 function loadAllGroupsSortedByFounderASC()
 {
-    return DB::select('select * from groups join users on founderId = users.id order by username ASC');
+    return DB::select('SELECT * FROM groups JOIN users ON founderId = users.id order by username ASC');
 }
 
 function loadAllGroupsSortedByFounderDESC()
 {
-    return DB::select('select * from groups join users on founderId = users.id order by username DESC');
+    return DB::select('SELECT * FROM groups JOIN users ON founderId = users.id order by username DESC');
 }
 
 function MyGroupsSort($asc) {
@@ -121,17 +191,17 @@ function loadAllGroupsSortedByMCDESC()
 }
 
 function loadMyGroups() {
-    return DB::select('SELECT *
-                       FROM groups
-                       WHERE id IN (SELECT DISTINCT groupId
-                                   FROM members_of_groups
-                                   WHERE memberId = ?)',
+    return DB::select('SELECT   *
+                       FROM     groups
+                       WHERE    id IN (SELECT DISTINCT groupId
+                                      FROM    members_of_groups
+                                      WHERE   memberId = ?)',
                        [\Auth::id()]);
 }
 
 function loadGroupsSeach($s) {
-    return DB::select('SELECT *
-                       FROM groups
-                       WHERE name LIKE ?',
+    return DB::select('SELECT   *
+                       FROM     groups
+                       WHERE    name LIKE ?',
                        ['%'.$s.'%']);
 }

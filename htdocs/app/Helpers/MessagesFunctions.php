@@ -1,131 +1,153 @@
 <?php
 
+//Store a new conversation between the logged in user and user $id in the database.
 function storeConversation($id) {
     $userId = loadUser($id)[0]->id;
 
-    DB::insert('INSERT INTO conversations (userA, userB)
-                VALUE (?, ?)',
-                [min(\Auth::id(), $userId), max(\Auth::id(), $userId)]);
+    //Create the new conversation
+    \DB::insert('INSERT INTO conversations VALUE ()', []);
+
+    //Add the 2 users to the conversation
+    $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
+    \DB::insert('INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)', [$conversationId, \Auth::id()]);
+    \DB::insert('INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)', [$conversationId, $userId]);
 }
 
 
+//Load a conversation between the logged in user and user $id.
 function loadConversation($id) {
-    $id = loadUser($id)[0]->id;
+    $userId = loadUser($id)[0]->id;
 
-    return DB::select('SELECT   *
-                       FROM     conversations
-                       WHERE    userA = ? AND userB = ?',
-                       [min(\Auth::id(), $id), max(\Auth::id(), $id)]);
+    //special case when you want to message yourself
+    if (\Auth::id() == $userId) {
+        return  \DB::select('SELECT X.conversationId
+                            FROM   (SELECT   CP.conversationId, COUNT(*) as Y
+                                   FROM     conversations_participants CP
+                                   JOIN     conversations_participants CP2 ON CP.conversationId = CP2.conversationId
+                                   WHERE    CP.userId = ?
+                                   GROUP BY CP.conversationId) X
+                            WHERE  X.Y = 1  /*Subquery will return multiple conversations with you in it, only select the conversation with 1 person in it*/',
+                            [\Auth::id()]);
+    } else {
+        return \DB::select('(SELECT CP.conversationId
+                            FROM    conversations_participants CP
+                            JOIN    conversations_participants CP2 ON CP.conversationId = CP2.conversationId
+                            WHERE   CP.userId = ?
+                            AND     CP2.userId = ?)',
+                            [\Auth::id(), $userId]);
+    }
 }
 
-
+//Load the conversation in which the last message has been sent/recieved
 function loadLatestConversation() {
-    return \DB::select('SELECT   C.userA, C.userB
-                        FROM     conversations C
-                        JOIN     messages M ON C.id = M.conversationId
-                        WHERE    C.userA = ? OR C.userB = ?
-                        ORDER BY date DESC
-                        LIMIT    1',
+
+    //special case when you want to message yourself    ->  bullshit    ->  disable messaging yourself
+    /*dd(\DB::select('(SELECT   M.conversationId
+                    FROM     conversations_participants CP
+                    JOIN     messages M  ON  CP.conversationId = M.conversationId
+                    WHERE    CP.userId = ?
+                    ORDER BY M.id   DESC
+                    LIMIT    1) X
+                    ',
+                    [\Auth::id()]));*/
+
+    return \DB::select('SELECT     CP1.userId as userA, CP2.userId as userB
+                        FROM       conversations_participants CP1
+                        JOIN       conversations_participants CP2  ON  CP1.conversationId = CP2.conversationId
+                        JOIN       messages M ON CP1.conversationId = M.conversationId
+                        WHERE      CP1.userId = ?
+                        AND        CP2.userId <> ?
+                        ORDER BY   date     DESC
+                        LIMIT 1',
                         [\Auth::id(), \Auth::id()]);
 }
 
-
+//Store a new message in the database
 function storeMessage($cId, $message) {
-    return \DB::insert('INSERT INTO messages (conversationId, author, message)
-                        VALUE (?, ?, ?)',
-                        [$cId, \Auth::id(), $message]);
+    return \DB::insert('INSERT INTO messages (conversationId, author, message) VALUE (?, ?, ?)',
+                                                [$cId, \Auth::id(), $message]);
 }
 
+//Load all of the messages for a conversation $Cid
+function loadAllMessages($Cid) {
 
-function loadAllMessagesInDB() {
-    return DB::select('SELECT   C.userA, C.userB, M.message, M.date, U.username
-                       FROM     conversations C
-                       JOIN     messages M ON C.id = M.conversationId
-                       JOIN     users U ON M.author = U.id
-                       ORDER BY date');
+    return \DB::select('SELECT  U.username, M.message, M.date
+                        FROM    messages M
+                        JOIN    users U     ON  M.author = U.id
+                        WHERE   M.conversationId = ?',
+                        [$Cid]);
 }
 
+//Load the last n messages for a conversation $Cid, used for Groups' chats
+function loadLastNMessages($Cid, $n) {
 
-function loadAllMessages($id) {
-    $id2 = loadUser($id)[0]->id;
-
-    return DB::select('SELECT   U.username,M.message,M.date
-                       FROM     conversations C
-                       JOIN     messages M ON C.id = M.conversationId
-                       JOIN     users U ON U.id = M.author
-                       WHERE    C.userA = ? AND C.userB = ?',
-                       [min(\Auth::id(), $id2), max(\Auth::id(), $id2)]);
-}
-
-//Get all conversations for the logged in user, then only select the latest message for each of them
-function loadConversationsWithMessage() {
-    return \DB::select('SELECT   userA, userB, message, date
-                        FROM     (SELECT C.id, C.userA, C.userB, M.message, M.date
-                                 FROM    conversations C
-                                 JOIN    messages M ON C.id = M.conversationId
-                                 JOIN    users U ON U.id = M.author
-                                 WHERE   C.userA = ? OR C.userB = ?
-                                 ORDER BY DATE DESC) AS X
-                        GROUP BY id
-                        ORDER BY DATE DESC',
-                        [\Auth::id(), \Auth::id()]);
-}
-
-//Get all conversations for the logged in user, then only select the latest message for each of them
-function loadLastNConversationsWithMessage($n) {
     return \DB::select('SELECT   *
-                        FROM     (SELECT    CASE WHEN C.userA = ? THEN C.userB ELSE C.userA END as otherUser, image, message, is_read, author, date
-                                 FROM       conversations C
-                                 JOIN       messages M ON C.id = M.conversationId
-                                 JOIN       users U ON U.id = M.author
-                                 WHERE      C.userA = ? OR C.userB = ?
-                                 ORDER BY   M.id DESC) AS x
-                        GROUP BY otherUser
-                        LIMIT    ?',
-                        [\Auth::id(), \Auth::id(), \Auth::id(), $n]);
+                        FROM     (SELECT  U.username, M.id, M.message, M.date
+                                 FROM     messages M
+                                 JOIN     users U     ON  M.author = U.id
+                                 WHERE    M.conversationId = ?
+                                 ORDER BY M.id   DESC
+                                 LIMIT    ?) X
+                        ORDER BY X.id   ASC',
+                        [$Cid, $n]);
 }
 
+//Get the last n conversations for the logged in user and only select the latest message for each of them
+function loadLastNConversationsWithMessage($n) {
+    return \DB::select('SELECT    *
+                        FROM      (SELECT C.id, U.username, U.image, M.message, M.is_read, M.author, M.date
+                                  FROM      conversations C
+                                  JOIN      messages M                    ON C.id = M.conversationId
+                                  JOIN      conversations_participants CP ON C.id = CP.conversationId
+                                  JOIN      users U                       ON CP.userId = U.id
+                                  WHERE     C.id    IN      (SELECT  C2.id
+                                                            FROM     conversations C2
+                                                            JOIN     conversations_participants CP2 ON C2.id = CP2.conversationId
+                                                            WHERE    CP2.userId = ?)
+                                  AND       CP.userId <> ?
+                                  ORDER BY  M.id DESC) X
+                        GROUP BY  X.id
+                        ORDER BY  X.date        DESC
+                        LIMIT     ?',
+                        [\Auth::id(), \Auth::id(), $n]);
+}
+
+//Load all of the messages for the logged in the user that have not been read yet
 function loadUnreadMessages() {
     return \DB::select('SELECT  *
                         FROM    conversations C
                         JOIN    messages M ON C.id = M.conversationId
-                        WHERE   M.author <> ? AND M.is_read = 0 AND (C.userA = ? OR C.userB = ?)',
-                        [\Auth::id(), \Auth::id(), \Auth::id()]);
+                        WHERE   C.id    IN     (SELECT  C2.id
+                                               FROM     conversations C2
+                                               JOIN     conversations_participants CP2 ON C2.id = CP2.conversationId
+                                               WHERE    CP2.userId = ?)
+                        AND     M.author <> ?
+                        AND     M.is_read = 0',
+                        [\Auth::id(), \Auth::id()]);
 }
 
-//get the last message that was user $id has read
+//Load the last message that user $id has read
 function loadLastReadMessage($id) {
     $id2 = loadUser($id)[0]->id;
-    $a = min(array(\Auth::id(), $id2));
-    $b = max(array(\Auth::id(), $id2));
-    return \DB::select('SELECT   *
-                        FROM     conversations C
-                        JOIN     messages M ON C.id = M.conversationId
-                        WHERE    M.is_read = 1 AND C.userA = ? AND C.userB = ? AND M.author = ?
-                        ORDER BY M.id DESC',
-                        [$a, $b, \Auth::id()]);
+
+    return \DB::select('SELECT  M.message
+                       FROM     conversations_participants CP1
+                       JOIN     conversations_participants CP2  ON  CP1.conversationId = CP2.conversationId
+                       JOIN     messages M ON CP1.conversationId = M.conversationId
+                       WHERE    CP1.userId = ?
+                       AND      CP2.userId = ?
+                       AND      M.author   = ?
+                       AND      M. is_read = 1
+                       ORDER BY M.id DESC',
+                       [\Auth::id(), $id2, \Auth::id()]);
 }
 
-function loadLastNMessages($n) {
-    return \DB::select('SELECT   *
-                        FROM     conversations C
-                        JOIN     messages M ON C.id = M.conversationId
-                        WHERE    C.userA = ? OR C.userB = ?
-                        ORDER BY M.id DESC
-                        LIMIT    ?',
-                        [\Auth::id(), \Auth::id(), $n]);
-}
+//Update all the messages in conversation $Cid that have not been written by the logged in user to seen
+function UpdateMessagesToSeen($Cid) {
 
-function UpdateMessagesToSeen($id) {
-    $id2 = loadUser($id)[0]->id;
-    $a = min(array(\Auth::id(), $id2));
-    $b = max(array(\Auth::id(), $id2));
     return \DB::statement('UPDATE   messages M
-                           JOIN     (SELECT *
-                                    FROM    conversations C
-                                    WHERE   C.userA = ? AND C.userB = ?) CC
-                           ON       CC.id = M.conversationId
-                           SET      M.is_read = true
-                           WHERE    M.author <> ?',
-        [$a, $b, \Auth::id()]);
+                           SET      M.is_read = true, date = date
+                           WHERE    M.conversationId = ?
+                           AND      M.author <> ?',
+                           [$Cid, \Auth::id()]);
 }

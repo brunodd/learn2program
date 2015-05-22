@@ -16,15 +16,22 @@
             </div-->
 
             @foreach ($conversations as $conversation)
-                <div class="conversationElem" onclick="window.location.href='/messages/{{ $conversation->userB }}'">
-                    <img src="/images/users/{{ loadUser($conversation->userB)[0]->image }}" alt="Profile Picture">
+                @if ($conversation->author != \Auth::id() AND $conversation->is_read == 0)
+                    <div class="conversationElem" style="background: lightgrey" onclick="window.location.href='/messages/{{ $conversation->username }}'">
+                @else
+                    <div class="conversationElem" onclick="window.location.href='/messages/{{ $conversation->username }}'">
+                @endif
+                    <div style="float: right">
+                        {{$conversation->carbon->diffForHumans()}}
+                    </div>
+                    <img src="/images/users/{{ $conversation->image }}" alt="Profile Picture">
 
                     <div>
-                        <b><a href={{ action('MessagesController@show', $conversation->userB) }}> {{ $conversation->userB }} </a></b><br>
-                        {{$conversation->message}}<br>
+                        <b><a href={{ action('MessagesController@show', $conversation->username) }}> {{ $conversation->username }} </a></b><br>
+                        {{$conversation->message}}
                     </div>
-                </div>
-                <div style="clear:both;"></div>
+                    </div>
+                    <div style="clear:both;"></div>
             @endforeach
         </div>
 

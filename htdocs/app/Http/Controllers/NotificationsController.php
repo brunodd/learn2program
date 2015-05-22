@@ -64,6 +64,12 @@ class NotificationsController extends Controller {
             case "friend request declined":
                 $string = (object)array_merge((array)$notification, array('message' => $username . ' has declined your friend request.'));
                 break;
+            case "join group request":
+                $groupname = loadGroup($notification->object_id)[0]->name;
+                $group = '<a href=/groups/' . $notification->object_id . '/manageMembers>' . $groupname . '</a>';
+
+                $string = (object)array_merge((array)$notification, array('message' => $username . ' has requested to join your group \'' . $group . '\'.'));
+                break;
             case "series completed":
                 $seriesTitle = loadSerieWithId($notification->object_id)[0]->title;
                 $series = '<a href=/series/' . $notification->object_id . '>\'' . $seriesTitle . '\'</a>.';
@@ -93,6 +99,17 @@ class NotificationsController extends Controller {
         $string = "";
 
         switch ($notification->type) {
+            case "group request accepted":
+                $groupname = loadGroup($notification->object_id)[0]->name;
+                $group = '<a href=/groups/' . $notification->object_id . '>' . $groupname . '</a>';
+
+                $string = (object)array_merge((array)$notification, array('message' => 'Your request to join the group \'' . $group . '\' has been accepted.'));
+                break;
+            case "group request declined":
+                $groupname = loadGroup($notification->object_id)[0]->name;
+                $group = '<a href=/groups/' . $notification->object_id . '>' . $groupname . '</a>';
+                $string = (object)array_merge((array)$notification, array('message' => 'Your request to join the group \'' . $group . '\' has been declined.'));
+                break;
             case "series updated":
                 $seriesTitle = loadSerieWithId($notification->object_id)[0]->title;
                 $series = '<a href=/series/' . $notification->object_id . '>' . $seriesTitle . '</a>';
