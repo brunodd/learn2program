@@ -1,6 +1,4 @@
 #!/bin/sh
-# Setup website and configure cronjobs
-# Don't sudo this script.
 
 #########################
 ##### SETUP DATABASE ####
