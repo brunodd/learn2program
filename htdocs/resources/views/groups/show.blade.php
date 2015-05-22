@@ -76,7 +76,7 @@
         }
 
         .aboutuser {
-            height: 15px;
+            height: 20px;
         }
 
         .aboutuser * {

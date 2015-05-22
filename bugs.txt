@@ -1,3 +1,0 @@
-25/04/2015 - container_pie_example in graphs makes all the graphs break
-25/04/2015 - Statistics page doesnt work when no data in server:
-                see screenshot: statistics bug.png

@@ -8,7 +8,7 @@ CREATE TABLE users (
     pass VARCHAR(60) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     mail VARCHAR(50) NOT NULL,
-    score INT,
+    score INT NOT NULL DEFAULT 0,
     image VARCHAR(50) NOT NULL DEFAULT 'NoProfileImage.jpg', /* Link to image name in /images/users/* */
     info TEXT,
     PRIMARY KEY (id)
