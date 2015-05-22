@@ -1,5 +1,55 @@
 # Installation
-##Python interpreter
+
+## Install using the installer (Recommended)
+This installation presumes all necessary packages have been installed.
+Following packages are needed:
+- MySQL  
+- php 5.5 (or later)  
+- curl  
+- composer  
+- mcrypt  
+- pdo_mysql  
+
+Before running the installer, the MySQL database server must be running.
+
+To install the application, navigate to /htdocs/
+and run composer install:
+
+~~~sh
+$ cd htdocs/
+$ composer install
+~~~
+
+and return
+
+~~~sh
+$ cd ../
+~~~
+
+Navigate to the install/ directory and run the installer:
+
+~~~sh
+$ cd install/
+$ ./install.sh
+~~~
+
+and return
+
+~~~sh
+$ cd ../
+~~~
+
+This will initialize the database and seed it with some default entries.
+
+To run the application, navigate to htdocs/ directory:
+
+~~~sh
+$ cd htdocs/
+$ php artisan serve
+~~~
+
+## Install manually (not recommended)
+###Python interpreter
 Install dependencies (-g flag is optional for global installation):
 
 ~~~sh
@@ -16,7 +66,7 @@ $ ./skulpt.py dist
 ~~~
 Set-up should now be completed.
 
-##Environment
+###Environment
 Hernoem file:
 
 ~~~sh
@@ -32,7 +82,7 @@ DB_PASSWORD=
 
 [Al de rest mag ongewijzigd blijven]
 
-##Database
+###Database
 - Installeren (manier 1)
 
 [opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
@@ -70,7 +120,7 @@ mysql> select * from Users;
 
 Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de database werkt.
 
-##Server
+###Server
 
 Navigeer naar juiste dir/
 
@@ -128,10 +178,42 @@ Om te zien welke routes beschikbaar zijn, gebruik commando:
 $ php artisan route:list
 ~~~
 
-##Errors
-Error: PDOException ... Could not find driver  
-Oplossing op Linux: sudo apt-get -y install php5-mysql
+## TROUBLESHOOTING 
+(Only for linux. OS X fixes are similar, but can't use the apt-get package manager):  
 
-Error: General error: 2053  
-Oplossing: gebruik geen DB::select() of DB::statement() voor insertions.
+--
+Installing composer:
+
+~~~sh
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+~~~
+--
+I get the error:
+
+~~~
+[PDOException]
+could not find driver
+~~~
+
+Run:
+
+~~~sh
+$ dpkg --get-selections | grep php5-mysql
+$ sudo apt-get install php5-mysql
+~~~
+--
+I get the error:
+
+~~~
+mcrypt extension is missing
+~~~
+
+Run:
+
+~~~sh
+$ sudo apt-get install mcrypt php5-mcrypt
+$ sudo php5enmod mcrypt
+$ sudo service mysql restart
+~~~
 
