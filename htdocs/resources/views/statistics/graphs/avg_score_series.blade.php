@@ -77,7 +77,7 @@ $(function () {
             title: {
                 text: 'Series'
             },
-            categories: <?php echo json_encode($series);?>
+            categories: <?php echo json_encode(isset($series) ? $series: 0);?>
         },
         yAxis: {
             title: {
@@ -90,7 +90,7 @@ $(function () {
         },
         series: [{
             name: 'Average score per series',
-            data: <?php echo(json_encode($scores));?>
+            data: <?php echo(json_encode(isset($scores) ? $scores: 0));?>
         }]
     });
 });
