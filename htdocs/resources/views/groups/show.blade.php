@@ -179,7 +179,7 @@
                     </div>
                     <div class="profiledata">
                         <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
-                        <p> {{ $user->info }} </p>
+                        <p> {!! firstChars($user->info, 45) !!} </p>
                     </div>
                     <div style="clear: both;"></div>
                 </div>

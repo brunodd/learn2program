@@ -103,6 +103,7 @@
                             <li><a href="/challenges">My Challenges</a></li>
                             <li><a href="/my_guides">My Guides</a></li>
                             <li class="divider"></li>
+                            <li><a href="{{ action('UsersController@show', Auth::user()->username )}}">My Profile</a></li>
                             <li><a href="{{ action('UsersController@edit', Auth::user()->username )}}">Settings</a></li>
                             <li><a href="/logout">Log out</a></li>
                         </ul>

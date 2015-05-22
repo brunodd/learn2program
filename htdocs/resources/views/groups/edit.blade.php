@@ -2,6 +2,8 @@
 
 @section('title')
     Edit group: <em>{{ $group->name }}</em>
+    <div style="float: right;color: white;"><a href="{{ action('GroupsController@show', $group->name )}}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-remove-sign"></i> Cancel changes</a></div>
 @stop
 
 @section('content')

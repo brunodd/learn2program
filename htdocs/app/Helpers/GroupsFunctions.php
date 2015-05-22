@@ -195,7 +195,7 @@ function loadMyGroups() {
                        FROM     groups
                        WHERE    id IN (SELECT DISTINCT groupId
                                       FROM    members_of_groups
-                                      WHERE   memberId = ?)',
+                                      WHERE   memberId = ? and status = "accepted")',
                        [\Auth::id()]);
 }
 

@@ -155,8 +155,8 @@
             </div>
         </div>
         <div class=col-md-7>
-            <h3>Something about me:</h3>
-            <p>{{ $user->info }}</p>
+        <h1>Something about {{$user->username}}:</h1>
+            <p>{!! $user->info !!}</p>
         </div>
         <div class="col-md-2">
 

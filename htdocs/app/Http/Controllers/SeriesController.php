@@ -241,7 +241,8 @@ class SeriesController extends Controller {
         removeUnusedTypes();
 
         $myserie = loadSerie($serie->title, $typeId)[0];
-        return redirect('series/' . $myserie->id . '/edit');
+        flash()->success('Your serie has been successfully updated.');
+        return redirect('series/' . $myserie->id);
 	}
 
 	/**
