@@ -70,9 +70,9 @@
         function RunCpp() {
             var http = new XMLHttpRequest();
             http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
-            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": arguments[0] }));
+            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
             alert(http.response);
-            result = http.response;
+            document.getElementById("output").value = http.response;
         }
         function Run() {
             var exercise = <?php echo json_encode($exercise) ?>;
