@@ -149,7 +149,7 @@ class ExercisesController extends Controller {
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
         $input = $request->all();
-
+        return $request->all();
         // Get time between exercise load and store answer.
         $endTime = microtime(true);
         $diffTime = $endTime - $input['start_time'];
@@ -236,6 +236,10 @@ class ExercisesController extends Controller {
     public function myExercises() {
         $exercises = loadMyExercises();
         return view('exercises.my_exercises', compact('exercises'));
+    }
+
+    public function cpp() {
+        return view('partials.cpp');
     }
 
 }

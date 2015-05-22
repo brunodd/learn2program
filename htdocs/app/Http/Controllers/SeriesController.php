@@ -310,6 +310,7 @@ class SeriesController extends Controller {
         $exercise->expected_result = $input['expected_result'];
         $exercise->seriesId = $id;
         $exercise->makerId = Auth::id();
+        $exercise->language = $input['language'];
 
         storeExercise($exercise);
 
@@ -344,7 +345,8 @@ class SeriesController extends Controller {
         $exercise->expected_result = $input['expected_result'];
         $exercise->seriesId = $input['series_selection'];
         $exercise->makerId = Auth::id();
-
+        $exercise->language = $input['language'];
+        
         storeExercise($exercise);
 
         $userIds = loadUsersBeganSeries($input['series_selection']);

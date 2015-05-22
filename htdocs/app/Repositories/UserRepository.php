@@ -38,7 +38,7 @@ class UserRepository {
 			return User::firstOrCreate([
 				'username' 	=> $userData->name,
 				'mail'		=> "not initialized",//$userData->email,
-				'pass' 		=> $userData->token
+				'pass' 		=> $userData->created_at
 			]);
 		} else {
 			return User::firstOrCreate([

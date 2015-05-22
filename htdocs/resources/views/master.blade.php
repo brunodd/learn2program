@@ -33,7 +33,7 @@
         <footer>
             @yield('footer')
             @include('partials.translator')
-            @include('socialmedia.FacebookShare')
+            @include('partials.FacebookShare')
             <div class="copy text-center">
                 <span> &#169; All rights reserved | Design by Learn2program-team</span>
             </div>

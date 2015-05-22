@@ -13,7 +13,10 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG'),
+    // TODO: set on false for presentation
+    // 'debug' => false,
+
+    'debug' => env('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------

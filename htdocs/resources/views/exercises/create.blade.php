@@ -22,6 +22,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('language', 'Language: ') !!}
+            {!! Form::select('language', array("python"=>"python", "cpp"=>"cpp"), ['class' => 'form-control']) !!}
+        </div>
+        
+        <div class="form-group">
             {!! Form::label('expected_result', 'Expected result, i.e. the output of the program: ') !!}
             <p>Note: If you wish to create an exercise from which the result should/can not be verified <i>(e.g. turtle graphics)</i>.
             Please enter ' <font size="4">*</font> ' as the answer <i>(without the <b>'</b>-signs)</i>.

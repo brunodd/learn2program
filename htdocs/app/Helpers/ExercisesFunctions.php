@@ -24,8 +24,8 @@ function updateExercise($exercise)
 function storeExercise($exercise)
 {
     // Add exercise
-    DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?)',
-        [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId]);
+    DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) VALUES (?, ?, ?, ?, ?, ?)',
+        [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId, $exercise->language]);
 
     storeReference($exercise);
 }
