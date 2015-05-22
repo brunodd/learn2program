@@ -76,14 +76,16 @@
         }
         function Run() {
             var exercise = <?php echo json_encode($exercise) ?>;
-            if(exercise.language == 'python') {
-                RunPython();
-            } else if(exercise.language == 'cpp') {
-                var antwoord = <?php echo json_encode($answer) ?>;
-                RunCpp(antwoord);
-            } else {
-                //alert("Problem: No programming language found -> using Python by default ");
-                RunPython();
+            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) 
+                    || (exercise.expected_result != '*') ) {
+                if(exercise.language == 'python') {
+                    RunPython();
+                } else if(exercise.language == 'cpp') {
+                    RunCpp();
+                } else {
+                    //alert("Problem: No programming language found -> using Python by default ");
+                    RunPython();
+                }
             }
         }
     </script>
@@ -150,4 +152,9 @@
             <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
             <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
     @endif
+
+    <script>
+        var exercise = <?php echo json_encode($exercise) ?>;
+        if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
+    </script>
 @stop
