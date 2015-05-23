@@ -40,3 +40,24 @@ function loadUsersSearch($s) {
                        WHERE    username LIKE ?',
                        ['%'.$s.'%']);
 }
+
+function loadUsersRanked() {
+    return DB::select('SELECT DISTINCT count(*) as count, users.id, users.username, users.image
+                      FROM answers, users
+                      WHERE answers.uId = users.id
+                      and answers.success = true
+                      group by users.id
+                      order by count DESC
+                      ');
+}
+
+function loadUsersNotRanked() {
+  return DB::select('SELECT *
+                      FROM users
+                      WHERE users.id not in  ( SELECT DISTINCT users.id
+                                               FROM answers, users
+                                               WHERE answers.uId = users.id
+                                               and answers.success = true
+                                               group by users.id)
+                                               ');
+}

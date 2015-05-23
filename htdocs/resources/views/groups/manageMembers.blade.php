@@ -33,10 +33,18 @@
         }
 
         .profiledata {
-            overflow-wrap: break-word;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             float: left;
             direction: ltr;
-            width: calc(100% - 26px);
+            width: calc(100% - 55px);
+        }
+
+        .profiledata * {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .profiledata a {
@@ -53,7 +61,6 @@
             background: white;
             border: 1px solid rgb(204, 204, 204);
             border-radius: 5px;
-            overflow-y: auto;
             margin-bottom: 15px;
         }
 
@@ -76,6 +83,30 @@
 
         /* add padding  */
         .left-addon input  { padding-left:  17px; }
+
+        .hover-content {
+            display: none;
+        }
+        .inner-addon:hover .hover-content{
+            position: absolute;
+            display: block;
+            width: 120px;
+            background: #ffffff;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+            padding: 0 5px;
+            right: 25px;
+            top: 0px;
+        }
+
+        .aboutuser {
+            height: 20px;
+        }
+
+        .aboutuser * {
+            margin: 0;
+            padding: 0;
+        }
     </style>
 @stop
 
@@ -98,13 +129,16 @@
                         <div class="dataAndButtons">
                             <div class="profiledata">
                                 <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                <p> {{ $member->info }} </p>
+                                <div class="aboutuser">{!! $member->info !!}</div>
                             </div>
 
                             {!! Form::open(['action' => ['GroupsController@removeMember', $group->id, $member->id]]) !!}
                                 <div class="inner-addon left-addon">
                                     <i class="glyphicon glyphicon-remove"></i>
                                     <input class="btn btn-xs btn-primary" type="submit" value="" />
+                                    <div class="hover-content">
+                                        Remove member
+                                    </div>
                                 </div>
                             {!! Form::close() !!}
                         </div>
@@ -130,7 +164,7 @@
                             <div class="dataAndButtons">
                                 <div class="profiledata">
                                     <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                    <p> {{ $member->info }} </p>
+                                    <div class="aboutuser">{!! $member->info !!}</div>
                                 </div>
 
                                 <div style="float: right">
@@ -138,6 +172,9 @@
                                     <div class="inner-addon left-addon" style="margin-bottom: 2px;">
                                         <i class="glyphicon glyphicon-ok"></i>
                                         <input class="btn btn-xs btn-primary" type="submit" value="" />
+                                        <div class="hover-content">
+                                            Accept member
+                                        </div>
                                     </div>
                                     {!! Form::close() !!}
 
@@ -145,6 +182,9 @@
                                     <div class="inner-addon left-addon">
                                         <i class="glyphicon glyphicon-remove"></i>
                                         <input class="btn btn-xs btn-primary" type="submit" value="" />
+                                        <div class="hover-content">
+                                            Remove member
+                                        </div>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -171,13 +211,16 @@
                         <div class="dataAndButtons">
                             <div class="profiledata">
                                 <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                <p> {{ $member->info }} </p>
+                                <div class="aboutuser">{!! $member->info !!}</div>
                             </div>
 
                             {!! Form::open(['action' => ['GroupsController@acceptMember', $group->id, $member->id]]) !!}
                             <div class="inner-addon left-addon">
                                 <i class="glyphicon glyphicon-ok"></i>
                                 <input class="btn btn-xs btn-primary" type="submit" value="" />
+                                <div class="hover-content">
+                                    Accept member
+                                </div>
                             </div>
                             {!! Form::close() !!}
                         </div>

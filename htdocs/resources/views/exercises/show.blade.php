@@ -40,6 +40,12 @@
              z-index: 97;
          }
     </style>
+
+<link rel="stylesheet" href="/css/codemirror.css">
+<script src="/js/codemirror.js"></script>
+<script src="/js/mode/python/python.js"></script>
+<script src="/js/mode/clike/clike.js"></script>
+<script src="/js/addon/selection/active-line.js"></script>
 @stop
 
 @section('title')
@@ -60,30 +66,32 @@
     <!-- Python Syntax Highlight!! -->
     <script>
         $(window).load(function () {
-            myScripts.initPythonSyntax();
+            //myScripts.initPythonSyntax();
         });
         function RunPython() {
-            myScripts.initPythonSyntax();
+            //myScripts.initPythonSyntax();
             skulptFunctions.runit();
             result = skulptFunctions.result;
         }
         function RunCpp() {
+            //myScripts.initPythonSyntax();
             var http = new XMLHttpRequest();
             http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
-            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": arguments[0] }));
-            alert(http.response);
-            result = http.response;
+            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
+            document.getElementById("output").value = http.response;
         }
         function Run() {
             var exercise = <?php echo json_encode($exercise) ?>;
-            if(exercise.language == 'python') {
-                RunPython();
-            } else if(exercise.language == 'cpp') {
-                var antwoord = <?php echo json_encode($answer) ?>;
-                RunCpp(antwoord);
-            } else {
-                //alert("Problem: No programming language found -> using Python by default ");
-                RunPython();
+            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) 
+                    || (exercise.expected_result != '*') ) {
+                if(exercise.language == 'python') {
+                    RunPython();
+                } else if(exercise.language == 'cpp') {
+                    RunCpp();
+                } else {
+                    //alert("Problem: No programming language found -> using Python by default ");
+                    RunPython();
+                }
             }
         }
     </script>
@@ -150,4 +158,19 @@
             <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
             <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
     @endif
+
+    <script>
+        var exercise = <?php echo json_encode($exercise) ?>;
+        if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
+
+        if(exercise.language == 'cpp') {
+            var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+            mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        } else {
+            var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+            mode: "python", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        }
+    </script>
 @stop
