@@ -336,7 +336,7 @@ class SeriesController extends Controller {
 
     public function storeCopy($id, CreateExerciseRequest $request)
     {
-        $input = $request::all();
+        $input = $request->all();
 
         $exercise = new Exercise;
         $exercise->question = $input['question'];

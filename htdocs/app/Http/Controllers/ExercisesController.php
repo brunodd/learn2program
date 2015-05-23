@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateAnswerRequest;
+use App\Http\Requests\CreateExerciseRequest;
 use Auth;
 
 class ExercisesController extends Controller {
@@ -121,7 +122,11 @@ class ExercisesController extends Controller {
 	 */
 	public function update($id, CreateExerciseRequest $request)
 	{
-	    $input = $request::all();
+        if( !isMakerOfExercise($id, Auth::id()) ) {
+            flash()->error("You must be logged in as the maker of this exercise.");
+            return redirect('exercises/' . $id);
+        }
+        $input = $request->all();
 	    $exercise = new Exercise;
 
         $exercise->question = $input['question'];
