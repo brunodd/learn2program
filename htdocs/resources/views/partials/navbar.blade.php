@@ -12,6 +12,7 @@
                 <li><a href="/exercises">Exercises</a></li>
                 <li><a href="/groups">Groups</a></li>
                 <li><a href="/users">Users</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
                 <li><a href="/statistics">Statistics</a></li>
                 <li><a href="/guides">Guides</a></li>
                 <li><a href="/about">About</a></li>
