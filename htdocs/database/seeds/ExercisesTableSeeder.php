@@ -16,7 +16,7 @@ class ExercisesTableSeeder extends Seeder {
             'start_code' =>
                 'print("Hello, world")',
             'expected_result' =>
-'Hello, world',
+'^[Hh]ello[,]? [Ww]orld$',
             'makerId' => 1]);
 
         Exercise::create([
@@ -69,7 +69,7 @@ print(nine_dots())',
 'def cat_5_times(s):
     <fill in your code here>',
             'expected_result' =>
-'([A-Za-z0-9]+){5}',
+'([A-Za-z0-9]+\n){5}',
             'makerId' => 3
         ]);
 

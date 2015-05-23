@@ -162,19 +162,25 @@ class ExercisesController extends Controller {
         $ans->given_code = $input['given_code'];
         $ans->time = $diffTime;
 
+        $result = preg_replace('/[^A-Za-z0-9\-\ ,\.;:\[\]\?\!@#$%&\*\(\)\-=\+\.^\P{C}\n]/', '', $input['result']);
+        // dd($result);
+
+        // dd(preg_match("/^[hH]ello, [wW]orld$/", substr_replace($result, "", -1)));
+        // dd(preg_match("/^Hello, world$/", $result));
+
         if($exercise->expected_result == '*') {
             $ans->success = true;
         }
         else {
             $rule = "/" . $exercise->expected_result . "/";
             // dd($rule);
-            if(preg_match($rule, $input['result'])) {
+            if(preg_match($rule, $result)) {
                 $ans->success = true;
             }
             //something fishy happens here with the strings, hence the self written compare function
             //must test situations where output is shown on multiple lines!
             //ask raphael for more details!
-            elseif (compare(bin2hex($input['result']), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)))) {
+            elseif (compare(bin2hex($result), bin2hex($exercise->expected_result . chr(0x0d) . chr(0x0a)))) {
                 $ans->success = true;
             }
             else {
@@ -196,7 +202,7 @@ class ExercisesController extends Controller {
         }
 
 
-        $result = $input['result'];
+        // $result = $input['result'];
         $answer = $input['given_code'];
         // TODO: return redirect('exercises/' . $id);
         $sId = \Session::get('currentSerie');
