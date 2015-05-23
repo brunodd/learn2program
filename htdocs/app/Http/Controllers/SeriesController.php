@@ -334,7 +334,7 @@ class SeriesController extends Controller {
         return redirect('series/' . $input['series_selection']);
     }
 
-    public function storeCopy($id, Request $request)
+    public function storeCopy($id, CreateExerciseRequest $request)
     {
         $input = $request::all();
 
@@ -346,7 +346,7 @@ class SeriesController extends Controller {
         $exercise->seriesId = $input['series_selection'];
         $exercise->makerId = Auth::id();
         $exercise->language = $input['language'];
-        
+
         storeExercise($exercise);
 
         $userIds = loadUsersBeganSeries($input['series_selection']);

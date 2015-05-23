@@ -119,7 +119,7 @@ class ExercisesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update($id, CreateExerciseRequest $request)
 	{
 	    $input = $request::all();
 	    $exercise = new Exercise;
@@ -128,6 +128,7 @@ class ExercisesController extends Controller {
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
         $exercise->expected_result = $input['expected_result'];
+        $exercise->language = $input['language'];
         $exercise->id = $id;
 
         updateExercise($exercise);
