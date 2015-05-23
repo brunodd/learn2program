@@ -63,13 +63,13 @@ print(nine_dots())',
         ]);
 
         Exercise::create([
-            'question' => 'Fill in the body of the function definition for cat_n_times so that it will print the string, s, n times',
+            'question' => 'Fill in the body of the function definition for cat_5_times so that it will print the string, s, 5 times',
             'tips' => 'Meow Meow',
             'start_code' =>
 'def cat_5_times(s):
     <fill in your code here>',
             'expected_result' =>
-'[A-Za-z0-9]{5}',
+'([A-Za-z0-9]+){5}',
             'makerId' => 3
         ]);
 
