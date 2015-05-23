@@ -40,6 +40,12 @@
              z-index: 97;
          }
     </style>
+
+<link rel="stylesheet" href="/css/codemirror.css">
+<script src="/js/codemirror.js"></script>
+<script src="/js/mode/python/python.js"></script>
+<script src="/js/mode/clike/clike.js"></script>
+<script src="/js/addon/selection/active-line.js"></script>
 @stop
 
 @section('title')
@@ -60,15 +66,15 @@
     <!-- Python Syntax Highlight!! -->
     <script>
         $(window).load(function () {
-            myScripts.initPythonSyntax();
+            //myScripts.initPythonSyntax();
         });
         function RunPython() {
-            myScripts.initPythonSyntax();
+            //myScripts.initPythonSyntax();
             skulptFunctions.runit();
             result = skulptFunctions.result;
         }
         function RunCpp() {
-            myScripts.initPythonSyntax();
+            //myScripts.initPythonSyntax();
             var http = new XMLHttpRequest();
             http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
             http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
@@ -156,5 +162,15 @@
     <script>
         var exercise = <?php echo json_encode($exercise) ?>;
         if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
+
+        if(exercise.language == 'cpp') {
+            var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+            mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        } else {
+            var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+            mode: "python", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        }
     </script>
 @stop
