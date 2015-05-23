@@ -28,8 +28,3 @@ function ExNrOfSerie($eId, $sId)
 {
     return DB::select('select * from exercises_in_series where exId = ? and seriesId = ?', [$eId, $sId])[0]->ex_index;
 }
-
-
-function CCPcodechecker ($code) {
-
-}

@@ -195,3 +195,12 @@ function loadExercisesSearch($s) {
                        WHERE question LIKE ?',
                        ['%'.$s.'%']);
 }
+
+function loadAllAccomplishedExercises($user) {
+    $tabel = DB::select('SELECT DISTINCT *
+                         FROM answers
+                         WHERE uId = ?
+                         and success=true',
+                         [$user->id]);
+    return count($tabel);
+}

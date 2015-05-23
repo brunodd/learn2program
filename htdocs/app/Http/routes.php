@@ -85,6 +85,8 @@ Route::get('sendnotification', 'NotificationsController@createNotification');
 Route::any('sharenotification/{user}', array( 'as' => 'pages.sendNotification', 'uses' => 'NotificationsController@shareNotification'));
 //Route::post('sharenotification/{user}', array( 'as' => 'sharenotification', 'uses' => 'NotificationsController@shareNotification'));
 
+//Leaderboard routes
+Route::get('/leaderboard', 'LeaderboardController@index');
 
 //Authentication routes
 Route::get('/register', 'UsersController@getRegister');
