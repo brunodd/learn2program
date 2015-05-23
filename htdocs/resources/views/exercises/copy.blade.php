@@ -1,5 +1,17 @@
 @extends('master')
 
+@section('head')
+<link rel="stylesheet" href="/css/codemirror.css">
+<link rel="stylesheet" href="/css/show-hint.css">
+<script src="/js/codemirror.js"></script>
+<script src="/js/mode/python/python.js"></script>
+<script src="/js/mode/clike/clike.js"></script>
+<script src="/js/addon/selection/active-line.js"></script>
+<script src="/js/addon/edit/closebrackets.js"></script>
+<script src="/js/addon/hint/show-hint.js"></script>
+<script src="/js/addon/hint/anyword-hint.js"></script>
+@stop
+
 @section('title')
     Add a copy of an exercise to one of your series
 @stop
@@ -39,4 +51,34 @@
     {!! Form::close() !!}
 
     @include('errors.list')
+
+    <script>
+        var exercise = <?php echo json_encode($exercise) ?>;
+        if(exercise.language == 'cpp') {
+            CodeMirror.commands.autocomplete = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.anyword});
+	        }
+            CodeMirror.commands.autocomplete2 = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.show});
+	        }
+            var editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
+            mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true,
+                    lineWrapping: true, autoCloseBrackets: true, globarVars: true });
+            editor.on("change", function() { document.getElementById("start_code").value = editor.getValue() });
+        } else {
+            CodeMirror.commands.autocomplete = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.anyword});
+	        }
+            CodeMirror.commands.autocomplete2 = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.show});
+	        }
+            var editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
+            mode: "python", styleActiveLine: true, lineNumbers: true,
+                        lineWrapping: true, autoCloseBrackets: true, globarVars: true });
+            editor.on("change", function() { document.getElementById("start_code").value = editor.getValue() });
+        }
+    </script>
+
 @stop

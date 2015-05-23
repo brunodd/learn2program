@@ -50,7 +50,6 @@
 <script src="/js/addon/edit/closebrackets.js"></script>
 <script src="/js/addon/hint/show-hint.js"></script>
 <script src="/js/addon/hint/anyword-hint.js"></script>
-<script src="/js/addon/hint/javascript-hint.js"></script>
 @stop
 
 @section('title')
@@ -169,14 +168,26 @@
         if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
 
         if(exercise.language == 'cpp') {
+            CodeMirror.commands.autocomplete = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.anyword});
+	        }
+            CodeMirror.commands.autocomplete2 = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.show});
+	        }
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true,
-                    lineWrapping: true, autoCloseBrackets: true, globarVars: true, localVars: true });
+                    lineWrapping: true, autoCloseBrackets: true, globarVars: true });
             editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
         } else {
+            CodeMirror.commands.autocomplete = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.anyword});
+	        }
+            CodeMirror.commands.autocomplete2 = function(cm) {
+                cm.showHint({hint: CodeMirror.hint.show});
+	        }
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "python", styleActiveLine: true, lineNumbers: true,
                         lineWrapping: true, autoCloseBrackets: true, globarVars: true });
             editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
