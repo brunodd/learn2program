@@ -82,7 +82,7 @@
         }
         function Run() {
             var exercise = <?php echo json_encode($exercise) ?>;
-            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) 
+            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>)
                     || (exercise.expected_result != '*') ) {
                 if(exercise.language == 'python') {
                     RunPython();
@@ -140,8 +140,11 @@
 
                 @if( $answer != null && Session::has('correctAnswer'))
                     <a href="/sendnotification/" class="btn btn-primary">Share with friend</a>
-                    <a href="/exercises/{{ $exercise->id }}/challenge/" class = "btn btn-primary"> Challenge a friend</a>
-                @elseif( !empty(loadCorrectAnswers(\Auth::id(), $exercise->id)))
+                    @if($exercise->expected_result != '*')
+                        <a href="/exercises/{{ $exercise->id }}/challenge/" class = "btn btn-primary"> Challenge a friend</a>
+                    @endif
+
+                @elseif( !empty(loadCorrectAnswers(\Auth::id(), $exercise->id)) && $exercise->expected_result != '*')
                     <a href="/exercises/{{ $exercise->id }}/challenge/" class = "btn btn-primary"> Challenge a friend</a>
                 @endif
             </div>
@@ -153,7 +156,7 @@
 
     @if( Auth::check() && userOwnsSeries(Auth::id()) )
     <h4><a href="/exercises/{{$exercise->id}}/referenceexercise">Reference this exercise in one of your series</a></h4>
-            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise. 
+            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise.
             When the original exercise gets updated (or deleted), so will this one.)</em></p>
             <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
             <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
