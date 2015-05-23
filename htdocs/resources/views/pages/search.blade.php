@@ -68,14 +68,7 @@
     @endforeach
 
     <h2>Users</h2><hr>
-        @foreach($users as $user)
-            <div style="height: 60px;">
-                <img src="images/users/{{ $user->image }}" alt="Profile Picture" style="max-width:50px;max-height:50px;float:left;padding: 0 5px 0 0;">
-                <h3><a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a></h3>
-                <small>Some info about user: e.g. completed x series/has rating y</small>
-            </div>
-            <div style="clear: both"></div>
-        @endforeach
+        @include('partials.usersList')
 
     <h2>Groups</h2><hr>
     @foreach($groups as $group)

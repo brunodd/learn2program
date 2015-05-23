@@ -22,6 +22,7 @@ Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
 Route::get('statistics', 'StatisticsController@home');
+Route::get('leaderboard', 'LeaderboardController@index');
 
 
 //Users routes
@@ -85,30 +86,27 @@ Route::get('sendnotification', 'NotificationsController@createNotification');
 Route::any('sharenotification/{user}', array( 'as' => 'pages.sendNotification', 'uses' => 'NotificationsController@shareNotification'));
 //Route::post('sharenotification/{user}', array( 'as' => 'sharenotification', 'uses' => 'NotificationsController@shareNotification'));
 
-//Leaderboard routes
-Route::get('/leaderboard', 'LeaderboardController@index');
 
 //Authentication routes
-Route::get('/register', 'UsersController@getRegister');
-Route::post('/register', 'UsersController@postRegister');
-Route::get('/login', 'Auth\AuthController@getLogin');
-Route::post('/login', 'Auth\AuthController@postLogin');
-Route::get('/logout', 'Auth\AuthController@getLogout');
-Route::get('/email', 'Auth\PasswordController@getEmail');
-Route::post('/email', 'Auth\PasswordController@postEmail');
-Route::get('/reset', 'Auth\PasswordController@getReset');
-Route::post('/reset', 'Auth\PasswordController@postReset');
+Route::get('register', 'UsersController@getRegister');
+Route::post('register', 'UsersController@postRegister');
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
+Route::get('email', 'Auth\PasswordController@getEmail');
+Route::post('email', 'Auth\PasswordController@postEmail');
+Route::get('reset', 'Auth\PasswordController@getReset');
+Route::post('reset', 'Auth\PasswordController@postReset');
 
 //Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
-Route::get('/twitter/error', function() {return 'Problem singing in with Twitter.';});
+Route::get('twitter/error', function() {return 'Problem singing in with Twitter.';});
 //['as' => 'twitter.login',
-Route::get('/twitter/login', 'Auth\AuthController@twitterLogin');
-Route::get('/twitter/callback', ['as' => 'twitter.callback', 'uses' => 'Auth\AuthController@twitterCallback']);
+Route::get('twitter/login', 'Auth\AuthController@twitterLogin');
+Route::get('twitter/callback', ['as' => 'twitter.callback', 'uses' => 'Auth\AuthController@twitterCallback']);
 
-Route::get('/facebook/login', 'Auth\AuthController@facebookLogin');
-Route::get('/facebook/callback', 'Auth\AuthController@facebookCallback');
-Route::get('/facebook/error', function() {return 'Problem singing in with Facebook.';});
-
+Route::get('facebook/login', 'Auth\AuthController@facebookLogin');
+Route::get('facebook/callback', 'Auth\AuthController@facebookCallback');
+Route::get('facebook/error', function() {return 'Problem singing in with Facebook.';});
 
 
 

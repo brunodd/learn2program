@@ -16,7 +16,9 @@ class LeaderboardController extends Controller {
 	{
 		//
 	    $users = loadusers();
-        return view('leaderboard.home', compact('users'));
+        $usersRanked = loadUsersRanked();
+        $usersUnranked = loadUsersNotRanked();
+        return view('pages.leaderboard', compact('users', 'usersRanked', 'usersUnranked'));
 	}
 
 	/**

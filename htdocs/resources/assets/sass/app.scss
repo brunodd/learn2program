@@ -293,3 +293,65 @@ footer {
   width: 100%;
 }
 /*style="float: left;height:400px;width: 30%;overflow:auto;*/
+
+//Users in lists styling
+.users {
+  overflow-y: auto;
+  position: absolute;
+  width: 95%;
+  height: calc(100% - 65px);
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+.user {
+  width: 100%;
+  min-height: 60px;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #9d9c9b;
+}
+
+.userimage {
+  width:50px;
+  height:50px;
+  float:left;
+  margin-right: 5px;
+}
+
+.userimage img {
+  width:50px;
+  height:50px;
+}
+
+.userimage img:hover {
+  cursor: pointer;
+}
+
+.userdata {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: right;
+  direction: ltr;
+  width: calc(100% - 55px);
+}
+
+.userdata * {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userdata a {
+  font-weight: bold;
+}
+
+.aboutuser {
+  height: 20px;
+}
+
+.aboutuser * {
+  margin: 0;
+  padding: 0;
+}

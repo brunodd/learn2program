@@ -16,9 +16,13 @@
 
     <style>
         .contain2 {
-            width: 100%;
-            height: 420px;
-            margin-bottom: 10px;
+            max-width: 1220px;
+            min-width: 602px;
+            margin: 0 auto;
+        }
+
+        .contain2 * {
+            margin-bottom: 15px;
         }
 
         .graph {
@@ -46,7 +50,7 @@
             <div id="container_user_finished_per_series" class="graph" style="float: left;"></div>
             <div id="container_avg_score_per_series" class="graph" style="float: right;"></div>
         </div>
-        <div style="clear: both;"></div>
+        <div style="clear: both; margin-bottom: 15px"></div>
 
         <div id="container_avg_rating_per_series" class="graph" style="margin: 0 auto"></div>
 

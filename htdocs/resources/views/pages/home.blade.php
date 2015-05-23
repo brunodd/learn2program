@@ -9,6 +9,5 @@
 @stop
 
 @section('content')
-    <?php echo preg_match("/^foo bar$/", "foo bar"); ?>
     @include('web.homepagebody')
 @stop

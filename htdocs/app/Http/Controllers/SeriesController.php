@@ -316,7 +316,9 @@ class SeriesController extends Controller {
 
         $userIds = loadUsersBeganSeries($id);
         foreach($userIds as $userId) {
-            storeNotification($userId->uId, 'series updated', -1, $id);
+            if ($userId->uId != loadSerieWithIdOrTitle($id)[0]->makerId) {
+                storeNotification($userId->uId, 'series updated', -1, $id);
+            }
         }
         return redirect('series/' . $id);
     }
@@ -328,7 +330,9 @@ class SeriesController extends Controller {
 
         $userIds = loadUsersBeganSeries($input['series_selection']);
         foreach($userIds as $userId) {
-            storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
+            if ($userId->uId != loadSerieWithIdOrTitle($id)[0]->makerId) {
+                storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
+            }
         }
         storeNotification($input['makerId'], "exercise referenced", -1, $input['series_selection']);
         return redirect('series/' . $input['series_selection']);
@@ -351,7 +355,9 @@ class SeriesController extends Controller {
 
         $userIds = loadUsersBeganSeries($input['series_selection']);
         foreach($userIds as $userId) {
-            storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
+            if ($userId->uId != loadSerieWithIdOrTitle($id)[0]->makerId) {
+                storeNotification($userId->uId, 'series updated', -1, $input['series_selection']);
+            }
         }
         storeNotification($input['makerId'], "exercise copied", -1, $input['series_selection']);
         return redirect('series/' . $input['series_selection']);

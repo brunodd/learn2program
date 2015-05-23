@@ -41,7 +41,6 @@ var skulptFunctions  = (function () {
                     alert('Learn2Program found\n' + err.toString());
                     document.getElementById("output").innerHTML = err.toString(); //this is useless atm
                     console.log(err.toString());
-                    result = err.toString();
                 }
             );
         }

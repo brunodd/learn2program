@@ -121,13 +121,11 @@ class GroupsController extends Controller {
         {
             flash()->error('That group does not exist')->important();
             return redirect('groups');
-            // TODO: Misschien in dit geval toch beter een 404 page hebben?
         }
         else
         {
-            //WILL ALSO NEED TO LOAD ALL MEMBERS
-            // i.e. if we want to show them on the group's page
             $group = loadGroup($id)[0];
+            $users = listUsersOfGroup($group->id);
             $isMember = isMemberOfGroup($group->id);
 
             //Load last 100 chat messages
@@ -139,7 +137,7 @@ class GroupsController extends Controller {
                 $message = (object) array_merge( (array)$message, array('carbon' => $carbon) );
             }
 
-            return view('groups.show', compact('group', 'isMember', 'messages'));
+            return view('groups.show', compact('group', 'isMember', 'messages', 'users'));
         }
 	}
 
@@ -155,7 +153,6 @@ class GroupsController extends Controller {
         {
             flash()->error('That group does not exist')->important();
             return redirect('groups');
-            // TODO: Misschien in dit geval toch beter een 404 page hebben?
         }
         else if (!isFounderOfGroup($id, Auth::id()))
         {

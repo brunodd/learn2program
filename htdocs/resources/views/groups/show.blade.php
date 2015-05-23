@@ -2,60 +2,10 @@
 
 @section('head')
     <style>
-        .member {
-            width: 100%;
-            min-height: 60px;
-            padding: 5px;
-            margin-bottom: 10px;
-            border-bottom: solid 1px #9d9c9b;
-        }
-
-        .profilepic {
-            width:50px;
-            height:50px;
-            float:left;
-            margin-right: 5px;
-        }
-
-        .profilepic img {
-            width:50px;
-            height:50px;
-        }
-
-        .profilepic img:hover {
-            cursor: pointer;
-        }
-
-        .profiledata {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            float: right;
-            direction: ltr;
-            width: calc(100% - 55px);
-        }
-
-        .profiledata * {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .profiledata a {
-            font-weight: bold;
-        }
-
         .chat {
             background: #eeeeee;
             border-radius: 15px;
             border: 1px solid rgb(222, 223, 226);;
-            position: absolute;
-            width: 95%;
-            height: calc(100% - 65px);
-        }
-
-        .members {
-            overflow-y: auto;
             position: absolute;
             width: 95%;
             height: calc(100% - 65px);
@@ -74,19 +24,7 @@
         #messageBox {
             border-bottom: 1px solid rgb(222, 223, 226);;
         }
-
-        .aboutuser {
-            height: 20px;
-        }
-
-        .aboutuser * {
-            margin: 0;
-            padding: 0;
-        }
     </style>
-    <?php
-        $users = listUsersOfGroup($group->id);
-    ?>
 @stop
 
 @section('title')
@@ -124,7 +62,6 @@
 @section('content')
     @if (!$isMember && $group->private)
         <div class="alert alert-danger">This is a private group, join it to get access.</div>
-
     @else
         <div class="col-md-7">
             <h3><b style="color: #0b3557;">Chat</b></h3>
@@ -157,10 +94,6 @@
                     @endforeach
                 </div>
 
-                <script>
-                    myScripts.SetScrollBoxToBottom('messageBox');
-                </script>
-
                 @if ($isMember)
                     {!! Form::open(['action' => 'GroupsController@storeMessage', 'id' => 'myForm']) !!}
                     {!! Form::textarea('message', null, ['class' => 'mmessageText', 'rows' => 1, 'cols' => 1, 'id' => 'fucker']) !!}
@@ -177,33 +110,23 @@
                     <div id="myForm" style="height: 8%">Join this group to gain acces to chat.</div>
                 @endif
 
-                <script>
-                    $('document').ready(function () {
-                        document.getElementById('fucker').removeAttribute('rows');
-                        document.getElementById('fucker').removeAttribute('cols');
-                    });
-                </script>
             </div>
         </div>
 
         <div class="col-md-5">
             <h3><b style="color: #0b3557;">Members</b></h3>
 
-            <div class="members">
-            @foreach($users as $user)
-                <div class="member">
-                    <div class="profilepic" onclick="location.href='{{ action('UsersController@show', $user->username )}}'">
-                        <img src="/images/users/{{ $user->image }}" alt="Profile Picture">
-                    </div>
-                    <div class="profiledata">
-                        <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
-                        <div class="aboutuser">{!! $user->info !!}</div>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div style="clear: both;"></div>
-            @endforeach
+            <div class="users">
+                @include('partials.usersList')
             </div>
         </div>
     @endif
+
+    <script>
+        $('document').ready(function () {
+            myScripts.SetScrollBoxToBottom('messageBox');
+            document.getElementById('fucker').removeAttribute('rows');
+            document.getElementById('fucker').removeAttribute('cols');
+        });
+    </script>
 @stop
