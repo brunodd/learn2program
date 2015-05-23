@@ -10,6 +10,7 @@
 <script src="/js/addon/edit/closebrackets.js"></script>
 <script src="/js/addon/hint/show-hint.js"></script>
 <script src="/js/addon/hint/anyword-hint.js"></script>
+<script src="/js/addon/mode/loadmode.js"></script>
 @stop
 
 @section('title')
@@ -71,19 +72,35 @@
     <div style="height: 25px"></div>
 
     <script>
-        var exercise = <?php echo json_encode($exercise) ?>;
-        if(exercise.language == 'cpp') {
-            var editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
+        var editor;
+        var language = $("#lang").val();
+        CodeMirror.commands.autocomplete = function(cm) {
+            cm.showHint({hint: CodeMirror.hint.anyword});
+	    }
+        CodeMirror.commands.autocomplete2 = function(cm) {
+            cm.showHint({hint: CodeMirror.hint.show});
+	    }
+        if(language == 'cpp') {
+            editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true,
-                    lineWrapping: true, autoCloseBrackets: true, globarVars: true, localVars: true });
-            editor.on("change", function() { document.getElementById("start_code").value = editor.getValue() });
+                    lineWrapping: true, autoCloseBrackets: true, globarVars: true });
         } else {
-            var editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
+            editor = CodeMirror.fromTextArea(document.getElementById("start_code"), {
+            extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "python", styleActiveLine: true, lineNumbers: true,
                         lineWrapping: true, autoCloseBrackets: true, globarVars: true });
-            editor.on("change", function() { document.getElementById("start_code").value = editor.getValue() });
+        }
+        editor.on("change", function() { document.getElementById("start_code").value = editor.getValue() });
+        function changeSyntax() {
+            var m1 = "python";
+            var m2 = "python";
+            if( $("#lang").val() == 'cpp' ) {
+                m1 = "text/x-c++src";
+                m2 = "clike";
+            }
+            editor.setOption("mode", m1);
+            CodeMirror.autoLoadMode(editor, m2);
         }
     </script>
 
