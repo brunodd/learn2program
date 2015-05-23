@@ -3,13 +3,7 @@ html, body {
   height: 100%;
   width: 100%;
 }
-/*
-#CFF09E;
-#A8DBA8;
-#79BD9A;
-#3B8686;
-#0B486B;
-*/
+
 .navbar {
   color: white;
   background-color: #0b3557;
@@ -43,19 +37,7 @@ body {
   background: url(/images/cream_dust.png) repeat 0 0;
   padding-top: 60px;
 }
-/*
-body::after {
-  content: "";
-  background: url(/images/cream_dust.png) repeat 0 0;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-}
-*/
+
 .jumbotron {
   color: white;
   background-color: #3B8686;
@@ -76,6 +58,13 @@ footer {
   padding: 0 5px;
   height: 45px;
 }
+
+.CodeMirror {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+}
+
+
 
 //Navigation bar
 
@@ -165,6 +154,12 @@ footer {
   float: left;
   margin: 0 4px 0 0;
 }
+
+
+
+
+
+
 
 
 //Messages page
@@ -292,7 +287,12 @@ footer {
   height: 20%;
   width: 100%;
 }
-/*style="float: left;height:400px;width: 30%;overflow:auto;*/
+
+
+
+
+
+
 
 //Users in lists styling
 .users {
