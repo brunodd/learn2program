@@ -42,10 +42,15 @@
     </style>
 
 <link rel="stylesheet" href="/css/codemirror.css">
+<link rel="stylesheet" href="/css/show-hint.css">
 <script src="/js/codemirror.js"></script>
 <script src="/js/mode/python/python.js"></script>
 <script src="/js/mode/clike/clike.js"></script>
 <script src="/js/addon/selection/active-line.js"></script>
+<script src="/js/addon/edit/closebrackets.js"></script>
+<script src="/js/addon/hint/show-hint.js"></script>
+<script src="/js/addon/hint/anyword-hint.js"></script>
+<script src="/js/addon/hint/javascript-hint.js"></script>
 @stop
 
 @section('title')
@@ -168,11 +173,15 @@
 
         if(exercise.language == 'cpp') {
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-            mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            extraKeys: {"Ctrl-Space": "autocomplete"},
+            mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true,
+                    lineWrapping: true, autoCloseBrackets: true, globarVars: true, localVars: true });
             editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
         } else {
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-            mode: "python", styleActiveLine: true, lineNumbers: true, lineWrapping: true });
+            extraKeys: {"Ctrl-Space": "autocomplete"},
+            mode: "python", styleActiveLine: true, lineNumbers: true,
+                        lineWrapping: true, autoCloseBrackets: true, globarVars: true });
             editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
         }
     </script>
