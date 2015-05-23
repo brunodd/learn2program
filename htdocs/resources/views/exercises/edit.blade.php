@@ -41,6 +41,12 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('language', 'Language: ') !!}
+            {!! Form::select('language', ['python'=>'Python', 'cpp'=>'C++'], null,
+                ['class' => 'form-control', 'id' => 'lang', 'onchange'=>"changeSyntax();"]) !!}
+        </div>
+        
+        <div class="form-group">
             {!! Form::label('start_code', 'Starting code, i.e. this code will initially be given to the user: ') !!}
             {!! Form::textarea('start_code', $exercise->start_code, ['class' => 'form-control']) !!}
         </div>

@@ -10,9 +10,10 @@ function loadExercisesFromSerie($sId)
 function updateExercise($exercise)
 {
     return DB::statement('  update exercises
-                            set question=?, tips=?, start_code=?, expected_result=?
+                            set question=?, tips=?, start_code=?, expected_result=?, language=?
                             where id = ?',
-                            [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->id]);
+                            [$exercise->question, $exercise->tips, $exercise->start_code,
+                            $exercise->expected_result, $exercise->language, $exercise->id]);
 }
 
 /*function loadExercisesFromSerie2($sId)
