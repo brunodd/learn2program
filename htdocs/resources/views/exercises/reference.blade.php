@@ -40,11 +40,6 @@
         </div>
 
         <div class="form-group">
-            {!! Form::hidden('expected_result', $exercise->expected_result) !!}
-        </div>
-
-
-        <div class="form-group">
             {!! Form::submit('Add exercise', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     {!! Form::close() !!}

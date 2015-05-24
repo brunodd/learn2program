@@ -13,7 +13,6 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
 use App\Http\Requests\CreateExerciseRequest;
-use App\Http\Requests\CopyExerciseRequest;
 use App\Http\Requests\CreateRatingRequest;
 use Auth;
 
@@ -281,6 +280,7 @@ class SeriesController extends Controller {
             $series = ($series + [$serie->id => $serie->title]);
         }
         $exercise = loadExercise($id)[0];
+        $exercise->expected_result = null;
         return view('exercises.reference', compact('series', 'exercise'));
     }
 
@@ -297,6 +297,7 @@ class SeriesController extends Controller {
             $series = ($series + [$serie->id => $serie->title]);
         }
         $exercise = loadExercise($id)[0];
+        $exercise->expected_result = null;
         return view('exercises.copy', compact('series', 'exercise'));
     }
 
@@ -325,7 +326,6 @@ class SeriesController extends Controller {
     }
     public function storeReference($id, Request $request)
     {
-        return $request::all();
         $input = $request::all();
 
         addToSeries($id, $input['series_selection']);
@@ -340,7 +340,7 @@ class SeriesController extends Controller {
         return redirect('series/' . $input['series_selection']);
     }
 
-    public function storeCopy($id, CopyExerciseRequest $request)
+    public function storeCopy($id, CreateExerciseRequest $request)
     {
         $input = $request->all();
 
@@ -348,8 +348,7 @@ class SeriesController extends Controller {
         $exercise->question = $input['question'];
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
-        if( $input['expected_result'] == "") $exercise->expected_result = $input['oer'];
-        else $exercise->expected_result = $input['expected_result'];
+        $exercise->expected_result = $input['expected_result'];
         $exercise->seriesId = $input['series_selection'];
         $exercise->makerId = Auth::id();
         $exercise->language = $input['language'];
