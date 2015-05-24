@@ -42,7 +42,7 @@ Your challenges
         @else
             <?php $name = loadUser($challenge->userA)[0]->username; ?>
         @endif
-        <li><a href="/exercises/{{$challenge->exId}}">Exercise {{ firstChars(loadExercise($challenge->exId)[0]->question, 20) }} </a></br>
+        <li><a href="/exercises/{{$challenge->exId}}">Exercise {!! firstChars(strip_tags(loadExercise($challenge->exId)[0]->question), 20) !!} </a></br>
             <div style="text-indent: 2em"><a href="/challenges/{{$challenge->id}}"><em>(vs {{ $name }} )</em></a></div>
     @endforeach
     </ul>
@@ -55,7 +55,7 @@ Your challenges
         @else
             <?php $name = loadUser($challenge->userA)[0]->username; ?>
         @endif
-        <li><a href="/exercises/{{$challenge->exId}}">Exercise {{ firstChars(loadExercise($challenge->exId)[0]->question, 20) }} </a></br>
+        <li><a href="/exercises/{{$challenge->exId}}">Exercise {{ firstChars(strip_tags(loadExercise($challenge->exId)[0]->question), 20) }} </a></br>
             <div style="text-indent: 2em"><a href="/challenges/{{$challenge->id}}"><em>(vs {{ $name }} )</em></a></div>
     @endforeach
     </ul>

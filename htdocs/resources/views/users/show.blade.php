@@ -82,24 +82,19 @@
                             <?php $exercises = getAllExercisesOfSeries($serie); ?>
                             <div class=container-fluid>
                             @foreach($exercises as $exercise)
-                                @if ( userSucceededExercise($exercise->exId, $user->id) )
                                 <div style="float: left">
-                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
+                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">
+                                    {!! firstChars(strip_tags($exercise->question), 20) !!}</a></em>
                                 </div></br>
+                                @if ( userSucceededExercise($exercise->exId, $user->id) )
                                 <div style="float: right">
                                     was solved correctly!
                                 </div></br>
                                 @elseif ( getAccomplishedExercise($user, $exercise) )
-                                <div style="float: left">
-                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }} </a></em>
-                                </div></br>
                                 <div style="float: right">
                                     was incorrect.
                                 </div></br>
                                 @else
-                                <div style="float: left">
-                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
-                                </div></br>
                                 <div style="float: right">
                                     has not been started yet!
                                 </div></br>
