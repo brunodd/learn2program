@@ -129,7 +129,6 @@
                         <div class="dataAndButtons">
                             <div class="profiledata">
                                 <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                <div class="aboutuser">{!! $member->info !!}</div>
                             </div>
 
                             {!! Form::open(['action' => ['GroupsController@removeMember', $group->id, $member->id]]) !!}

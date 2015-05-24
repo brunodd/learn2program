@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Leaderbord  
+    Leaderboard  
 @stop
 
 @section('content')
