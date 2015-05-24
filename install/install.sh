@@ -19,5 +19,16 @@ sed -i.bak 's/DB_PASSWORD=/DB_PASSWORD='$password'/g' '../htdocs/.env'
 mysql -u "${username}" -p "${password}" < ../database/learn2program.sql
 
 
+
 # Seeding database
-php ../htdocs/artisan db:seed
+if [ $# -eq 1 ]
+then
+	if [[ "$1" == "-seed" ]]
+	then
+		php ../htdocs/artisan db:seed
+	else
+		echo "usage: install.sh [flag]"
+		echo "Flags:"
+		echo "\t-seed -> seed the database"
+	fi
+fi
