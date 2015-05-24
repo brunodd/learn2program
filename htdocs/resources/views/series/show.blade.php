@@ -8,6 +8,12 @@
         #captioner {
             float: right;
         }
+
+        .progress {
+            font-weight: bold;
+            color: #FFF;
+            text-shadow: 0px 0px 1px #000;
+        }
     </style>
 @stop
 
@@ -32,18 +38,16 @@
     @if( Auth::check() )
         <?php $accomplishedPercentage = returnAccomplishedPercentageSeries(Auth::user(), $serie); ?>
     @endif
-    <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{$accomplishedPercentage}}%">
-                {{$accomplishedPercentage}}% Complete
-        </div>
-        @if($accomplishedPercentage == 0)
-            <div class="zeropercent">
-                0% Complete
-            </div>
-        @endif
-    </div>
+
     <div style="float: right;">
+        <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{$accomplishedPercentage}}%">
+                {{$accomplishedPercentage}}% Complete
+            </div>
+            @if($accomplishedPercentage == 0)
+                0% Complete
+            @endif
+        </div>
         @if( unratedSeries($serie->id) )
             {!! Form::open(['action' => ['SeriesController@storeRating', $serie->id]]) !!}
                 {!! Form::hidden('sId', $serie->id) !!}
@@ -67,23 +71,21 @@
         {{ addViewToSeries($serie) }}
     </div>
 
-    <div style="float: left; width: calc(99% - 230px);">
+    <div style="float: left; width: calc(100% - 230px);">
         <h3 style="margin-top: 0;">Description :</h3>
 
         <p>{{$serie->description}}</p>
+
+        <h3>List of {{ $serie->title }}'s exercises :</h3>
+
+        @if ( $exercises )
+            @foreach ( $exercises as $ex )
+                <h4><a href="/exercises/{{$ex->id}}">{{ first20chars($ex->question) }}</a></h4>
+            @endforeach
+        @endif
+        <br>
     </div>
-    <div style="clear: both;"></div>
-
-    <h3>List of {{ $serie->title }}'s exercises :</h3>
-
-    @if ( $exercises )
-        @foreach ( $exercises as $ex )
-            <h4><a href="/exercises/{{$ex->id}}">{{ first20chars($ex->question) }}</a></h4>
-        @endforeach
-    @endif
-    <br>
-
-    
+    <div style="clear: both"></div>
 
     <h3>Recommended for you :</h3>
     <?php   $result = returnRecommendations($serie);

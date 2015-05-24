@@ -2,7 +2,17 @@
 
 @section('head')
     <script src="/js/skulpt.js"></script>
-    <script src="/editarea/edit_area/edit_area_full.js"></script>
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/show-hint.css">
+    <script src="/js/codemirror.js"></script>
+    <script src="/js/mode/python/python.js"></script>
+    <script src="/js/mode/clike/clike.js"></script>
+    <script src="/js/addon/selection/active-line.js"></script>
+    <script src="/js/addon/edit/closebrackets.js"></script>
+    <script src="/js/addon/hint/show-hint.js"></script>
+    <script src="/js/addon/hint/anyword-hint.js"></script>
+    <script src="/js/addon/mode/loadmode.js"></script>
+
     <style>
         .mytooltip {
             color: white;
@@ -40,17 +50,6 @@
              z-index: 97;
          }
     </style>
-
-<link rel="stylesheet" href="/css/codemirror.css">
-<link rel="stylesheet" href="/css/show-hint.css">
-<script src="/js/codemirror.js"></script>
-<script src="/js/mode/python/python.js"></script>
-<script src="/js/mode/clike/clike.js"></script>
-<script src="/js/addon/selection/active-line.js"></script>
-<script src="/js/addon/edit/closebrackets.js"></script>
-<script src="/js/addon/hint/show-hint.js"></script>
-<script src="/js/addon/hint/anyword-hint.js"></script>
-<script src="/js/addon/mode/loadmode.js"></script>
 @stop
 
 @section('title')
@@ -65,49 +64,16 @@
 @stop
 
 @section('content')
-
     <?php $times = []; ?>
     <?php array_push($times, $startTime) ?>
-    <!-- Python Syntax Highlight!! -->
-    <script>
-        $(window).load(function () {
-            //myScripts.initPythonSyntax();
-        });
-        function RunPython() {
-            //myScripts.initPythonSyntax();
-            skulptFunctions.runit();
-            result = skulptFunctions.result;
-        }
-        function RunCpp() {
-            //myScripts.initPythonSyntax();
-            var http = new XMLHttpRequest();
-            http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
-            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
-            document.getElementById("output").value = http.response;
-        }
-        function Run() {
-            var exercise = <?php echo json_encode($exercise) ?>;
-            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>)
-                    || (exercise.expected_result != '*') ) {
-                if(exercise.language == 'python') {
-                    RunPython();
-                } else if(exercise.language == 'cpp') {
-                    RunCpp();
-                } else {
-                    //alert("Problem: No programming language found -> using Python by default ");
-                    RunPython();
-                }
-            }
-        }
-    </script>
 
     <h3 style="float:left;margin-top: 0;padding-top: 0">{{ $exercise->question }}</h3>
 
     <div class="mytooltip" title="{{ str_replace('\n', '&#xa;', $exercise->tips) }}">
         <div title=" " class="btn btn-primary">Tips</div>
     </div>
-
     <div style="clear: both;"></div>
+
     <div class="form-group">
         <h4>Your code :</h4>
         <label for="language">Syntax highlighting language: </label>
@@ -116,15 +82,16 @@
             <option value="cpp">C++</option>
         </select>
     </div>
+
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
         {!! Form::text('start_time', $startTime, ['id' => 'startTime', 'readonly', 'hidden']) !!}
         @if ( $answer === null )
             <div class="form-group">
-                {!! Form::textarea('given_code', $exercise->start_code, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
+                {!! Form::textarea('given_code', $exercise->start_code, ['id' => 'yourcode', 'class' => 'form-control']) !!}
             </div>
         @else
             <div class="form-group">
-                {!! Form::textarea('given_code', $answer, [ 'id' => 'yourcode', 'class' => 'form-control']) !!}
+                {!! Form::textarea('given_code', $answer, ['id' => 'yourcode', 'class' => 'form-control']) !!}
             </div>
         @endif
 
@@ -159,21 +126,56 @@
                     <a href="/exercises/{{ $exercise->id }}/challenge/" class = "btn btn-primary"> Challenge a friend</a>
                 @endif
             </div>
-
         @endif
     {!! Form::close() !!}
 
     {{-- <pre>Expected output : {{ $exercise->expected_result }}</pre> --}}
 
     @if( Auth::check() && userOwnsSeries(Auth::id()) )
-    <h4><a href="/exercises/{{$exercise->id}}/referenceexercise">Reference this exercise in one of your series</a></h4>
-            <p><em>(This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise.
-            When the original exercise gets updated (or deleted), so will this one.)</em></p>
-            <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
-            <p><em>(This means that you become the new and sole author of the exercise. All the changes are your own.)</em></p>
+        <h4><a href="/exercises/{{$exercise->id}}/referenceexercise">Reference this exercise in one of your series</a></h4>
+        <p><em>
+            (This means that the you 'add' the original exercise to your series. You will have no rights for altering the exercise.
+            When the original exercise gets updated (or deleted), so will this one.)
+        </em></p>
+
+        <h4><a href="/exercises/{{$exercise->id}}/copyexercise">Copy this exercise into one of your series</a></h4>
+        <p><em>
+            (This means that you become the new and sole author of the exercise. All the changes are your own.)
+        </em></p>
     @endif
 
     <script>
+        $(window).load(function () {
+            //myScripts.initPythonSyntax();
+        });
+        function RunPython() {
+            //myScripts.initPythonSyntax();
+            skulptFunctions.runit();
+            result = skulptFunctions.result;
+        }
+        function RunCpp() {
+            //myScripts.initPythonSyntax();
+            var http = new XMLHttpRequest();
+            http.open("POST", "http://coliru.stacked-crooked.com/compile", false);
+            http.send(JSON.stringify({ "cmd": "g++-4.8 main.cpp && ./a.out", "src": document.getElementById("yourcode").value }));
+            document.getElementById("output").value = http.response;
+        }
+        function Run() {
+            var exercise = <?php echo json_encode($exercise) ?>;
+            if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>)
+                    || (exercise.expected_result != '*') ) {
+                if(exercise.language == 'python') {
+                    RunPython();
+                } else if(exercise.language == 'cpp') {
+                    RunCpp();
+                } else {
+                    //alert("Problem: No programming language found -> using Python by default ");
+                    RunPython();
+                }
+            }
+        }
+
+
         var editor;
         var exercise = <?php echo json_encode($exercise) ?>;
         $("#lang").val(exercise.language);

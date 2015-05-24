@@ -25,8 +25,8 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/groups">Groups</a></li>
                         <li><a href="/users">Users</a></li>
+                        <li><a href="/groups">Groups</a></li>
                     </ul>
                 </li>
                 <li class="dropdown ">
@@ -35,8 +35,8 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/leaderboard">Leaderboard</a></li>
                         <li><a href="/statistics">Graphs</a></li>
+                        <li><a href="/leaderboard">Leaderboard</a></li>
                     </ul>
                 </li>
                 <li class="dropdown ">

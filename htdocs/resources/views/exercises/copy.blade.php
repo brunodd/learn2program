@@ -1,16 +1,16 @@
 @extends('master')
 
 @section('head')
-<link rel="stylesheet" href="/css/codemirror.css">
-<link rel="stylesheet" href="/css/show-hint.css">
-<script src="/js/codemirror.js"></script>
-<script src="/js/mode/python/python.js"></script>
-<script src="/js/mode/clike/clike.js"></script>
-<script src="/js/addon/selection/active-line.js"></script>
-<script src="/js/addon/edit/closebrackets.js"></script>
-<script src="/js/addon/hint/show-hint.js"></script>
-<script src="/js/addon/hint/anyword-hint.js"></script>
-<script src="/js/addon/mode/loadmode.js"></script>
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/show-hint.css">
+    <script src="/js/codemirror.js"></script>
+    <script src="/js/mode/python/python.js"></script>
+    <script src="/js/mode/clike/clike.js"></script>
+    <script src="/js/addon/selection/active-line.js"></script>
+    <script src="/js/addon/edit/closebrackets.js"></script>
+    <script src="/js/addon/hint/show-hint.js"></script>
+    <script src="/js/addon/hint/anyword-hint.js"></script>
+    <script src="/js/addon/mode/loadmode.js"></script>
 @stop
 
 @section('title')
@@ -18,12 +18,11 @@
 @stop
 
 @section('content')
-
     {!! Form::open() !!}
         {!! Form::label('series_selection', 'Choose one of your series: ') !!}
         {!! Form::select('series_selection', $series, "", ['class' => 'form-control']) !!}
-	{!! Form::hidden('makerId', $exercise->makerId) !!}
-	{!! Form::hidden('id', $exercise->id) !!}
+        {!! Form::hidden('makerId', $exercise->makerId) !!}
+        {!! Form::hidden('id', $exercise->id) !!}
 
         <div class="form-group">
             {!! Form::label('question', 'Question: ') !!}
@@ -91,5 +90,4 @@
             CodeMirror.autoLoadMode(editor, m2);
         }
     </script>
-
 @stop

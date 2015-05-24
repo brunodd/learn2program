@@ -1,21 +1,15 @@
 @extends('master')
 
 @section('head')
-<link rel="stylesheet" href="/css/codemirror.css">
-<link rel="stylesheet" href="/css/show-hint.css">
-<script src="/js/codemirror.js"></script>
-<script src="/js/mode/python/python.js"></script>
-<script src="/js/mode/clike/clike.js"></script>
-<script src="/js/addon/selection/active-line.js"></script>
-<script src="/js/addon/edit/closebrackets.js"></script>
-<script src="/js/addon/hint/show-hint.js"></script>
-<script src="/js/addon/hint/anyword-hint.js"></script>
-<style type="text/css">
-      .CodeMirror {
-        border: 1px solid #eee;
-        height: auto;
-      }
-</style>
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/show-hint.css">
+    <script src="/js/codemirror.js"></script>
+    <script src="/js/mode/python/python.js"></script>
+    <script src="/js/mode/clike/clike.js"></script>
+    <script src="/js/addon/selection/active-line.js"></script>
+    <script src="/js/addon/edit/closebrackets.js"></script>
+    <script src="/js/addon/hint/show-hint.js"></script>
+    <script src="/js/addon/hint/anyword-hint.js"></script>
 @stop
 
 @section('title')
@@ -84,5 +78,4 @@
                         lineWrapping: true, autoCloseBrackets: true, globarVars: true, readOnly: true });
         }
     </script>
-
 @stop

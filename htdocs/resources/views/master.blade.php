@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>@yield('tabName')Learn 2 Program</title>
         <!-- TODO: add tabName sections to some pages -->
 

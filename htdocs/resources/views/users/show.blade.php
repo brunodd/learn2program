@@ -30,6 +30,10 @@
             display: block;
             clear: both;
         }
+
+        .col-md-3 a {
+            color: white;
+        }
     </style>
 
 @stop
@@ -58,41 +62,23 @@
             <div class="jumbotron" style="padding: 10px 35px;max-height: 600px;overflow-y: auto;position: relative;">
                 <h3 style="text-align: center;">Accomplishments</h3>
                 <div class="row">
-                <u><h4>Completed series</h4></u>
-                @foreach($allseries as $serie )
-                    @if( hasCompletedAllExercisesInSerie($user, $serie) )
-                        <strong> {{$serie->title}} </strong>
-                        <?php $exercises = getAllExercisesOfSeries($serie); ?>
-                        <div class="container-fluid">
-                        @foreach($exercises as $exercise)
-                            @if ( getAccomplishedExercise($user, $exercise) )
-                                @if ( userSucceededExercise($exercise->exId, $user->id) )
-                                <div style="float: left;">
-                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a>
-                                </div></br>
-                                <div style="float: right">
-                                    was solved correctly!
-                                </div></br>
-                                @else
-                                <div style="float: left">
-                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
-                                </div></br>
-                                <div style="float: right">
-                                    was incorrect.
-                                </div></br>
-                                @endif
-                            @endif
-                        @endforeach
-                        </div>
-                    @endif
-                @endforeach
+                    <u><h4>Completed series</h4></u>
+                    @foreach($allseries as $serie )
+                        @if( hasCompletedAllExercisesInSerie($user, $serie) )
+                            <strong><a href="/series/{{$serie->title}}">
+                                {{$serie->title}}
+                            </a></strong><br/>
+                        @endif
+                    @endforeach
                 </div>
 
                 <div class="row">
                 <u><h4>Work in progress</h4></u>
                     @foreach($allseries as $serie )
                         @if( hasNotCompletedWholeSerie($user, $serie) )
-                            <strong>{{$serie->title}}</strong>
+                            <strong><a href="/series/{{$serie->title}}">
+                                {{$serie->title}}
+                            </a></strong><br/>
                             <?php $exercises = getAllExercisesOfSeries($serie); ?>
                             <div class=container-fluid>
                             @foreach($exercises as $exercise)
@@ -129,28 +115,10 @@
                     <?php $oneNotStartedSerie = false; ?>
                     @foreach($allseries as $serie )
                         @if( hasNotStartedSerie($user, $serie) )
-                            <strong> {{$serie->title}} </strong>
+                            <strong><a href="/series/{{$serie->title}}">
+                                {{$serie->title}}
+                            </a></strong><br/>
                             <?php $oneNotStartedSerie = true; ?>
-                            <?php $exercises = getAllExercisesOfSeries($serie); ?>
-                            <div class="container-fluid">
-                            @foreach($exercises as $exercise)
-                                @if ( getAccomplishedExercise($user, $exercise) )
-                                <div style="float: left">
-                                    <a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
-                                </div></br>
-                                <div style="float: right">
-                                    has been accomplished!
-                                </div></br>
-                                @else
-                                <div style="float: left">
-                                    <em><a href="/exercises/{{ $exercise->id }}" style="color: white">{{ firstChars($exercise->question, 20) }}</a></em>
-                                </div></br>
-                                <div style="float: right">
-                                    has not been started yet!
-                                </div></br>
-                                @endif
-                            @endforeach
-                            </div>
                         @endif
                     @endforeach
                     <?php if(!$oneNotStartedSerie) echo "You started all the series! Nicely done! \n"?>
