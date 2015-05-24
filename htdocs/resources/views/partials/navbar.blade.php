@@ -8,14 +8,14 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/series">Series</a></li>
-                <li><a href="/exercises">Exercises</a></li>
-                <li><a href="/groups">Groups</a></li>
-                <li><a href="/users">Users</a></li>
-                <li><a href="/leaderboard">Leaderboard</a></li>
-                <li><a href="/statistics">Statistics</a></li>
-                <li><a href="/guides">Guides</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="/series" style="font-size:13px">Series</a></li>
+                <li><a href="/exercises" style="font-size:13px">Exercises</a></li>
+                <li><a href="/groups" style="font-size:13px">Groups</a></li>
+                <li><a href="/users" style="font-size:13px">Users</a></li>
+                <li><a href="/leaderboard" style="font-size:13px">Leaderboard</a></li>
+                <li><a href="/statistics" style="font-size:13px">Statistics</a></li>
+                <li><a href="/guides" style="font-size:13px">Guides</a></li>
+                <li><a href="/about" style="font-size:13px">About</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
