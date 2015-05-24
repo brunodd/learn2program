@@ -136,7 +136,7 @@ CREATE TABLE exercises (
     start_code TEXT NOT NULL,
     expected_result TEXT NOT NULL,
     makerId INT NOT NULL,
-    language TEXT NOT NULL,
+    language VARCHAR(20) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (makerId) REFERENCES users(id) ON DELETE CASCADE
 );
