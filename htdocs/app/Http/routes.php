@@ -20,6 +20,7 @@
 // Miscellaneous routes
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
+Route::get('faqs', 'PagesController@faqs');
 Route::resource('messages', 'MessagesController', ['only' => ['index', 'show', 'store']]);
 Route::get('statistics', 'StatisticsController@home');
 Route::get('leaderboard', 'LeaderboardController@index');

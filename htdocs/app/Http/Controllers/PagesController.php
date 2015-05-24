@@ -18,6 +18,11 @@ class PagesController extends Controller {
         return view('pages.about');
     }
 
+    public function faqs()
+    {
+        return view('pages.faqs');
+    }
+
     public function code()
     {
         return view('pages.code');
