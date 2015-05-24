@@ -81,7 +81,7 @@
             <div class="series">
                 @foreach($exercises as $ex)
                     <div class="mix ttr" onclick="window.location.href='/exercises/{{$ex->id}}';" style="display: block">
-                        <div class="ttd" style="width: 100%;">{{ $ex->question }}</div>
+                        <div class="ttd" style="width: 100%;">{{ strip_tags($ex->question) }}</div>
                     </div>
                 @endforeach
             </div>

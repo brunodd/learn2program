@@ -20,8 +20,8 @@
 
         <div class="series" id="mix-wrapper">
             @foreach($exercises as $ex)
-                <div class="mix ttr" data-question="{{ $ex->question }}" data-language="{{ $ex->language }}" onclick="window.location.href='{{ action('ExercisesController@show', [$ex->id])}}';">
-                    <div class="ttd" style="width: calc(80% - 3px);">{{ $ex->question }}</div>
+                <div class="mix ttr" data-question="{{ strip_tags($ex->question) }}" data-language="{{ $ex->language }}" onclick="window.location.href='{{ action('ExercisesController@show', [$ex->id])}}';">
+                    <div class="ttd" style="width: calc(80% - 3px);">{{ strip_tags($ex->question) }}</div>
                     <div class="ttd dd"  style="width: calc(20% - 3px);">{{ $ex->language }}</div>
                 </div>
             @endforeach
