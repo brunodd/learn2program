@@ -10,6 +10,12 @@
 <script src="/js/addon/edit/closebrackets.js"></script>
 <script src="/js/addon/hint/show-hint.js"></script>
 <script src="/js/addon/hint/anyword-hint.js"></script>
+<style type="text/css">
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+      }
+</style>
 @stop
 
 @section('title')

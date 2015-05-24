@@ -50,6 +50,7 @@
 <script src="/js/addon/edit/closebrackets.js"></script>
 <script src="/js/addon/hint/show-hint.js"></script>
 <script src="/js/addon/hint/anyword-hint.js"></script>
+<script src="/js/addon/mode/loadmode.js"></script>
 @stop
 
 @section('title')
@@ -107,8 +108,14 @@
     </div>
 
     <div style="clear: both;"></div>
-    <h4>Your code :</h4>
-
+    <div class="form-group">
+        <h4>Your code :</h4>
+        <label for="language">Syntax highlighting language: </label>
+        <select id="lang" onchange="changeSyntax();" name="language">
+            <option value="python">Python</option>
+            <option value="cpp">C++</option>
+        </select>
+    </div>
     {!! Form::open(['action' => ['ExercisesController@storeAnswer', $exercise->id]]) !!}
         {!! Form::text('start_time', $startTime, ['id' => 'startTime', 'readonly', 'hidden']) !!}
         @if ( $answer === null )
@@ -167,33 +174,38 @@
     @endif
 
     <script>
+        var editor;
         var exercise = <?php echo json_encode($exercise) ?>;
+        $("#lang").val(exercise.language);
         if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
 
+        CodeMirror.commands.autocomplete = function(cm) {
+            cm.showHint({hint: CodeMirror.hint.anyword});
+        }
+        CodeMirror.commands.autocomplete2 = function(cm) {
+            cm.showHint({hint: CodeMirror.hint.show});
+        }
         if(exercise.language == 'cpp') {
-            CodeMirror.commands.autocomplete = function(cm) {
-                cm.showHint({hint: CodeMirror.hint.anyword});
-	        }
-            CodeMirror.commands.autocomplete2 = function(cm) {
-                cm.showHint({hint: CodeMirror.hint.show});
-	        }
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
             extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "text/x-c++src", styleActiveLine: true, lineNumbers: true,
                     lineWrapping: true, autoCloseBrackets: true, globarVars: true });
-            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
         } else {
-            CodeMirror.commands.autocomplete = function(cm) {
-                cm.showHint({hint: CodeMirror.hint.anyword});
-	        }
-            CodeMirror.commands.autocomplete2 = function(cm) {
-                cm.showHint({hint: CodeMirror.hint.show});
-	        }
             var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
             extraKeys: {"Ctrl-Space": "autocomplete2", "Alt-Space": "autocomplete"},
             mode: "python", styleActiveLine: true, lineNumbers: true,
                         lineWrapping: true, autoCloseBrackets: true, globarVars: true });
-            editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        }
+        editor.on("change", function() { document.getElementById("yourcode").value = editor.getValue() });
+        function changeSyntax() {
+            var m1 = "python";
+            var m2 = "python";
+            if( $("#lang").val() == 'cpp' ) {
+                m1 = "text/x-c++src";
+                m2 = "clike";
+            }
+            editor.setOption("mode", m1);
+            CodeMirror.autoLoadMode(editor, m2);
         }
     </script>
 @stop
