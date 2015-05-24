@@ -47,7 +47,9 @@
 
         <div class="form-group">
             {!! Form::label('expected_result', 'Expected result, i.e. the output of the program: ') !!}
-	    {!! Form::textarea('expected_result', $exercise->expected_result, ['class' => 'form-control']) !!}
+            {!! Form::textarea('expected_result', null,
+                    ['class' => 'form-control', 'placeholder'=>'Leave empty if you wish to copy the original solution...']) !!}
+            {!! Form::hidden('oer', $exercise->expected_result) !!}
         </div>
 
 

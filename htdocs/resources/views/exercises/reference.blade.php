@@ -40,8 +40,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('expected_result', 'Expected result, i.e. the output of the program: ') !!}
-            {!! Form::textarea('expected_result', $exercise->expected_result, ['class' => 'form-control', 'readonly']) !!}
+            {!! Form::hidden('expected_result', $exercise->expected_result) !!}
         </div>
 
 

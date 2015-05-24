@@ -21,9 +21,7 @@ class ExercisesController extends Controller {
 	 */
 	public function index()
 	{
-		$exercises = [];
-        if( Auth::check() ) $exercises = loadAllAccessableExercises(Auth::id());
-        else $exercises = loadAllFirstExercises();
+        $exercises = loadAllExercises();
 		return view('exercises.home', compact('exercises'));
 	}
 
@@ -75,24 +73,24 @@ class ExercisesController extends Controller {
         }
         \Session::put('currentSerie', $sId);
 
-        if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
-                                                                        or isMakerOfSeries($sId, Auth::id()) )
-        {
-            $exercise = loadExercise($id)[0];
-            $result = null;
-            $answer = null;
-            if (\Session::has('result')) $result = \Session::pull('result', '');
-            if (\Session::has('answer')) $answer = \Session::pull('answer', '');
+//        if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
+//                                                                        or isMakerOfSeries($sId, Auth::id()) )
+//        {
+        $exercise = loadExercise($id)[0];
+        $result = null;
+        $answer = null;
+        if (\Session::has('result')) $result = \Session::pull('result', '');
+        if (\Session::has('answer')) $answer = \Session::pull('answer', '');
 
-		    return view('exercises.show', compact('exercise', 'result', 'answer', 'sId', 'startTime'));
-        }
-        else {
+        return view('exercises.show', compact('exercise', 'result', 'answer', 'sId', 'startTime'));
+//        }
+/*        else {
             flash()->error("You must first complete one or more preceding exercises.");
             $exercise = nextExerciseInLine($id, Auth::id(), $sId)[0];
             $result = null;
             $answer = null;
             return redirect('exercises/' . $exercise->exId);
-        }
+        }*/
 	}
 
 	/**

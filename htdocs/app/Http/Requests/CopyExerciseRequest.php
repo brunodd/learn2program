@@ -3,7 +3,7 @@
 use App\Http\Requests\Request;
 use Auth;
 
-class CreateExerciseRequest extends Request {
+class CopyExerciseRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,8 +12,6 @@ class CreateExerciseRequest extends Request {
 	 */
 	public function authorize()
 	{
-		//This check is rather redundant since we tackle this problem already in the createExercise function
-        //The other possibility can occur during update, which is also handled locally...
         return true;
     }
 
@@ -26,7 +24,6 @@ class CreateExerciseRequest extends Request {
 	{
 		return [
 			'question' => 'required',
-            'expected_result' => 'required',
             'start_code' => 'required'
 		];
 	}

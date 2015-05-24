@@ -13,6 +13,7 @@ use Request;    // Enable use of 'Request' in stead of 'Illuminate\Http\Request'
 use App\Http\Requests\CreateSerieRequest;
 use App\Http\Requests\UpdateSerieRequest;
 use App\Http\Requests\CreateExerciseRequest;
+use App\Http\Requests\CopyExerciseRequest;
 use App\Http\Requests\CreateRatingRequest;
 use Auth;
 
@@ -324,6 +325,7 @@ class SeriesController extends Controller {
     }
     public function storeReference($id, Request $request)
     {
+        return $request::all();
         $input = $request::all();
 
         addToSeries($id, $input['series_selection']);
@@ -338,7 +340,7 @@ class SeriesController extends Controller {
         return redirect('series/' . $input['series_selection']);
     }
 
-    public function storeCopy($id, CreateExerciseRequest $request)
+    public function storeCopy($id, CopyExerciseRequest $request)
     {
         $input = $request->all();
 
@@ -346,7 +348,8 @@ class SeriesController extends Controller {
         $exercise->question = $input['question'];
         $exercise->tips = $input['tips'];
         $exercise->start_code = $input['start_code'];
-        $exercise->expected_result = $input['expected_result'];
+        if( $input['expected_result'] == "") $exercise->expected_result = $input['oer'];
+        else $exercise->expected_result = $input['expected_result'];
         $exercise->seriesId = $input['series_selection'];
         $exercise->makerId = Auth::id();
         $exercise->language = $input['language'];
