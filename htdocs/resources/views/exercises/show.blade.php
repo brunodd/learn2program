@@ -67,14 +67,16 @@
     <?php $times = []; ?>
     <?php array_push($times, $startTime) ?>
 
-    <h3 style="float:left;margin-top: 0;padding-top: 0">{!! $exercise->question !!}</h3>
-
-    <div class="mytooltip" title="{{ str_replace('\n', '&#xa;', $exercise->tips) }}">
-        <div title=" " class="btn btn-primary">Tips</div>
+    <div class="container col-md-10 col-md-offset-1">
+        {!! $exercise->question !!}
     </div>
+
     <div style="clear: both;"></div>
 
     <div class="form-group">
+        <div class="mytooltip" title="{{ str_replace('\n', '&#xa;', $exercise->tips) }}">
+            <div title=" " class="btn btn-primary">Tips</div>
+        </div>
         <h4>Your code :</h4>
         <label for="language">Syntax highlighting language: </label>
         <select id="lang" onchange="changeSyntax();" name="language">
