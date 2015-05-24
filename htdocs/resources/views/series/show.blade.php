@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('head')
+    <link rel="stylesheet" href="/css/sortingAndFiltering.css">
     <link rel="stylesheet" href="/bootstrap-star-rating/css/star-rating.css">
     <script src="/bootstrap-star-rating/js/star-rating.js"></script>
 
@@ -72,40 +73,49 @@
     </div>
 
     <div style="float: left; width: calc(100% - 230px);">
-        <h3 style="margin-top: 0;">Description :</h3>
-
+        <h3 style="margin-top: 0;">Description:</h3>
         <p>{{$serie->description}}</p>
 
-        <h3>List of {{ $serie->title }}'s exercises :</h3>
-
+        <h3>Exercises:</h3>
         @if ( $exercises )
-            @foreach ( $exercises as $ex )
-                <h4><a href="/exercises/{{$ex->id}}">{{ first20chars($ex->question) }}</a></h4>
-            @endforeach
+            <div class="series">
+                @foreach($exercises as $ex)
+                    <div class="mix ttr" onclick="window.location.href='/exercises/{{$ex->id}}';" style="display: block">
+                        <div class="ttd" style="width: 100%;">{{ $ex->question }}</div>
+                    </div>
+                @endforeach
+            </div>
         @endif
         <br>
+
+
+        <h3>Recommended for you:</h3>
+        <?php   $result = returnRecommendations($serie);
+                $emptyRecommendations = true; ?>
+
+        <div class="series">
+            @foreach($result as $temp)
+                @if ( !isEmptySeries($temp) )
+                    <?php $emptyRecommendations = false; ?>
+                    <div class="mix ttr" onclick="window.location.href='/series/{{$temp->title}}';" style="display: block">
+                        <div class="ttd" style="width: 100%;">{{ $temp->title }}</div>
+                    </div>
+                @endif
+            @endforeach
+
+            @if ( $emptyRecommendations )
+                <?php $recommendations = returnSeriesRandom($serie); ?>
+                @foreach($recommendations as $temp)
+                    @if ( !isEmptySeries($temp) )
+                        <div class="mix ttr" onclick="window.location.href='/series/{{$temp->title}}';" style="display: block">
+                            <div class="ttd" style="width: 100%;">{{ $temp->title }}</div>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
+        </div>
     </div>
     <div style="clear: both"></div>
-
-    <h3>Recommended for you :</h3>
-    <?php   $result = returnRecommendations($serie);
-            $emptyRecommendations = true; ?>
-            
-    @foreach($result as $temp)
-        @if ( !isEmptySeries($temp) )
-            <?php $emptyRecommendations = false; ?>
-            <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
-        @endif
-    @endforeach
-    @if ( $emptyRecommendations )
-        <?php $recommendations = returnSeriesRandom($serie); ?>
-        @foreach($recommendations as $temp)
-            @if ( !isEmptySeries($temp) )
-                <?php $emptyRecommendations = false; ?>
-                <h4><a href="/series/{{$temp->title}}/">{{ $temp->title }}</a></h4>
-            @endif
-        @endforeach
-    @endif
 
     @if ( $serie->makerId === Auth::id() )
         <hr style="margin-top: 50px;"/>

@@ -7,7 +7,7 @@
 @section('content')
     <ul>
         @foreach($notifications as $notification)
-            <h3>{!! $notification->message !!}</h3>
+            <h4>{!! $notification->message !!}</h4>
         @endforeach
     </ul>
 @stop
