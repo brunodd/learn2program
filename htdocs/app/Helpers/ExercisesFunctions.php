@@ -198,10 +198,11 @@ function loadExercisesSearch($s) {
 }
 
 function loadAllAccomplishedExercises($user) {
-    $tabel = DB::select('SELECT DISTINCT *
+    $tabel = DB::select('SELECT DISTINCT eId
                          FROM answers
                          WHERE uId = ?
                          and success=true',
                          [$user->id]);
+
     return count($tabel);
 }
