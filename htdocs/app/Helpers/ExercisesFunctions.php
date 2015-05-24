@@ -206,3 +206,8 @@ function loadAllAccomplishedExercises($user) {
 
     return count($tabel);
 }
+
+function DisplayLanguage($lang) {
+    if( $lang == 'python' ) return "Python";
+    elseif( $lang == 'cpp' ) return "C++";
+}
