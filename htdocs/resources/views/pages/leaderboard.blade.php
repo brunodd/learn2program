@@ -5,8 +5,12 @@
 @stop
 
 @section('content')
-        <h3>Users: <center>Score:</center></h3>
-
+<table style="width:100%;">
+ <tr>
+    <td style="width:50%;text-align: left;"><h3>Users:</h3></td>
+    <td style="width:50%;text-align: left; position:relative; right:35px; top:10px;"><h3>Score:</h3></td>
+  </tr>
+</table>
         @foreach($usersRanked as $user)
             <div class="user">
                 <div class="userimage" onclick="location.href='{{ action('UsersController@show', $user->username )}}'">
