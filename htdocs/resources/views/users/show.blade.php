@@ -84,7 +84,7 @@
                             @foreach($exercises as $exercise)
                                 <div style="float: left">
                                     <em><a href="/exercises/{{ $exercise->id }}" style="color: white">
-                                    {!! firstChars(strip_tags($exercise->question), 20) !!}</a></em>
+                                    {{ firstChars(strip_tags($exercise->question), 20) }}</a></em>
                                 </div></br>
                                 @if ( userSucceededExercise($exercise->exId, $user->id) )
                                 <div style="float: right">

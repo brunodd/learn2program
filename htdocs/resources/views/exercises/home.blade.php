@@ -9,7 +9,7 @@
 
     <ul>
         @foreach($exercises as $ex)
-            <h3><a href="{{ action('ExercisesController@show', [$ex->id])}}">{{ firstChars($ex->question, 50) }}</a></h3>
+            <h3><a href="{{ action('ExercisesController@show', [$ex->id])}}">{{ firstChars(strip_tags($ex->question), 50) }}</a></h3>
         @endforeach
     </ul>
 @stop

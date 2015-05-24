@@ -80,7 +80,7 @@
 
         @if ( $exercises )
             @foreach ( $exercises as $ex )
-                <h4><a href="/exercises/{{$ex->id}}">{{ first20chars($ex->question) }}</a></h4>
+                <h4><a href="/exercises/{{$ex->id}}">{{ first20chars(strip_tags($ex->question)) }}</a></h4>
             @endforeach
         @endif
         <br>
