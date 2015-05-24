@@ -131,7 +131,7 @@ CREATE TABLE series_ratings (
 */
 CREATE TABLE exercises (
     id INT AUTO_INCREMENT,
-    question VARCHAR(500) NOT NULL,
+    question TEXT NOT NULL,
     tips VARCHAR(500),
     start_code TEXT NOT NULL,
     expected_result TEXT NOT NULL,

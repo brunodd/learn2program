@@ -11,6 +11,19 @@
     <script src="/js/addon/hint/show-hint.js"></script>
     <script src="/js/addon/hint/anyword-hint.js"></script>
     <script src="/js/addon/mode/loadmode.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({
+        mode: "specific_textareas",
+        editor_selector : "mceEditor",
+        theme: "modern",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons" });
+        </script>
 @stop
 
 @section('title')
@@ -19,14 +32,15 @@
 
 @section('content')
     {!! Form::open() !!}
-        {!! Form::label('series_selection', 'Choose one of your series: ') !!}
-        {!! Form::select('series_selection', $series, "", ['class' => 'form-control']) !!}
-        {!! Form::hidden('makerId', $exercise->makerId) !!}
-        {!! Form::hidden('id', $exercise->id) !!}
-
+        <div class="form-group">
+            {!! Form::label('series_selection', 'Choose one of your series: ') !!}
+            {!! Form::select('series_selection', $series, "", ['class' => 'form-control']) !!}
+            {!! Form::hidden('makerId', $exercise->makerId) !!}
+            {!! Form::hidden('id', $exercise->id) !!}
+        </div>
         <div class="form-group">
             {!! Form::label('question', 'Question: ') !!}
-	    {!! Form::text('question', $exercise->question, ['class' => 'form-control']) !!}
+	    {!! Form::textarea('question', $exercise->question, ['class' => 'form-control mceEditor']) !!}
         </div>
 
         <div class="form-group">
@@ -48,7 +62,7 @@
         <div class="form-group">
             {!! Form::label('expected_result', 'Expected result, i.e. the output of the program: ') !!}
             <p>Note 1: The answer checks use regular expressions to match the generated result. If you want to match an exact answer, surround the expected result with the '^' and '$' symbols.
-            For example: to match the string 'foo bar'. Enter ^foo bar$, if you merely want to check if the string 'foo' is in the text, just foo will suffice. 
+            <br>For example: to match the string 'foo bar'. Enter ^foo bar$, if you merely want to check if the string 'foo' is in the text, just foo will suffice. <br>
             <em>(If you need some reminders on using regular expressions, visit <a href=http://lzone.de/examples/PHP%20preg_match>this cheat sheet</a>.)</em>
             </p>
             <p>Note 2: If you wish to create an exercise from which the result should/can not be verified <i>(e.g. turtle graphics)</i>.

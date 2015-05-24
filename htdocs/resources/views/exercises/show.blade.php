@@ -67,7 +67,7 @@
     <?php $times = []; ?>
     <?php array_push($times, $startTime) ?>
 
-    <h3 style="float:left;margin-top: 0;padding-top: 0">{{ $exercise->question }}</h3>
+    <h3 style="float:left;margin-top: 0;padding-top: 0">{!! $exercise->question !!}</h3>
 
     <div class="mytooltip" title="{{ str_replace('\n', '&#xa;', $exercise->tips) }}">
         <div title=" " class="btn btn-primary">Tips</div>
