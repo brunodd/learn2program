@@ -24,7 +24,7 @@
             @foreach($guides as $guide)
             <div class="mix ttr {{ $guide->title }}" 
                         data-title="{{$guide->title}}" data-author="{{ loadUser($guide->writerId)[0]->username }}"
-                        onclick="window.location.href='/guides/{{$guide->title}}';">
+                        onclick="window.location.href='/guides/{{$guide->id}}';">
                 <div class="ttd" style="width: calc(50% - 3px); text-align: center">{{$guide->title}}</div>
                 <div class="ttd dd" style="width: calc(50% - 3px); text-align: center">{{ loadUser($guide->writerId)[0]->username }}</div>
             </div>

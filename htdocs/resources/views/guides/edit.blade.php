@@ -28,6 +28,11 @@
             </div>
 
             <div class="form-group">
+                <div style="color: white;">
+                <a href="{{ action('GuidesController@show', $guide->title )}}"
+                    class="btn btn-primary pull-right" style="margin-left: 5px">
+                    <i class="glyphicon glyphicon-remove-sign"></i> Cancel</a>
+                </div>
                 {!! Form::submit('Update guide', ['class' => 'btn btn-primary pull-right']) !!}
             </div>
         {!! Form::close() !!}

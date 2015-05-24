@@ -23,7 +23,7 @@
 
         <div class="series" id="mix-wrapper">
             @foreach($groups as $group)
-                <div class="mix ttr" data-name="{{ $group->name }}" data-founder="{{ loadUser($group->founderId)[0]->username }}" data-memberc="{{ count(listUsersOfGroup($group->id)) }}" onclick="window.location.href='/groups/{{$group->name}}';">
+                <div class="mix ttr" data-name="{{ $group->name }}" data-founder="{{ loadUser($group->founderId)[0]->username }}" data-memberc="{{ count(listUsersOfGroup($group->id)) }}" onclick="window.location.href='/groups/{{$group->id}}';">
                     <div class="ttd" style="width: calc(33.3333333% - 3px);">{{ $group->name }}</div>
                     <div class="ttd dd"  style="width: calc(33.3333333% - 3px);">{{ loadUser($group->founderId)[0]->username }}</div>
                     <div class="ttd dd"  style="width: calc(33.3333333% - 3px);">{{ count(listUsersOfGroup($group->id)) }}</div>
