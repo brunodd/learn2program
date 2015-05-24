@@ -18,5 +18,6 @@ sed -i.bak 's/DB_PASSWORD=/DB_PASSWORD='$password'/g' '../htdocs/.env'
 # Load database
 mysql -u "${username}" -p "${password}" < ../database/learn2program.sql
 
+
 # Seeding database
 php ../htdocs/artisan db:seed

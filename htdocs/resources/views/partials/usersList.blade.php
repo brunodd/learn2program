@@ -5,7 +5,7 @@
         </div>
         <div class="userdata">
             <a href="{{ action('UsersController@show', $user->username )}}">{{ $user->username }}</a>
-            <div class="aboutuser">{!! $user->info !!}</div>
+            <div class="aboutuser">{!! firstChars(strip_tags($user->info), 50) !!}</div>
         </div>
         <div style="clear: both;"></div>
     </div>

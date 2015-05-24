@@ -56,7 +56,7 @@
 
         <div class="form-group">
             {!! Form::label('tips', 'Tips: ') !!}
-	    {!! Form::textarea('tips', $exercise->tips, ['class' => 'form-control']) !!}
+	    {!! Form::textarea('tips', $exercise->tips, ['class' => 'form-control mceEditor']) !!}
         </div>
 
         <div class="form-group">
