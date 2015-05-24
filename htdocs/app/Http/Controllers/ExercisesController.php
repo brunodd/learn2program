@@ -77,7 +77,7 @@ class ExercisesController extends Controller {
 //                                                                        or isMakerOfSeries($sId, Auth::id()) )
 //        {
         $exercise = loadExercise($id)[0];
-        $exercise->expected_result = null;
+        if( $exercise->expected_result != "*" ) $exercise->expected_result = null;
         $result = null;
         $answer = null;
         if (\Session::has('result')) $result = \Session::pull('result', '');
