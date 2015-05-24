@@ -17,7 +17,8 @@ class ExercisesTableSeeder extends Seeder {
                 'print("Hello, world")',
             'expected_result' =>
 '^[Hh]ello[,]? [Ww]orld$',
-            'makerId' => 1]);
+            'makerId' => 1,
+            'language' => 'python']);
 
         Exercise::create([
             'question' => 'Print \'Hello, \'*your name*.',
@@ -25,7 +26,8 @@ class ExercisesTableSeeder extends Seeder {
             'start_code' => 'print("")',
             'expected_result' =>
 '[hH]ello, [A-Za-z]+',
-            'makerId' => 1
+            'makerId' => 1,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -34,7 +36,8 @@ class ExercisesTableSeeder extends Seeder {
             'start_code' => '"All work and no play makes Jack a dull boy"',
             'expected_result' =>
 'All work and no play makes Jack a dull boy',
-            'makerId' => 2
+            'makerId' => 2,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -45,7 +48,8 @@ class ExercisesTableSeeder extends Seeder {
 print(result)',
             'expected_result' =>
 '-6',
-            'makerId' => 2
+            'makerId' => 2,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -59,7 +63,8 @@ print(result)',
 print(nine_dots())',
             'expected_result' =>
 '.........',
-            'makerId' => 3
+            'makerId' => 3,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -70,7 +75,8 @@ print(nine_dots())',
     <fill in your code here>',
             'expected_result' =>
 '([A-Za-z0-9]+\n){5}',
-            'makerId' => 3
+            'makerId' => 3,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -85,7 +91,8 @@ else:
     print x, "and", y, "are equal"',
             'expected_result' =>
 '[0-9]+ is greater than [0-9]+',
-            'makerId' => 4
+            'makerId' => 4,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -95,7 +102,8 @@ else:
 print(the_answer)',
             'expected_result' =>
 '42',
-            'makerId' => 4
+            'makerId' => 4,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -105,7 +113,8 @@ print(the_answer)',
 print(number)',
             'expected_result' =>
 '6765',
-            'makerId' => 4
+            'makerId' => 4,
+            'language' => 'python'
         ]);
 
         Exercise::create([
@@ -150,7 +159,8 @@ for color in colors:
         draw_track(r, color)
 ',
             'expected_result' => '*',
-            'makerId' => 2]);
+            'makerId' => 2,
+            'language' => 'python']);
 //         Exercise::create([
 //             'question' => '',
 //             'tips' => '',
@@ -168,6 +178,54 @@ for color in colors:
 // '',
 //             'makerId' => 2
 //         ]);
+        Exercise::create([
+            'question' => 'Introduce yourself with C++ classes',
+            'tips' => 'Use the C++ reference to learn more about classes',
+            'start_code' =>
+'#include<iostream>
+class Myclass {
+  private:
+  	int myint;
+  public:
+  	Myclass(const int& i){myint = i;};
+  	int getInt() {return myint;};
+};
+
+int main() {
+  	Myclass mc(10);
+    std::cout << mc.getInt();
+}',
+            'expected_result' => '*',
+            'makerId' => 3,
+            'language' => 'cpp'
+        ]);
+
+        Exercise::create([
+            'question' => 'Convert the following C++ code into Python',
+            'tips' => 'You should first learn both languages...',
+            'start_code' =>
+'#include <iostream>
+
+int main(){
+  std::cout << "Get Rekt..." << std::endl;
+}',
+            'expected_result' => '^Get Rekt...$',
+            'makerId' => 3,
+            'language' => 'python'
+        ]);
+
+        Exercise::create([
+            'question' => 'Convert the following Python code to C++',
+            'tips' => 'You should first learn both languages...',
+            'start_code' =>
+'sum = 0
+for i in range(10)
+    sum = sum + i
+print(i)',
+            'expected_result' => '^45$',
+            'makerId' => 3,
+            'language' => 'cpp'
+        ]);
 
     }
 }

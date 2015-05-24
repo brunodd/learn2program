@@ -17,6 +17,8 @@ class ExercisesInSeriesTableSeeder extends Seeder {
         DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [8, 4, 2]);
         DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [9, 4, 3]);
         DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [10, 5, 1]);
-
+        DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [11, 3, 3]);
+        DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [12, 3, 4]);
+        DB::insert('insert into exercises_in_series (exId , seriesId, ex_index) VALUES (?, ?, ?)', [13, 3, 5]);
     }
 }

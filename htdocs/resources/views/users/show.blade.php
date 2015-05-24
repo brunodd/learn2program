@@ -160,7 +160,7 @@
 
         <div class=col-md-7>
         <h2>About {{$user->username}}:</h2>
-            <p>{!! $user->info !!}</p>
+        {!! $user->info !!}
         </div>
 
         <div class="col-md-2">
