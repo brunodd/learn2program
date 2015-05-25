@@ -36,42 +36,6 @@ class GroupsController extends Controller {
 		return view('groups.home', compact('groups'));
 	}
 
-    public function indexSortedByNameASC()
-    {
-        $groups = loadAllGroupsSortedByNameASC();
-        return view('groups.home', compact('groups'));
-    }
-
-    public function indexSortedByNameDESC()
-    {
-        $groups = loadAllGroupsSortedByNameDESC();
-        return view('groups.home', compact('groups'));
-    }
-
-    public function indexSortedByFounderASC()
-    {
-        $groups = loadAllGroupsSortedByFounderASC();
-        return view('groups.home', compact('groups'));
-    }
-
-    public function indexSortedByFounderDESC()
-    {
-        $groups = loadAllGroupsSortedByFounderDESC();
-        return view('groups.home', compact('groups'));
-    }
-
-    public function indexSortedByMCASC()
-    {
-        $groups = loadAllGroupsSortedByMCASC();
-        return view('groups.home', compact('groups'));
-    }
-
-    public function indexSortedByMCDESC()
-    {
-        $groups = loadAllGroupsSortedByMCDESC();
-        return view('groups.home', compact('groups'));
-    }
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -178,7 +142,6 @@ class GroupsController extends Controller {
         $request->type = $request->type == "private" ? true : false;
         updateGroup($id, $request);
 
-        //TODO: Notify members of change
         flash()->success('Your group has been successfully updated.');
         return redirect('groups/' . $request->name);
 	}
@@ -191,7 +154,7 @@ class GroupsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//TODO
+
 	}
 
 
@@ -199,7 +162,6 @@ class GroupsController extends Controller {
         if(empty(loadGroup($id)))
         {
             flash()->error('That group does not exist')->important();
-            return redirect('groups');
             return redirect('groups');
         }
         else if (!isFounderOfGroup($id, Auth::id()))

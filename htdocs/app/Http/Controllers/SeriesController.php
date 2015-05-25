@@ -23,10 +23,7 @@ class SeriesController extends Controller {
      *
      */
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index','indexSortedByNameASC', 'indexSortedByNameDESC',
-                                            'indexSortedByRatingASC', 'indexSortedByRatingDESC',
-                                            'indexSortedByDiffASC', 'indexSortedByDiffDESC',
-                                            'indexSortedBySubASC', 'indexSortedBySubDESC', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
 
@@ -39,54 +36,6 @@ class SeriesController extends Controller {
 	{
         \Session::forget('currentSerie');
         $series = loadAllDistinctSeries();
-		return view('series.home', compact('series'));
-	}
-
-	public function indexSortedByNameASC()
-	{
-        $series = loadSeriesSortedByNameASC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedByRatingASC()
-	{
-        $series = loadSeriesSortedByRatingASC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedByDiffASC()
-	{
-        $series = loadSeriesSortedByDiffASC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedBySubASC()
-	{
-        $series = loadSeriesSortedBySubASC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedByNameDESC()
-	{
-        $series = loadSeriesSortedByNameDESC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedByRatingDESC()
-	{
-        $series = loadSeriesSortedByRatingDESC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedByDiffDESC()
-	{
-        $series = loadSeriesSortedByDiffDESC();
-		return view('series.home', compact('series'));
-	}
-
-    public function indexSortedBySubDESC()
-	{
-        $series = loadSeriesSortedBySubDESC();
 		return view('series.home', compact('series'));
 	}
 
@@ -253,7 +202,7 @@ class SeriesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//TODO: allow users to delete series, check SQL file comments
+
 	}
 
     public function createExercise($id)
@@ -388,7 +337,7 @@ class SeriesController extends Controller {
 
     public function updateRating($id, UpdateRatingRequest $request)
     {
-        //TODO: Allow users to update their rating in case they change their mind or series get updated
+
     }
 
     public function mySeries() {

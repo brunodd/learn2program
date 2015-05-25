@@ -36,7 +36,6 @@ class Authenticate {
 		{
 			if ($request->ajax())
 			{
-                //TODO: zien hoe dit werkt
 				return response('Unauthorized ajax request.', 401);
 			}
 			else

@@ -48,6 +48,9 @@ $ php artisan serve
 ~~~
 
 ## Install manually (not recommended)
+
+
+<!---
 ###Python interpreter
 Install dependencies (-g flag is optional for global installation):
 
@@ -64,64 +67,52 @@ $ cd [../learn2program]/htdocs/public/skulpt
 $ ./skulpt.py dist
 ~~~
 Set-up should now be completed.
+-->
+
 
 ###Environment
-Hernoem file:
+Rename file:
 
 ~~~sh
-$ mv htdocs/.env.example htdocs/.env
+$ cp htdocs/.envbackup htdocs/.env
 ~~~
 
-Aanpassingen:
+In the .env file:
 
 DB_HOST=127.0.0.1
 DB_DATABASE=learn2program_db
 DB_USERNAME=root
 DB_PASSWORD=
 
-[Al de rest mag ongewijzigd blijven]
+[The rest doesnt matter]
 
 ###Database
-- Installeren (manier 1)
+- Installing
 
-[opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
+[Note: by default for mysql: username = "root", password = ""]
 
-Create tables:
+Create database with empty tables:
 
 ~~~sh
 $ mysql -u root -p < database/learn2program.mysql
 ~~~
 
-- Installeren (manier 2)
-Create tables and insert values into them:
+Seed the database:
 
 ~~~sh
-$ mysql -u root -p
-mysql> create database learn2program_db;
-mysql> exit
-$ php artisan migrate --seed
-~~~
-or
-~~~sh
-$ php artisan migrate
+$ cd htdocs/
 $ php artisan db:seed
 ~~~
-Neemt tables in database/migrations en inputs in database/seeds
 
-- Testen:
+- Testing:
 
 ~~~sh
 $ mysql -u root -p
 mysql> use learn2program_db;
-( mysql> insert into Users(username, pass) Values("myname", "mypassword"); )
 mysql> select * from Users;
 ~~~
 
-Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de database werkt.
-
 ###Server
-
-Navigeer naar juiste dir/
 
 ~~~sh
 $ cd htdocs/
@@ -140,38 +131,36 @@ $ composer install
 $ php artisan serve
 ~~~
 
-Toegankelijk via "localhost:8000"
+Website will be accessible through "localhost:8000"
 
 - Custom URL & port
 
-[opmerking: sudo rechten kunnen vereist zijn]
+[Note: might need sudo rights]
 
 ~~~sh
 $ php artisan serve --host=learn2program.dev --port=80
 ~~~
 
-Pas /etc/hosts aan met volgende entry
+Update /etc/hosts with following entry
 
 ~~~
 127.0.0.1		learn2program.dev	www.learn2program.dev
 ~~~
 
-Toegankelijk via "learn2program.dev"
+Website will be accessible through "learn2program.dev"
 
-- Testen:
+- Test:
 
-Typ in browser:
+Type in browser:
 
 localhost:8000
 
-of
+or
 
 http://www.learn2program.dev
 
-klik maar wat rond...
-
 ##Routes
-Om te zien welke routes beschikbaar zijn, gebruik commando:
+To see which routes are available, use command:
 
 ~~~sh
 $ php artisan route:list

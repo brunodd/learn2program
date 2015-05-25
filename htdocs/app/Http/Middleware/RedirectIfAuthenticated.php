@@ -35,24 +35,9 @@ class RedirectIfAuthenticated {
 	{
 		if ($this->auth->check())
 		{
-            //\Session::flash('flash_message', 'You cannot do that when already logged in.');
-            //\Session::flash('flash_message_important', true);
-            //      OR
-            //session()->flash('flash_message', 'You cannot do that when already logged in.');
-            //session()->flash('flash_message_important', true);
-            //      OR
-            //return redirect('blabla')->with([
-            //    'flash_message' => 'You cannot do that when already logged in',
-            //    'flash_message_important' => true
-            //]);
-
-            //using a flash package
             flash()->error('You cannot do that when already logged in.')->important();
 
-            //flash()->overlay('You cannot do that when already logged in', 'Bad boy!');
-
 			return new RedirectResponse(url('/'));
-
 		}
 
 		return $next($request);

@@ -14,8 +14,9 @@
     font-weight: 700;
     font-size: 21px;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     background-color: #3B8686;
+    height: 50px
 }
 
 .h55 {
@@ -115,7 +116,7 @@
     text-align: left;
 }
 
-#name1 span, #name2 span, #title1 span, #title2 span, #score1 span, #score2 span, #question1 span, #question2 span  {
+#name1 span, #name2 span, #title1 span, #title2 span, #score1 span, #score2 span, #question1 span, #question2 span, #author1 span, #author2 span, #titlee1 span, #titlee2 span  {
     position: relative;
     top: 5px;
     width: 12px;

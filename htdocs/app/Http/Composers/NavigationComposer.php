@@ -23,7 +23,6 @@ Class NavigationComposer {
         }
 
         $conv = array();
-        //TODO: just use array of objects
         for ($x = 0; $x < sizeof($last5conversations); $x++) {
             $conversation = $last5conversations[$x];
             array_push($conv, $conversation->username, $conversation->image, $conversation->message, $conversation->is_read, $conversation->author, $conversation->date);

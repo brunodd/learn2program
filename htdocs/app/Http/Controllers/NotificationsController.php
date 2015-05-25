@@ -46,7 +46,7 @@ class NotificationsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		// TODO: maybe allow this
+
 	}
 
     private static function buildUserNotifcations($notification) {

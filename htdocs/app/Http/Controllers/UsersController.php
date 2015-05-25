@@ -56,7 +56,6 @@ class UsersController extends Controller {
 
         $user = loadUser($username);
 
-        //TODO: don't login automatically, send confirmation mail first
         \Auth::loginUsingId($user[0]->id);
 
         return redirect("/");
@@ -161,8 +160,7 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        //TODO: allow users to delete their account, check SQL file comments
-        return "destroy item with id: $id";
+
 	}
 
     public function list_all_users()
@@ -180,10 +178,8 @@ class UsersController extends Controller {
             flash()->success('You are now friends.');
             return redirect('users/' . $id1);
         } else if (canSendFriendRequest($id)) {
-            //send request
             storeFriendRequest($id);
 
-            //TODO: send notification
             storeNotification($id, 'friend request', \Auth::id());
 
             flash()->success('A friend request has been sent');

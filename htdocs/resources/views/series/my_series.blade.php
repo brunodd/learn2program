@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="container" style="margin-bottom: 0; background: none">
-        <h4>Filter on</h4>
+        <div class="h44">Filter on</div>
 
         <div class="options">
             <button class="filter" data-filter="all">All</button>

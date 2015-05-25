@@ -35,6 +35,13 @@ where id = ?
 or username = ?,
 [$data->username, $data->mail, $data->pass, $data->image, $data->info, $id, $id];
 
+
+/* function setUserScore($id, $score) */
+update   users
+set      score = ?
+where    id = ?,
+[$score, $id]);
+
 /* function loadUsersSearch($s)  */
 select *
 from users

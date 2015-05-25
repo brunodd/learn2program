@@ -1,105 +1,113 @@
 \subsubsection{Messages}
 \begin{lstlisting}[language=sql]
+
 /* function storeConversation($id) */
-insert into conversations (usera, userb)
-value (?, ?),
-[min(\Auth::id(), $userId), max(\Auth::id(), $userId)];
+/* //Store a new conversation between the logged in user and user $id in the database. */
+\DB::insert('INSERT INTO conversations VALUE ()', []);
+INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)',
+[$conversationId, \Auth::id()];
+INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)',
+[$conversationId, $userId];
 
 /* function loadConversation($id) */
-select   *
-from     conversations
-where    usera = ? and userb = ?,
-[min(\Auth::id(), $id), max(\Auth::id(), $id)];
+/* //Load a conversation between the logged in user and user $id. */
+SELECT  CP.conversationId
+FROM    conversations_participants CP
+JOIN    conversations_participants CP2 ON CP.conversationId = CP2.conversationId
+WHERE   CP.userId = ?
+AND     CP2.userId = ?,
+[\Auth::id(), $userId];
 
 /* function loadLatestConversation() */
-select   c.usera, c.userb
-from     conversations c
-join     messages m on c.id = m.conversationid
-where    c.usera = ? or c.userb = ?
-order by date desc
-limit    1,
+/* //Load the conversation in which the last message has been sent/recieved */
+SELECT     CP1.userId as userA, CP2.userId as userB
+FROM       conversations_participants CP1
+JOIN       conversations_participants CP2  ON  CP1.conversationId = CP2.conversationId
+JOIN       messages M ON CP1.conversationId = M.conversationId
+WHERE      CP1.userId = ?
+AND        CP2.userId <> ?
+ORDER BY   date     DESC
+LIMIT 1,
 [\Auth::id(), \Auth::id()];
 
 /* function storeMessage($cId, $message) */
+/* //Store a new message in the database */
 insert into messages (conversationid, author, message)
 value (?, ?, ?),
 [$cId, \Auth::id(), $message];
 
-/* function loadAllMessagesInDB() */
-select   c.usera, c.userb, m.message, m.date, u.username
-from     conversations c
-join     messages m on c.id = m.conversationid
-join     users u on m.author = u.id
-order by date;
+/* function loadAllMessages($Cid) */
+/* //Load all of the messages for a conversation $Cid */
+SELECT  U.username, M.message, M.date
+FROM    messages M
+JOIN    users U     ON  M.author = U.id
+WHERE   M.conversationId = ?,
+[$Cid]
 
-
-/* function loadAllMessages($id) */
-select   u.username,m.message,m.date
-from     conversations c
-join     messages m on c.id = m.conversationid
-join     users u on u.id = m.author
-where    c.usera = ? and c.userb = ?,
-[min(\Auth::id(), $id2), max(\Auth::id(), $id2)];
-
-/* function loadConversationsWithMessage() */
-/* //Get all conversations for the logged in user, then only select the latest message for each of them */
-select   usera, userb, message, date
-from     (select c.id, c.usera, c.userb, m.message, m.date
-    from    conversations c
-    join    messages m on c.id = m.conversationid
-    join    users u on u.id = m.author
-    where   c.usera = ? or c.userb = ?
-    order by date desc) as x
-group by id
-order by date desc,
-[\Auth::id(), \Auth::id()];
+/* function loadLastNMessages($Cid, $n) */
+/* //Load the last n messages for a conversation $Cid, used for Groups' chats */
+SELECT   *
+FROM     (SELECT  U.username, M.id, M.message, M.date
+         FROM     messages M
+         JOIN     users U     ON  M.author = U.id
+         WHERE    M.conversationId = ?
+         ORDER BY M.id   DESC
+         LIMIT    ?) X
+ORDER BY X.id   ASC,
+[$Cid, $n]);
 
 /* function loadLastNConversationsWithMessage($n) */
-/* //Get all conversations for the logged in user, then only select the latest message for each of them */
-select   *
-from     (select    case when c.usera = ? then c.userb else c.usera end as otheruser, image, message, is_read, author, date
-    from       conversations c
-    join       messages m on c.id = m.conversationid
-    join       users u on u.id = m.author
-    where      c.usera = ? or c.userb = ?
-    order by   m.id desc) as x
-group by otheruser
-limit    ?,
-[\Auth::id(), \Auth::id(), \Auth::id(), $n];
+/* //Get the last n conversations for the logged in user and only select the latest message for each of them */
+SELECT    *
+FROM      (SELECT C.id, U.username, U.image, M.message, M.is_read, M.author, M.date
+          FROM      conversations C
+          JOIN      messages M                    ON C.id = M.conversationId
+          JOIN      conversations_participants CP ON C.id = CP.conversationId
+          JOIN      users U                       ON CP.userId = U.id
+          WHERE     C.id    IN      (SELECT  C2.id
+                                    FROM     conversations C2
+                                    JOIN     conversations_participants CP2 ON C2.id = CP2.conversationId
+                                    WHERE    CP2.userId = ?)
+          AND       CP.userId <> ?
+          ORDER BY  M.id DESC) X
+GROUP BY  X.id
+ORDER BY  X.date        DESC
+LIMIT     ?,
+[\Auth::id(), \Auth::id(), $n]
 
 /* function loadUnreadMessages() */
-select  *
-from    conversations c
-join    messages m on c.id = m.conversationid
-where   m.author <> ? and m.is_read = 0 and (c.usera = ? or c.userb = ?),
-[\Auth::id(), \Auth::id(), \Auth::id()];
+/* //Load all of the messages for the logged in the user that have not been read yet */
+SELECT  *
+FROM    conversations C
+JOIN    messages M ON C.id = M.conversationId
+WHERE   C.id    IN     (SELECT  C2.id
+                       FROM     conversations C2
+                       JOIN     conversations_participants CP2 ON C2.id = CP2.conversationId
+                       WHERE    CP2.userId = ?)
+AND     M.author <> ?
+AND     M.is_read = 0,
+[\Auth::id(), \Auth::id()];
 
 //get the last message that was user $id has read
 /* function loadLastReadMessage($id) */
-select   *
-from     conversations c
-join     messages m on c.id = m.conversationid
-where    m.is_read = 1 and c.usera = ? and c.userb = ? and m.author = ?
-order by m.id desc,
-[$a, $b, \Auth::id()];
-
-/* function loadLastNMessages($n) */
-select   *
-from     conversations c
-join     messages m on c.id = m.conversationid
-where    c.usera = ? or c.userb = ?
-order by m.id desc
-limit    ?,
-[\Auth::id(), \Auth::id(), $n];
+/* //Load the last message that user $id has read */
+SELECT  M.message
+FROM     conversations_participants CP1
+JOIN     conversations_participants CP2  ON  CP1.conversationId = CP2.conversationId
+JOIN     messages M ON CP1.conversationId = M.conversationId
+WHERE    CP1.userId = ?
+AND      CP2.userId = ?
+AND      M.author   = ?
+AND      M. is_read = 1
+ORDER BY M.id DESC,
+[\Auth::id(), $id2, \Auth::id()];
 
 /* function UpdateMessagesToSeen($id) */
-update   messages m
-join     (select *
-        from    conversations c
-        where   c.usera = ? and c.userb = ?) cc
-on       cc.id = m.conversationid
-set      m.is_read = true
-where    m.author <> ?,
-[$a, $b, \Auth::id()];
+/* //Update all the messages in conversation $Cid that have not been written by the logged in user to seenm */
+UPDATE   messages M
+SET      M.is_read = true, date = date
+WHERE    M.conversationId = ?
+AND      M.author <> ?,
+[$Cid, \Auth::id()]
 
 \end{lstlisting}

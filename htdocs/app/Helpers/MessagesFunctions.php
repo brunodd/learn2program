@@ -18,39 +18,16 @@ function storeConversation($id) {
 function loadConversation($id) {
     $userId = loadUser($id)[0]->id;
 
-    //special case when you want to message yourself
-    if (\Auth::id() == $userId) {
-        return  \DB::select('SELECT X.conversationId
-                            FROM   (SELECT   CP.conversationId, COUNT(*) as Y
-                                   FROM     conversations_participants CP
-                                   JOIN     conversations_participants CP2 ON CP.conversationId = CP2.conversationId
-                                   WHERE    CP.userId = ?
-                                   GROUP BY CP.conversationId) X
-                            WHERE  X.Y = 1  /*Subquery will return multiple conversations with you in it, only select the conversation with 1 person in it*/',
-                            [\Auth::id()]);
-    } else {
-        return \DB::select('(SELECT CP.conversationId
-                            FROM    conversations_participants CP
-                            JOIN    conversations_participants CP2 ON CP.conversationId = CP2.conversationId
-                            WHERE   CP.userId = ?
-                            AND     CP2.userId = ?)',
-                            [\Auth::id(), $userId]);
-    }
+    return \DB::select('SELECT  CP.conversationId
+                        FROM    conversations_participants CP
+                        JOIN    conversations_participants CP2 ON CP.conversationId = CP2.conversationId
+                        WHERE   CP.userId = ?
+                        AND     CP2.userId = ?',
+                        [\Auth::id(), $userId]);
 }
 
 //Load the conversation in which the last message has been sent/recieved
 function loadLatestConversation() {
-
-    //special case when you want to message yourself    ->  bullshit    ->  disable messaging yourself
-    /*dd(\DB::select('(SELECT   M.conversationId
-                    FROM     conversations_participants CP
-                    JOIN     messages M  ON  CP.conversationId = M.conversationId
-                    WHERE    CP.userId = ?
-                    ORDER BY M.id   DESC
-                    LIMIT    1) X
-                    ',
-                    [\Auth::id()]));*/
-
     return \DB::select('SELECT     CP1.userId as userA, CP2.userId as userB
                         FROM       conversations_participants CP1
                         JOIN       conversations_participants CP2  ON  CP1.conversationId = CP2.conversationId
@@ -70,7 +47,6 @@ function storeMessage($cId, $message) {
 
 //Load all of the messages for a conversation $Cid
 function loadAllMessages($Cid) {
-
     return \DB::select('SELECT  U.username, M.message, M.date
                         FROM    messages M
                         JOIN    users U     ON  M.author = U.id
@@ -80,7 +56,6 @@ function loadAllMessages($Cid) {
 
 //Load the last n messages for a conversation $Cid, used for Groups' chats
 function loadLastNMessages($Cid, $n) {
-
     return \DB::select('SELECT   *
                         FROM     (SELECT  U.username, M.id, M.message, M.date
                                  FROM     messages M

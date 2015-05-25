@@ -127,6 +127,6 @@ class MessagesController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id) {
-        //TODO
+
 	}
 }

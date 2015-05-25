@@ -73,9 +73,6 @@ class ExercisesController extends Controller {
         }
         \Session::put('currentSerie', $sId);
 
-//        if( completedAllPreviousExercisesOfSeries($id, Auth::id(), $sId) or isMakerOfExercise($id, Auth::id())
-//                                                                        or isMakerOfSeries($sId, Auth::id()) )
-//        {
         $exercise = loadExercise($id)[0];
         if( $exercise->expected_result != "*" ) $exercise->expected_result = null;
         $result = null;
@@ -84,14 +81,6 @@ class ExercisesController extends Controller {
         if (\Session::has('answer')) $answer = \Session::pull('answer', '');
 
         return view('exercises.show', compact('exercise', 'result', 'answer', 'sId', 'startTime'));
-//        }
-/*        else {
-            flash()->error("You must first complete one or more preceding exercises.");
-            $exercise = nextExerciseInLine($id, Auth::id(), $sId)[0];
-            $result = null;
-            $answer = null;
-            return redirect('exercises/' . $exercise->exId);
-        }*/
 	}
 
 	/**
@@ -148,7 +137,7 @@ class ExercisesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//TODO
+
 	}
 
     public function storeAnswer($id, CreateAnswerRequest $request)
@@ -209,7 +198,6 @@ class ExercisesController extends Controller {
 
         // $result = $input['result'];
         $answer = $input['given_code'];
-        // TODO: return redirect('exercises/' . $id);
         $sId = \Session::get('currentSerie');
 
         $challenges = loadChallengesByUserExercise(\Auth::id(), $id);
@@ -239,7 +227,6 @@ class ExercisesController extends Controller {
                 }
             }
         }
-        // dd($challenges);
 
         return redirect('exercises/' . $id)->with(['result' => $result, 'answer' => $answer]);
     }

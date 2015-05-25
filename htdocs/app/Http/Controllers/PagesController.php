@@ -9,7 +9,7 @@ class PagesController extends Controller {
 
     public function home()
     {
-	\Session::forget('currentSerie');
+	    \Session::forget('currentSerie');
         return view('pages.home');
     }
 
