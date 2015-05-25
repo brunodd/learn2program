@@ -88,6 +88,10 @@ $ ./skulpt.py dist
 ~~~
 Set-up should now be completed.
 
+
+###Database
+- Installeren (manier 1)
+
 Create tables:
 
 ~~~sh
