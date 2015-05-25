@@ -231,5 +231,9 @@ function returnAccomplishedPercentageSeries($user, $serie) {
 }
 
 function addViewToSeries($serie) {
-    DB::table('series')->where('id', '=', $serie->id)->increment('views', 1);
+    DB::statement('UPDATE series
+                    SET views = views + 1
+                    where id = ?',
+                    [$serie->id]);
 }
+
