@@ -236,34 +236,60 @@ class ExercisesAnswersTableSeeder extends Seeder {
 	    DB::insert('INSERT INTO answers (given_code, success, uId, eId)
 	            				VALUES ("xx", true, 27, 3)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-       							VALUES ("xx", true, 27, 4)');
+       							VALUES ("xx", true, 35, 4)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-            					VALUES ("xx", true, 27, 6)');
+            					VALUES ("xx", true, 35, 6)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 27, 7)');
+                       	 		VALUES ("xx", true, 35, 7)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 27, 8)');
+                       	 		VALUES ("xx", true, 35, 8)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 27, 9)');
+                       	 		VALUES ("xx", true, 35, 9)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29, 1)');
+                       	 		VALUES ("xx", true, 35, 1)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                        		VALUES ("xx", true, 29, 2)');
+                        		VALUES ("xx", true, 35, 2)');
 	    DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-	            				VALUES ("xx", true, 29, 3)');
+	            				VALUES ("xx", true, 35, 3)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-       							VALUES ("xx", true, 29, 4)');
+       							VALUES ("xx", true, 35, 4)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-            					VALUES ("xx", true, 29, 6)');
+            					VALUES ("xx", true, 35, 6)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29, 7)');
+                       	 		VALUES ("xx", true, 35, 7)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29, 8)');
+                       	 		VALUES ("xx", true, 35, 8)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29, 9)');
+                       	 		VALUES ("xx", true, 35, 9)');
 		DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29,10)');
+                       	 		VALUES ("xx", true, 35,10)');
 		DB::insert('INSERT INTO answers (given_code, success, uId, eId)
-                       	 		VALUES ("xx", true, 29, 5)');
+                       	 		VALUES ("xx", true, 35, 5)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+            					VALUES ("xx", true, 36, 6)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 7)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 8)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 9)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 1)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                        		VALUES ("xx", true, 36, 2)');
+	    DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+	            				VALUES ("xx", true, 36, 3)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+       							VALUES ("xx", true, 36, 4)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+            					VALUES ("xx", true, 36, 6)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 7)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 8)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36, 9)');
+		DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36,10)');
     }
 }
