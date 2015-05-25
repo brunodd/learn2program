@@ -4,7 +4,6 @@ keuzes.tex: algemeen verbeteren/aanvullen
 leaderboard adjustments for large numbers of users (limit per page, show own ranking).
 
 link guides and series
-Adjust layout for drop down menus: add rounded corners etc.
 
 gedaan:
 auto highlight syntax, based on language.
