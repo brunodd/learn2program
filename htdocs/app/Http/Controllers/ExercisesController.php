@@ -153,8 +153,16 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
-        if ( !(completedAllPreviousExercisesOfSeries($id, Auth::id(), \Session::get('currentSerie'))
-            || isMakerOfExercise($id, Auth::id()) || isMakerOfSeries(\Session::get('currentSerie'), Auth::id())) ) {
+        $serie = \Session::get('currentSerie');
+        if(is_object($serie)) {
+            if ( !(completedAllPreviousExercisesOfSeries($id, Auth::id(), $serie))
+            || isMakerOfExercise($id, Auth::id()) || isMakerOfSeries($serie, Auth::id()) ) {
+                $type = loadType2($serie->tId)[0];
+                $exercises = loadExercisesFromSerie($serie->id);
+                return view('series.show', compact('serie', 'exercises', 'type'));
+            }
+        }
+        else {
             $series = loadSeriesWithExercise($id);
             if(count($series) > 1) {
                     return view('series.duplicates', compact('series'));
@@ -166,9 +174,6 @@ class ExercisesController extends Controller {
                 return view('series.show', compact('serie', 'exercises', 'type'));
             }
         }
-
-
-        $input = $request->all();
 
 
         // Get time between exercise load and store answer.
