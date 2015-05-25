@@ -3,12 +3,11 @@
 ## Install using the installer (Recommended)
 This installation presumes all necessary packages have been installed.
 Following packages are needed:
-- MySQL  
-- php 5.5 (or later)  
-- curl  
-- composer  
-- mcrypt  
-- pdo_mysql  
+- MySQL
+- php 5.5 (or later)
+- curl
+- composer
+- mcrypt
 
 Before running the installer, the MySQL database server must be running.
 
@@ -26,11 +25,11 @@ and return
 $ cd ../
 ~~~
 
-Navigate to the install/ directory and run the installer:
+Navigate to the install/ directory and run the installer (The -seed flag will also seed the website):
 
 ~~~sh
 $ cd install/
-$ ./install.sh
+$ ./install.sh [-seed]
 ~~~
 
 and return
@@ -75,10 +74,10 @@ $ mv htdocs/.env.example htdocs/.env
 
 Aanpassingen:
 
-DB_HOST=127.0.0.1  
-DB_DATABASE=learn2program_db  
-DB_USERNAME=root  
-DB_PASSWORD=  
+DB_HOST=127.0.0.1
+DB_DATABASE=learn2program_db
+DB_USERNAME=root
+DB_PASSWORD=
 
 [Al de rest mag ongewijzigd blijven]
 
@@ -178,8 +177,8 @@ Om te zien welke routes beschikbaar zijn, gebruik commando:
 $ php artisan route:list
 ~~~
 
-## TROUBLESHOOTING 
-(Only for linux. OS X fixes are similar, but can't use the apt-get package manager):  
+## TROUBLESHOOTING
+(Only for linux. OS X fixes are similar, but can't use the apt-get package manager):
 
 --
 Installing composer:
@@ -196,10 +195,10 @@ I get the error:
 could not find driver
 ~~~
 
+Your mysql installation isn't complete.
 Run:
 
 ~~~sh
-$ dpkg --get-selections | grep php5-mysql
 $ sudo apt-get install php5-mysql
 ~~~
 --
