@@ -1,13 +1,36 @@
 # Installation
 
-## Install using the installer (Recommended)
+## Installation
 This installation presumes all necessary packages have been installed.
 Following packages are needed:
-- MySQL
+
 - php 5.5 (or later)
+
+~~~sh
+$ sudo apt-get install php5-cli
+~~~
+
 - curl
+
+~~~sh
+$ sudo apt-get install curl php5-curl
+~~~
+
 - composer
-- mcrypt
+
+~~~sh
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+~~~
+
+- MySQL + mycrypt
+
+~~~sh
+$ sudo apt-get install mysql-server php5-mysql
+$ sudo apt-get install mcrypt php5-mcrypt
+$ sudo php5enmod mcrypt
+$ sudo service mysql restart
+~~~
 
 Before running the installer, the MySQL database server must be running.
 
@@ -19,17 +42,13 @@ $ cd htdocs/
 $ composer install
 ~~~
 
-and return
+NOTE: If you are promted by github, you must generate a token & copy it into the terminal. The token will be invisable so mind to only paste it once. Instructions on how to generate a token can be found [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
+
+Navigate to the install/ directory and run the installer:
 
 ~~~sh
-$ cd ../
-~~~
-
-Navigate to the install/ directory and run the installer (The -seed flag will also seed the website):
-
-~~~sh
-$ cd install/
-$ ./install.sh [-seed]
+$ cd ../install/
+$ ./install.sh [-all | -seed | -init]
 ~~~
 
 and return
@@ -47,161 +66,27 @@ $ cd htdocs/
 $ php artisan serve
 ~~~
 
-## Install manually (not recommended)
+By default, the website is now accessible via http://localhost:8000/
 
+###[Optional: Custom URL & port]
 
-<!---
-###Python interpreter
-Install dependencies (-g flag is optional for global installation):
-
-~~~sh
-$ sudo npm install [-g] jscs
-$ sudo npm install [-g] jshint
-~~~
-
-Clone skulpt repo to public directory. (path tussen vierkante haakjes [../learn2program] eventueel zelf aan te vullen!)
-
-~~~sh
-$ git clone https://github.com/skulpt/skulpt [../learn2program]/htdocs/public/skulpt
-$ cd [../learn2program]/htdocs/public/skulpt
-$ ./skulpt.py dist
-~~~
-Set-up should now be completed.
--->
-
-
-###Environment
-Rename file:
-
-~~~sh
-$ cp htdocs/.envbackup htdocs/.env
-~~~
-
-In the .env file:
-
-DB_HOST=127.0.0.1
-DB_DATABASE=learn2program_db
-DB_USERNAME=root
-DB_PASSWORD=
-
-[The rest doesnt matter]
-
-###Database
-- Installing
-
-[Note: by default for mysql: username = "root", password = ""]
-
-Create database with empty tables:
-
-~~~sh
-$ mysql -u root -p < database/learn2program.mysql
-~~~
-
-Seed the database:
-
-~~~sh
-$ cd htdocs/
-$ php artisan db:seed
-~~~
-
-- Testing:
-
-~~~sh
-$ mysql -u root -p
-mysql> use learn2program_db;
-mysql> select * from Users;
-~~~
-
-###Server
-
-~~~sh
-$ cd htdocs/
-~~~
-
-- Update dependencies
-
-~~~sh
-$ composer update
-$ composer install
-~~~
-
-- Start server
-
-~~~sh
-$ php artisan serve
-~~~
-
-Website will be accessible through "localhost:8000"
-
-- Custom URL & port
-
-[Note: might need sudo rights]
+[Note: sudo rights may be required]
 
 ~~~sh
 $ php artisan serve --host=learn2program.dev --port=80
 ~~~
 
-Update /etc/hosts with following entry
+Adjust /etc/hosts using the following entry
 
 ~~~
 127.0.0.1		learn2program.dev	www.learn2program.dev
 ~~~
 
-Website will be accessible through "learn2program.dev"
-
-- Test:
-
-Type in browser:
-
-localhost:8000
-
-or
-
-http://www.learn2program.dev
+Accessible via http://www.learn2program.dev
 
 ##Routes
-To see which routes are available, use command:
+Om te zien welke routes beschikbaar zijn, gebruik commando vanuit htdocs/:
 
 ~~~sh
 $ php artisan route:list
 ~~~
-
-## TROUBLESHOOTING
-(Only for linux. OS X fixes are similar, but can't use the apt-get package manager):
-
---
-Installing composer:
-
-~~~sh
-$ curl -sS https://getcomposer.org/installer | php
-$ mv composer.phar /usr/local/bin/composer
-~~~
---
-I get the error:
-
-~~~
-[PDOException]
-could not find driver
-~~~
-
-Your mysql installation isn't complete.
-Run:
-
-~~~sh
-$ sudo apt-get install php5-mysql
-~~~
---
-I get the error:
-
-~~~
-mcrypt extension is missing
-~~~
-
-Run:
-
-~~~sh
-$ sudo apt-get install mcrypt php5-mcrypt
-$ sudo php5enmod mcrypt
-$ sudo service mysql restart
-~~~
-

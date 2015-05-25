@@ -45,6 +45,12 @@ then
 		mysql -u "${username}" -p "${password}" < ../database/learn2program.sql
 
 		php ../htdocs/artisan db:seed
+	else
+		echo "usage: install.sh [flag]"
+		echo "Flags:"
+		echo "\t-all -> Initialize and seed the database"
+		echo "\t-init -> initialize the database"
+		echo "\t-seed -> seed the database"
 	fi
 else
 	echo "usage: install.sh [flag]"

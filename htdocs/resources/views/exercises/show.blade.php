@@ -184,7 +184,7 @@
         var editor;
         var exercise = <?php echo json_encode($exercise) ?>;
         $("#lang").val(exercise.language);
-        if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) skulptFunctions.runit();
+        if( (exercise.expected_result == '*' && <?php echo $answer ? 'true' : 'false'; ?>) ) Run();
 
         CodeMirror.commands.autocomplete = function(cm) {
             cm.showHint({hint: CodeMirror.hint.anyword});
