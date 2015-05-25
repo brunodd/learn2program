@@ -1,4 +1,4 @@
-# Installation
+# README
 
 Aan Len: Database-artefacten kan u vinden in learn2program/database
 
