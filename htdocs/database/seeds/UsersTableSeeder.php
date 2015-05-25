@@ -31,6 +31,36 @@ class UsersTableSeeder extends Seeder {
 </div> "]);
         User::create(['username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad'), 'score' => '0', 
             'image' => 'user4ProfileImage.jpg', 'info' => 'Fouad is the graphic designer.']);
+        User::create(['username' => 'u0', 'mail' => 'u0@x.x', 'pass' => bcrypt('u0'), 'score' => '0']);
+        User::create(['username' => 'u1', 'mail' => 'u1@x.x', 'pass' => bcrypt('u1'), 'score' => '0']);
+        User::create(['username' => 'u2', 'mail' => 'u2@x.x', 'pass' => bcrypt('u2'), 'score' => '0']);
+        User::create(['username' => 'u3', 'mail' => 'u3@x.x', 'pass' => bcrypt('u3'), 'score' => '0']);
+        User::create(['username' => 'u4', 'mail' => 'u4@x.x', 'pass' => bcrypt('u4'), 'score' => '0']);
+        User::create(['username' => 'u5', 'mail' => 'u5@x.x', 'pass' => bcrypt('u5'), 'score' => '0']);
+        User::create(['username' => 'u6', 'mail' => 'u6@x.x', 'pass' => bcrypt('u6'), 'score' => '0']);
+        User::create(['username' => 'u7', 'mail' => 'u7@x.x', 'pass' => bcrypt('u7'), 'score' => '0']);
+        User::create(['username' => 'u8', 'mail' => 'u8@x.x', 'pass' => bcrypt('u8'), 'score' => '0']);
+        User::create(['username' => 'u9', 'mail' => 'u9@x.x', 'pass' => bcrypt('u9'), 'score' => '0']);
+        User::create(['username' => 'u10', 'mail' => 'u10@x.x', 'pass' => bcrypt('u0'), 'score' => '0']);
+        User::create(['username' => 'u11', 'mail' => 'u11@x.x', 'pass' => bcrypt('u1'), 'score' => '0']);
+        User::create(['username' => 'u12', 'mail' => 'u12@x.x', 'pass' => bcrypt('u2'), 'score' => '0']);
+        User::create(['username' => 'u13', 'mail' => 'u13@x.x', 'pass' => bcrypt('u3'), 'score' => '0']);
+        User::create(['username' => 'u14', 'mail' => 'u14@x.x', 'pass' => bcrypt('u4'), 'score' => '0']);
+        User::create(['username' => 'u15', 'mail' => 'u15@x.x', 'pass' => bcrypt('u5'), 'score' => '0']);
+        User::create(['username' => 'u16', 'mail' => 'u16@x.x', 'pass' => bcrypt('u6'), 'score' => '0']);
+        User::create(['username' => 'u17', 'mail' => 'u17@x.x', 'pass' => bcrypt('u7'), 'score' => '0']);
+        User::create(['username' => 'u18', 'mail' => 'u18@x.x', 'pass' => bcrypt('u8'), 'score' => '0']);
+        User::create(['username' => 'u19', 'mail' => 'u19@x.x', 'pass' => bcrypt('u9'), 'score' => '0']);
+        User::create(['username' => 'u110', 'mail' => 'u110@x.x', 'pass' => bcrypt('u0'), 'score' => '0']);
+        User::create(['username' => 'u111', 'mail' => 'u111@x.x', 'pass' => bcrypt('u1'), 'score' => '0']);
+        User::create(['username' => 'u112', 'mail' => 'u112@x.x', 'pass' => bcrypt('u2'), 'score' => '0']);
+        User::create(['username' => 'u113', 'mail' => 'u113@x.x', 'pass' => bcrypt('u3'), 'score' => '0']);
+        User::create(['username' => 'u114', 'mail' => 'u114@x.x', 'pass' => bcrypt('u4'), 'score' => '0']);
+        User::create(['username' => 'u115', 'mail' => 'u115@x.x', 'pass' => bcrypt('u5'), 'score' => '0']);
+        User::create(['username' => 'u116', 'mail' => 'u116@x.x', 'pass' => bcrypt('u6'), 'score' => '0']);
+        User::create(['username' => 'u117', 'mail' => 'u117@x.x', 'pass' => bcrypt('u7'), 'score' => '0']);
+        User::create(['username' => 'u118', 'mail' => 'u118@x.x', 'pass' => bcrypt('u8'), 'score' => '0']);
+        User::create(['username' => 'u119', 'mail' => 'u119@x.x', 'pass' => bcrypt('u9'), 'score' => '0']);
 
         //For each user, create a conversation with themselves
 
