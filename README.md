@@ -1,6 +1,6 @@
 # Installation
 
-## Install using the installer (Recommended)
+## Installation
 This installation presumes all necessary packages have been installed.
 Following packages are needed:
 
@@ -70,56 +70,21 @@ $ cd htdocs/
 $ php artisan serve
 ~~~
 
-###Server
+###[Optional: Custom URL & port]
 
-Navigeer naar juiste dir/
-
-~~~sh
-$ cd htdocs/
-~~~
-
-- Update dependencies
-
-~~~sh
-$ composer update
-$ composer install
-~~~
-
-- Start server
-
-~~~sh
-$ php artisan serve
-~~~
-
-Toegankelijk via "localhost:8000"
-
-- Custom URL & port
-
-[opmerking: sudo rechten kunnen vereist zijn]
+[Note: sudo rights may be required]
 
 ~~~sh
 $ php artisan serve --host=learn2program.dev --port=80
 ~~~
 
-Pas /etc/hosts aan met volgende entry
+Adjust /etc/hosts using the following entry
 
 ~~~
 127.0.0.1		learn2program.dev	www.learn2program.dev
 ~~~
 
-Toegankelijk via "learn2program.dev"
-
-- Testen:
-
-Typ in browser:
-
-localhost:8000
-
-of
-
-http://www.learn2program.dev
-
-klik maar wat rond...
+Accessible via http://www.learn2program.dev
 
 ##Routes
 Om te zien welke routes beschikbaar zijn, gebruik commando vanuit htdocs/:
