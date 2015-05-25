@@ -3,8 +3,6 @@ keuzes.tex: algemeen verbeteren/aanvullen
 
 leaderboard adjustments for large numbers of users (limit per page, show own ranking).
 
-link guides and series
-
 gedaan:
 auto highlight syntax, based on language.
 competitions tab -> done, bruno
