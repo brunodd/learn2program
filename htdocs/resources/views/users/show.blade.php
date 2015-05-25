@@ -116,7 +116,7 @@
                             <?php $oneNotStartedSerie = true; ?>
                         @endif
                     @endforeach
-                    <?php if(!$oneNotStartedSerie) echo "You started all the series! Nicely done! \n"?>
+                    <?php if(!$oneNotStartedSerie) echo $user->username . " started all the series! Nicely done! \n"?>
                 </div>
             </div>
         </div>

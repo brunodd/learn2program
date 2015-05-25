@@ -12,10 +12,6 @@ class NotificationsTableSeeder extends Seeder {
         DB::statement('ALTER TABLE notifications AUTO_INCREMENT=1');
 
         DB::insert('insert into notifications (user_id, generator_user_id, type) VALUES (?, ?, ?)',
-                    [1, 4, 'friend request']);
-        DB::insert('insert into notifications (user_id, generator_user_id, type) VALUES (?, ?, ?)',
-                    [1, 2, 'friend request accepted']);
-        DB::insert('insert into notifications (user_id, generator_user_id, type) VALUES (?, ?, ?)',
                     [1, 3, 'friend request declined']);
         DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
                     [1, -1, 'series updated', 1]);
@@ -25,6 +21,22 @@ class NotificationsTableSeeder extends Seeder {
                     [1, -1, 'exercise copied', 1]);
         DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
                     [1, 4, 'exercise completed', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, 4, 'series completed', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, 2, 'challenged', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, -1, 'group request accepted', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, -1, 'group request declined', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, 4, 'join group request', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type, object_id) VALUES (?, ?, ?, ?)',
+            [1, 3, 'challenge beaten', 1]);
+        DB::insert('insert into notifications (user_id, generator_user_id, type) VALUES (?, ?, ?)',
+            [1, 35, 'friend request']);
+        DB::insert('insert into notifications (user_id, generator_user_id, type) VALUES (?, ?, ?)',
+            [1, 36, 'friend request accepted']);
     }
 
 }
