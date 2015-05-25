@@ -62,7 +62,7 @@ print(result)',
 
 print(nine_dots())',
             'expected_result' =>
-'\.\.\.\.\.\.\.\.\.',
+'^\.\.\.\.\.\.\.\.\.$',
             'makerId' => 3,
             'language' => 'python'
         ]);
