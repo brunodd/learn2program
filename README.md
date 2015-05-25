@@ -22,7 +22,7 @@ $ sudo apt-get install curl php5-curl
 
 ~~~sh
 $ curl -sS https://getcomposer.org/installer | php
-$ mv composer.phar /usr/local/bin/composer
+$ sudo mv composer.phar /usr/local/bin/composer
 ~~~
 
 - MySQL + mycrypt
@@ -74,10 +74,8 @@ By default, the website is now accessible via http://localhost:8000/
 
 ###[Optional: Custom URL & port]
 
-[Note: sudo rights may be required]
-
 ~~~sh
-$ php artisan serve --host=learn2program.dev --port=80
+$ sudo php artisan serve --host=learn2program.dev --port=80
 ~~~
 
 Adjust /etc/hosts using the following entry
