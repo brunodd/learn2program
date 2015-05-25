@@ -52,7 +52,7 @@ Navigate to the install/ directory and run the installer:
 
 ~~~sh
 $ cd install/
-$ ./install.sh
+$ ./install.sh [-all | -seed | -init]
 ~~~
 
 and return
