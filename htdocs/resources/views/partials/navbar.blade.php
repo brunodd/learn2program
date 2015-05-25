@@ -39,6 +39,18 @@
                         <li><a href="/leaderboard">Leaderboard</a></li>
                     </ul>
                 </li>
+                @if(\Auth::id())
+                <li class="dropdown ">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        Competitions
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/challenges">Challenges</a></li>
+                        <li><a href="/leaderboard">Leaderboard</a></li>
+                    </ul>
+                </li>
+                @endif
                 <li class="dropdown ">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         Help
