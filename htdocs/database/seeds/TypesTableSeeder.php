@@ -8,22 +8,65 @@ class TypesTableSeeder extends Seeder {
     public function run() {
         DB::table('types')->delete();
         DB::statement('ALTER TABLE types AUTO_INCREMENT=1');
-/*
-        Type::create(['Subject' => 'aaaa', 'Difficulty' => 'easy']);
-        Type::create(['Subject' => 'bbbb', 'Difficulty' => 'hard']);
-        Type::create(['Subject' => 'cccc', 'Difficulty' => 'insane']);
-*/
-        Type::create(['subject' => 'aaa', 'difficulty' => 'easy']);
-        Type::create(['subject' => 'bbb', 'difficulty' => 'easy']);
-        Type::create(['subject' => 'ccc', 'difficulty' => 'easy']);
-        Type::create(['subject' => 'aaa', 'difficulty' => 'intermediate']);
-        Type::create(['subject' => 'bbb', 'difficulty' => 'intermediate']);
-        Type::create(['subject' => 'ccc', 'difficulty' => 'intermediate']);
-        Type::create(['subject' => 'aaa', 'difficulty' => 'hard']);
-        Type::create(['subject' => 'bbb', 'difficulty' => 'hard']);
-        Type::create(['subject' => 'ccc', 'difficulty' => 'hard']);
-        Type::create(['subject' => 'aaa', 'difficulty' => 'insane']);
-        Type::create(['subject' => 'bbb', 'difficulty' => 'insane']);
-        Type::create(['subject' => 'ccc', 'difficulty' => 'insane']);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'aaa',
+            'easy'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'bbb',
+            'easy'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'ccc',
+            'easy'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'aaa',
+            'intermediate'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'bbb',
+            'intermediate'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'ccc',
+            'intermediate'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'aaa',
+            'hard'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'bbb',
+            'hard'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'ccc',
+            'hard'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'aaa',
+            'insane'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'bbb',
+            'insane'
+        ]);
+
+        DB::insert('insert into types (subject, difficulty) value (?, ?)', [
+            'ccc',
+            'insane'
+        ]);
     }
 }

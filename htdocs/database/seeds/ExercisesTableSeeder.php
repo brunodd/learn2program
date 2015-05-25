@@ -10,118 +10,103 @@ class ExercisesTableSeeder extends Seeder {
         DB::statement('ALTER TABLE exercises AUTO_INCREMENT=1');
 
 
-        Exercise::create([
-            'question' => 'Print \'Hello, world\'.',
-            'tips' => 'Submit the answer',
-            'start_code' =>
-                'print("Hello, world")',
-            'expected_result' =>
-'^[Hh]ello[,]? [Ww]orld$',
-            'makerId' => 1,
-            'language' => 'python']);
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Print \'Hello, world\'.',
+            'Submit the answer',
+            'print("Hello, world")',
+            '^[Hh]ello[,]? [Ww]orld$',
+            1,
+            'python']);
 
-        Exercise::create([
-            'question' => 'Print \'Hello, \'*your name*.',
-            'tips' => 'What is your name?',
-            'start_code' => 'print("")',
-            'expected_result' =>
-'[hH]ello, [A-Za-z]+',
-            'makerId' => 1,
-            'language' => 'python'
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Print \'Hello, \'*your name*.',
+            'What is your name?',
+            'print("")',
+            '[hH]ello, [A-Za-z]+',
+            1,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Using multiple variables.',
-            'tips' => 'Take the sentence \'All work and no play makes Jack a dull boy\' and store each word in a seperate variable. Print the sentence on a single line.',
-            'start_code' => '"All work and no play makes Jack a dull boy"',
-            'expected_result' =>
-'All work and no play makes Jack a dull boy',
-            'makerId' => 2,
-            'language' => 'python'
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Using multiple variables.',
+            'Take the sentence \'All work and no play makes Jack a dull boy\' and store each word in a seperate variable. Print the sentence on a single line.',
+            '"All work and no play makes Jack a dull boy"',
+            'All work and no play makes Jack a dull boy',
+             2,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Add parenthesis to the expression 6 * 1 - 2 to change its value from 4 to -6.',
-            'tips' => 'Learn your basic maths!',
-            'start_code' =>
-'result = 6 * 1 - 2
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Add parenthesis to the expression 6 * 1 - 2 to change its value (?, ?, ?, ?, ?, ?) from 4 to -6.',
+            'Learn your basic maths!',
+            'result = 6 * 1 - 2
 print(result)',
-            'expected_result' =>
-'-6',
-            'makerId' => 2,
-            'language' => 'python'
+            '-6',
+            2,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Create a function nine_dots(), using the function three_dots().',
-            'tips' => 'You can concatenate string with the \'+\'-operator.',
-            'start_code' =>
-'def three_dots():
-    value = "..."
-    return value
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Create a function nine_dots(), using the function three_dots().',
+            'You can concatenate string with the \'+\'-operator.',
+            'def three_dots():
+    value (?, ?, ?, ?, ?, ?) = "..."
+    return value (?, ?, ?, ?, ?, ?)
 
 print(nine_dots())',
-            'expected_result' =>
-'^\.\.\.\.\.\.\.\.\.$',
-            'makerId' => 3,
-            'language' => 'python'
+            '^\.\.\.\.\.\.\.\.\.$',
+            3,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Fill in the body of the function definition for cat_5_times so that it will print the string, s, 5 times',
-            'tips' => 'Meow Meow',
-            'start_code' =>
-'def cat_5_times(s):
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Fill in the body of the function definition for cat_5_times so that it will print the string, s, 5 times',
+            'Meow Meow',
+            'def cat_5_times(s):
     <fill in your code here>',
-            'expected_result' =>
-'([A-Za-z0-9]+\n){5}',
-            'makerId' => 3,
-            'language' => 'python'
+            '([A-Za-z0-9]+\n){5}',
+            3,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Wrap this code in a function called compare(x, y). Call it with a first value that is larger than the second value.',
-            'tips' => 'x < x+1',
-            'start_code' =>
-'if x < y:
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Wrap this code in a function called compare(x, y). Call it with a first value (?, ?, ?, ?, ?, ?) that is larger than the second value (?, ?, ?, ?, ?, ?).',
+            'x < x+1',
+            'if x < y:
     print x, "is less than", y
 elif x > y:
     print x, "is greater than", y
 else:
     print x, "and", y, "are equal"',
-            'expected_result' =>
-'[0-9]+ is greater than [0-9]+',
-            'makerId' => 4,
-            'language' => 'python'
+            '[0-9]+ is greater than [0-9]+',
+            4,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'What is the answer to the ultimate question of life, the universe and everything?',
-            'tips' => 'It is not 24.',
-            'start_code' => 'the_answer =
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'What is the answer to the ultimate question of life, the universe and everything?',
+            'It is not 24.',
+            'the_answer =
 print(the_answer)',
-            'expected_result' =>
-'42',
-            'makerId' => 4,
-            'language' => 'python'
+            '42',
+            4,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Given Fibonacci\'s row, what is the number with index 20',
-            'tips' => 'As computer scientists, the first element has index = 0.',
-            'start_code' => 'number = 
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Given Fibonacci\'s row, what is the number with index 20',
+            'As computer scientists, the first element has index = 0.',
+            'number =
 print(number)',
-            'expected_result' =>
-'6765',
-            'makerId' => 4,
-            'language' => 'python'
+            '6765',
+            4,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Draw a spyrograph using turtles.',
-            'tips' => 'Build a function capable of drawing a circle with an arbitrary color and diameter. Call that function repeatedly to draw the spyrograph.',
-            'start_code' =>
-'import turtle
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Draw a spyrograph using turtles.',
+            'Build a function capable of drawing a circle with an arbitrary color and diameter. Call that function repeatedly to draw the spyrograph.',
+            'import turtle
 alex = turtle.Turtle()
 screen = alex.getscreen()
 screen.setup(750,750)
@@ -158,9 +143,9 @@ for color in colors:
         r = 20
         draw_track(r, color)
 ',
-            'expected_result' => '*',
-            'makerId' => 2,
-            'language' => 'python']);
+            '*',
+            2,
+            'python']);
 //         Exercise::create([
 //             'question' => '',
 //             'tips' => '',
@@ -178,11 +163,10 @@ for color in colors:
 // '',
 //             'makerId' => 2
 //         ]);
-        Exercise::create([
-            'question' => 'Introduce yourself with C++ classes',
-            'tips' => 'Use the C++ reference to learn more about classes',
-            'start_code' =>
-'#include<iostream>
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Introduce yourself with C++ classes',
+            'Use the C++ reference to learn more about classes',
+            '#include<iostream>
 class Myclass {
   private:
   	int myint;
@@ -195,36 +179,34 @@ int main() {
   	Myclass mc(10);
     std::cout << mc.getInt();
 }',
-            'expected_result' => '*',
-            'makerId' => 3,
-            'language' => 'cpp'
+            '*',
+            3,
+            'cpp'
         ]);
 
-        Exercise::create([
-            'question' => 'Convert the following C++ code into Python',
-            'tips' => 'You should first learn both languages...',
-            'start_code' =>
-'#include <iostream>
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Convert the following C++ code into Python',
+            'You should first learn both languages...',
+            '#include <iostream>
 
 int main(){
   std::cout << "Get Rekt..." << std::endl;
 }',
-            'expected_result' => '^Get Rekt...$',
-            'makerId' => 3,
-            'language' => 'python'
+            '^Get Rekt...$',
+            3,
+            'python'
         ]);
 
-        Exercise::create([
-            'question' => 'Convert the following Python code to C++',
-            'tips' => 'You should first learn both languages...',
-            'start_code' =>
-'sum = 0
+        DB::insert('insert into exercises (question, tips, start_code, expected_result, makerId, language) value (?, ?, ?, ?, ?, ?)', [
+            'Convert the following Python code to C++',
+            'You should first learn both languages...',
+            'sum = 0
 for i in range(10)
     sum = sum + i
 print(i)',
-            'expected_result' => '^45$',
-            'makerId' => 3,
-            'language' => 'cpp'
+            '^45$',
+            3,
+            'cpp'
         ]);
 
     }
