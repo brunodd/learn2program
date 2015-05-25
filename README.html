@@ -306,7 +306,7 @@ sup {
 <body>
 <h1 id="toc_0">Installation</h1>
 
-<h2 id="toc_1">Install using the installer (Recommended)</h2>
+<h2 id="toc_1">Installation</h2>
 
 <p>This installation presumes all necessary packages have been installed.
 Following packages are needed:</p>
@@ -347,15 +347,11 @@ and run composer install:</p>
 <pre><code class="language-bash">$ cd htdocs/
 $ composer install</code></pre>
 
-<p>and return</p>
-
-<pre><code class="language-bash">$ cd ../</code></pre>
-
 <p>NOTE: If you are promted by github, you must generate a token &amp; copy it into the terminal. The token will be invisable so mind to only paste it once. Instructions on how to generate a token can be found <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a>.</p>
 
 <p>Navigate to the install/ directory and run the installer:</p>
 
-<pre><code class="language-bash">$ cd install/
+<pre><code class="language-bash">$ cd ../install/
 $ ./install.sh [-all | -seed | -init]</code></pre>
 
 <p>and return</p>
@@ -369,113 +365,23 @@ $ ./install.sh [-all | -seed | -init]</code></pre>
 <pre><code class="language-bash">$ cd htdocs/
 $ php artisan serve</code></pre>
 
-<h2 id="toc_2">Install manually (not recommended)</h2>
+<p>By default, the website is now accessible via http://localhost:8000/</p>
 
-<h3 id="toc_3">Python interpreter</h3>
+<h3 id="toc_2">[Optional: Custom URL &amp; port]</h3>
 
-<p>Install dependencies (-g flag is optional for global installation):</p>
-
-<pre><code class="language-bash">$ sudo npm install [-g] jscs
-$ sudo npm install [-g] jshint</code></pre>
-
-<p>Clone skulpt repo to public directory. (path tussen vierkante haakjes [../learn2program] eventueel zelf aan te vullen!)</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/skulpt/skulpt [../learn2program]/htdocs/public/skulpt
-$ cd [../learn2program]/htdocs/public/skulpt
-$ ./skulpt.py dist</code></pre>
-
-<p>Set-up should now be completed.</p>
-
-<h3 id="toc_4">Database</h3>
-
-<ul>
-<li>Installeren (manier 1)</li>
-</ul>
-
-<p>Create tables:</p>
-
-<pre><code class="language-bash">$ mysql -u root -p &lt; database/learn2program.mysql</code></pre>
-
-<ul>
-<li>Installeren (manier 2)
-Create tables and insert values into them:</li>
-</ul>
-
-<pre><code class="language-bash">$ mysql -u root -p
-mysql&gt; create database learn2program_db;
-mysql&gt; exit
-$ php artisan migrate --seed</code></pre>
-
-<p>or
-~~~sh
-$ php artisan migrate
-$ php artisan db:seed
-~~~
-Neemt tables in database/migrations en inputs in database/seeds</p>
-
-<ul>
-<li>Testen:</li>
-</ul>
-
-<pre><code class="language-bash">$ mysql -u root -p
-mysql&gt; use learn2program_db;
-( mysql&gt; insert into Users(username, pass) Values(&quot;myname&quot;, &quot;mypassword&quot;); )
-mysql&gt; select * from Users;</code></pre>
-
-<p>Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de database werkt.</p>
-
-<h3 id="toc_5">Server</h3>
-
-<p>Navigeer naar juiste dir/</p>
-
-<pre><code class="language-bash">$ cd htdocs/</code></pre>
-
-<ul>
-<li>Update dependencies</li>
-</ul>
-
-<pre><code class="language-bash">$ composer update
-$ composer install</code></pre>
-
-<ul>
-<li>Start server</li>
-</ul>
-
-<pre><code class="language-bash">$ php artisan serve</code></pre>
-
-<p>Toegankelijk via &quot;localhost:8000&quot;</p>
-
-<ul>
-<li>Custom URL &amp; port</li>
-</ul>
-
-<p>[opmerking: sudo rechten kunnen vereist zijn]</p>
+<p>[Note: sudo rights may be required]</p>
 
 <pre><code class="language-bash">$ php artisan serve --host=learn2program.dev --port=80</code></pre>
 
-<p>Pas /etc/hosts aan met volgende entry</p>
+<p>Adjust /etc/hosts using the following entry</p>
 
 <pre><code>127.0.0.1       learn2program.dev   www.learn2program.dev</code></pre>
 
-<p>Toegankelijk via &quot;learn2program.dev&quot;</p>
+<p>Accessible via http://www.learn2program.dev</p>
 
-<ul>
-<li>Testen:</li>
-</ul>
+<h2 id="toc_3">Routes</h2>
 
-<p>Typ in browser:</p>
-
-<p>localhost:8000</p>
-
-<p>of</p>
-
-<p>http://www.learn2program.dev</p>
-
-<p>klik maar wat rond...</p>
-
-<h2 id="toc_6">Routes</h2>
-
-<p>Om te zien welke routes beschikbaar zijn, gebruik commando:</p>
+<p>Om te zien welke routes beschikbaar zijn, gebruik commando vanuit htdocs/:</p>
 
 <pre><code class="language-bash">$ php artisan route:list</code></pre>
 
