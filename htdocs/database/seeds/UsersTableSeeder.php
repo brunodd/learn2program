@@ -62,27 +62,5 @@ class UsersTableSeeder extends Seeder {
         User::create(['username' => 'Laurene', 'mail' => 'LaurenePatel@jourrapide.com', 'pass' => bcrypt('Laurene'), 'score' => '0', 'image' => '69_.jpg']);
         User::create(['username' => 'Soren', 'mail' => 'SorenChalifour@teleworm.us', 'pass' => bcrypt('Soren'), 'score' => '30', 'image' => '88.jpg']);
         User::create(['username' => 'Fauna', 'mail' => 'FaunaLeroy@jourrapide.com', 'pass' => bcrypt('Fauna'), 'score' => '0', 'image' => '65_.jpg']);
-
-        //For each user, create a conversation with themselves
-
-        for ($x = 1; $x < 5; $x++) {
-            DB::insert('INSERT INTO conversations VALUE ()');
-            $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
-            echo $conversationId;
-            \DB::insert('INSERT INTO conversations_participants (conversationId, userId) VALUE (?, ?)', [$conversationId, $x]);
-        }
     }
-    /*
-    public function runn() {
-        DB::table('users')->delete();
-
-        $projects = array(
-            ['id' => 1, 'username' => 'armin', 'mail' => 'a@a.a', 'pass' => bcrypt('armin')],
-            ['id' => 2, 'username' => 'bruno', 'mail' => 'b@b.b', 'pass' => bcrypt('bruno')],
-            ['id' => 3, 'username' => 'raphael', 'mail' => 'r@r.r', 'pass' => bcrypt('raphael')],
-            ['id' => 4, 'username' => 'fouad', 'mail' => 'f@f.f', 'pass' => bcrypt('fouad')]
-        );
-
-        DB::table('projects')->insert($projects);
-    }*/
 }

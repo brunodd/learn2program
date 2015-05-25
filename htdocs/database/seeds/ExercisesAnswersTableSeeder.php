@@ -11,31 +11,22 @@ class ExercisesAnswersTableSeeder extends Seeder {
 
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 1, 1)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 2, 1)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 2, 2)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 1, 5)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 1, 3)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 4, 5)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 10, 10)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 2, 3)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 9, 1)');
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                                 VALUES ("xx", true, 2, 10)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
@@ -92,11 +83,8 @@ class ExercisesAnswersTableSeeder extends Seeder {
             					VALUES ("xx", true, 7, 6)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 7, 7)');
-         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 7, 8)');
-
-
-
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 9, 1)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
@@ -277,6 +265,5 @@ class ExercisesAnswersTableSeeder extends Seeder {
                        	 		VALUES ("xx", true, 29,10)');
 		DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 29, 5)');
-
     }
 }
