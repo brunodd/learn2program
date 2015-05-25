@@ -129,6 +129,7 @@
                         <div class="dataAndButtons">
                             <div class="profiledata">
                                 <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
+                                <div class="aboutuser">{!! strip_tags($member->info) !!}</div>
                             </div>
 
                             {!! Form::open(['action' => ['GroupsController@removeMember', $group->id, $member->id]]) !!}
@@ -163,7 +164,7 @@
                             <div class="dataAndButtons">
                                 <div class="profiledata">
                                     <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                    <div class="aboutuser">{!! $member->info !!}</div>
+                                    <div class="aboutuser">{!! strip_tags($member->info) !!}</div>
                                 </div>
 
                                 <div style="float: right">
@@ -210,7 +211,7 @@
                         <div class="dataAndButtons">
                             <div class="profiledata">
                                 <a href="{{ action('UsersController@show', $member->username )}}">{{ $member->username }}</a>
-                                <div class="aboutuser">{!! $member->info !!}</div>
+                                <div class="aboutuser">{!! strip_tags($member->info) !!}</div>
                             </div>
 
                             {!! Form::open(['action' => ['GroupsController@acceptMember', $group->id, $member->id]]) !!}

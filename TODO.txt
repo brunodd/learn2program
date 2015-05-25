@@ -1,5 +1,6 @@
-keuzes.tex: C++ uitleggen.
-uml_schema.tex: aanvullen.
+keuzes.tex: C++ uitleggen.  -> kan iemand misschien iets beter schrijven? :P, armin
+keuzes.tex: algemeen verbeteren/aanvullen
+uml_schema.tex: aanvullen.  -> done, armin
 appendix: alles aanvullen.
 
 in exercises/: duidelijk maken welke exercises kunnen opgelost worden (underline/vetter maken/onderverdelen in 'accessable' en 'not-accessable'...)
