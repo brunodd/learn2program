@@ -135,4 +135,28 @@ where title like ?
 or description like ?,
 [%.$s.%, %.$s.%];
 
+/* function userCompletedSeries($userId, $seriesId) { */
+'SELECT   *
+FROM     series S
+    JOIN exercises_in_series EXS    ON S.id = EXS.seriesId
+    JOIN exercises E                ON EXS.ex_index = E.id
+    JOIN answers A                  ON E.id = A.eId
+WHERE    A.succes = false
+    AND A.uId = ?
+    AND S.id = ?', [$userId, $sId]);
+
+/* function loadUsersBeganSeries($series_id) { */
+'SELECT   DISTINCT A.uId
+FROM     series S
+JOIN exercises_in_series EXS    ON S.id = EXS.seriesId
+JOIN exercises E                ON EXS.exId = E.id
+JOIN answers A                  ON E.id = A.eId
+WHERE    S.id = ?', [$sId];
+
+/* function addViewToSeries($serie) { */
+'UPDATE series
+SET views = views + 1
+where id = ?',
+[$serie->id];
+
 \end{lstlisting}

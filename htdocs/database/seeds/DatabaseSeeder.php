@@ -57,6 +57,8 @@ class DatabaseSeeder extends Seeder {
 
         $this->call('NotificationsTableSeeder');
         $this->command->info('notifications table seeded!');
-	}
 
+        $this->call('GuidesTableSeeder');
+        $this->command->info('guides table seeded!');
+	}
 }

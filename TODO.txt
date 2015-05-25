@@ -1,0 +1,12 @@
+keuzes.tex: C++ uitleggen.  -> kan iemand misschien iets beter schrijven? :P, armin
+keuzes.tex: algemeen verbeteren/aanvullen
+
+leaderboard adjustments for large numbers of users (limit per page, show own ranking).
+
+link guides and series
+
+gedaan:
+auto highlight syntax, based on language.
+competitions tab -> done, bruno
+uml_schema.tex: aanvullen.  -> done, armin
+appendix: alles aanvullen.  -> done, bruno
