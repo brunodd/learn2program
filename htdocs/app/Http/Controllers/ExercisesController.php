@@ -153,28 +153,7 @@ class ExercisesController extends Controller {
 
     public function storeAnswer($id, CreateAnswerRequest $request)
     {
-        $serie = \Session::get('currentSerie');
-        if(is_object($serie)) {
-            if ( !(completedAllPreviousExercisesOfSeries($id, Auth::id(), $serie))
-            || isMakerOfExercise($id, Auth::id()) || isMakerOfSeries($serie, Auth::id()) ) {
-                $type = loadType2($serie->tId)[0];
-                $exercises = loadExercisesFromSerie($serie->id);
-                return view('series.show', compact('serie', 'exercises', 'type'));
-            }
-        }
-        else {
-            $series = loadSeriesWithExercise($id);
-            if(count($series) > 1) {
-                    return view('series.duplicates', compact('series'));
-            }
-            else {
-                $serie = $series[0];
-                $type = loadType2($serie->tId)[0];
-                $exercises = loadExercisesFromSerie($serie->id);
-                return view('series.show', compact('serie', 'exercises', 'type'));
-            }
-        }
-
+        $input = $request->all();
 
         // Get time between exercise load and store answer.
         $endTime = microtime(true);
@@ -189,6 +168,10 @@ class ExercisesController extends Controller {
         $ans->time = $diffTime;
 
         $result = preg_replace('/[^A-Za-z0-9\-\ ,\.;:\[\]\?\!@#$%&\*\(\)\-=\+\.^\P{C}\n]/', '', $input['result']);
+        // dd($result);
+
+        // dd(preg_match("/^[hH]ello, [wW]orld$/", substr_replace($result, "", -1)));
+        // dd(preg_match("/^Hello, world$/", $result));
 
         if($exercise->expected_result == '*') {
             $ans->success = true;
