@@ -5,15 +5,34 @@ This installation presumes all necessary packages have been installed.
 Following packages are needed:
 
 - php 5.5 (or later)
-	- sudo apt-get install php5-cli
-- MySQL
-	- 
-- curl  
-- composer  
-- mcrypt  
-- pdo_mysql  
 
-Before running the installer, the MySQL database server must be running.
+~~~sh
+$ sudo apt-get install php5-cli
+~~~
+
+- curl
+
+~~~sh
+$ sudo apt-get install curl php5-curl
+~~~
+
+- composer
+
+~~~sh
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+~~~
+
+- MySQL + mycrypt
+
+~~~sh
+$ sudo apt-get install mysql-server php5-mysql
+$ sudo apt-get install mcrypt php5-mcrypt
+$ sudo php5enmod mcrypt
+$ sudo service mysql restart
+~~~
+
+Before running the installer, the MySQL database server must be running. If you followed the above instructions without any errors, the
 
 To install the application, navigate to /htdocs/
 and run composer install:
@@ -179,44 +198,5 @@ Om te zien welke routes beschikbaar zijn, gebruik commando:
 
 ~~~sh
 $ php artisan route:list
-~~~
-
-## TROUBLESHOOTING 
-(Only for linux. OS X fixes are similar, but can't use the apt-get package manager):  
-
---
-Installing composer:
-
-~~~sh
-$ curl -sS https://getcomposer.org/installer | php
-$ mv composer.phar /usr/local/bin/composer
-~~~
---
-I get the error:
-
-~~~
-[PDOException]
-could not find driver
-~~~
-
-Run:
-
-~~~sh
-$ dpkg --get-selections | grep php5-mysql
-$ sudo apt-get install php5-mysql
-~~~
---
-I get the error:
-
-~~~
-mcrypt extension is missing
-~~~
-
-Run:
-
-~~~sh
-$ sudo apt-get install mcrypt php5-mcrypt
-$ sudo php5enmod mcrypt
-$ sudo service mysql restart
 ~~~
 
