@@ -10,7 +10,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown ">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Learning Corner
+                        Learning & Practicing
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
