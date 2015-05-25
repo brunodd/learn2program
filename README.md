@@ -1,4 +1,4 @@
-# Installation
+# README
 
 ## Installation
 This installation presumes all necessary packages have been installed.
