@@ -32,7 +32,7 @@ $ sudo php5enmod mcrypt
 $ sudo service mysql restart
 ~~~
 
-Before running the installer, the MySQL database server must be running. If you followed the above instructions without any errors, the
+Before running the installer, the MySQL database server must be running.
 
 To install the application, navigate to /htdocs/
 and run composer install:
@@ -87,27 +87,6 @@ $ cd [../learn2program]/htdocs/public/skulpt
 $ ./skulpt.py dist
 ~~~
 Set-up should now be completed.
-
-###Environment
-Hernoem file:
-
-~~~sh
-$ mv htdocs/.env.example htdocs/.env
-~~~
-
-Aanpassingen:
-
-DB_HOST=127.0.0.1  
-DB_DATABASE=learn2program_db  
-DB_USERNAME=root  
-DB_PASSWORD=  
-
-[Al de rest mag ongewijzigd blijven]
-
-###Database
-- Installeren (manier 1)
-
-[opmerking: by default: username = "root", password = "". Indien mysql iets vraagt moeten deze ingegeven worden.]
 
 Create tables:
 
