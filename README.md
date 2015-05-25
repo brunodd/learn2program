@@ -70,6 +70,8 @@ $ cd htdocs/
 $ php artisan serve
 ~~~
 
+By default, the website is now accessible via http://localhost:8000/
+
 ###[Optional: Custom URL & port]
 
 [Note: sudo rights may be required]
