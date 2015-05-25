@@ -1,6 +1,7 @@
 <?php namespace App\Http\Composers;
 
 use App\Http\Controllers\NotificationsController;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 
 Class NavigationComposer {
@@ -25,7 +26,11 @@ Class NavigationComposer {
         $conv = array();
         for ($x = 0; $x < sizeof($last5conversations); $x++) {
             $conversation = $last5conversations[$x];
-            array_push($conv, $conversation->username, $conversation->image, $conversation->message, $conversation->is_read, $conversation->author, $conversation->date);
+
+            //Add a Carbon time object to each $conversation
+            $carbon = Carbon::createFromFormat('Y-n-j G:i:s', $conversation->date);
+            $conversation = (object) array_merge( (array)$conversation, array('carbon' => $carbon) );
+            array_push($conv, $conversation->username, $conversation->image, $conversation->message, $conversation->is_read, $conversation->author, $conversation->carbon);
         }
 
         $view->with(array('last5notifications' => $noti,

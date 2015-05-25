@@ -1,5 +1,7 @@
 # Installation
 
+Aan Len: Database-artefacten kan u vinden in learn2program/database
+
 ## Installation
 This installation presumes all necessary packages have been installed.
 Following packages are needed:

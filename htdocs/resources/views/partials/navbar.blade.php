@@ -111,7 +111,7 @@
                                             @endif
                                             <div>{{ $last5conversations[$x+2] }}</div>
                                         </div>
-                                        <div class="messDate">{{ $last5conversations[$x+5] }}</div>
+                                        <div class="messDate">{{ $last5conversations[$x+5]->diffForHumans() }}</div>
                                     </div>
                                     <div style="clear:both;"></div>
                                     </div>
