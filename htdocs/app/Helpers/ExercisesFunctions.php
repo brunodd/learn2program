@@ -16,12 +16,6 @@ function updateExercise($exercise)
                             $exercise->expected_result, $exercise->language, $exercise->id]);
 }
 
-/*function loadExercisesFromSerie2($sId)
-{
-    $seriesID = loadSerieWithIdOrTitle($sId);
-    return DB::select('select * from exercises where seriesId = ?',[$seriesID[0]->id]);
-}*/
-
 function storeExercise($exercise)
 {
     // Add exercise

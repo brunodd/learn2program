@@ -5,6 +5,15 @@ select * from exercises, (select * from exercises_in_series where seriesId = ?) 
 where exercises.id = eps.exId order by ex_index,
 [$sId];
 
+/* function updateExercise($exercise) */
+{
+    return DB::statement('  update exercises
+                            set question=?, tips=?, start_code=?, expected_result=?, language=?
+                            where id = ?',
+                            [$exercise->question, $exercise->tips, $exercise->start_code,
+                            $exercise->expected_result, $exercise->language, $exercise->id]);
+}
+
 /* function storeExercise($exercise) */
 insert into exercises (question, tips, start_code, expected_result, makerId) VALUES (?, ?, ?, ?, ?),
 [$exercise->question, $exercise->tips, $exercise->start_code, $exercise->expected_result, $exercise->makerId];
@@ -86,6 +95,23 @@ select * from answers where eId = ? and uId = ?, [$eId, $uId];
 /* function storeAnswer($ans) */
 insert into answers (given_code, success, uId, eId) values (?, ?, ?, ?), [$ans->given_code, $ans->success, $ans->uId, $ans->eId];
 
+/* function loadAnswers($uId, $exId) */
+'SELECT *
+FROM answers
+WHERE uId = ?
+AND eId = ?
+order by time',
+[$uId, $exId];
+
+/* function loadCorrectAnswers($uId, $exId) { */
+'SELECT *
+FROM answers
+WHERE uId = ?
+AND eId = ?
+AND success = 1
+ORDER BY time',
+[$uId, $exId];
+
 /* function loadMyExercises() */
 select *
 from exercises
@@ -97,5 +123,12 @@ select *
 from exercises
 where question like ?,
 [%.$s.%];
+
+/* function loadAllAccomplishedExercises($user) { */
+'SELECT DISTINCT eId
+FROM answers
+WHERE uId = ?
+and success=true',
+[$user->id]);
 
 \end{lstlisting}

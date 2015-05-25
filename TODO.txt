@@ -3,9 +3,6 @@ keuzes.tex: algemeen verbeteren/aanvullen
 uml_schema.tex: aanvullen.  -> done, armin
 appendix: alles aanvullen.
 
-in exercises/: duidelijk maken welke exercises kunnen opgelost worden (underline/vetter maken/onderverdelen in 'accessable' en 'not-accessable'...)
-(optie? : in navigatiebalk: 'competitions' dropdown met -> challenges en leaderboard.)
-
 leaderboard adjustments for large numbers of users (limit per page, show own ranking).
 
 link guides and series
