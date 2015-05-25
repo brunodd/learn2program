@@ -70,61 +70,6 @@ $ cd htdocs/
 $ php artisan serve
 ~~~
 
-## Install manually (not recommended)
-###Python interpreter
-Install dependencies (-g flag is optional for global installation):
-
-~~~sh
-$ sudo npm install [-g] jscs
-$ sudo npm install [-g] jshint
-~~~
-
-Clone skulpt repo to public directory. (path tussen vierkante haakjes [../learn2program] eventueel zelf aan te vullen!)
-
-~~~sh
-$ git clone https://github.com/skulpt/skulpt [../learn2program]/htdocs/public/skulpt
-$ cd [../learn2program]/htdocs/public/skulpt
-$ ./skulpt.py dist
-~~~
-Set-up should now be completed.
-
-
-###Database
-- Installeren (manier 1)
-
-Create tables:
-
-~~~sh
-$ mysql -u root -p < database/learn2program.mysql
-~~~
-
-- Installeren (manier 2)
-Create tables and insert values into them:
-
-~~~sh
-$ mysql -u root -p
-mysql> create database learn2program_db;
-mysql> exit
-$ php artisan migrate --seed
-~~~
-or
-~~~sh
-$ php artisan migrate
-$ php artisan db:seed
-~~~
-Neemt tables in database/migrations en inputs in database/seeds
-
-- Testen:
-
-~~~sh
-$ mysql -u root -p
-mysql> use learn2program_db;
-( mysql> insert into Users(username, pass) Values("myname", "mypassword"); )
-mysql> select * from Users;
-~~~
-
-Dit zou een tabel moeten geven waarin de aangemaakte user zit. Proficiat de database werkt.
-
 ###Server
 
 Navigeer naar juiste dir/
@@ -177,7 +122,7 @@ http://www.learn2program.dev
 klik maar wat rond...
 
 ##Routes
-Om te zien welke routes beschikbaar zijn, gebruik commando:
+Om te zien welke routes beschikbaar zijn, gebruik commando vanuit htdocs/:
 
 ~~~sh
 $ php artisan route:list
