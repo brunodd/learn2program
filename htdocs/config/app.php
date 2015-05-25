@@ -14,9 +14,9 @@ return [
 	*/
 
     // TODO: set on false for presentation
-    // 'debug' => false,
+    'debug' => false,
 
-    'debug' => env('APP_DEBUG'),
+    // 'debug' => env('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------
