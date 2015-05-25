@@ -3,8 +3,11 @@
 ## Install using the installer (Recommended)
 This installation presumes all necessary packages have been installed.
 Following packages are needed:
-- MySQL  
-- php 5.5 (or later)  
+
+- php 5.5 (or later)
+	- sudo apt-get install php5-cli
+- MySQL
+	- 
 - curl  
 - composer  
 - mcrypt  
