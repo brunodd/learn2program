@@ -40,4 +40,21 @@ select *
 from users
 where username like ?,
 [%.$s.%];
+
+/* function loadUsersRanked() { */
+SELECT DISTINCT count(*) as count, users.id, users.username, users.image
+FROM answers, users
+WHERE answers.uId = users.id
+and answers.success = true
+group by users.id
+order by count DESC
+
+/* function loadUsersNotRanked() { */
+SELECT *
+FROM users
+WHERE users.id not in  ( SELECT DISTINCT users.id
+    FROM answers, users
+    WHERE answers.uId = users.id
+    and answers.success = true
+    group by users.id)
 \end{lstlisting}
