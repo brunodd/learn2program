@@ -107,6 +107,8 @@
             @if( completedAllPreviousExercisesOfSeries($exercise->id, Auth::id(), $sId)
                 || isMakerOfExercise($exercise->id, Auth::id()) || isMakerOfSeries($sId, Auth::id()) )
                 {!! Form::submit('Submit Answer', ['class' => 'btn btn-primary', 'onclick' => 'Run();stopTimer()']) !!}
+            @else
+                {!! Form::submit("Can't make this exercise", ['class' => 'btn btn-primary', 'onclick' => 'stopTimer()']) !!}
             @endif
                 @if( !empty(nextExerciseOfSerie($exercise->id, Session::get('currentSerie')))
                         && (userCompletedExercise($exercise->id, Auth::id())
