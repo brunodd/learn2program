@@ -37,12 +37,14 @@ Before running the installer, the MySQL database server must be running.
 To install the application, navigate to /htdocs/
 and run composer install:
 
+[Note: sudo rights may be required]
+
 ~~~sh
 $ cd htdocs/
 $ composer install
 ~~~
 
-NOTE: If you are promted by github, you must generate a token & copy it into the terminal. The token will be invisable so mind to only paste it once. Instructions on how to generate a token can be found [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
+[Note: If you are promted by github, you must generate a token & copy it into the terminal. The token will be invisible so mind to only paste it once. Instructions on how to generate a token can be found [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).]
 
 Navigate to the install/ directory and run the installer:
 

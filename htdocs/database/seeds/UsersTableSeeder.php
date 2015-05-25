@@ -61,8 +61,7 @@ class UsersTableSeeder extends Seeder {
         User::create(['username' => 'Laurene', 'mail' => 'LaurenePatel@jourrapide.com', 'pass' => bcrypt('Laurene'), 'score' => '0', 'image' => '69_.jpg']);
         User::create(['username' => 'Soren', 'mail' => 'SorenChalifour@teleworm.us', 'pass' => bcrypt('Soren'), 'score' => '30', 'image' => '88.jpg']);
         User::create(['username' => 'Fauna', 'mail' => 'FaunaLeroy@jourrapide.com', 'pass' => bcrypt('Fauna'), 'score' => '0', 'image' => '65_.jpg']);
-
-        User::create(['username' => 'Bart', 'mail' => 'bart@bart.bart', 'pass' => bcrypt('Bart'), 'score' => '99999', 'image' => 'bart.jpg']);
         User::create(['username' => 'Len', 'mail' => 'len@len.len', 'pass' => bcrypt('Len'), 'score' => '99999', 'image' => 'len.jpg']);
+        User::create(['username' => 'Bart', 'mail' => 'bart@bart.bart', 'pass' => bcrypt('Bart'), 'score' => '99999', 'image' => 'bart.jpg']);
     }
 }

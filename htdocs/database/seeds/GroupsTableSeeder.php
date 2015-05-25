@@ -23,7 +23,12 @@ class GroupsTableSeeder extends Seeder {
         DB::insert('INSERT INTO conversations VALUE ()');
         $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
         DB::insert('INSERT INTO groups (name, founderId, conversationId, private) VALUES (?, ?, ?, ?)',
-                                        ["WE WANT C++ !!!", 2, $conversationId, 0]);
+                                        ["WE LOVE C++ !!!", 2, $conversationId, 0]);
+
+        DB::insert('INSERT INTO conversations VALUE ()');
+        $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;
+        DB::insert('INSERT INTO groups (name, founderId, conversationId, private) VALUES (?, ?, ?, ?)',
+                                        ["Join this group for help with chapter 3", 1, $conversationId, 0]);
 
         DB::insert('INSERT INTO conversations VALUE ()');
         $conversationId = \DB::select('SELECT id FROM conversations ORDER BY id DESC LIMIT 1')[0]->id;

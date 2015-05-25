@@ -269,7 +269,11 @@ class ExercisesAnswersTableSeeder extends Seeder {
                        	 		VALUES ("xx", true, 36, 8)');
         DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 36, 9)');
-		DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
                        	 		VALUES ("xx", true, 36,10)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36,11)');
+        DB::insert('INSERT INTO answers (given_code, success, uId, eId)
+                       	 		VALUES ("xx", true, 36,12)');
     }
 }

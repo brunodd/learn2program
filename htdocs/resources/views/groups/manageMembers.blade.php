@@ -57,6 +57,7 @@
         }
 
         .members {
+            overflow-y: auto;
             height: 450px;
             background: white;
             border: 1px solid rgb(204, 204, 204);

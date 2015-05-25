@@ -5,7 +5,7 @@
     margin-bottom: 15px;
 }
 
-h4 {
+.h44 {
     width: 15%;
     color: white;
     margin: 0 0 10px 0;
@@ -14,11 +14,12 @@ h4 {
     font-weight: 700;
     font-size: 21px;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     background-color: #3B8686;
+    height: 50px;
 }
 
-h5 {
+.h55 {
     width: 50%;
     margin: 10px auto;
     padding: 15px;
@@ -111,11 +112,11 @@ h5 {
     text-align: right;
 }
 
-#name1, #name2, #title1, #title2 {
+#name1, #name2, #title1, #title2, #score1, #score2 {
     text-align: left;
 }
 
-#name1 span, #name2 span, #title1 span, #title2 span {
+#name1 span, #name2 span, #title1 span, #title2 span, #score1 span, #score2 span, #question1 span, #question2 span, #author1 span, #author2 span, #titlee1 span, #titlee2 span {
     position: relative;
     top: 5px;
     width: 12px;
