@@ -1,9 +1,7 @@
 # README
 
-Aan Len: Database-artefacten kan u vinden in learn2program/database
-
 ## Installation
-This installation presumes an up-to-date linux system (14.04) & all necessary packages have been installed.
+This installation presumes a linux system >= 14.04 & all necessary packages have been installed.
 Following packages are needed:
 
 - php 5.5 (or later)
